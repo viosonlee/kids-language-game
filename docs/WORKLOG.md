@@ -277,5 +277,53 @@
 ### 4. Git 提交与版本同步
 - 本地提交并推送到 `origin/main`。
 
+---
+
+## [V1.5 - 2026-09-28] 专属儿童玩具定位落地与免 ADB 开箱即用优化
+
+> **Log Metadata**  
+> **Author / Agent**: Antigravity Agent  
+> **Date**: 2026-09-28  
+> **Status**: Completed / Verified  
+
+### 1. 任务背景与实施目标
+针对本项目“给自家小孩做的专属平板语言启蒙玩具”定位，摒弃商业软件对繁琐 ADB 部署与苛刻打分标准的限制，完成三项专属实用改造方案：
+1. **方案 1 (开箱即用，免 ADB 部署)**：将 Vosk 离线语音模型内置至 App Assets，运行时通过 `ModelManager` 自动安全解压至内部沙箱，安装 APK 后即刻获得离线语音识别能力，零电脑、零数据线；
+2. **方案 2 (低幼发音防挫败调谐)**：放宽判定阈值（第 1 次 0.55，第 2 次 0.25 鼓励过关，第 3 次及以上只要开口即 SoftPass 放行并奖励星星），彻底避免儿童产生卡关挫败感；
+3. **方案 3 (儿童物理防误触与音频焦点防打断)**：全域接入 400ms~500ms 触控防抖 (`debouncedClickable`)，并在发音播放时通过 Android `AudioManager` 申请瞬态音频焦点 (`AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK`)，自动压低系统背景音。
+
+### 2. 关键实施成果
+
+#### 2.1 方案 1：模型内置与自解压引擎 (`ModelManager.kt`)
+- 官方源防反爬强化：更新 `scripts/setup_vosk_models.py` 加入真实浏览器 `User-Agent`，彻底解决 `alphacephei.com` 403 阻断问题；
+- 将 `vosk-model-small-ja-0.22.zip` (~47.4 MB) 打包内置于 `app/src/main/assets/models/vosk-model-small-ja.zip`；
+- 实现 [`ModelManager.kt`](file:///d:/personalworkspace/kids-language-game/app/src/main/java/com/kidslanguage/companion/core/asr/ModelManager.kt)：自动检测 `filesDir/models/`，首次运行流式解压并写入标记，在 `VoskSpeechRecognizerEngine.kt` 中平滑调用。若本地无内置模型则优雅降级为系统 TTS，彻底告别数据线与电脑。
+
+#### 2.2 方案 2：防挫败多轮宽容漏斗 (`SpeechEvaluationService.kt`)
+- 修改评测算法与子串判定：
+  - 第 1 次尝试：相似度 $\ge 0.55$ 通过；
+  - 第 2 次尝试：相似度 $\ge 0.25$ 给予 `SoftPass` 并激励；
+  - 第 3 次及以上：只要麦克风收录到发音（非空输入），直接判定 `SoftPass` 并触发欢庆奖励；
+- 修复并优化子串长度判定（仅当覆盖率 $\ge 70\%$ 且字符数 $\ge 3$ 时才作为精确匹配通过，避免单字符误判）；
+- 更新并补充 `SpeechEvaluationServiceTest.kt`，测试第 3 次尝试软性放行机制。
+
+#### 2.3 方案 3：触控防抖与音频焦点管理
+- **触控防抖 (`DebounceClick.kt`)**：
+  - 封装 Compose `Modifier.debouncedClickable`，为 `BigMicButton`、`SpeakerButton`、`ImageOptionCard`、`LanguageCard` 及操作按钮注入 400ms~500ms 连击拦截，杜绝幼儿激动拍击导致的重复触发；
+- **音频焦点避让 (`PromptPlayer.kt`)**：
+  - 接入 Android 系统级 `AudioFocusRequest`（`AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK`），播放发音时自动避让降音背景应用，播放结束后平滑释放。
+
+### 3. 构建与验证记录
+1. **单元测试 (`gradlew.bat test`)**：
+   - 14 个测试全量通过（包含防挫败算法、题库 126 项 JSON 合规性、全量 MP3 资源与 WAV 音效断言）；
+   - 结果：`BUILD SUCCESSFUL in 23s`。
+2. **完整 APK 打包 (`gradlew.bat assembleDebug`)**：
+   - 产出开箱即用版 APK制品：`app/build/outputs/apk/debug/app-debug.apk`（约 147 MB）；
+   - 结果：`BUILD SUCCESSFUL in 19s`。
+
+### 4. 交付文档与同步
+- 编写技术设计文档：[`docs/15_Toy_Optimization_and_Zero_ADB_Spec.md`](file:///d:/personalworkspace/kids-language-game/docs/15_Toy_Optimization_and_Zero_ADB_Spec.md)；
+- 同步更新根目录 `README.md` 与工作日志。
+
 
 

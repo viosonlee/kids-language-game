@@ -78,7 +78,7 @@ fun LanguageCard(
             .clip(RoundedCornerShape(AppRadius.card))
             .background(bgColor)
             .border(borderWidth, borderColor, RoundedCornerShape(AppRadius.card))
-            .clickable(onClick = onClick)
+            .debouncedClickable(onClick = onClick)
             .padding(vertical = AppSpacing.lg, horizontal = AppSpacing.xl),
         contentAlignment = Alignment.Center
     ) {
@@ -122,7 +122,7 @@ fun CategoryCard(
             .clip(RoundedCornerShape(AppRadius.card))
             .background(backgroundColor)
             .border(2.dp, Neutral300, RoundedCornerShape(AppRadius.card))
-            .clickable(onClick = onClick)
+            .debouncedClickable(onClick = onClick)
             .padding(AppSpacing.lg),
         contentAlignment = Alignment.Center
     ) {
@@ -163,7 +163,7 @@ fun ImageOptionCard(
             .clip(RoundedCornerShape(AppRadius.optionCard))
             .background(Neutral0)
             .border(borderWidth, borderColor, RoundedCornerShape(AppRadius.optionCard))
-            .clickable(onClick = onClick)
+            .debouncedClickable(onClick = onClick)
             .padding(AppSpacing.md),
         contentAlignment = Alignment.Center
     ) {

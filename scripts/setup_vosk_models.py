@@ -56,12 +56,20 @@ def download_file(url: str, dest: Path):
         return
 
     print(f"  [Downloading] {url} -> {dest.name} ...")
-    def report_hook(block_num, block_size, total_size):
-        if total_size > 0:
-            percent = (block_num * block_size / total_size) * 100
-            print(f"\r    Progress: {percent:.1f}% ({block_num * block_size / 1024 / 1024:.1f}MB)", end="", flush=True)
-
-    urllib.request.urlretrieve(url, str(dest), reporthook=report_hook)
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
+    with urllib.request.urlopen(req) as response, open(str(dest), "wb") as out_file:
+        total_size = int(response.headers.get("Content-Length", 0))
+        downloaded = 0
+        block_size = 1024 * 64
+        while True:
+            chunk = response.read(block_size)
+            if not chunk:
+                break
+            out_file.write(chunk)
+            downloaded += len(chunk)
+            if total_size > 0:
+                percent = (downloaded / total_size) * 100
+                print(f"\r    Progress: {percent:.1f}% ({downloaded / 1024 / 1024:.1f}MB)", end="", flush=True)
     print("\n  [Done] Download completed.")
 
 def extract_zip(zip_path: Path, extract_to: Path, extracted_name: str, target_name: str) -> Path:

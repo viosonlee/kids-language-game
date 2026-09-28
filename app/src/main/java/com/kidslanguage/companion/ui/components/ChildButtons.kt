@@ -72,7 +72,7 @@ fun PrimaryLargeButton(
                     colors = if (enabled) listOf(Primary500, Primary600) else listOf(Neutral300, Neutral300)
                 )
             )
-            .clickable(
+            .debouncedClickable(
                 interactionSource = interactionSource,
                 indication = ripple(color = Neutral0),
                 enabled = enabled,
@@ -119,7 +119,7 @@ fun SecondaryLargeButton(
             .clip(RoundedCornerShape(AppRadius.button))
             .background(Neutral0)
             .border(3.dp, Primary500, RoundedCornerShape(AppRadius.button))
-            .clickable(
+            .debouncedClickable(
                 interactionSource = interactionSource,
                 indication = ripple(color = Primary100),
                 onClick = onClick
@@ -177,7 +177,7 @@ fun SpeakerButton(
                     colors = if (isPlaying) listOf(AccentYellow, AccentOrange) else listOf(Primary500, Primary600)
                 )
             )
-            .clickable(onClick = onClick),
+            .debouncedClickable(debounceMillis = 500L, onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
         Icon(
@@ -241,7 +241,7 @@ fun BigMicButton(
                         colors = if (isRecording) listOf(AccentOrange, Color(0xFFFF5722)) else listOf(Primary500, Primary600)
                     )
                 )
-                .clickable(onClick = onClick),
+                .debouncedClickable(debounceMillis = 500L, onClick = onClick),
             contentAlignment = Alignment.Center
         ) {
             Icon(

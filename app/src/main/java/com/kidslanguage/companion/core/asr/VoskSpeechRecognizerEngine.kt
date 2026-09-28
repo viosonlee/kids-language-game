@@ -41,7 +41,7 @@ class VoskSpeechRecognizerEngine(
         unload()
         currentLanguage = language
 
-        val modelPath = getModelPathForLanguage(language)
+        val modelPath = ModelManager.getOrExtractModelPath(context, language)
         if (modelPath != null && File(modelPath).exists()) {
             try {
                 val model = Model(modelPath)

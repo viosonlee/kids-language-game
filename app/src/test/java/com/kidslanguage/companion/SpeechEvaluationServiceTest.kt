@@ -96,4 +96,18 @@ class SpeechEvaluationServiceTest {
         val result = service.evaluate("good morning!", item, attemptCount = 1)
         assertEquals(EvaluationStatus.Pass, result.status)
     }
+
+    @Test
+    fun `attempt count 3 or more passes gently as long as child spoke`() {
+        val item = PracticeItem(
+            id = "test_6",
+            language = "ja-JP",
+            category = "daily",
+            text = "おみずください"
+        )
+        // Child made an effort with very soft/fuzzy speech
+        val result = service.evaluate("お", item, attemptCount = 3)
+        assertEquals(EvaluationStatus.SoftPass, result.status)
+        assertTrue(result.message.contains("努力") || result.message.contains("太棒啦"))
+    }
 }

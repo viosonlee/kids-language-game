@@ -2,15 +2,15 @@ package com.kidslanguage.companion.core.audio
 
 import android.content.Context
 import android.media.AudioAttributes
+import android.media.AudioFocusRequest
+import android.media.AudioManager
 import android.media.MediaPlayer
-import android.media.SoundPool
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import com.kidslanguage.companion.core.model.LanguageCode
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.util.Locale
 
 interface PromptPlayer {
@@ -19,12 +19,25 @@ interface PromptPlayer {
     fun release()
 }
 
+/**
+ * AndroidPromptPlayer with transient audio focus management.
+ * During prompt playback (TTS or cartoon audio), it automatically requests
+ * transient audio focus with ducking so children hear words clearly without background interruption.
+ */
 class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
+
+    private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as? AudioManager
+    private var focusRequest: AudioFocusRequest? = null
 
     private var tts: TextToSpeech? = null
     private var isTtsInitialized = false
     private var mediaPlayer: MediaPlayer? = null
     private var activeCompletion: CompletableDeferred<Unit>? = null
+
+    private val audioAttributes = AudioAttributes.Builder()
+        .setUsage(AudioAttributes.USAGE_ASSISTANCE_ACCESSIBILITY)
+        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+        .build()
 
     init {
         tts = TextToSpeech(context) { status ->
@@ -37,17 +50,37 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
         tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) {}
             override fun onDone(utteranceId: String?) {
+                releaseAudioFocus()
                 activeCompletion?.complete(Unit)
             }
             @Deprecated("Deprecated in Java")
             override fun onError(utteranceId: String?) {
+                releaseAudioFocus()
                 activeCompletion?.complete(Unit)
             }
         })
     }
 
+    private fun requestAudioFocus() {
+        try {
+            val req = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+                .setAudioAttributes(audioAttributes)
+                .build()
+            focusRequest = req
+            audioManager?.requestAudioFocus(req)
+        } catch (_: Exception) {}
+    }
+
+    private fun releaseAudioFocus() {
+        try {
+            focusRequest?.let { audioManager?.abandonAudioFocusRequest(it) }
+            focusRequest = null
+        } catch (_: Exception) {}
+    }
+
     override suspend fun playPrompt(text: String, language: LanguageCode, audioAssetPath: String?) = withContext(Dispatchers.Main) {
         stop()
+        requestAudioFocus()
 
         // 1. If audio file exists in assets, play with MediaPlayer
         if (!audioAssetPath.isNullOrBlank()) {
@@ -55,12 +88,15 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
                 val deferred = CompletableDeferred<Unit>()
                 context.assets.openFd(audioAssetPath).use { afd ->
                     val player = MediaPlayer()
+                    player.setAudioAttributes(audioAttributes)
                     player.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
                     player.prepare()
                     player.setOnCompletionListener {
+                        releaseAudioFocus()
                         deferred.complete(Unit)
                     }
                     player.setOnErrorListener { _, _, _ ->
+                        releaseAudioFocus()
                         deferred.complete(Unit)
                         true
                     }
@@ -88,10 +124,13 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
             val utteranceId = "prompt_${System.currentTimeMillis()}"
             tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
             deferred.await()
+        } else {
+            releaseAudioFocus()
         }
     }
 
     override fun stop() {
+        releaseAudioFocus()
         activeCompletion?.complete(Unit)
         activeCompletion = null
         try {

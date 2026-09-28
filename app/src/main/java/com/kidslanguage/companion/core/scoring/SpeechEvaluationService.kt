@@ -61,8 +61,9 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
             }
         }
 
-        // 3. Substring check
-        if (normSpoken.contains(normTarget) || (normTarget.length >= 3 && normTarget.contains(normSpoken))) {
+        // 3. Substring check: spoken contains full target or covers >= 70% of target
+        if (normSpoken.contains(normTarget) ||
+            (normSpoken.length >= 3 && normTarget.contains(normSpoken) && normSpoken.length >= normTarget.length * 0.7f)) {
             return EvaluationResult(
                 status = EvaluationStatus.Pass,
                 score = 0.9f,
@@ -76,23 +77,33 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
         val similarity = calculateSimilarity(normSpoken, normTarget)
 
         return when {
-            similarity >= 0.65f -> {
+            similarity >= 0.55f -> {
                 EvaluationResult(
                     status = EvaluationStatus.Pass,
                     score = similarity,
                     recognizedText = spokenText,
                     targetText = targetItem.text,
-                    message = "真不错！"
+                    message = "发音很棒！"
                 )
             }
-            attemptCount >= 2 && similarity >= 0.35f -> {
-                // Generous for preschoolers: after 2 attempts, do not block child
+            attemptCount == 2 && similarity >= 0.25f -> {
+                // Preschooler friendly: after 2nd attempt, partial similarity passes gently
                 EvaluationResult(
                     status = EvaluationStatus.SoftPass,
                     score = similarity,
                     recognizedText = spokenText,
                     targetText = targetItem.text,
-                    message = "有很大进步，我们继续吧！"
+                    message = "很有进步哦，太棒啦！"
+                )
+            }
+            attemptCount >= 3 -> {
+                // Child toy protection: after 3rd attempt, as long as child spoke, celebrate effort!
+                EvaluationResult(
+                    status = EvaluationStatus.SoftPass,
+                    score = max(0.5f, similarity),
+                    recognizedText = spokenText,
+                    targetText = targetItem.text,
+                    message = "宝宝努力开口练习，太棒啦！"
                 )
             }
             else -> {

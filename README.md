@@ -70,16 +70,16 @@ kids-language-game/
 │   │   │   ├── assets/
 │   │   │   │   ├── audio/           # 126 个 AI 生成卡通发音 MP3 + 4 种 SFX WAV
 │   │   │   │   ├── content/         # 题库 JSON (categories, items_{ja,zh,en}.json)
-│   │   │   │   └── models/          # 离线 Vosk 语音模型解压存储目录
+│   │   │   │   └── models/          # 内置 Vosk 离线模型 Zip (支持开箱自解压)
 │   │   │   ├── java/com/kidslanguage/companion/
 │   │   │   │   ├── app/             # Application, AppContainer (依赖注入)
 │   │   │   │   ├── core/
-│   │   │   │   │   ├── asr/         # 离线 Vosk / 系统 ASR 抽象与引擎实现
-│   │   │   │   │   ├── audio/       # PromptPlayer (卡通MP3/TTS) & SoundEffectManager (SoundPool)
+│   │   │   │   │   ├── asr/         # 离线 Vosk / ModelManager (免ADB自解压)
+│   │   │   │   │   ├── audio/       # PromptPlayer (音频焦点避让) & SoundEffectManager (SoundPool)
 │   │   │   │   │   ├── content/     # AssetContentRepository 题库仓库
 │   │   │   │   │   ├── model/       # 核心领域模型 (Item, Session, Evaluation)
 │   │   │   │   │   ├── persistence/ # SettingsRepository (DataStore)
-│   │   │   │   │   └── scoring/     # 儿童发音分层宽容度评测算法
+│   │   │   │   │   └── scoring/     # 儿童发音分层宽容度评测算法 (第3次开口必过 SoftPass)
 │   │   │   │   ├── feature/
 │   │   │   │   │   ├── splash/      # 启蒙欢迎引导
 │   │   │   │   │   ├── home/        # 主页语言选择与吉祥物互动
@@ -90,11 +90,11 @@ kids-language-game/
 │   │   │   │   │   ├── summary/     # 结算与大星星庆祝
 │   │   │   │   │   └── parent/      # 家长门禁、设置中心 & ASR 诊断实验室
 │   │   │   │   ├── navigation/      # Compose 路由导航图
-│   │   │   │   └── ui/              # Design Tokens, Momo Bunny 6态组件, 大按钮
+│   │   │   │   └── ui/              # Design Tokens, 触控防抖 (Debounce), Momo Bunny 组件
 │   │   │   └── AndroidManifest.xml
 │   │   └── test/                    # 单元测试 (发音评测算法、题库与全量音频/音效资产完整性)
 │   └── build.gradle.kts
-├── docs/                            # 完整设计与实装技术文档集 (00~14)
+├── docs/                            # 完整设计与实装技术文档集 (00~15)
 ├── scripts/
 │   ├── generate_audio.py            # AI 卡通语音批量生成管线脚本
 │   ├── generate_sfx.py              # 游戏化交互音效合成脚本
@@ -125,11 +125,11 @@ cd kids-language-game
 ./gradlew.bat test
 ```
 
-### 3. 编译打包 Debug APK
+### 3. 编译打包 Debug APK (开箱即用)
 ```bash
 ./gradlew.bat assembleDebug
 ```
-产物位置：`app/build/outputs/apk/debug/app-debug.apk`。
+产物位置：`app/build/outputs/apk/debug/app-debug.apk`（约 147 MB，内置日语 Vosk 声学离线模型，安装至平板即可使用，零 ADB 依赖）。
 
 ---
 
@@ -176,7 +176,8 @@ python scripts/generate_sfx.py
 | **12** | [儿童发音宽容度评测算法规格](file:///d:/personalworkspace/kids-language-game/docs/12_Child_Speech_Evaluation_Algorithm_Spec.md) | 跨语言归一化、编辑距离与幼儿 SoftPass 保护机制 |
 | **13** | [交互音效与诊断实验室规格](file:///d:/personalworkspace/kids-language-game/docs/13_Sound_Effects_and_Diagnostic_Lab_Spec.md) | SoundPool 架构、4 种游戏音效与 ASR 现场实验室设计 |
 | **14** | [CI/CD 与离线模型部署规格](file:///d:/personalworkspace/kids-language-game/docs/14_CI_CD_and_Model_Deployment_Automation_Spec.md) | GitHub Actions 自动化门禁与 Vosk 模型部署管线 |
-| **--** | [工作进展全量日志 (WORKLOG)](file:///d:/personalworkspace/kids-language-game/docs/WORKLOG.md) | 详细记录 V1.0 ~ V1.4 各版本研发演进轨迹 |
+| **15** | [专属儿童玩具定位落地与免 ADB 规格](file:///d:/personalworkspace/kids-language-game/docs/15_Toy_Optimization_and_Zero_ADB_Spec.md) | Assets 模型内置解压、防挫败评测调谐与触控防抖 |
+| **--** | [工作进展全量日志 (WORKLOG)](file:///d:/personalworkspace/kids-language-game/docs/WORKLOG.md) | 详细记录 V1.0 ~ V1.5 各版本研发演进轨迹 |
 | **--** | [多智能体协同准则 (AGENT.md)](file:///d:/personalworkspace/kids-language-game/AGENT.md) | 团队协作规范、文档防篡改与 Git 提交铁律 |
 
 ---
