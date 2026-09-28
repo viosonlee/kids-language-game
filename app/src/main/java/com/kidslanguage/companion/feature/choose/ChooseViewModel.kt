@@ -11,6 +11,9 @@ import com.kidslanguage.companion.core.model.MascotState
 import com.kidslanguage.companion.core.model.PracticeItem
 import com.kidslanguage.companion.core.model.SessionStepState
 import com.kidslanguage.companion.core.persistence.SettingsRepository
+import com.kidslanguage.companion.core.persistence.ProgressRepository
+import com.kidslanguage.companion.core.persistence.chooseAttempt
+import java.util.UUID
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
@@ -53,7 +56,8 @@ class ChooseViewModel(
     private val contentRepository: ContentRepository,
     private val promptPlayer: PromptPlayer,
     private val settingsRepository: SettingsRepository,
-    private val soundEffectManager: SoundEffectManager? = null
+    private val soundEffectManager: SoundEffectManager? = null,
+    private val progressRepository: ProgressRepository? = null
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ChooseUiState())
@@ -63,6 +67,7 @@ class ChooseViewModel(
     private var promptJob: Job? = null
     private var sessionActive = false
     private var sessionKey: Pair<LanguageCode, String?>? = null
+    private var sessionId = UUID.randomUUID().toString()
 
     fun loadSession(language: LanguageCode, categoryId: String?) {
         if (sessionActive) return
@@ -76,6 +81,7 @@ class ChooseViewModel(
             return
         }
         sessionKey = key
+        sessionId = UUID.randomUUID().toString()
         _uiState.value = ChooseUiState()
         viewModelScope.launch {
             val settings = settingsRepository.settingsFlow.first()
@@ -170,6 +176,9 @@ class ChooseViewModel(
         val selected = state.currentOptions.firstOrNull { it.id == option.id } ?: return
         val attempts = state.attemptCount + 1
         val passed = selected.isCorrect || attempts >= 3
+        val item = state.currentItem ?: return
+        progressRepository?.record(chooseAttempt(item, "$sessionId:${state.currentIndex}", attempts,
+            selected.isCorrect, passed))
         promptJob?.cancel()
         autoAdvanceJob?.cancel()
         promptPlayer.stop()
@@ -187,7 +196,6 @@ class ChooseViewModel(
         if (passed) {
             soundEffectManager?.playSuccess()
             autoAdvanceJob = viewModelScope.launch {
-                settingsRepository.incrementCompletedCount()
                 delay(300)
                 val voice = if (!selected.isCorrect) PaoPaoVoices.PRAISE_EFFORT
                     else if (Random.nextBoolean()) PaoPaoVoices.PRAISE_1 else PaoPaoVoices.PRAISE_2

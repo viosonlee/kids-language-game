@@ -1,6 +1,12 @@
 package com.kidslanguage.companion.app
 
 import android.content.Context
+import androidx.room.Room
+import com.kidslanguage.companion.core.persistence.ProgressDatabase
+import com.kidslanguage.companion.core.persistence.RoomProgressRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import com.kidslanguage.companion.core.asr.SpeechRecognizerEngine
 import com.kidslanguage.companion.core.asr.VoskSpeechRecognizerEngine
 import com.kidslanguage.companion.core.audio.AndroidPromptPlayer
@@ -14,6 +20,13 @@ import com.kidslanguage.companion.core.scoring.ChildSpeechEvaluationService
 import com.kidslanguage.companion.core.scoring.SpeechEvaluationService
 
 class AppContainer(private val context: Context) {
+    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    val progressRepository by lazy {
+        RoomProgressRepository(
+            Room.databaseBuilder(context.applicationContext, ProgressDatabase::class.java, "practice_progress.db")
+                .build().progressDao(), applicationScope
+        )
+    }
     val contentRepository: ContentRepository by lazy {
         AssetContentRepository(context)
     }

@@ -452,3 +452,10 @@
 - 新增 docs/19_Speech_Evaluation_Input_Review.md，同步审查证据与未完成范围，既有规范不覆盖。
 - gradlew.bat test --offline 成功，Debug / Release 各 49 个测试通过；本轮未重新安装 APK。
 - 已核查学习记录仅有累计数，缺少技术设计指定 Room 数据层；后续继续补齐统计和其他审查项，全部完成后统一推送。
+
+## 2026-09-28 | Room 记录实现与识别率调查 | By: Codex
+
+- 实装 Room 逐题/逐次记录、幂等事务、应用作用域写入；跟读与选图接入，家长页增加每日/语言/正常辅助/正误统计与清空确认。旧累计单独保留，不伪造历史明细。
+- 新增 docs/20、schema、映射单元测试、真实 Room 仪器测试。test assembleDebug 成功；最终 test --offline 成功，Debug/Release 各 52 测试通过。assembleDebugAndroidTest 在离线模式缺少测试依赖失败，仪器测试尚未编译执行，后续需联网补依赖及验证。
+- 用户要求先调查识别率：核查实际 Vosk 0.3.47 二进制，确认超时只回调 onTimeout 而不提取最终文本；应用将其转换为空结果并显示无声音。新增 docs/21 调查证据和优化顺序，本轮未改识别参数或安装新版。
+- 完整审查和数据库设备验证尚未完成，暂不统一推送。保留其他任务 mascot 改动。

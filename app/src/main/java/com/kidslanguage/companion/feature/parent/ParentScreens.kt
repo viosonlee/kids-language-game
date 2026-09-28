@@ -128,6 +128,25 @@ fun ParentSettingsScreen(
     modifier: Modifier = Modifier
 ) {
     val settings by viewModel.settings.collectAsState()
+    val totals by viewModel.totals.collectAsState()
+    val today by viewModel.today.collectAsState()
+    val languages by viewModel.languages.collectAsState()
+    val progressError by viewModel.progressError.collectAsState()
+    val resetError by viewModel.resetError.collectAsState()
+    val resetting by viewModel.resetting.collectAsState()
+    var confirmReset by remember { mutableStateOf(false) }
+
+    if (confirmReset) {
+        AlertDialog(
+            onDismissRequest = { confirmReset = false },
+            title = { Text("清空练习记录？") },
+            text = { Text("将清空所有语言的练习记录和历史累计数，学习设置会保留。此操作无法撤销。") },
+            confirmButton = {
+                TextButton(onClick = { confirmReset = false; viewModel.resetProgress() }) { Text("清空记录") }
+            },
+            dismissButton = { TextButton(onClick = { confirmReset = false }) { Text("取消") } }
+        )
+    }
 
     Box(
         modifier = modifier
@@ -262,12 +281,30 @@ fun ParentSettingsScreen(
                     Text(text = "练习统计与数据", style = AppTypography.titleMedium, color = Primary600)
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
                     Text(
-                        text = "累计完成题目数：${settings.completedCount} 题",
+                        text = "累计完成题目数：${totals.completed + settings.completedCount} 题",
                         style = AppTypography.bodyLarge
                     )
+                    Text("今日练习：${today.practiced} 题 · 完成：${today.completed} 题", style = AppTypography.bodyLarge)
+                    Text("跟读正常通过：${totals.normalPasses} 次 · 辅助通过：${totals.assistedPasses} 次")
+                    Text("选图答对：${totals.chooseCorrect} 次 · 再试：${totals.chooseWrong} 次")
+                    LanguageCode.entries.forEach { language ->
+                        val row = languages.firstOrNull { it.language == language.code }
+                        val name = when (language) {
+                            LanguageCode.JA_JP -> "日语"
+                            LanguageCode.ZH_CN -> "中文"
+                            LanguageCode.EN_US -> "英语"
+                        }
+                        Text("$name：练习 ${row?.practiced ?: 0} 题 · 完成 ${row?.completed ?: 0} 题")
+                    }
+                    if (settings.completedCount > 0) {
+                        Text("含旧版本历史累计 ${settings.completedCount} 题；历史记录没有日期和语言明细。", color = Neutral700)
+                    }
+                    Text("同一题反复尝试计为一道练习；重新开始练习会再次计数。统计只供家长观察。", color = Neutral700)
+                    (resetError ?: progressError)?.let { Text(it, color = Neutral900) }
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
                     Button(
-                        onClick = { viewModel.resetProgress() },
+                        onClick = { confirmReset = true },
+                        enabled = !resetting,
                         colors = androidx.compose.material3.ButtonDefaults.buttonColors(
                             containerColor = androidx.compose.ui.graphics.Color(0xFFE53935)
                         )

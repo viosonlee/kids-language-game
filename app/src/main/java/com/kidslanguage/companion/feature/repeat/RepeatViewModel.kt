@@ -14,6 +14,9 @@ import com.kidslanguage.companion.core.model.MascotState
 import com.kidslanguage.companion.core.model.PracticeItem
 import com.kidslanguage.companion.core.model.SessionStepState
 import com.kidslanguage.companion.core.persistence.SettingsRepository
+import com.kidslanguage.companion.core.persistence.ProgressRepository
+import com.kidslanguage.companion.core.persistence.repeatAttempt
+import java.util.UUID
 import com.kidslanguage.companion.core.scoring.SpeechEvaluationService
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.CancellationException
@@ -52,7 +55,8 @@ class RepeatViewModel(
     private val speechRecognizer: SpeechRecognizerEngine,
     private val evaluationService: SpeechEvaluationService,
     private val settingsRepository: SettingsRepository,
-    private val soundEffectManager: SoundEffectManager? = null
+    private val soundEffectManager: SoundEffectManager? = null,
+    private val progressRepository: ProgressRepository? = null
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RepeatUiState())
@@ -63,6 +67,7 @@ class RepeatViewModel(
     private var recordingGeneration = 0
     private var sessionActive = false
     private var sessionKey: Pair<LanguageCode, String?>? = null
+    private var sessionId = UUID.randomUUID().toString()
 
     fun loadSession(language: LanguageCode, categoryId: String?) {
         val previous = _uiState.value
@@ -72,6 +77,7 @@ class RepeatViewModel(
         stopSession()
         sessionActive = true
         sessionKey = key
+        if (!resume) sessionId = UUID.randomUUID().toString()
         _uiState.value = if (resume) previous.copy(
             sessionState = SessionStepState.Loading, isRecording = false,
             showFeedbackOverlay = false, feedbackPlaying = false, recordingError = null
@@ -235,6 +241,8 @@ class RepeatViewModel(
         }
 
         val isPassed = eval.status == EvaluationStatus.Pass || eval.status == EvaluationStatus.SoftPass
+        repeatAttempt(item, "$sessionId:${_uiState.value.currentIndex}", currentAttempts, eval.status)
+            ?.let { progressRepository?.record(it) }
         val nextMascot = if (isPassed) MascotState.Great else MascotState.TryAgain
 
         _uiState.value = _uiState.value.copy(
@@ -251,7 +259,6 @@ class RepeatViewModel(
             soundEffectManager?.playSuccess()
             autoAdvanceJob?.cancel()
             autoAdvanceJob = viewModelScope.launch {
-                settingsRepository.incrementCompletedCount()
                 delay(300)
                 if (eval.status == EvaluationStatus.SoftPass && currentAttempts >= 3) {
                     promptPlayer.playVoiceAsset(PaoPaoVoices.PRAISE_EFFORT)

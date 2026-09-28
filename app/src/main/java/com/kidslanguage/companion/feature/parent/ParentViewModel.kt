@@ -5,6 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.persistence.SettingsRepository
 import com.kidslanguage.companion.core.persistence.UserSettings
+import com.kidslanguage.companion.core.persistence.ProgressRepository
+import com.kidslanguage.companion.core.persistence.ProgressTotals
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -20,8 +23,17 @@ data class MathGate(
 )
 
 class ParentViewModel(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val progressRepository: ProgressRepository
 ) : ViewModel() {
+    val totals = progressRepository.totals.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProgressTotals())
+    val today = progressRepository.today.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProgressTotals())
+    val languages = progressRepository.languages.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val progressError = progressRepository.error
+    private val _resetError = MutableStateFlow<String?>(null)
+    val resetError = _resetError.asStateFlow()
+    private val _resetting = MutableStateFlow(false)
+    val resetting = _resetting.asStateFlow()
 
     val settings: StateFlow<UserSettings> = settingsRepository.settingsFlow.stateIn(
         scope = viewModelScope,
@@ -64,6 +76,20 @@ class ParentViewModel(
     }
 
     fun resetProgress() {
-        viewModelScope.launch { settingsRepository.resetProgress() }
+        if (_resetting.value) return
+        _resetting.value = true
+        viewModelScope.launch {
+            try {
+                progressRepository.clear()
+                settingsRepository.resetProgress()
+                _resetError.value = null
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                _resetError.value = "清空记录未完成，请重试。"
+            } finally {
+                _resetting.value = false
+            }
+        }
     }
 }

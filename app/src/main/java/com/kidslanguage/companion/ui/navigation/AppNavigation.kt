@@ -52,7 +52,7 @@ fun AppNavigation(container: AppContainer) {
     var showParentGate by remember { mutableStateOf(false) }
 
     val homeViewModel: HomeViewModel = viewModel { HomeViewModel(container.settingsRepository, container.promptPlayer) }
-    val parentViewModel: ParentViewModel = viewModel { ParentViewModel(container.settingsRepository) }
+    val parentViewModel: ParentViewModel = viewModel { ParentViewModel(container.settingsRepository, container.progressRepository) }
 
     if (showParentGate) {
         ParentGateDialog(
@@ -149,7 +149,8 @@ fun AppNavigation(container: AppContainer) {
                     speechRecognizer = container.speechRecognizerEngine,
                     evaluationService = container.speechEvaluationService,
                     settingsRepository = container.settingsRepository,
-                    soundEffectManager = container.soundEffectManager
+                    soundEffectManager = container.soundEffectManager,
+                    progressRepository = container.progressRepository
                 )
             }
 
@@ -180,7 +181,8 @@ fun AppNavigation(container: AppContainer) {
                     contentRepository = container.contentRepository,
                     promptPlayer = container.promptPlayer,
                     settingsRepository = container.settingsRepository,
-                    soundEffectManager = container.soundEffectManager
+                    soundEffectManager = container.soundEffectManager,
+                    progressRepository = container.progressRepository
                 )
             }
 
