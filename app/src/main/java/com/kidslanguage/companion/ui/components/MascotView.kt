@@ -51,13 +51,9 @@ fun MascotView(
         }
 
         try {
-            // First attempt to load webp, fallback to png
-            val stream: InputStream = try {
-                context.assets.open("mascot/webp/$assetName.webp")
-            } catch (_: Exception) {
-                context.assets.open("mascot/png/$assetName.png")
+            val decoded = context.assets.open("mascot/png/$assetName.png").use { stream ->
+                BitmapFactory.decodeStream(stream)
             }
-            val decoded = BitmapFactory.decodeStream(stream)
             bitmap = decoded?.asImageBitmap()
         } catch (e: Exception) {
             e.printStackTrace()

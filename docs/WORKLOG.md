@@ -481,3 +481,10 @@
 - 手动权限授权回调由 toggle 改为仅开始录音；进入新题读取最新偏好。
 - 新增五项会话时序回归，test assembleDebug --offline 成功；新增测试后 test --offline 成功，Debug/Release 各 65 项通过。
 - 新增 docs/24，保留历史规范；未改 ASR 参数、未安装、未推送。完整审查继续。
+
+## 2026-09-28 | 构建路径与模型制品校验 | By: Codex
+
+- 删除仓库中本机 JDK 绝对路径，CI 升级 Gradle setup、只读权限、构建仪器测试包和保留测试报告。
+- 三语言模型新增字节大小、SHA-256 与语言清单检查。命令作用域 JAVA_HOME 指向 JDK21 后 test assembleDebug assembleDebugAndroidTest --offline 成功，Debug/Release 各 66 测试通过。
+- 根 README 对齐当前实现，移除不具证据的合规/性能/纯离线绝对声明，记录系统回退限制和实际验证边界。
+- 新增 docs/25，旧部署脚本问题已列入未完成范围；未覆盖历史 docs、未改其他任务吉祥物资源、未推送。
