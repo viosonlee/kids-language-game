@@ -42,10 +42,11 @@ class ChooseViewModelTest {
         override fun release() = stop()
     }
 
-    private fun scenario(autoNext: Boolean = true, block: suspend TestScope.(ChooseViewModel, Player) -> Unit) = runTest {
+    private fun scenario(autoNext: Boolean = true, autoPlay: Boolean = true, block: suspend TestScope.(ChooseViewModel, Player) -> Unit) = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
         val settings = SettingsRepository(Store())
         settings.setAutoNext(autoNext)
+        settings.setAutoPlayPrompt(autoPlay)
         val player = Player()
         val content = object : ContentRepository {
             override suspend fun getCategories(language: LanguageCode) = emptyList<Category>()
@@ -64,6 +65,18 @@ class ChooseViewModelTest {
             vm.stopSession()
             Dispatchers.resetMain()
         }
+    }
+
+    @Test fun disabledAutoplayAppliesToEachQuestionButManualReplayWorks() = scenario(autoPlay = false) { vm, player ->
+        assertEquals(0, player.prompts)
+        vm.playPrompt()
+        advanceUntilIdle()
+        assertEquals(1, player.prompts)
+        vm.onOptionSelected(vm.uiState.value.currentOptions.first { it.isCorrect })
+        advanceUntilIdle()
+        assertEquals(1, vm.uiState.value.currentIndex)
+        assertEquals(1, player.prompts)
+        assertEquals(SessionStepState.ReadyToSpeak, vm.uiState.value.sessionState)
     }
 
     @Test fun duplicateTapScoresOnceAndNextPromptWaitsForPraise() = scenario { vm, player ->

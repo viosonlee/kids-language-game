@@ -77,7 +77,7 @@ class ChooseViewModel(
             _uiState.value.sessionState != SessionStepState.Completed) {
             if (_uiState.value.isAnswerCorrect == true) {
                 if (_uiState.value.autoNext) nextQuestion()
-            } else playPrompt()
+            } else playPrompt(automatic = true)
             return
         }
         sessionKey = key
@@ -141,10 +141,12 @@ class ChooseViewModel(
             mascotState = MascotState.Listen
         )
 
-        playPrompt()
+        playPrompt(automatic = true)
     }
 
-    fun playPrompt() {
+    fun playPrompt() = playPrompt(automatic = false)
+
+    private fun playPrompt(automatic: Boolean) {
         if (!sessionActive || _uiState.value.isAnswerCorrect == true ||
             _uiState.value.isSessionComplete) return
         val item = _uiState.value.currentItem ?: return
@@ -152,16 +154,21 @@ class ChooseViewModel(
         promptJob?.cancel()
         promptPlayer.stop()
         promptJob = viewModelScope.launch {
+            val settings = settingsRepository.settingsFlow.first()
             _uiState.value = _uiState.value.copy(
                 feedbackPlaying = false,
                 sessionState = SessionStepState.PromptPlaying,
-                mascotState = MascotState.Listen
+                mascotState = MascotState.Listen,
+                showText = settings.showText,
+                autoNext = settings.autoNext
             )
-            promptPlayer.playPrompt(
-                text = item.text,
-                language = LanguageCode.fromCode(item.language),
-                audioAssetPath = item.audio
-            )
+            if (!automatic || settings.autoPlayPrompt) {
+                promptPlayer.playPrompt(
+                    text = item.text,
+                    language = LanguageCode.fromCode(item.language),
+                    audioAssetPath = item.audio
+                )
+            }
             _uiState.value = _uiState.value.copy(
                 sessionState = SessionStepState.ReadyToSpeak,
                 mascotState = MascotState.Idle

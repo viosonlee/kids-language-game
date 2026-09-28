@@ -19,6 +19,8 @@ data class UserSettings(
     val selectedLanguage: LanguageCode = LanguageCode.JA_JP,
     val showText: Boolean = true,
     val autoNext: Boolean = true,
+    val autoPlayPrompt: Boolean = true,
+    val autoStartRecording: Boolean = false,
     val sessionLength: Int = 10,
     val soundVolume: Float = 1.0f,
     val animationEnabled: Boolean = true,
@@ -31,6 +33,8 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
     private val KEY_LANGUAGE = stringPreferencesKey("selected_language")
     private val KEY_SHOW_TEXT = booleanPreferencesKey("show_text")
     private val KEY_AUTO_NEXT = booleanPreferencesKey("auto_next")
+    private val KEY_AUTO_PLAY = booleanPreferencesKey("auto_play_prompt")
+    private val KEY_AUTO_RECORD = booleanPreferencesKey("auto_start_recording")
     private val KEY_SESSION_LENGTH = intPreferencesKey("session_length")
     private val KEY_SOUND_VOLUME = floatPreferencesKey("sound_volume")
     private val KEY_ANIMATION_ENABLED = booleanPreferencesKey("animation_enabled")
@@ -42,6 +46,8 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
             selectedLanguage = LanguageCode.fromCode(langStr),
             showText = preferences[KEY_SHOW_TEXT] ?: true,
             autoNext = preferences[KEY_AUTO_NEXT] ?: true,
+            autoPlayPrompt = preferences[KEY_AUTO_PLAY] ?: true,
+            autoStartRecording = preferences[KEY_AUTO_RECORD] ?: false,
             sessionLength = (preferences[KEY_SESSION_LENGTH] ?: 10).coerceIn(1, 30),
             soundVolume = (preferences[KEY_SOUND_VOLUME] ?: 1.0f).let { if (it.isFinite()) it.coerceIn(0f, 1f) else 1f },
             animationEnabled = preferences[KEY_ANIMATION_ENABLED] ?: true,
@@ -65,6 +71,14 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
         store.edit { preferences ->
             preferences[KEY_AUTO_NEXT] = autoNext
         }
+    }
+
+    suspend fun setAutoPlayPrompt(enabled: Boolean) {
+        store.edit { it[KEY_AUTO_PLAY] = enabled }
+    }
+
+    suspend fun setAutoStartRecording(enabled: Boolean) {
+        store.edit { it[KEY_AUTO_RECORD] = enabled }
     }
 
     suspend fun setSessionLength(length: Int) {

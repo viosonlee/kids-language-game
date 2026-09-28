@@ -71,6 +71,14 @@ class ParentViewModel(
         viewModelScope.launch { settingsRepository.setAutoNext(autoNext) }
     }
 
+    fun setAutoPlayPrompt(enabled: Boolean) {
+        viewModelScope.launch { settingsRepository.setAutoPlayPrompt(enabled) }
+    }
+
+    fun setAutoStartRecording(enabled: Boolean) {
+        viewModelScope.launch { settingsRepository.setAutoStartRecording(enabled) }
+    }
+
     fun setSessionLength(length: Int) {
         viewModelScope.launch { settingsRepository.setSessionLength(length) }
     }

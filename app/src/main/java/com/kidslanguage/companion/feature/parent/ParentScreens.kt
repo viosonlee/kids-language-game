@@ -246,6 +246,20 @@ fun ParentSettingsScreen(
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
 
                     // Auto Next toggle
+                    ParentToggle(
+                        title = "自动播放示范",
+                        description = "进入新题时自动播放；关闭后仍可点击喇叭听示范。",
+                        checked = settings.autoPlayPrompt,
+                        onCheckedChange = viewModel::setAutoPlayPrompt
+                    )
+                    Spacer(modifier = Modifier.height(AppSpacing.lg))
+                    ParentToggle(
+                        title = "自动开始录音",
+                        description = "跟读准备好后开始录音。首次请点击麦克风授权；无声或识别错误后需手动重试。",
+                        checked = settings.autoStartRecording,
+                        onCheckedChange = viewModel::setAutoStartRecording
+                    )
+                    Spacer(modifier = Modifier.height(AppSpacing.lg))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -374,5 +388,17 @@ fun ParentSettingsScreen(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ParentToggle(title: String, description: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(AppSpacing.lg)) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(title, style = AppTypography.bodyLarge)
+            Text(description, style = AppTypography.bodyMedium, color = Neutral700)
+        }
+        Switch(checked = checked, onCheckedChange = onCheckedChange)
     }
 }

@@ -101,7 +101,7 @@ fun RepeatScreen(
         contract = ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-            viewModel.toggleRecording()
+            viewModel.startRecordingIfReady()
         } else {
             showPermissionHint = true
         }

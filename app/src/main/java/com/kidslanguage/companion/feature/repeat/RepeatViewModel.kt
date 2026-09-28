@@ -56,7 +56,8 @@ class RepeatViewModel(
     private val evaluationService: SpeechEvaluationService,
     private val settingsRepository: SettingsRepository,
     private val soundEffectManager: SoundEffectManager? = null,
-    private val progressRepository: ProgressRepository? = null
+    private val progressRepository: ProgressRepository? = null,
+    private val canRecord: () -> Boolean = { false }
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RepeatUiState())
@@ -120,11 +121,13 @@ class RepeatViewModel(
                 return@launch
             }
             _uiState.value = _uiState.value.copy(sessionState = SessionStepState.PromptPlaying)
-            playCurrentPrompt()
+            playPrompt(automatic = true)
         }
     }
 
-    fun playCurrentPrompt() {
+    fun playCurrentPrompt() = playPrompt(automatic = false)
+
+    private fun playPrompt(automatic: Boolean) {
         if (!sessionActive || _uiState.value.isSessionComplete ||
             _uiState.value.sessionState == SessionStepState.Loading ||
             _uiState.value.sessionState == SessionStepState.Passed) return
@@ -135,23 +138,35 @@ class RepeatViewModel(
         promptJob?.cancel()
         promptPlayer.stop()
         promptJob = viewModelScope.launch {
+            val settings = settingsRepository.settingsFlow.first()
             _uiState.value = _uiState.value.copy(
                 isRecording = false,
                 feedbackPlaying = false,
                 recordingError = null,
                 sessionState = SessionStepState.PromptPlaying,
                 mascotState = MascotState.Listen,
-                showFeedbackOverlay = false
+                showFeedbackOverlay = false,
+                showText = settings.showText,
+                autoNext = settings.autoNext
             )
-            promptPlayer.playPrompt(
-                text = item.text,
-                language = LanguageCode.fromCode(item.language),
-                audioAssetPath = item.audio
-            )
+            if (!automatic || settings.autoPlayPrompt) {
+                promptPlayer.playPrompt(
+                    text = item.text,
+                    language = LanguageCode.fromCode(item.language),
+                    audioAssetPath = item.audio
+                )
+            }
             _uiState.value = _uiState.value.copy(
                 sessionState = SessionStepState.ReadyToSpeak,
                 mascotState = MascotState.Speak
             )
+            if (settings.autoStartRecording && canRecord()) {
+                delay(400)
+                if (sessionActive && canRecord() && _uiState.value.sessionState == SessionStepState.ReadyToSpeak) {
+                    promptJob = null
+                    startRecording()
+                }
+            }
         }
     }
 
@@ -162,6 +177,8 @@ class RepeatViewModel(
             startRecording()
         }
     }
+
+    fun startRecordingIfReady() = startRecording()
 
     private fun startRecording() {
         if (!sessionActive || _uiState.value.feedbackPlaying || _uiState.value.sessionState !in listOf(
@@ -299,7 +316,7 @@ class RepeatViewModel(
                 sessionState = SessionStepState.PromptPlaying,
                 mascotState = MascotState.Listen
             )
-            playCurrentPrompt()
+            playPrompt(automatic = true)
         } else {
             soundEffectManager?.playCelebrate()
             _uiState.value = _uiState.value.copy(

@@ -48,9 +48,14 @@ class RepeatViewModelTest {
     }
 
     private class Player : PromptPlayer {
+        var prompts = 0
+        var promptDelay = 0L
         var voices = 0
         var playing = false
-        override suspend fun playPrompt(text: String, language: LanguageCode, audioAssetPath: String?) {}
+        override suspend fun playPrompt(text: String, language: LanguageCode, audioAssetPath: String?) {
+            prompts++
+            delay(promptDelay)
+        }
         override suspend fun playVoiceAsset(audioAssetPath: String) {
             voices++
             playing = true
@@ -61,10 +66,13 @@ class RepeatViewModelTest {
         override fun release() = stop()
     }
 
-    private fun scenario(autoNext: Boolean = true, block: suspend TestScope.(RepeatViewModel, Recorder, Player) -> Unit) = runTest {
+    private fun scenario(autoNext: Boolean = true, autoPlay: Boolean = true, autoRecord: Boolean = false,
+                         permission: Boolean = false, promptDelay: Long = 0,
+                         block: suspend TestScope.(RepeatViewModel, Recorder, Player) -> Unit) = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
         val recorder = Recorder()
         val player = Player()
+        player.promptDelay = promptDelay
         val content = object : ContentRepository {
             override suspend fun getCategories(language: LanguageCode) = emptyList<Category>()
             override suspend fun getItems(language: LanguageCode, categoryId: String?) = listOf(
@@ -75,7 +83,10 @@ class RepeatViewModelTest {
         }
         val settings = SettingsRepository(Store())
         settings.setAutoNext(autoNext)
-        val vm = RepeatViewModel(content, player, recorder, ChildSpeechEvaluationService(), settings)
+        settings.setAutoPlayPrompt(autoPlay)
+        settings.setAutoStartRecording(autoRecord)
+        val vm = RepeatViewModel(content, player, recorder, ChildSpeechEvaluationService(), settings,
+            canRecord = { permission })
         try {
             vm.loadSession(LanguageCode.EN_US, null)
             runCurrent()
@@ -85,6 +96,41 @@ class RepeatViewModelTest {
             Dispatchers.resetMain()
         }
     }
+
+    @Test fun disabledAutomaticPromptKeepsManualSpeakerAvailable() = scenario(autoPlay = false) { vm, _, player ->
+        assertEquals(0, player.prompts)
+        assertEquals(SessionStepState.ReadyToSpeak, vm.uiState.value.sessionState)
+        vm.playCurrentPrompt()
+        runCurrent()
+        assertEquals(1, player.prompts)
+    }
+
+    @Test fun automaticRecordingWaitsForPromptAndStopsRetryingAfterSilence() =
+        scenario(autoRecord = true, permission = true, promptDelay = 1000) { vm, recorder, _ ->
+            advanceTimeBy(1100)
+            assertFalse(recorder.recording)
+            advanceTimeBy(400)
+            runCurrent()
+            assertTrue(recorder.recording)
+            recorder.callbacks.last()(RecognitionResult(""))
+            advanceUntilIdle()
+            assertFalse(recorder.recording)
+            assertEquals(1, recorder.callbacks.size)
+            assertEquals(0, vm.uiState.value.attemptCount)
+        }
+
+    @Test fun automaticRecordingCannotStartWithoutPermission() = scenario(autoRecord = true) { vm, recorder, _ ->
+        advanceUntilIdle()
+        assertTrue(recorder.callbacks.isEmpty())
+        assertEquals(SessionStepState.ReadyToSpeak, vm.uiState.value.sessionState)
+    }
+
+    @Test fun leavingDuringAutomaticRecordingDelayCancelsStart() =
+        scenario(autoRecord = true, permission = true) { vm, recorder, _ ->
+            vm.stopSession()
+            advanceUntilIdle()
+            assertTrue(recorder.callbacks.isEmpty())
+        }
 
     @Test fun duplicateAndOldCallbacksCannotScoreOrAdvanceAgain() = scenario { vm, recorder, player ->
         vm.toggleRecording()

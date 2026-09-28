@@ -1,6 +1,10 @@
 package com.kidslanguage.companion.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
+import android.Manifest
+import android.content.pm.PackageManager
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,6 +52,7 @@ object Routes {
 
 @Composable
 fun AppNavigation(container: AppContainer) {
+    val context = LocalContext.current.applicationContext
     val navController = rememberNavController()
     var showParentGate by remember { mutableStateOf(false) }
 
@@ -147,6 +152,7 @@ fun AppNavigation(container: AppContainer) {
                     contentRepository = container.contentRepository,
                     promptPlayer = container.promptPlayer,
                     speechRecognizer = container.speechRecognizerEngine,
+                    canRecord = { ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED },
                     evaluationService = container.speechEvaluationService,
                     settingsRepository = container.settingsRepository,
                     soundEffectManager = container.soundEffectManager,
