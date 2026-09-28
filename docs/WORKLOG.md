@@ -444,3 +444,11 @@
 - 根因：进入下一题清空 evaluationResult 后，RepeatScreen 默认传入 Retry，而 AnimatedVisibility 的淡出内容仍在渲染，导致成功兔子闪变为重试兔子。
 - FeedbackOverlay 在可见期间保存显示状态，隐藏后的淡出过程继续使用最后一次状态；图片、文案和配色保持一致，下一次显示使用新结果。
 - test assembleDebug --offline 成功；实际淡出动画仍需设备体验确认。诊断页按钮与首页兔子点击修复版本已覆盖安装成功；本修复继续更新安装。
+
+## 2026-09-28 | 发音判定有效输入与别名边界 | By: Codex
+
+- 修复标准化后空输入、空别名、短别名片段误通过和英语词内部误命中；增加 Unicode 全半角处理，保留 docs/15 宽松阈值与第三次有效开口保护。
+- 跟读页将评分层 NoSpeech/Error 作为不可评测输入，不累计次数、不显示重试弹窗、不触发奖励。
+- 新增 docs/19_Speech_Evaluation_Input_Review.md，同步审查证据与未完成范围，既有规范不覆盖。
+- gradlew.bat test --offline 成功，Debug / Release 各 49 个测试通过；本轮未重新安装 APK。
+- 已核查学习记录仅有累计数，缺少技术设计指定 Room 数据层；后续继续补齐统计和其他审查项，全部完成后统一推送。

@@ -2,8 +2,9 @@ package com.kidslanguage.companion.core.scoring
 
 import com.kidslanguage.companion.core.model.EvaluationResult
 import com.kidslanguage.companion.core.model.EvaluationStatus
-import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.model.PracticeItem
+import java.text.Normalizer
+import java.util.Locale
 import kotlin.math.max
 import kotlin.math.min
 
@@ -22,8 +23,8 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
         targetItem: PracticeItem,
         attemptCount: Int
     ): EvaluationResult {
-        val trimmed = spokenText.trim()
-        if (trimmed.isEmpty()) {
+        val normSpoken = normalizeText(spokenText, targetItem.language)
+        if (normSpoken.isEmpty()) {
             return EvaluationResult(
                 status = EvaluationStatus.NoSpeech,
                 score = 0f,
@@ -33,8 +34,16 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
             )
         }
 
-        val normSpoken = normalizeText(trimmed, targetItem.language)
         val normTarget = normalizeText(targetItem.text, targetItem.language)
+        if (normTarget.isEmpty()) {
+            return EvaluationResult(
+                status = EvaluationStatus.Error,
+                score = 0f,
+                recognizedText = spokenText,
+                targetText = targetItem.text,
+                message = "这一题暂时不可用，请换一题吧"
+            )
+        }
 
         // 1. Exact match with target
         if (normSpoken == normTarget) {
@@ -50,7 +59,7 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
         // 2. Check aliases
         for (alias in targetItem.aliases) {
             val normAlias = normalizeText(alias, targetItem.language)
-            if (normSpoken == normAlias || normSpoken.contains(normAlias) || normAlias.contains(normSpoken)) {
+            if (normAlias.isNotEmpty() && matchesPhrase(normSpoken, normAlias, targetItem.language)) {
                 return EvaluationResult(
                     status = EvaluationStatus.Pass,
                     score = 0.95f,
@@ -62,8 +71,7 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
         }
 
         // 3. Substring check: spoken contains full target or covers >= 70% of target
-        if (normSpoken.contains(normTarget) ||
-            (normSpoken.length >= 3 && normTarget.contains(normSpoken) && normSpoken.length >= normTarget.length * 0.7f)) {
+        if (matchesPhrase(normSpoken, normTarget, targetItem.language)) {
             return EvaluationResult(
                 status = EvaluationStatus.Pass,
                 score = 0.9f,
@@ -119,8 +127,13 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
     }
 
     private fun normalizeText(text: String, language: String): String {
-        var result = text.lowercase()
-            .replace(Regex("[\\p{Punct}\\s、。！？・「」…ー\\-]"), "")
+        val english = language.startsWith("en")
+        var result = Normalizer.normalize(text, Normalizer.Form.NFKC).lowercase(Locale.ROOT)
+            .replace(Regex("[’']"), "")
+            .replace("ー", "")
+            .replace(Regex("[^\\p{L}\\p{N}\\p{M}]+"), if (english) " " else "")
+            .trim()
+        if (result.none { it.isLetterOrDigit() }) return ""
 
         // If Japanese, convert basic Katakana to Hiragana for loose matching
         if (language.startsWith("ja")) {
@@ -135,6 +148,20 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
             result = sb.toString()
         }
         return result
+    }
+
+    private fun matchesPhrase(spoken: String, target: String, language: String): Boolean {
+        if (spoken == target) return true
+        val containsTarget = if (language.startsWith("en")) {
+            // A short alias such as "hi" must be a word, not part of "this".
+            (" $spoken ").contains(" $target ")
+        } else {
+            spoken.contains(target)
+        }
+        val spokenLength = spoken.count { !it.isWhitespace() }
+        val targetLength = target.count { !it.isWhitespace() }
+        return containsTarget || (spokenLength >= 3 && target.contains(spoken) &&
+            spokenLength >= targetLength * 0.7f)
     }
 
     private fun calculateSimilarity(s1: String, s2: String): Float {

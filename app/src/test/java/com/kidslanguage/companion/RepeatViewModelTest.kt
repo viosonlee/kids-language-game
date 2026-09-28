@@ -105,7 +105,8 @@ class RepeatViewModelTest {
     }
 
     @Test fun failureAndSilenceNeverCountAsAttempts() = scenario { vm, recorder, player ->
-        for (result in listOf(RecognitionResult("", isSuccess = false), RecognitionResult(""))) {
+        for (result in listOf(RecognitionResult("", isSuccess = false), RecognitionResult(""),
+            RecognitionResult("！…"), RecognitionResult("🫧"))) {
             vm.toggleRecording()
             runCurrent()
             recorder.callbacks.last()(result)

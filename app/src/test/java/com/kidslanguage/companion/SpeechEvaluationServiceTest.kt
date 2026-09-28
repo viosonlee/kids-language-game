@@ -110,4 +110,52 @@ class SpeechEvaluationServiceTest {
         assertEquals(EvaluationStatus.SoftPass, result.status)
         assertTrue(result.message.contains("努力") || result.message.contains("太棒啦"))
     }
+
+    private fun englishItem() = PracticeItem(
+        id = "hello", language = "en-US", category = "greetings",
+        text = "Hello", aliases = listOf("hi", "hey", "", "！")
+    )
+
+    @Test
+    fun `punctuation and emoji do not count as speech on any attempt`() {
+        for (attempt in 1..4) {
+            for (input in listOf("！ …　", "🫧🎉", "---")) {
+                assertEquals(EvaluationStatus.NoSpeech, service.evaluate(input, englishItem(), attempt).status)
+            }
+        }
+    }
+
+    @Test
+    fun `empty aliases and tiny alias fragments cannot grant a pass`() {
+        for (input in listOf("h", "xyz")) {
+            assertEquals(EvaluationStatus.Retry, service.evaluate(input, englishItem(), 1).status)
+        }
+    }
+
+    @Test
+    fun `english alias must be a whole word`() {
+        assertEquals(EvaluationStatus.Retry, service.evaluate("this", englishItem(), 1).status)
+        assertEquals(EvaluationStatus.Pass, service.evaluate("hi there", englishItem(), 1).status)
+    }
+
+    @Test
+    fun `unicode width and kana voicing normalize consistently`() {
+        assertEquals(EvaluationStatus.Pass, service.evaluate("ＨＥＬＬＯ！", englishItem(), 1).status)
+        val item = PracticeItem(id = "bag", language = "ja-JP", category = "daily", text = "ばっぐ")
+        assertEquals(EvaluationStatus.Pass, service.evaluate("ﾊﾞｯｸﾞ", item, 1).status)
+    }
+
+    @Test
+    fun `invalid target reports error instead of granting a pass`() {
+        val item = englishItem().copy(text = "...", aliases = listOf("hi"))
+        assertEquals(EvaluationStatus.Error, service.evaluate("hi", item, 3).status)
+    }
+
+    @Test
+    fun `latest spec retains second attempt assistance and third attempt protection`() {
+        val item = englishItem().copy(aliases = emptyList())
+        assertEquals(EvaluationStatus.Retry, service.evaluate("he", item, 1).status)
+        assertEquals(EvaluationStatus.SoftPass, service.evaluate("he", item, 2).status)
+        assertEquals(EvaluationStatus.SoftPass, service.evaluate("xyz", item, 3).status)
+    }
 }

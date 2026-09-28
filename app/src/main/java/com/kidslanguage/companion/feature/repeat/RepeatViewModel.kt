@@ -223,6 +223,17 @@ class RepeatViewModel(
             attemptCount = currentAttempts
         )
 
+        if (eval.status == EvaluationStatus.NoSpeech || eval.status == EvaluationStatus.Error) {
+            _uiState.value = _uiState.value.copy(
+                isRecording = false,
+                sessionState = SessionStepState.ReadyToSpeak,
+                mascotState = MascotState.Speak,
+                showFeedbackOverlay = false,
+                recordingError = eval.message
+            )
+            return
+        }
+
         val isPassed = eval.status == EvaluationStatus.Pass || eval.status == EvaluationStatus.SoftPass
         val nextMascot = if (isPassed) MascotState.Great else MascotState.TryAgain
 
