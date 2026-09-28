@@ -1,5 +1,6 @@
 # 🐰 Kids Language Companion (幼儿多语言语音启蒙伴学)
 
+[![Android CI](https://github.com/viosonlee/kids-language-game/actions/workflows/android.yml/badge.svg)](https://github.com/viosonlee/kids-language-game/actions/workflows/android.yml)
 [![Platform](https://img.shields.io/badge/Platform-Android%2010%2B%20(API%2029%2B)-brightgreen.svg)](https://developer.android.com)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-blue.svg)](https://kotlinlang.org)
 [![Compose](https://img.shields.io/badge/Jetpack%20Compose-BOM%202024.10.01-orange.svg)](https://developer.android.com/jetpack/compose)
@@ -16,9 +17,10 @@
 
 - **🐰 萌兔伴侣 Momo Bunny 6 态动画交互**：
   - 待机（Idle 微浮动）、倾听（Listen 耳朵轻晃）、示范发音（Speak 节律嘴型）、答对激励（Great / Praise 欢跃撒花）、重试鼓励（TryAgain 温和眨眼），全程提供强情感连接。
-- **🎮 双模式趣味启蒙**：
+- **🎮 双模式趣味启蒙与正向游戏音效 (SFX)**：
   - **跟读模式 (Repeat Mode)**：看生动 Emoji 插图，听 AI 卡通标准声线发音，按住 130dp 大麦克风开口跟读，多级宽容度算法智能判定。
   - **选图模式 (Choose Mode)**：纯听音辨意，3 张大卡片直观点选，实时音效与即时色彩反馈。
+  - **低延迟正向音效**：基于 Android 原生 `SoundPool` 驱动 4 款柔和游戏音效（泡泡点击、答对叮咚、结算欢庆华彩、温和重试），杜绝挫败感。
 - **🌐 126 道高频生活主题题库**：
   - 日语 62 题（满足日本幼儿园日常生活全部高频交际用语）、中文 32 题、英语 32 题。
   - 涵盖问候与礼貌、一起玩耍、生活作息、求助与表达 4 大生活核心场景。
@@ -28,9 +30,11 @@
 - **🛡️ 纯离线语音识别与 COPPA 隐私合规**：
   - 接入 Vosk 离线语音识别引擎，语音数据 100% 留在设备本地处理，绝不上传云端，彻底杜绝儿童隐私外泄。
   - 单模型互斥常驻内存管理机制，低内存设备流畅运行无压力。
+- **🛠️ 开发者 / 家长 ASR 诊断实验室 (Developer Lab)**：
+  - 家长中心提供实时语音识别与发音实验室，支持全量 126 题多语言试听、麦克风现场录音、原始文本与 5 层算法评分的实时可视化控制台。
 - **👨‍👩‍👧‍👦 家长门禁与控制中心 (Parent Gate)**：
   - 随机两位数乘法防护门禁，有效阻隔幼儿误触误改。
-  - 支持每轮题数调节（3 / 5 / 10 题）、自动跳题开关、字母/汉字拼音字幕显示开关及练习记录安全重置。
+  - 支持每轮题数调节（3 / 5 / 10 题）、自动跳题开关、字幕显示开关及练习记录安全重置。
 - **📱 幼儿专属 Human Interface Guidelines (HIG)**：
   - 强制横屏沉浸式全屏展示，隐藏系统状态栏与底部手势条，防止幼儿误滑退出。
   - 最小点击靶点 ≥ 96dp，主按钮 ≥ 130dp，阶梯 28~32dp 大圆角卡片，保护视力的温润柔和配色。
@@ -47,8 +51,9 @@
 | **导航** | Compose Navigation 2.8.5 | 类型安全路由跳转与参数传递 |
 | **语音识别 (ASR)** | Vosk Android SDK (`0.3.47@aar`) + JNA | 纯离线 Kaldi 识别，分层回退系统 ASR / Mock |
 | **发音播放 (TTS)** | `MediaPlayer` (Assets MP3) + Android TTS | 优先加载本地卡通离线包，静默兜底原生 TTS |
+| **游戏交互音效** | `SoundPool` (4 通道低延迟) | 泡泡点击、和弦叮咚、欢庆华彩、温和重试 |
 | **持久化** | Jetpack DataStore Preferences | 响应式保存家长设置，单例非阻塞读取 |
-| **设计系统** | Custom Design Tokens | 严格对齐 Figma 设计规范（Color, Spacing, Typography） |
+| **持续集成** | GitHub Actions (`android.yml`) | 云端自动化构建、测试与 APK 制品打包 |
 | **工程构建** | Gradle 8.11.1 + AGP 8.7.3 | MinSdk 29 (Android 10), TargetSdk 35 |
 
 ---
@@ -57,18 +62,20 @@
 
 ```text
 kids-language-game/
+├── .github/workflows/
+│   └── android.yml                  # GitHub Actions CI/CD 云端构建与测试工作流
 ├── app/
 │   ├── src/
 │   │   ├── main/
 │   │   │   ├── assets/
-│   │   │   │   ├── audio/           # 126 个 AI 生成离线卡通发音包 (ja/zh/en)
+│   │   │   │   ├── audio/           # 126 个 AI 生成卡通发音 MP3 + 4 种 SFX WAV
 │   │   │   │   ├── content/         # 题库 JSON (categories, items_{ja,zh,en}.json)
 │   │   │   │   └── models/          # 离线 Vosk 语音模型解压存储目录
 │   │   │   ├── java/com/kidslanguage/companion/
 │   │   │   │   ├── app/             # Application, AppContainer (依赖注入)
 │   │   │   │   ├── core/
 │   │   │   │   │   ├── asr/         # 离线 Vosk / 系统 ASR 抽象与引擎实现
-│   │   │   │   │   ├── audio/       # PromptPlayer 离线与 TTS 播放器
+│   │   │   │   │   ├── audio/       # PromptPlayer (卡通MP3/TTS) & SoundEffectManager (SoundPool)
 │   │   │   │   │   ├── content/     # AssetContentRepository 题库仓库
 │   │   │   │   │   ├── model/       # 核心领域模型 (Item, Session, Evaluation)
 │   │   │   │   │   ├── persistence/ # SettingsRepository (DataStore)
@@ -81,15 +88,17 @@ kids-language-game/
 │   │   │   │   │   ├── repeat/      # 跟读模式主练习
 │   │   │   │   │   ├── choose/      # 选图模式主练习
 │   │   │   │   │   ├── summary/     # 结算与大星星庆祝
-│   │   │   │   │   └── parent/      # 家长门禁与控制中心
+│   │   │   │   │   └── parent/      # 家长门禁、设置中心 & ASR 诊断实验室
 │   │   │   │   ├── navigation/      # Compose 路由导航图
 │   │   │   │   └── ui/              # Design Tokens, Momo Bunny 6态组件, 大按钮
 │   │   │   └── AndroidManifest.xml
-│   │   └── test/                    # 单元测试 (发音评测算法、题库与资产完整性)
+│   │   └── test/                    # 单元测试 (发音评测算法、题库与全量音频/音效资产完整性)
 │   └── build.gradle.kts
-├── docs/                            # 完整设计与实装技术文档集 (00~12)
+├── docs/                            # 完整设计与实装技术文档集 (00~14)
 ├── scripts/
-│   └── generate_audio.py            # AI 卡通语音批量生成管线脚本
+│   ├── generate_audio.py            # AI 卡通语音批量生成管线脚本
+│   ├── generate_sfx.py              # 游戏化交互音效合成脚本
+│   └── setup_vosk_models.py         # Vosk 离线模型一键下载与 ADB 部署工具
 ├── AGENT.md                         # 研发多智能体协同规范与行为准则
 ├── README.md                        # 本说明文件
 └── gradlew.bat                      # Gradle 构建脚本
@@ -111,7 +120,7 @@ cd kids-language-game
 ```
 
 ### 2. 执行单元测试
-验证发音算法、题库 Schema 及全量 126 项音频文件完整性：
+验证发音评测算法、题库 Schema 及全量 126 项音频 + 4 项 SFX 音效文件完整性：
 ```bash
 ./gradlew.bat test
 ```
@@ -124,18 +133,25 @@ cd kids-language-game
 
 ---
 
-## 🎙️ AI 卡通语音资产生成管线 (Audio Asset Pipeline)
+## 📦 实用自动化脚本集 (Automation Tools)
 
-若后续需要扩充题库并生成新的 AI 卡通发音音频，可执行：
-
+### 1. Vosk 离线模型一键下载与真机部署
+自动下载官方日语、中文、英语小型 Kaldi 模型并通过 ADB 推送至平板设备：
 ```bash
-# 安装依赖
-python -m pip install edge-tts
+python scripts/setup_vosk_models.py
+```
 
-# 执行全量自动化生成流水线
+### 2. AI 卡通发音资产生成管线
+扩充题库后一键批量生成高拟真卡通音频并自动注入 JSON 映射：
+```bash
 python scripts/generate_audio.py
 ```
-流水线将自动并发调用微软高表现力神经声线合成 MP3，保存在 `app/src/main/assets/audio/`，并自动回写更新对应 JSON 题库中的 `audio` 字段。
+
+### 3. 游戏互动音效合成
+重新合成低延迟 WAV 正向反馈音效：
+```bash
+python scripts/generate_sfx.py
+```
 
 ---
 
@@ -158,7 +174,9 @@ python scripts/generate_audio.py
 | **10** | [AI 卡通发音包生成规格](file:///d:/personalworkspace/kids-language-game/docs/10_AI_Audio_Asset_Generation_Spec.md) | 神经声线选型、调音参数、资产存储与回退机制 |
 | **11** | [Vosk 离线语音识别引擎规格](file:///d:/personalworkspace/kids-language-game/docs/11_Vosk_Offline_ASR_Engine_Spec.md) | JNI Native 集成、单模型内存驻留管理与容灾降级 |
 | **12** | [儿童发音宽容度评测算法规格](file:///d:/personalworkspace/kids-language-game/docs/12_Child_Speech_Evaluation_Algorithm_Spec.md) | 跨语言归一化、编辑距离与幼儿 SoftPass 保护机制 |
-| **--** | [工作进展全量日志 (WORKLOG)](file:///d:/personalworkspace/kids-language-game/docs/WORKLOG.md) | 详细记录 V1.0 ~ V1.3 各版本研发演进轨迹 |
+| **13** | [交互音效与诊断实验室规格](file:///d:/personalworkspace/kids-language-game/docs/13_Sound_Effects_and_Diagnostic_Lab_Spec.md) | SoundPool 架构、4 种游戏音效与 ASR 现场实验室设计 |
+| **14** | [CI/CD 与离线模型部署规格](file:///d:/personalworkspace/kids-language-game/docs/14_CI_CD_and_Model_Deployment_Automation_Spec.md) | GitHub Actions 自动化门禁与 Vosk 模型部署管线 |
+| **--** | [工作进展全量日志 (WORKLOG)](file:///d:/personalworkspace/kids-language-game/docs/WORKLOG.md) | 详细记录 V1.0 ~ V1.4 各版本研发演进轨迹 |
 | **--** | [多智能体协同准则 (AGENT.md)](file:///d:/personalworkspace/kids-language-game/AGENT.md) | 团队协作规范、文档防篡改与 Git 提交铁律 |
 
 ---

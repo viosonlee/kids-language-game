@@ -19,6 +19,7 @@ import com.kidslanguage.companion.feature.choose.ChooseViewModel
 import com.kidslanguage.companion.feature.home.HomeScreen
 import com.kidslanguage.companion.feature.home.HomeViewModel
 import com.kidslanguage.companion.feature.mode.ModeSelectScreen
+import com.kidslanguage.companion.feature.parent.DevAudioDiagnosticScreen
 import com.kidslanguage.companion.feature.parent.ParentGateDialog
 import com.kidslanguage.companion.feature.parent.ParentSettingsScreen
 import com.kidslanguage.companion.feature.parent.ParentViewModel
@@ -36,6 +37,7 @@ object Routes {
     const val CHOOSE = "choose/{language}/{categoryId}"
     const val SESSION_COMPLETE = "session_complete"
     const val PARENT_SETTINGS = "parent_settings"
+    const val DEV_DIAGNOSTICS = "dev_diagnostics"
 
     fun category(language: LanguageCode) = "category/${language.name}"
     fun modeSelect(language: LanguageCode, categoryId: String) = "mode_select/${language.name}/$categoryId"
@@ -145,7 +147,8 @@ fun AppNavigation(container: AppContainer) {
                     promptPlayer = container.promptPlayer,
                     speechRecognizer = container.speechRecognizerEngine,
                     evaluationService = container.speechEvaluationService,
-                    settingsRepository = container.settingsRepository
+                    settingsRepository = container.settingsRepository,
+                    soundEffectManager = container.soundEffectManager
                 )
             }
 
@@ -175,7 +178,8 @@ fun AppNavigation(container: AppContainer) {
                 ChooseViewModel(
                     contentRepository = container.contentRepository,
                     promptPlayer = container.promptPlayer,
-                    settingsRepository = container.settingsRepository
+                    settingsRepository = container.settingsRepository,
+                    soundEffectManager = container.soundEffectManager
                 )
             }
 
@@ -206,6 +210,14 @@ fun AppNavigation(container: AppContainer) {
         composable(Routes.PARENT_SETTINGS) {
             ParentSettingsScreen(
                 viewModel = parentViewModel,
+                onBack = { navController.popBackStack() },
+                onOpenDevLab = { navController.navigate(Routes.DEV_DIAGNOSTICS) }
+            )
+        }
+
+        composable(Routes.DEV_DIAGNOSTICS) {
+            DevAudioDiagnosticScreen(
+                container = container,
                 onBack = { navController.popBackStack() }
             )
         }

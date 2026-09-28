@@ -1,5 +1,7 @@
 package com.kidslanguage.companion.feature.repeat
 
+import android.Manifest
+import android.content.pm.PackageManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -19,15 +21,24 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Hearing
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.core.content.ContextCompat
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
@@ -74,6 +85,8 @@ fun RepeatScreen(
     }
 
     val currentItem = state.currentItem
+    var showPermissionHint by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Box(
         modifier = modifier
@@ -193,7 +206,18 @@ fun RepeatScreen(
             ) {
                 BigMicButton(
                     isRecording = state.isRecording,
-                    onClick = { viewModel.toggleRecording() },
+                    onClick = {
+                        val hasPermission = ContextCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.RECORD_AUDIO
+                        ) == PackageManager.PERMISSION_GRANTED
+
+                        if (!hasPermission) {
+                            showPermissionHint = true
+                        } else {
+                            viewModel.toggleRecording()
+                        }
+                    },
                     size = 130.dp
                 )
 
@@ -227,5 +251,33 @@ fun RepeatScreen(
             visible = state.showFeedbackOverlay,
             onDismiss = { viewModel.dismissFeedback() }
         )
+
+        if (showPermissionHint) {
+            AlertDialog(
+                onDismissRequest = { showPermissionHint = false },
+                title = {
+                    Text("🐰 兔兔需要麦克风权限哦", fontWeight = FontWeight.Bold)
+                },
+                text = {
+                    Text("Momo Bunny 需要听到宝宝的声音才能判断发音呢！请在平板【系统设置 - 应用权限】中允许麦克风权限，或者先去玩有趣的【选图模式】吧！")
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            showPermissionHint = false
+                            onBack()
+                        }
+                    ) {
+                        Text("去玩选图模式")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showPermissionHint = false }) {
+                        Text("知道了")
+                    }
+                },
+                shape = RoundedCornerShape(AppRadius.card)
+            )
+        }
     }
 }

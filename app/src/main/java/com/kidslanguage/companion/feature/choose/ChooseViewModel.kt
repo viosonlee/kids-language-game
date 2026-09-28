@@ -3,6 +3,7 @@ package com.kidslanguage.companion.feature.choose
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kidslanguage.companion.core.audio.PromptPlayer
+import com.kidslanguage.companion.core.audio.SoundEffectManager
 import com.kidslanguage.companion.core.content.ContentRepository
 import com.kidslanguage.companion.core.model.EvaluationStatus
 import com.kidslanguage.companion.core.model.LanguageCode
@@ -43,7 +44,8 @@ data class ChooseUiState(
 class ChooseViewModel(
     private val contentRepository: ContentRepository,
     private val promptPlayer: PromptPlayer,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val soundEffectManager: SoundEffectManager? = null
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ChooseUiState())
@@ -138,6 +140,7 @@ class ChooseViewModel(
         )
 
         if (option.isCorrect) {
+            soundEffectManager?.playSuccess()
             viewModelScope.launch {
                 settingsRepository.incrementCompletedCount()
             }
@@ -146,6 +149,8 @@ class ChooseViewModel(
                 delay(1200)
                 nextQuestion()
             }
+        } else {
+            soundEffectManager?.playRetry()
         }
     }
 
@@ -156,6 +161,7 @@ class ChooseViewModel(
             _uiState.value = _uiState.value.copy(currentIndex = nextIndex)
             setupCurrentQuestion()
         } else {
+            soundEffectManager?.playCelebrate()
             _uiState.value = _uiState.value.copy(
                 isSessionComplete = true,
                 sessionState = SessionStepState.Completed,

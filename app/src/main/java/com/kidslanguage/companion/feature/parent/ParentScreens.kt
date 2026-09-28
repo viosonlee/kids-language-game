@@ -124,6 +124,7 @@ fun ParentGateDialog(
 fun ParentSettingsScreen(
     viewModel: ParentViewModel,
     onBack: () -> Unit,
+    onOpenDevLab: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val settings by viewModel.settings.collectAsState()
@@ -272,6 +273,34 @@ fun ParentSettingsScreen(
                         )
                     ) {
                         Text("清空练习记录")
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(AppSpacing.xl))
+
+            // Developer / Diagnostic Lab Card
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(AppRadius.card),
+                colors = CardDefaults.cardColors(containerColor = Neutral0)
+            ) {
+                Column(modifier = Modifier.padding(AppSpacing.xl)) {
+                    Text(text = "🛠️ 语音与 ASR 诊断实验室 (Developer Lab)", style = AppTypography.titleMedium, color = Primary600)
+                    Spacer(modifier = Modifier.height(AppSpacing.sm))
+                    Text(
+                        text = "针对 Vosk 离线语音识别、儿童发音多层算法评分与 AI 卡通音频进行实时调校与检测",
+                        style = AppTypography.bodyMedium,
+                        color = Neutral700
+                    )
+                    Spacer(modifier = Modifier.height(AppSpacing.lg))
+                    Button(
+                        onClick = onOpenDevLab,
+                        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                            containerColor = Primary600
+                        )
+                    ) {
+                        Text("进入语音与 ASR 诊断实验室 →")
                     }
                 }
             }

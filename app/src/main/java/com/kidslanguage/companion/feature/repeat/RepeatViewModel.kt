@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.kidslanguage.companion.core.asr.RecognitionResult
 import com.kidslanguage.companion.core.asr.SpeechRecognizerEngine
 import com.kidslanguage.companion.core.audio.PromptPlayer
+import com.kidslanguage.companion.core.audio.SoundEffectManager
 import com.kidslanguage.companion.core.content.ContentRepository
 import com.kidslanguage.companion.core.model.EvaluationResult
 import com.kidslanguage.companion.core.model.EvaluationStatus
@@ -43,7 +44,8 @@ class RepeatViewModel(
     private val promptPlayer: PromptPlayer,
     private val speechRecognizer: SpeechRecognizerEngine,
     private val evaluationService: SpeechEvaluationService,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val soundEffectManager: SoundEffectManager? = null
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RepeatUiState())
@@ -146,6 +148,7 @@ class RepeatViewModel(
         )
 
         if (isPassed) {
+            soundEffectManager?.playSuccess()
             viewModelScope.launch {
                 settingsRepository.incrementCompletedCount()
             }
@@ -154,6 +157,8 @@ class RepeatViewModel(
                 delay(1400)
                 nextItem()
             }
+        } else {
+            soundEffectManager?.playRetry()
         }
     }
 
@@ -171,6 +176,7 @@ class RepeatViewModel(
             )
             playCurrentPrompt()
         } else {
+            soundEffectManager?.playCelebrate()
             _uiState.value = _uiState.value.copy(
                 isSessionComplete = true,
                 sessionState = SessionStepState.Completed,

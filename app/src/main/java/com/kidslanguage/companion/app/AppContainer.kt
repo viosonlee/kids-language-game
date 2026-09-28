@@ -4,7 +4,9 @@ import android.content.Context
 import com.kidslanguage.companion.core.asr.SpeechRecognizerEngine
 import com.kidslanguage.companion.core.asr.VoskSpeechRecognizerEngine
 import com.kidslanguage.companion.core.audio.AndroidPromptPlayer
+import com.kidslanguage.companion.core.audio.AndroidSoundEffectManager
 import com.kidslanguage.companion.core.audio.PromptPlayer
+import com.kidslanguage.companion.core.audio.SoundEffectManager
 import com.kidslanguage.companion.core.content.AssetContentRepository
 import com.kidslanguage.companion.core.content.ContentRepository
 import com.kidslanguage.companion.core.persistence.SettingsRepository
@@ -30,5 +32,9 @@ class AppContainer(private val context: Context) {
 
     val settingsRepository: SettingsRepository by lazy {
         SettingsRepository(context)
+    }
+
+    val soundEffectManager: SoundEffectManager by lazy {
+        AndroidSoundEffectManager(context, settingsRepository)
     }
 }

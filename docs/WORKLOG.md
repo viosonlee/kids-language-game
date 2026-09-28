@@ -231,4 +231,51 @@
 - **本地提交**：遵循规范完成每轮 commit。
 - **远程推送**：成功推送到 `origin/main`。
 
+---
+
+## 2026-09-28 | V1.4 交互音效系统、ASR 诊断实验室、模型部署脚本与 CI/CD 自动化全量落地 | By: Antigravity Agent
+
+### 1. 任务背景与目标
+- **输入来源**：用户指示继续全量推进方向 1（M8 稳定性加固、趣味游戏音效 SFX、开发者/家长 ASR 诊断实验室、麦克风权限友好容错）、方向 2（Vosk 离线模型自动化下载与 ADB 部署脚本）、方向 3（GitHub Actions CI/CD 自动化流水线）。
+- **目标**：
+  1. 落地轻量零延迟交互音效系统（SoundPool 引擎 + 4 种幼儿专属正向音效：Pop、Success、Celebrate、Retry），并在跟读、选图、答题及完成时全面触发；
+  2. 在家长设置中增设“🛠️ ASR 语音识别与发音诊断实验室 (`DevAudioDiagnosticScreen`)”，支持 126 题多语言试听、真机麦克风现场录音、原始文本与 5 层算法评分的实时可视化调试；
+  3. 加固跟读界面的麦克风未授权处理（友好弹窗提示引导与自适应“去玩选图模式”入口）；
+  4. 编写 `scripts/setup_vosk_models.py`，实现中日英小型 Vosk 离线模型的一键下载、解压与真机 ADB 自动部署；
+  5. 配置 `.github/workflows/android.yml`，在云端自动化执行 Gradle 单元测试校验、APK 打包与制品归档；
+  6. 补充对应技术设计规范文档（`docs/13_...` 与 `docs/14_...`）；
+  7. 确保测试与构建 100% 绿灯，完成本地 Git 提交与远程推送。
+
+### 2. 关键实施成果
+
+#### 2.1 游戏化音效系统 (SFX) 与权限加固 (方向一)
+- **音效算法生成与资源产出**：通过 `scripts/generate_sfx.py` 合成 4 款 16-bit 44.1kHz 纯净 WAV 音效文件（`pop.wav`, `success.wav`, `celebrate.wav`, `retry.wav`），总大小仅 150KB；
+- **低延迟播放引擎 (`SoundEffectManager.kt`)**：基于 Android 原生 `SoundPool` 构建，内存常驻无卡顿，联动 `SettingsRepository` 支持一键静音；
+- **权限与模式自适应**：在 `RepeatScreen` 中接入权限状态探测，未获权限时提供温和友善的 Momo Bunny 提示并可一键切换至选图模式。
+
+#### 2.2 开发者/家长 ASR 与发音诊断实验室 (`DevAudioDiagnosticScreen.kt`)
+- 嵌入家长中心，提供多语言卡片快速点选、AI 卡通发音播放、麦克风录音控制台；
+- 实时可视化展示 Vosk 原始输出、5 级状态徽章（Pass/SoftPass/Retry/NoSpeech/Error）、相似度打分与反馈激励语；
+- 支持手动调节尝试次数以现场观察 SoftPass 阈值保护。
+
+#### 2.3 Vosk 模型自动化部署脚本 (`scripts/setup_vosk_models.py` - 方向二)
+- 自动化下载并解压官方小型 Kaldi 模型（日语 0.22、中文 0.22、英语 0.15）；
+- 自动检测在线 ADB 设备并推送至 `/sdcard/Android/data/com.kidslanguage.companion/files/models/`；
+- 支持 `--download-only`, `--push-only`, `--lang` 等多维度命令行参数。
+
+#### 2.4 GitHub Actions CI/CD 云端质量门禁 (`.github/workflows/android.yml` - 方向三)
+- 覆盖 Push/PR 触发、Java 21、Gradle 依赖缓存、`./gradlew test`（发音算法与 126 题+音效资产完整性断言）以及 `./gradlew assembleDebug` 打包；
+- 自动化输出并上传构建归档物 `app-debug.apk`（保留 14 天）。
+
+### 3. 构建与验证记录
+1. **单元测试 (`gradlew.bat test`)**：
+   - 包含新增的 `validate sound effect assets exist and are non-empty` 等共 13 个自动化测试全部通过；
+   - 结果：`BUILD SUCCESSFUL in 36s`。
+2. **APK 打包验证 (`gradlew.bat assembleDebug`)**：
+   - 成功打包包含 Vosk Native、126 题离线卡通音频及 4 种游戏音效的完整 APK。
+
+### 4. Git 提交与版本同步
+- 本地提交并推送到 `origin/main`。
+
+
 

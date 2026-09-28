@@ -69,5 +69,15 @@ class ContentValidationTest {
             }
         }
     }
+
+    @Test
+    fun `validate sound effect assets exist and are non-empty`() {
+        val sfxFiles = listOf("pop.wav", "success.wav", "celebrate.wav", "retry.wav")
+        for (name in sfxFiles) {
+            val file = File("src/main/assets/audio/sfx/$name")
+            assertTrue("SFX file $name must exist", file.exists())
+            assertTrue("SFX file $name must be non-empty", file.length() > 0)
+        }
+    }
 }
 
