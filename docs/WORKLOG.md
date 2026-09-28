@@ -400,3 +400,11 @@
 1. **自动化测试**：执行 `./gradlew.bat testDebugUnitTest`，全部单元测试用例 100% 绿灯（`BUILD SUCCESSFUL in 1m 5s`）；
 2. **完整打包**：执行 `./gradlew.bat assembleDebug`，成功生成包含全新高清切图与修复逻辑的 APK 制品（约 147MB）；
 3. **平板推送准备**：已通过 ADB 将 APK 制品推送到平板临时目录 `/data/local/tmp/app-debug.apk`。由于华为 HarmonyOS / EMUI 系统的安全保护机制，通过 USB 安装需要在平板亮屏并解锁状态下由用户在屏幕弹窗中点击“允许/继续安装”。
+
+## 2026-09-28 | 跟读录音与退出清理回归验证 | By: Codex
+
+- 针对用户反馈的点击录音立即判错、退出后反复播报问题，修复识别单次回调、过期结果隔离、麦克风及时关闭和页面生命周期清理；空结果与识别服务错误不计入答题次数。
+- 增加 RepeatViewModelTest 的 5 个回归用例：重复与旧回调、失败与静音、退出前延迟播报、播放中退出、手动停止同步返回结果。
+- 本轮代码已被同工作区另一任务纳入本地提交 2639829，保留该提交与其他任务的素材、权限修改。
+- 验证：Debug / Release 各 20 项测试，均 0 failures / 0 errors；最终执行 .\gradlew.bat test assembleDebug --offline，BUILD SUCCESSFUL。
+- 产物：app/build/outputs/apk/debug/app-debug.apk。本轮未操作平板安装，也未验证真机麦克风表现。
