@@ -21,6 +21,9 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -44,8 +47,14 @@ fun SessionCompleteScreen(
     onBackHome: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LaunchedEffect(Unit) {
-        promptPlayer?.playVoiceAsset(PaoPaoVoices.CELEBRATE)
+    val scope = rememberCoroutineScope()
+    LifecycleResumeEffect(promptPlayer) {
+        val playback = scope.launch { promptPlayer?.playVoiceAsset(PaoPaoVoices.CELEBRATE) }
+        onPauseOrDispose {
+            if (playback.isActive) {
+                playback.cancel()
+            }
+        }
     }
 
     BoxWithConstraints(

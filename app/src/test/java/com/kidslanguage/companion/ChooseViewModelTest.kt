@@ -135,4 +135,19 @@ class ChooseViewModelTest {
         assertEquals(1, vm.uiState.value.currentIndex)
         assertEquals(SessionStepState.ReadyToSpeak, vm.uiState.value.sessionState)
     }
+
+    @Test fun completionIsConsumedOnceAndReplayStartsFresh() = scenario { vm, _ ->
+        repeat(2) {
+            vm.onOptionSelected(vm.uiState.value.currentOptions.first { it.isCorrect })
+            advanceUntilIdle()
+        }
+        assertTrue(vm.consumeSessionCompletion())
+        assertFalse(vm.consumeSessionCompletion())
+        vm.stopSession()
+        vm.loadSession(LanguageCode.EN_US, null)
+        advanceUntilIdle()
+        assertEquals(0, vm.uiState.value.currentIndex)
+        assertFalse(vm.uiState.value.isSessionComplete)
+        assertEquals(SessionStepState.ReadyToSpeak, vm.uiState.value.sessionState)
+    }
 }

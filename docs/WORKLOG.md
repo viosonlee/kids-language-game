@@ -430,3 +430,11 @@
 - 新增 docs/17_UI_Readability_and_Launcher_Icon.md，保留既有文档；新增 UiContrastTest。test assembleDebug --offline 最终成功；Debug / Release 各 36 个单元测试通过。
 - 图标 192px 实际输出已目视检查。设备覆盖安装此前被拒绝，本轮未重试，也未声称真机 UI 验收完成。
 - 整体文档对照审查仍在继续；按用户要求在全部修改完成后统一推送。本次仅提交自己负责的 UI/图标变更，保留其他任务的吉祥物文件改动。
+
+## 2026-09-28 | 会话音频生命周期与诊断页点击反馈 | By: Codex
+
+- 修复练习暂停恢复、完成事件重复消费和手动下一题时序；播放凭据隔离旧回调，模型生命周期串行化；移除模拟正确答案入口。
+- 诊断页顶部音效按钮独立成行并禁止文字换行；播放发音按钮预留宽度。首页兔子取消方形点击波纹，改为轻微缩放并保留点击间隔。
+- 新增 docs/18_Session_Audio_and_Diagnostic_Interaction.md，保留历史规范。test assembleDebug --offline 成功，Debug/Release 各 43 个测试通过。
+- 前一版已成功覆盖安装到 Huawei MRX-W09；本次 UI 调整重新构建后继续覆盖安装。真实语音效果仍待实际发音体验验证。
+- 仅提交本任务代码和文档，保留其他任务的 mascot 素材及 MascotView 改动。

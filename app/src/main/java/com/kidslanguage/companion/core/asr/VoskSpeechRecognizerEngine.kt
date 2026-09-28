@@ -4,6 +4,10 @@ import android.content.Context
 import com.kidslanguage.companion.core.model.LanguageCode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.json.JSONObject
 import org.vosk.Model
 import org.vosk.Recognizer
@@ -32,48 +36,59 @@ class VoskSpeechRecognizerEngine(
     private var activeCallback: ((RecognitionResult) -> Unit)? = null
     private var isUsingFallback = false
     private var generation = 0
+    private val modelLock = Mutex()
 
-    override suspend fun load(language: LanguageCode): Result<Unit> = withContext(Dispatchers.IO) {
-        if (currentLanguage == language && currentModel != null) {
-            return@withContext Result.success(Unit)
-        }
-
-        // Unload old model to conserve memory
-        unload()
-        currentLanguage = language
-
-        val modelPath = ModelManager.getOrExtractModelPath(context, language)
-        if (modelPath != null && File(modelPath).exists()) {
+    override suspend fun load(language: LanguageCode): Result<Unit> = withContext(Dispatchers.Main) {
+        modelLock.withLock {
+            if (currentLanguage == language && currentModel != null) return@withLock Result.success(Unit)
+            releaseCurrentModel()
+            var pendingModel: Model? = null
             try {
-                val model = Model(modelPath)
-                currentModel = model
-                isUsingFallback = false
-                return@withContext Result.success(Unit)
+                val modelPath = ModelManager.getOrExtractModelPath(context, language)
+                if (modelPath != null) {
+                    withContext(Dispatchers.IO) { pendingModel = Model(modelPath) }
+                    currentModel = pendingModel
+                    pendingModel = null
+                    currentLanguage = language
+                    isUsingFallback = false
+                    return@withLock Result.success(Unit)
+                }
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 e.printStackTrace()
+            } finally {
+                withContext(NonCancellable + Dispatchers.IO) { pendingModel?.close() }
             }
+            isUsingFallback = true
+            val loaded = fallbackEngine.load(language)
+            if (loaded.isSuccess) currentLanguage = language
+            loaded
         }
-
-        // Fallback to system engine when offline model files are not yet unpacked
-        isUsingFallback = true
-        fallbackEngine.load(language)
     }
 
-    override suspend fun recognizeFromAudio(pcm: ByteArray): RecognitionResult = withContext(Dispatchers.IO) {
+    override suspend fun recognizeFromAudio(pcm: ByteArray): RecognitionResult = withContext(Dispatchers.Main) {
+        modelLock.withLock {
         if (isUsingFallback || currentModel == null) {
-            return@withContext fallbackEngine.recognizeFromAudio(pcm)
+            return@withLock fallbackEngine.recognizeFromAudio(pcm)
         }
 
+        val model = currentModel
         try {
-            val recognizer = Recognizer(currentModel, 16000.0f)
-            recognizer.acceptWaveForm(pcm, pcm.size)
-            val jsonResult = recognizer.finalResult
-            recognizer.close()
-
-            val text = parseVoskJson(jsonResult)
-            RecognitionResult(text = text, isSuccess = true)
+            withContext(Dispatchers.IO) {
+                val recognizer = Recognizer(model, 16000.0f)
+                try {
+                    recognizer.acceptWaveForm(pcm, pcm.size)
+                    RecognitionResult(text = parseVoskJson(recognizer.finalResult), isSuccess = true)
+                } finally {
+                    recognizer.close()
+                }
+            }
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             RecognitionResult(text = "", isSuccess = false, error = e.message)
+        }
         }
     }
 
@@ -82,6 +97,10 @@ class VoskSpeechRecognizerEngine(
         onResult: (RecognitionResult) -> Unit
     ) = withContext(Dispatchers.Main) {
         cancelListening()
+        if (currentLanguage != language) {
+            onResult(RecognitionResult("", isSuccess = false, error = "Language model is not ready"))
+            return@withContext
+        }
         val request = generation
         activeCallback = onResult
         fun finish(result: RecognitionResult) {
@@ -103,7 +122,7 @@ class VoskSpeechRecognizerEngine(
             val service = SpeechService(recognizer, 16000.0f)
             speechService = service
 
-            service.startListening(object : RecognitionListener {
+            val started = service.startListening(object : RecognitionListener {
                 override fun onPartialResult(hypothesis: String?) {}
 
                 override fun onResult(hypothesis: String?) {
@@ -132,6 +151,7 @@ class VoskSpeechRecognizerEngine(
                     )
                 }
             }, 10000)
+            if (!started) finish(RecognitionResult("", isSuccess = false, error = "Microphone did not start"))
         } catch (e: Exception) {
             e.printStackTrace()
             finish(RecognitionResult(text = "", isSuccess = false, error = e.message))
@@ -160,14 +180,20 @@ class VoskSpeechRecognizerEngine(
         }
     }
 
-    override suspend fun unload() = withContext(Dispatchers.IO) {
-        withContext(Dispatchers.Main) { cancelListening() }
-        currentModel?.close()
+    override suspend fun unload() = withContext(Dispatchers.Main) {
+        modelLock.withLock { releaseCurrentModel() }
+    }
+
+    private suspend fun releaseCurrentModel() {
+        cancelListening()
+        val previous = currentModel
         currentModel = null
         currentLanguage = null
+        withContext(NonCancellable + Dispatchers.IO) { previous?.close() }
         if (isUsingFallback) {
             fallbackEngine.unload()
         }
+        isUsingFallback = false
     }
 
     private fun getModelPathForLanguage(language: LanguageCode): String? {

@@ -3,6 +3,8 @@ package com.kidslanguage.companion.feature.parent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -27,6 +29,13 @@ import com.kidslanguage.companion.ui.theme.Neutral900
 import com.kidslanguage.companion.ui.theme.Primary100
 import com.kidslanguage.companion.ui.theme.Primary500
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.CancellationException
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
+import android.Manifest
+import android.content.pm.PackageManager
 
 @Composable
 fun DevAudioDiagnosticScreen(
@@ -43,20 +52,32 @@ fun DevAudioDiagnosticScreen(
     var evaluationResult by remember { mutableStateOf<EvaluationResult?>(null) }
     var attemptCount by remember { mutableStateOf(1) }
     var statusMessage by remember { mutableStateOf("就绪 - 点击麦克风测试识别") }
+    var modelReady by remember { mutableStateOf(false) }
+    var generation by remember { mutableStateOf(0) }
+    val context = LocalContext.current
 
     // Load items when language changes
-    LaunchedEffect(selectedLanguage) {
-        items = container.contentRepository.getItems(selectedLanguage, null)
-        selectedItem = items.firstOrNull()
-        recognizedText = ""
-        evaluationResult = null
-        attemptCount = 1
-        container.speechRecognizerEngine.load(selectedLanguage)
-    }
-
-    DisposableEffect(Unit) {
-        onDispose {
-            container.speechRecognizerEngine.stopListening()
+    LifecycleResumeEffect(selectedLanguage) {
+        modelReady = false
+        generation++
+        val loading = coroutineScope.launch {
+            statusMessage = "正在准备离线语音模型…"
+            items = container.contentRepository.getItems(selectedLanguage, null)
+            selectedItem = items.firstOrNull()
+            recognizedText = ""
+            evaluationResult = null
+            attemptCount = 1
+            val loaded = container.speechRecognizerEngine.load(selectedLanguage)
+            modelReady = loaded.isSuccess
+            statusMessage = if (modelReady) "模型就绪 - 点击麦克风测试识别" else "语音模型不可用"
+        }
+        onPauseOrDispose {
+            generation++
+            modelReady = false
+            isRecording = false
+            loading.cancel()
+            coroutineScope.coroutineContext.cancelChildren()
+            container.speechRecognizerEngine.cancelListening()
             container.promptPlayer.stop()
         }
     }
@@ -68,10 +89,9 @@ fun DevAudioDiagnosticScreen(
             .padding(24.dp)
     ) {
         // Top Header
-        Row(
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Button(
@@ -79,11 +99,11 @@ fun DevAudioDiagnosticScreen(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                     modifier = Modifier.border(1.dp, Color(0xFFCBD5E1), RoundedCornerShape(16.dp))
                 ) {
-                    Text("← 返回设置", color = Neutral900, fontWeight = FontWeight.Bold)
+                    Text("← 返回设置", color = Neutral900, fontWeight = FontWeight.Bold, maxLines = 1, softWrap = false)
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = "🛠️ ASR 语音识别与发音诊断实验室",
+                    text = "语音识别与发音诊断",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     color = Neutral900
@@ -91,18 +111,21 @@ fun DevAudioDiagnosticScreen(
             }
 
             // Quick SFX Audition Buttons
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(
+                modifier = Modifier.align(Alignment.End).horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 OutlinedButton(onClick = { container.soundEffectManager.playPop() }) {
-                    Text("Pop 🫧")
+                    Text("Pop 🫧", maxLines = 1, softWrap = false)
                 }
                 OutlinedButton(onClick = { container.soundEffectManager.playSuccess() }) {
-                    Text("Success 🔔")
+                    Text("Success 🔔", maxLines = 1, softWrap = false)
                 }
                 OutlinedButton(onClick = { container.soundEffectManager.playCelebrate() }) {
-                    Text("Celebrate 🎉")
+                    Text("Celebrate 🎉", maxLines = 1, softWrap = false)
                 }
                 OutlinedButton(onClick = { container.soundEffectManager.playRetry() }) {
-                    Text("Retry 🥁")
+                    Text("Retry 🥁", maxLines = 1, softWrap = false)
                 }
             }
         }
@@ -161,6 +184,9 @@ fun DevAudioDiagnosticScreen(
                                     .clip(RoundedCornerShape(12.dp))
                                     .background(if (isSel) Primary100 else Color(0xFFF1F5F9))
                                     .clickable {
+                                        generation++
+                                        container.speechRecognizerEngine.cancelListening()
+                                        isRecording = false
                                         selectedItem = item
                                         recognizedText = ""
                                         evaluationResult = null
@@ -210,7 +236,7 @@ fun DevAudioDiagnosticScreen(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
+                            Row(modifier = Modifier.weight(1f).padding(end = 12.dp), verticalAlignment = Alignment.CenterVertically) {
                                 Text(current.image ?: "🎯", fontSize = 44.sp)
                                 Spacer(modifier = Modifier.width(16.dp))
                                 Column {
@@ -226,6 +252,9 @@ fun DevAudioDiagnosticScreen(
                             // Play Audio Button
                             Button(
                                 onClick = {
+                                    generation++
+                                    container.speechRecognizerEngine.cancelListening()
+                                    isRecording = false
                                     coroutineScope.launch {
                                         statusMessage = "正在播放卡通发音..."
                                         container.promptPlayer.playPrompt(
@@ -239,7 +268,7 @@ fun DevAudioDiagnosticScreen(
                                 colors = ButtonDefaults.buttonColors(containerColor = com.kidslanguage.companion.ui.theme.Primary700),
                                 shape = RoundedCornerShape(16.dp)
                             ) {
-                                Text("🔊 播放 AI 卡通音频", fontWeight = FontWeight.Bold)
+                                Text("🔊 播放发音", fontWeight = FontWeight.Bold, maxLines = 1, softWrap = false)
                             }
                         }
 
@@ -263,27 +292,44 @@ fun DevAudioDiagnosticScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Button(
+                                enabled = modelReady,
                                 onClick = {
                                     if (isRecording) {
                                         container.speechRecognizerEngine.stopListening()
                                         isRecording = false
                                         statusMessage = "识别已停止"
                                     } else {
+                                        if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                                            statusMessage = "请先在系统设置中允许麦克风权限"
+                                            return@Button
+                                        }
+                                        container.promptPlayer.stop()
+                                        val request = ++generation
                                         isRecording = true
                                         statusMessage = "正在录音与识别中... 请对着麦克风发音"
                                         coroutineScope.launch {
+                                            try {
                                             container.speechRecognizerEngine.startListening(selectedLanguage) { res ->
+                                                if (request != generation) return@startListening
                                                 recognizedText = res.text
                                                 isRecording = false
                                                 statusMessage = if (res.isSuccess) "识别完成" else "识别出错: ${res.error}"
                                                 
                                                 // Run evaluation algorithm
-                                                val eval = container.speechEvaluationService.evaluate(
+                                                val eval = if (res.isSuccess && res.text.isNotBlank()) container.speechEvaluationService.evaluate(
                                                     spokenText = res.text,
                                                     targetItem = current,
                                                     attemptCount = attemptCount
-                                                )
+                                                ) else null
                                                 evaluationResult = eval
+                                            }
+                                            } catch (e: CancellationException) {
+                                                throw e
+                                            } catch (e: Exception) {
+                                                if (request == generation) {
+                                                    isRecording = false
+                                                    statusMessage = "无法开始录音：${e.message}"
+                                                }
                                             }
                                         }
                                     }

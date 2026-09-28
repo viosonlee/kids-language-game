@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
@@ -190,7 +191,8 @@ fun ProgressIndicatorBar(
     totalSteps: Int,
     modifier: Modifier = Modifier
 ) {
-    val progress = if (totalSteps > 0) currentStep.toFloat() / totalSteps.toFloat() else 0f
+    val shownStep = currentStep.coerceIn(0, totalSteps.coerceAtLeast(0))
+    val progress = if (totalSteps > 0) shownStep.toFloat() / totalSteps.toFloat() else 0f
 
     Row(
         modifier = modifier,
@@ -208,7 +210,7 @@ fun ProgressIndicatorBar(
         )
         Spacer(modifier = Modifier.width(AppSpacing.normal))
         Text(
-            text = "$currentStep / $totalSteps",
+            text = "$shownStep / ${totalSteps.coerceAtLeast(0)}",
             style = AppTypography.labelLarge,
             color = Primary600
         )
@@ -220,7 +222,8 @@ fun FeedbackOverlay(
     status: EvaluationStatus,
     visible: Boolean,
     onDismiss: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNext: (() -> Unit)? = null
 ) {
     AnimatedVisibility(
         visible = visible,
@@ -265,6 +268,14 @@ fun FeedbackOverlay(
                         style = AppTypography.bodyMedium,
                         color = Neutral700
                     )
+                    if (onNext != null) {
+                        Spacer(modifier = Modifier.height(AppSpacing.md))
+                        PrimaryLargeButton(
+                            text = "下一题", onClick = onNext,
+                            icon = Icons.AutoMirrored.Filled.ArrowForward,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
                 }
             }
         }

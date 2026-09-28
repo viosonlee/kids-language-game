@@ -10,11 +10,13 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Job
 
 class HomeViewModel(
     private val settingsRepository: SettingsRepository,
     private val promptPlayer: PromptPlayer? = null
 ) : ViewModel() {
+    private var greetingJob: Job? = null
 
     val settings = settingsRepository.settingsFlow.stateIn(
         scope = viewModelScope,
@@ -29,8 +31,21 @@ class HomeViewModel(
     }
 
     fun playGreeting() {
-        viewModelScope.launch {
+        greetingJob?.cancel()
+        greetingJob = viewModelScope.launch {
             promptPlayer?.playVoiceAsset(PaoPaoVoices.GREETING)
         }
+    }
+
+    fun stopGreeting() {
+        if (greetingJob?.isActive == true) {
+            greetingJob?.cancel()
+        }
+        greetingJob = null
+    }
+
+    override fun onCleared() {
+        stopGreeting()
+        super.onCleared()
     }
 }

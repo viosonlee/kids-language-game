@@ -88,7 +88,7 @@ fun RepeatScreen(
     }
 
     LaunchedEffect(state.isSessionComplete) {
-        if (state.isSessionComplete) {
+        if (state.isSessionComplete && viewModel.consumeSessionCompletion()) {
             onSessionComplete()
         }
     }
@@ -240,25 +240,6 @@ fun RepeatScreen(
                         size = 130.dp
                     )
 
-                    // Quick tap simulation helper for devices/testing without real mic
-                    if (currentItem != null) {
-                        Spacer(modifier = Modifier.width(AppSpacing.lg))
-                        Box(
-                            modifier = Modifier
-                                .clip(CircleShape)
-                                .background(Primary100)
-                                .clickable {
-                                    viewModel.demonstrateAnswer()
-                                }
-                                .padding(horizontal = AppSpacing.normal, vertical = AppSpacing.sm)
-                        ) {
-                            Text(
-                                text = "✨ 示范说出",
-                                style = AppTypography.labelMedium,
-                                color = Primary600
-                            )
-                        }
-                    }
                 }
             }
 
@@ -280,6 +261,8 @@ fun RepeatScreen(
             status = state.evaluationResult?.status ?: EvaluationStatus.Retry,
             visible = state.showFeedbackOverlay,
             onDismiss = { viewModel.dismissFeedback() },
+            onNext = if (state.sessionState == SessionStepState.Passed && !state.autoNext &&
+                !state.feedbackPlaying) viewModel::nextItem else null,
             modifier = Modifier.zIndex(100f)
         )
 

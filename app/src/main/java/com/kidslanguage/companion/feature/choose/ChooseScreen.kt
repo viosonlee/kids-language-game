@@ -22,6 +22,8 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -61,12 +63,20 @@ fun ChooseScreen(
     }
 
     LaunchedEffect(state.isSessionComplete) {
-        if (state.isSessionComplete) {
+        if (state.isSessionComplete && viewModel.consumeSessionCompletion()) {
             onSessionComplete()
         }
     }
 
     val currentItem = state.currentItem
+
+    if (state.contentError != null) {
+        AlertDialog(
+            onDismissRequest = onBack,
+            text = { Text(state.contentError.orEmpty()) },
+            confirmButton = { TextButton(onClick = onBack) { Text("返回选择场景") } }
+        )
+    }
 
     Box(
         modifier = modifier

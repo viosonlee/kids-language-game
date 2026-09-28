@@ -1,6 +1,14 @@
 package com.kidslanguage.companion.feature.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.draw.scale
+import kotlinx.coroutines.launch
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +28,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -50,6 +59,13 @@ fun HomeScreen(
 ) {
     val settings by viewModel.settings.collectAsState()
     val selectedLanguage = settings.selectedLanguage
+    val tapScale = remember { Animatable(1f) }
+    val tapScope = rememberCoroutineScope()
+    val tapInteraction = remember { MutableInteractionSource() }
+    val lastTap = remember { longArrayOf(-1000L) }
+    LifecycleResumeEffect(viewModel) {
+        onPauseOrDispose { viewModel.stopGreeting() }
+    }
 
     Box(
         modifier = modifier
@@ -91,9 +107,23 @@ fun HomeScreen(
                 MascotView(
                     state = MascotState.Idle,
                     size = 340.dp,
-                    modifier = Modifier.debouncedClickable(debounceMillis = 1000L) {
-                        viewModel.playGreeting()
-                    }
+                    modifier = Modifier
+                        .scale(tapScale.value)
+                        .clickable(
+                            interactionSource = tapInteraction,
+                            indication = null,
+                            onClickLabel = "听兔兔打招呼"
+                        ) {
+                            val now = android.os.SystemClock.elapsedRealtime()
+                            if (now - lastTap[0] >= 1000L) {
+                                lastTap[0] = now
+                                viewModel.playGreeting()
+                                tapScope.launch {
+                                    tapScale.animateTo(0.96f, tween(100))
+                                    tapScale.animateTo(1f, tween(180))
+                                }
+                            }
+                        }
                 )
                 Spacer(modifier = Modifier.height(AppSpacing.md))
                 Text(

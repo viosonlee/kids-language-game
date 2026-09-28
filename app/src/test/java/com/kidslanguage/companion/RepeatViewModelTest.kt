@@ -61,7 +61,7 @@ class RepeatViewModelTest {
         override fun release() = stop()
     }
 
-    private fun scenario(block: suspend TestScope.(RepeatViewModel, Recorder, Player) -> Unit) = runTest {
+    private fun scenario(autoNext: Boolean = true, block: suspend TestScope.(RepeatViewModel, Recorder, Player) -> Unit) = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
         val recorder = Recorder()
         val player = Player()
@@ -73,7 +73,9 @@ class RepeatViewModelTest {
             )
             override suspend fun getItemById(id: String): PracticeItem? = null
         }
-        val vm = RepeatViewModel(content, player, recorder, ChildSpeechEvaluationService(), SettingsRepository(Store()))
+        val settings = SettingsRepository(Store())
+        settings.setAutoNext(autoNext)
+        val vm = RepeatViewModel(content, player, recorder, ChildSpeechEvaluationService(), settings)
         try {
             vm.loadSession(LanguageCode.EN_US, null)
             runCurrent()
@@ -168,5 +170,55 @@ class RepeatViewModelTest {
         advanceUntilIdle()
         assertNotNull(vm.uiState.value.recordingError)
         assertFalse(vm.uiState.value.isRecording)
+    }
+
+    @Test fun manualNextWaitsForUserAndCannotSkipDuringPraise() = scenario(autoNext = false) { vm, recorder, _ ->
+        vm.toggleRecording()
+        runCurrent()
+        recorder.callbacks.last()(RecognitionResult("hello"))
+        vm.nextItem()
+        assertEquals(0, vm.uiState.value.currentIndex)
+        advanceUntilIdle()
+        vm.dismissFeedback()
+        assertTrue(vm.uiState.value.showFeedbackOverlay)
+        assertFalse(vm.uiState.value.feedbackPlaying)
+        assertEquals(0, vm.uiState.value.currentIndex)
+        vm.nextItem()
+        advanceUntilIdle()
+        assertEquals(1, vm.uiState.value.currentIndex)
+    }
+
+    @Test fun resumeKeepsPositionAndRetryAttempts() = scenario { vm, recorder, _ ->
+        vm.toggleRecording()
+        runCurrent()
+        recorder.callbacks.last()(RecognitionResult("hello"))
+        advanceUntilIdle()
+        vm.toggleRecording()
+        runCurrent()
+        recorder.callbacks.last()(RecognitionResult("unrelated"))
+        advanceUntilIdle()
+        vm.stopSession()
+        vm.loadSession(LanguageCode.EN_US, null)
+        advanceUntilIdle()
+        assertEquals(1, vm.uiState.value.currentIndex)
+        assertEquals(1, vm.uiState.value.attemptCount)
+        assertEquals(SessionStepState.ReadyToSpeak, vm.uiState.value.sessionState)
+    }
+
+    @Test fun completionIsConsumedOnceAndReplayStartsFresh() = scenario { vm, recorder, _ ->
+        for (answer in listOf("hello", "goodbye")) {
+            vm.toggleRecording()
+            runCurrent()
+            recorder.callbacks.last()(RecognitionResult(answer))
+            advanceUntilIdle()
+        }
+        assertTrue(vm.consumeSessionCompletion())
+        assertFalse(vm.consumeSessionCompletion())
+        vm.stopSession()
+        vm.loadSession(LanguageCode.EN_US, null)
+        advanceUntilIdle()
+        assertEquals(0, vm.uiState.value.currentIndex)
+        assertEquals(0, vm.uiState.value.attemptCount)
+        assertFalse(vm.uiState.value.isSessionComplete)
     }
 }

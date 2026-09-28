@@ -42,7 +42,8 @@ data class ChooseUiState(
     val attemptCount: Int = 0,
     val showAnswerHint: Boolean = false,
     val feedbackPlaying: Boolean = false,
-    val autoNext: Boolean = true
+    val autoNext: Boolean = true,
+    val contentError: String? = null
 ) {
     val currentItem: PracticeItem?
         get() = items.getOrNull(currentIndex)
@@ -68,7 +69,7 @@ class ChooseViewModel(
         sessionActive = true
         val key = language to categoryId
         if (sessionKey == key && _uiState.value.items.isNotEmpty() &&
-            !_uiState.value.isSessionComplete) {
+            _uiState.value.sessionState != SessionStepState.Completed) {
             if (_uiState.value.isAnswerCorrect == true) {
                 if (_uiState.value.autoNext) nextQuestion()
             } else playPrompt()
@@ -86,8 +87,8 @@ class ChooseViewModel(
                 currentIndex = 0,
                 showText = settings.showText,
                 autoNext = settings.autoNext,
-                isSessionComplete = sessionItems.isEmpty(),
-                sessionState = SessionStepState.PromptPlaying,
+                contentError = if (sessionItems.isEmpty()) "这个场景还没有可练习的内容，请返回选择其他场景。" else null,
+                sessionState = if (sessionItems.isEmpty()) SessionStepState.Completed else SessionStepState.PromptPlaying,
                 mascotState = MascotState.Listen
             )
             setupCurrentQuestion()
@@ -226,6 +227,12 @@ class ChooseViewModel(
     override fun onCleared() {
         super.onCleared()
         stopSession()
+    }
+
+    fun consumeSessionCompletion(): Boolean {
+        if (!_uiState.value.isSessionComplete) return false
+        _uiState.value = _uiState.value.copy(isSessionComplete = false)
+        return true
     }
 
     fun stopSession() {

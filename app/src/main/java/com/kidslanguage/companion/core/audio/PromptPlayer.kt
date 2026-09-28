@@ -31,21 +31,15 @@ interface PromptPlayer {
     fun release()
 }
 
-/**
- * AndroidPromptPlayer with transient audio focus management.
- * During prompt playback (TTS or cartoon audio), it automatically requests
- * transient audio focus with ducking so children hear words clearly without background interruption.
- */
+/** Each playback owns its completion and releases resources on completion or cancellation. */
 class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
-
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as? AudioManager
+    private val mainHandler = android.os.Handler(android.os.Looper.getMainLooper())
+    private val gate = PlaybackGate()
+    private val ttsReady = CompletableDeferred<Boolean>()
     private var focusRequest: AudioFocusRequest? = null
-
-    private var tts: TextToSpeech? = null
-    private var isTtsInitialized = false
     private var mediaPlayer: MediaPlayer? = null
-    private var activeCompletion: CompletableDeferred<Unit>? = null
-
+    private var tts: TextToSpeech? = null
     private val audioAttributes = AudioAttributes.Builder()
         .setUsage(AudioAttributes.USAGE_ASSISTANCE_ACCESSIBILITY)
         .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
@@ -53,146 +47,124 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
 
     init {
         tts = TextToSpeech(context) { status ->
-            if (status == TextToSpeech.SUCCESS) {
-                isTtsInitialized = true
-                tts?.setSpeechRate(0.85f) // slightly slower for young kids
+            mainHandler.post {
+                if (status == TextToSpeech.SUCCESS) tts?.setSpeechRate(0.85f)
+                ttsReady.complete(status == TextToSpeech.SUCCESS)
             }
         }
-
         tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) {}
             override fun onDone(utteranceId: String?) {
-                releaseAudioFocus()
-                activeCompletion?.complete(Unit)
+                mainHandler.post { gate.complete(utteranceId) }
             }
             @Deprecated("Deprecated in Java")
             override fun onError(utteranceId: String?) {
-                releaseAudioFocus()
-                activeCompletion?.complete(Unit)
+                mainHandler.post { gate.complete(utteranceId) }
             }
         })
     }
 
-    private fun requestAudioFocus() {
-        try {
-            val req = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
-                .setAudioAttributes(audioAttributes)
-                .build()
-            focusRequest = req
-            audioManager?.requestAudioFocus(req)
-        } catch (_: Exception) {}
+    private fun requestAudioFocus(ticket: PlaybackGate.Ticket) {
+        val request = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+            .setAudioAttributes(audioAttributes)
+            .setOnAudioFocusChangeListener({ change ->
+                if (change < 0) gate.complete(ticket.id)
+            }, mainHandler)
+            .build()
+        focusRequest = request
+        audioManager?.requestAudioFocus(request)
     }
 
-    private fun releaseAudioFocus() {
-        try {
-            focusRequest?.let { audioManager?.abandonAudioFocusRequest(it) }
-            focusRequest = null
-        } catch (_: Exception) {}
+    private fun releaseResources() {
+        val player = mediaPlayer
+        mediaPlayer = null
+        // release() is valid even when prepare()/start() failed.
+        runCatching { player?.release() }
+        runCatching { tts?.stop() }
+        focusRequest?.let { request -> runCatching { audioManager?.abandonAudioFocusRequest(request) } }
+        focusRequest = null
     }
 
-    override suspend fun playVoiceAsset(audioAssetPath: String): Unit = withContext(Dispatchers.Main) {
+    private suspend fun play(block: suspend (PlaybackGate.Ticket) -> Unit) = withContext(Dispatchers.Main) {
         stop()
-        requestAudioFocus()
-
+        val ticket = gate.begin()
         try {
-            val deferred = CompletableDeferred<Unit>()
-            context.assets.openFd(audioAssetPath).use { afd ->
-                val player = MediaPlayer()
-                player.setAudioAttributes(audioAttributes)
-                player.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
-                player.prepare()
-                player.setOnCompletionListener {
-                    releaseAudioFocus()
-                    deferred.complete(Unit)
-                }
-                player.setOnErrorListener { _, _, _ ->
-                    releaseAudioFocus()
-                    deferred.complete(Unit)
-                    true
-                }
-                player.start()
-                mediaPlayer = player
-                activeCompletion = deferred
-            }
-            activeCompletion?.await()
-        } catch (e: CancellationException) {
-            throw e
-        } catch (_: Exception) {
-            releaseAudioFocus()
+            requestAudioFocus(ticket)
+            kotlinx.coroutines.withTimeoutOrNull(30_000) { block(ticket) }
+            Unit
+        } finally {
+            // A cancelled older coroutine must never stop its replacement.
+            if (gate.finish(ticket)) releaseResources()
         }
-        Unit
     }
 
-    override suspend fun playPrompt(text: String, language: LanguageCode, audioAssetPath: String?) = withContext(Dispatchers.Main) {
-        stop()
-        requestAudioFocus()
+    private suspend fun playAsset(path: String, ticket: PlaybackGate.Ticket) {
+        context.assets.openFd(path).use { descriptor ->
+            val player = MediaPlayer()
+            mediaPlayer = player
+            player.setAudioAttributes(audioAttributes)
+            player.setDataSource(descriptor.fileDescriptor, descriptor.startOffset, descriptor.length)
+            player.setOnCompletionListener { gate.complete(ticket.id) }
+            player.setOnErrorListener { _, _, _ ->
+                gate.complete(ticket.id)
+                true
+            }
+            player.prepare()
+            player.start()
+        }
+        ticket.completion.await()
+    }
 
-        // 1. If audio file exists in assets, play with MediaPlayer
-        if (!audioAssetPath.isNullOrBlank()) {
+    override suspend fun playVoiceAsset(audioAssetPath: String) {
+        play { ticket ->
             try {
-                val deferred = CompletableDeferred<Unit>()
-                context.assets.openFd(audioAssetPath).use { afd ->
-                    val player = MediaPlayer()
-                    player.setAudioAttributes(audioAttributes)
-                    player.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
-                    player.prepare()
-                    player.setOnCompletionListener {
-                        releaseAudioFocus()
-                        deferred.complete(Unit)
-                    }
-                    player.setOnErrorListener { _, _, _ ->
-                        releaseAudioFocus()
-                        deferred.complete(Unit)
-                        true
-                    }
-                    player.start()
-                    mediaPlayer = player
-                    activeCompletion = deferred
-                }
-                activeCompletion?.await()
-                return@withContext
+                playAsset(audioAssetPath, ticket)
             } catch (e: CancellationException) {
                 throw e
             } catch (_: Exception) {
-                // Asset not present or playback error, fallback to TTS
+                // Optional encouragement clips must not break the practice session.
             }
         }
+    }
 
-        // 2. Fallback to Android TTS
-        if (isTtsInitialized && tts != null) {
-            val locale = when (language) {
-                LanguageCode.JA_JP -> Locale.JAPANESE
-                LanguageCode.ZH_CN -> Locale.CHINESE
-                LanguageCode.EN_US -> Locale.ENGLISH
+    override suspend fun playPrompt(text: String, language: LanguageCode, audioAssetPath: String?) {
+        play { ticket ->
+            if (!audioAssetPath.isNullOrBlank()) {
+                try {
+                    playAsset(audioAssetPath, ticket)
+                    return@play
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (_: Exception) {
+                    runCatching { mediaPlayer?.release() }
+                    mediaPlayer = null
+                }
             }
-            tts?.language = locale
-            val deferred = CompletableDeferred<Unit>()
-            activeCompletion = deferred
-            val utteranceId = "prompt_${System.currentTimeMillis()}"
-            tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
-            deferred.await()
-        } else {
-            releaseAudioFocus()
+            val ready = kotlinx.coroutines.withTimeoutOrNull(5_000) { ttsReady.await() } == true
+            val engine = tts
+            if (ready && engine != null) {
+                val locale = when (language) {
+                    LanguageCode.JA_JP -> Locale.JAPANESE
+                    LanguageCode.ZH_CN -> Locale.CHINESE
+                    LanguageCode.EN_US -> Locale.ENGLISH
+                }
+                if (engine.setLanguage(locale) < 0) return@play
+                if (engine.speak(text, TextToSpeech.QUEUE_FLUSH, null, ticket.id) == TextToSpeech.SUCCESS) {
+                    ticket.completion.await()
+                }
+            }
         }
     }
 
     override fun stop() {
-        releaseAudioFocus()
-        activeCompletion?.complete(Unit)
-        activeCompletion = null
-        try {
-            mediaPlayer?.stop()
-            mediaPlayer?.release()
-            mediaPlayer = null
-        } catch (_: Exception) {}
-        try {
-            tts?.stop()
-        } catch (_: Exception) {}
+        gate.cancel()
+        releaseResources()
     }
 
     override fun release() {
         stop()
         tts?.shutdown()
         tts = null
+        ttsReady.complete(false)
     }
 }
