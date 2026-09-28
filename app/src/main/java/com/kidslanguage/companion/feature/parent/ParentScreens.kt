@@ -221,6 +221,8 @@ fun ParentSettingsScreen(
                     Text("音效音量：${(settings.soundVolume * 100).toInt()}%", color = Neutral700)
                     Slider(value = settings.soundVolume, onValueChange = viewModel::setSoundVolume)
                     Text("控制提示和庆祝音效；示范发音仍由设备媒体音量控制。", color = Neutral700)
+                    ParentToggle("首页背景音乐", "只在首页播放，兔子说话、进入练习或切到后台时停止。",
+                        settings.musicEnabled, viewModel::setMusicEnabled)
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
 
                     // Text display toggle

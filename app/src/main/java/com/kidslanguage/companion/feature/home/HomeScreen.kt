@@ -64,7 +64,8 @@ fun HomeScreen(
     val tapInteraction = remember { MutableInteractionSource() }
     val lastTap = remember { longArrayOf(-1000L) }
     LifecycleResumeEffect(viewModel) {
-        onPauseOrDispose { viewModel.stopGreeting() }
+        viewModel.resumeHome()
+        onPauseOrDispose { viewModel.pauseHome() }
     }
 
     Box(

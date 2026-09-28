@@ -11,12 +11,41 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Job
+import com.kidslanguage.companion.core.audio.BackgroundMusicPlayer
 
 class HomeViewModel(
     private val settingsRepository: SettingsRepository,
-    private val promptPlayer: PromptPlayer? = null
+    private val promptPlayer: PromptPlayer? = null,
+    private val music: BackgroundMusicPlayer? = null
 ) : ViewModel() {
     private var greetingJob: Job? = null
+    private var musicJob: Job? = null
+    private var active = false
+    private var musicEnabled = false
+    private var greeting = false
+    private var greetingGeneration = 0
+
+    fun resumeHome() {
+        if (active) return
+        active = true
+        musicJob = viewModelScope.launch {
+            settingsRepository.settingsFlow.collect {
+                musicEnabled = it.musicEnabled
+                updateMusic()
+            }
+        }
+    }
+
+    private fun updateMusic() {
+        if (active && musicEnabled && !greeting) music?.play() else music?.stop()
+    }
+
+    fun pauseHome() {
+        active = false
+        musicJob?.cancel()
+        stopGreeting()
+        updateMusic()
+    }
 
     val settings = settingsRepository.settingsFlow.stateIn(
         scope = viewModelScope,
@@ -31,13 +60,26 @@ class HomeViewModel(
     }
 
     fun playGreeting() {
+        if (!active) return
+        val request = ++greetingGeneration
         greetingJob?.cancel()
+        greeting = true
+        updateMusic()
         greetingJob = viewModelScope.launch {
-            promptPlayer?.playVoiceAsset(PaoPaoVoices.GREETING)
+            try {
+                promptPlayer?.playVoiceAsset(PaoPaoVoices.GREETING)
+            } finally {
+                if (request == greetingGeneration) {
+                    greeting = false
+                    updateMusic()
+                }
+            }
         }
     }
 
     fun stopGreeting() {
+        greetingGeneration++
+        greeting = false
         if (greetingJob?.isActive == true) {
             greetingJob?.cancel()
         }
@@ -45,7 +87,7 @@ class HomeViewModel(
     }
 
     override fun onCleared() {
-        stopGreeting()
+        pauseHome()
         super.onCleared()
     }
 }

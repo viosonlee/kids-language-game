@@ -56,7 +56,7 @@ fun AppNavigation(container: AppContainer) {
     val navController = rememberNavController()
     var showParentGate by remember { mutableStateOf(false) }
 
-    val homeViewModel: HomeViewModel = viewModel { HomeViewModel(container.settingsRepository, container.promptPlayer) }
+    val homeViewModel: HomeViewModel = viewModel { HomeViewModel(container.settingsRepository, container.promptPlayer, container.backgroundMusic) }
     val parentViewModel: ParentViewModel = viewModel { ParentViewModel(container.settingsRepository, container.progressRepository) }
 
     if (showParentGate) {

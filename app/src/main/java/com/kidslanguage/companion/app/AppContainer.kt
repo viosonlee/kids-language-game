@@ -20,6 +20,7 @@ import com.kidslanguage.companion.core.scoring.ChildSpeechEvaluationService
 import com.kidslanguage.companion.core.scoring.SpeechEvaluationService
 
 class AppContainer(private val context: Context) {
+    val backgroundMusic by lazy { com.kidslanguage.companion.core.audio.AndroidBackgroundMusicPlayer(context) }
     private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     val progressRepository by lazy {
         RoomProgressRepository(

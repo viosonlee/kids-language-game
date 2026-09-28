@@ -23,6 +23,7 @@ data class UserSettings(
     val autoStartRecording: Boolean = false,
     val sessionLength: Int = 10,
     val soundVolume: Float = 1.0f,
+    val musicEnabled: Boolean = false,
     val animationEnabled: Boolean = true,
     val completedCount: Int = 0
 )
@@ -37,6 +38,7 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
     private val KEY_AUTO_RECORD = booleanPreferencesKey("auto_start_recording")
     private val KEY_SESSION_LENGTH = intPreferencesKey("session_length")
     private val KEY_SOUND_VOLUME = floatPreferencesKey("sound_volume")
+    private val KEY_MUSIC_ENABLED = booleanPreferencesKey("music_enabled")
     private val KEY_ANIMATION_ENABLED = booleanPreferencesKey("animation_enabled")
     private val KEY_COMPLETED_COUNT = intPreferencesKey("completed_count")
 
@@ -51,6 +53,7 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
             sessionLength = (preferences[KEY_SESSION_LENGTH] ?: 10).coerceIn(1, 30),
             soundVolume = (preferences[KEY_SOUND_VOLUME] ?: 1.0f).let { if (it.isFinite()) it.coerceIn(0f, 1f) else 1f },
             animationEnabled = preferences[KEY_ANIMATION_ENABLED] ?: true,
+            musicEnabled = preferences[KEY_MUSIC_ENABLED] ?: false,
             completedCount = preferences[KEY_COMPLETED_COUNT] ?: 0
         )
     }
@@ -96,6 +99,10 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
     suspend fun setSoundVolume(volume: Float) {
         require(volume.isFinite())
         store.edit { it[KEY_SOUND_VOLUME] = volume.coerceIn(0f, 1f) }
+    }
+
+    suspend fun setMusicEnabled(enabled: Boolean) {
+        store.edit { it[KEY_MUSIC_ENABLED] = enabled }
     }
 
     suspend fun incrementCompletedCount() {
