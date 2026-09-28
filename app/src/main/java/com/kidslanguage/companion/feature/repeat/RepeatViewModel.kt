@@ -16,6 +16,8 @@ import com.kidslanguage.companion.core.model.SessionStepState
 import com.kidslanguage.companion.core.persistence.SettingsRepository
 import com.kidslanguage.companion.core.scoring.SpeechEvaluationService
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,7 +37,8 @@ data class RepeatUiState(
     val showFeedbackOverlay: Boolean = false,
     val isRecording: Boolean = false,
     val showText: Boolean = true,
-    val isSessionComplete: Boolean = false
+    val isSessionComplete: Boolean = false,
+    val recordingError: String? = null
 ) {
     val currentItem: PracticeItem?
         get() = items.getOrNull(currentIndex)
@@ -54,8 +57,13 @@ class RepeatViewModel(
     val uiState: StateFlow<RepeatUiState> = _uiState.asStateFlow()
 
     private var autoAdvanceJob: Job? = null
+    private var promptJob: Job? = null
+    private var recordingGeneration = 0
+    private var sessionActive = false
 
     fun loadSession(language: LanguageCode, categoryId: String?) {
+        stopSession()
+        sessionActive = true
         viewModelScope.launch {
             val settings = settingsRepository.settingsFlow.first()
             val allItems = contentRepository.getItems(language, categoryId)
@@ -75,9 +83,19 @@ class RepeatViewModel(
     }
 
     fun playCurrentPrompt() {
+        if (!sessionActive || _uiState.value.isSessionComplete ||
+            _uiState.value.sessionState == SessionStepState.Loading ||
+            _uiState.value.sessionState == SessionStepState.Passed) return
         val item = _uiState.value.currentItem ?: return
-        viewModelScope.launch {
+        recordingGeneration++
+        speechRecognizer.cancelListening()
+        autoAdvanceJob?.cancel()
+        promptJob?.cancel()
+        promptPlayer.stop()
+        promptJob = viewModelScope.launch {
             _uiState.value = _uiState.value.copy(
+                isRecording = false,
+                recordingError = null,
                 sessionState = SessionStepState.PromptPlaying,
                 mascotState = MascotState.Listen,
                 showFeedbackOverlay = false
@@ -103,31 +121,62 @@ class RepeatViewModel(
     }
 
     private fun startRecording() {
+        if (!sessionActive || _uiState.value.sessionState !in listOf(
+                SessionStepState.ReadyToSpeak, SessionStepState.Retry)) return
         val item = _uiState.value.currentItem ?: return
         val language = LanguageCode.fromCode(item.language)
+        autoAdvanceJob?.cancel()
+        promptJob?.cancel()
+        promptPlayer.stop()
+        val request = ++recordingGeneration
 
         _uiState.value = _uiState.value.copy(
             isRecording = true,
+            recordingError = null,
+            showFeedbackOverlay = false,
             sessionState = SessionStepState.Recording,
             mascotState = MascotState.Speak
         )
 
         viewModelScope.launch {
-            speechRecognizer.startListening(language) { result ->
-                processRecognitionResult(result)
+            try {
+                speechRecognizer.startListening(language) { result ->
+                    if (request == recordingGeneration) processRecognitionResult(result)
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                if (request == recordingGeneration) {
+                    processRecognitionResult(RecognitionResult("", isSuccess = false, error = e.message))
+                }
             }
         }
     }
 
     private fun stopRecording() {
-        speechRecognizer.stopListening()
         _uiState.value = _uiState.value.copy(
             isRecording = false,
             sessionState = SessionStepState.Evaluating
         )
+        speechRecognizer.stopListening()
     }
 
-    fun processRecognitionResult(result: RecognitionResult) {
+    private fun processRecognitionResult(result: RecognitionResult) {
+        if (!sessionActive || _uiState.value.sessionState !in listOf(
+                SessionStepState.Recording, SessionStepState.Evaluating)) return
+        recordingGeneration++
+        speechRecognizer.cancelListening()
+        if (!result.isSuccess || result.text.isBlank()) {
+            _uiState.value = _uiState.value.copy(
+                isRecording = false,
+                sessionState = SessionStepState.ReadyToSpeak,
+                mascotState = MascotState.Speak,
+                showFeedbackOverlay = false,
+                recordingError = if (result.isSuccess) "没有听到声音，请再试一次。"
+                    else "录音或语音识别暂时不可用，请检查麦克风权限和语音服务，或先玩选图模式。"
+            )
+            return
+        }
         val item = _uiState.value.currentItem ?: return
         val currentAttempts = _uiState.value.attemptCount + 1
 
@@ -151,7 +200,8 @@ class RepeatViewModel(
 
         if (isPassed) {
             soundEffectManager?.playSuccess()
-            viewModelScope.launch {
+            autoAdvanceJob?.cancel()
+            autoAdvanceJob = viewModelScope.launch {
                 settingsRepository.incrementCompletedCount()
                 delay(300)
                 if (eval.status == EvaluationStatus.SoftPass && currentAttempts >= 3) {
@@ -160,15 +210,13 @@ class RepeatViewModel(
                     val voice = if (Random.nextBoolean()) PaoPaoVoices.PRAISE_1 else PaoPaoVoices.PRAISE_2
                     promptPlayer.playVoiceAsset(voice)
                 }
-            }
-            autoAdvanceJob?.cancel()
-            autoAdvanceJob = viewModelScope.launch {
-                delay(2200)
+                delay(500)
                 nextItem()
             }
         } else {
             soundEffectManager?.playRetry()
-            viewModelScope.launch {
+            autoAdvanceJob?.cancel()
+            autoAdvanceJob = viewModelScope.launch {
                 delay(300)
                 promptPlayer.playVoiceAsset(PaoPaoVoices.TRY_AGAIN)
             }
@@ -176,7 +224,10 @@ class RepeatViewModel(
     }
 
     fun nextItem() {
+        if (!sessionActive || _uiState.value.isSessionComplete) return
         autoAdvanceJob?.cancel()
+        recordingGeneration++
+        speechRecognizer.cancelListening()
         val nextIndex = _uiState.value.currentIndex + 1
         if (nextIndex < _uiState.value.items.size) {
             _uiState.value = _uiState.value.copy(
@@ -202,10 +253,32 @@ class RepeatViewModel(
         _uiState.value = _uiState.value.copy(showFeedbackOverlay = false)
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    fun demonstrateAnswer() {
+        if (!sessionActive || _uiState.value.sessionState !in listOf(
+                SessionStepState.ReadyToSpeak, SessionStepState.Retry)) return
+        val item = _uiState.value.currentItem ?: return
         autoAdvanceJob?.cancel()
         promptPlayer.stop()
-        speechRecognizer.stopListening()
+        _uiState.value = _uiState.value.copy(sessionState = SessionStepState.Evaluating)
+        processRecognitionResult(RecognitionResult(item.text))
+    }
+
+    fun dismissRecordingError() {
+        _uiState.value = _uiState.value.copy(recordingError = null)
+    }
+
+    fun stopSession() {
+        if (!sessionActive) return
+        sessionActive = false
+        recordingGeneration++
+        viewModelScope.coroutineContext.cancelChildren()
+        speechRecognizer.cancelListening()
+        promptPlayer.stop()
+        _uiState.value = _uiState.value.copy(isRecording = false)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        stopSession()
     }
 }

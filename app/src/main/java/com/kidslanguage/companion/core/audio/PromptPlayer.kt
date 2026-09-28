@@ -9,6 +9,7 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import com.kidslanguage.companion.core.model.LanguageCode
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Locale
@@ -114,6 +115,8 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
                 activeCompletion = deferred
             }
             activeCompletion?.await()
+        } catch (e: CancellationException) {
+            throw e
         } catch (_: Exception) {
             releaseAudioFocus()
         }
@@ -148,6 +151,8 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
                 }
                 activeCompletion?.await()
                 return@withContext
+            } catch (e: CancellationException) {
+                throw e
             } catch (_: Exception) {
                 // Asset not present or playback error, fallback to TTS
             }

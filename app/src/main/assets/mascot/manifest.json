@@ -1,66 +1,71 @@
 {
-  "character": "momo_bunny",
-  "version": "1.0",
+  "version": "1.1",
   "source_sheet": "bunny_mascot_expression_sheet.png",
-  "poses": [
+  "mascots": [
     {
-      "state": "idle",
+      "name": "bunny_idle",
+      "state": "Idle",
       "png": "assets/mascot/png/bunny_idle.png",
       "webp": "assets/mascot/webp/bunny_idle.webp",
       "preview": "assets/mascot/preview/bunny_idle.png",
       "size": {
-        "width": 451,
-        "height": 543
+        "width": 394,
+        "height": 562
       }
     },
     {
-      "state": "listen",
+      "name": "bunny_listen",
+      "state": "Listen",
       "png": "assets/mascot/png/bunny_listen.png",
       "webp": "assets/mascot/webp/bunny_listen.webp",
       "preview": "assets/mascot/preview/bunny_listen.png",
       "size": {
-        "width": 465,
-        "height": 543
+        "width": 379,
+        "height": 562
       }
     },
     {
-      "state": "speak",
+      "name": "bunny_speak",
+      "state": "Speak",
       "png": "assets/mascot/png/bunny_speak.png",
       "webp": "assets/mascot/webp/bunny_speak.webp",
       "preview": "assets/mascot/preview/bunny_speak.png",
       "size": {
-        "width": 467,
-        "height": 543
+        "width": 410,
+        "height": 565
       }
     },
     {
-      "state": "great",
+      "name": "bunny_great",
+      "state": "Great",
       "png": "assets/mascot/png/bunny_great.png",
       "webp": "assets/mascot/webp/bunny_great.webp",
       "preview": "assets/mascot/preview/bunny_great.png",
       "size": {
-        "width": 443,
-        "height": 543
+        "width": 438,
+        "height": 523
       }
     },
     {
-      "state": "try_again",
+      "name": "bunny_try_again",
+      "state": "TryAgain",
       "png": "assets/mascot/png/bunny_try_again.png",
       "webp": "assets/mascot/webp/bunny_try_again.webp",
       "preview": "assets/mascot/preview/bunny_try_again.png",
       "size": {
-        "width": 479,
-        "height": 543
+        "width": 362,
+        "height": 423
       }
     },
     {
-      "state": "praise",
+      "name": "bunny_praise",
+      "state": "Praise",
       "png": "assets/mascot/png/bunny_praise.png",
       "webp": "assets/mascot/webp/bunny_praise.webp",
       "preview": "assets/mascot/preview/bunny_praise.png",
       "size": {
-        "width": 449,
-        "height": 543
+        "width": 421,
+        "height": 512
       }
     }
   ]

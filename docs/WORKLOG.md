@@ -359,3 +359,44 @@
 3. **构建与真机部署**：
    - 本地构建 ./gradlew.bat assembleDebug 一次性构建成功，产出 pp-debug.apk（约 147 MB）；
    - 通过 ADB 将安装包成功推送到 OPPO Find X6 Pro 手机，授予麦克风权限并拉起前台 MainActivity 运行。
+
+---
+
+---
+
+## 2026-09-28 | V1.7 吉祥物切图重构、麦克风权限与后台死循环修复及平板部署 | By: Antigravity Agent
+
+### 1. 任务背景与问题排查
+用户在华为 MatePad Pro 真实平板上运行体验后反馈了多项关键问题：
+1. **自动通过与无限后台循环语音**：跟读界面进入后会自发“自动通过”，并在退出界面后后台依然持续进行语音识别，且疯狂播报“泡泡努力开口练习”、“太棒了”；
+2. **麦克风无法录音与即时报错**：点击录音按钮没有弹出 Android 系统级麦克风授权窗口，而是直接弹出“错误/未授权”弹窗，导致状态错乱；
+3. **吉祥物图片切图被截断**：吉祥物底部状态文字药丸徽章（如 `Idle`、`Speak`、`Listen`、`Great!` 等）在原 543px 粗糙对半切片方案下被横向腰斩，文字下半部分缺失且存在相邻子图的杂质像素；
+4. **UI 层级重叠**：反馈弹层与提示被 6dp 阴影主卡片遮挡，显示混乱。
+
+### 2. 核心实施与修复方案
+
+#### 2.1 吉祥物子图精确边界重切与去杂 (`manifest.json` & 切图脚本)
+- 对原始 1448x1086 表情图集 (`bunny_mascot_expression_sheet.png`) 进行了逐像素通道深度分析：
+  - 第一行药丸徽章（Idle/Listen/Speak）底部实际延伸至 `y=563`；
+  - 第二行（Great!/Try Again/Praise）顶部与第一行存在 Y 轴交叉，但 X 轴空间互斥（例如 Great! 的兔耳在 `x=120..195, y=559..564`，而 Idle 药丸徽章在 `x=195..375, y=540..563`）；
+  - 编写基于 Pygame 的高精度像素掩码与包围盒切割算法：
+    - `bunny_idle`：保留 `y=0..563`，对 `y>=555, x<195` 区域进行透明通道遮罩，剔除第二行兔耳残影；
+    - `bunny_great`：保留完整的右上角大星星（延伸至 `x=499`）与左上兔耳，对 `y<=564, x>=195` 进行透明遮罩，剔除第一行药丸徽章残影；
+    - `bunny_speak` / `bunny_listen` / `bunny_try_again` / `bunny_praise`：精准按有效像素边缘包围盒截取并增加 8px 缓冲透明边距；
+  - 重新导出完整清晰无裁切的 PNG、WebP 及预览图，并更新 `manifest.json` 真实宽高尺寸。
+
+#### 2.2 麦克风动态权限与设置跳转 (`RepeatScreen.kt`)
+- 废弃原先直接判断 `checkSelfPermission` 失败即硬报错并弹窗劝退的旧逻辑；
+- 引入 Compose 标准 `rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission())`，点击大麦克风时优先唤起系统原生麦克风权限请求对话框；
+- 用户授权后立即开始录音；若用户拒绝则弹出温和提示弹窗，并提供一键跳转系统应用权限详情页 (`ACTION_APPLICATION_DETAILS_SETTINGS`) 的入口。
+
+#### 2.3 彻底杜绝回声自触发、后台死循环与音画同步加固 (`RepeatViewModel.kt` & `VoskSpeechRecognizerEngine.kt`)
+- **回声自触发消除**：当设备自身扬声器播放提示音或卡通配音时，麦克风如未及时关闭会录入自身声音并被判定为“发音正确”，触发 2.2 秒后自动跳题和无限自循环；
+- **状态世代计数与任务熔断 (`recordingGeneration`)**：在切换题目、播放 Prompt、放弃会话或进入新步骤时自增计数器并强制取消过期的协程与识别监听器；
+- **生命周期感知 (`LifecycleResumeEffect`)**：在 `RepeatScreen` 中接入 Compose 声明式生命周期观察，在界面离开 (`onPauseOrDispose`) 时强制调用 `stopSession()`，立即 `cancelListening()` 并停止全部音频播放，彻底消除退出界面后后台疯狂播报的问题；
+- **UI 渲染层级加固**：为 `FeedbackOverlay` 注入 `Modifier.zIndex(100f)`，确保答题反馈始终浮动于场景主卡片之上。
+
+### 3. 验证与交付
+1. **自动化测试**：执行 `./gradlew.bat testDebugUnitTest`，全部单元测试用例 100% 绿灯（`BUILD SUCCESSFUL in 1m 5s`）；
+2. **完整打包**：执行 `./gradlew.bat assembleDebug`，成功生成包含全新高清切图与修复逻辑的 APK 制品（约 147MB）；
+3. **平板推送准备**：已通过 ADB 将 APK 制品推送到平板临时目录 `/data/local/tmp/app-debug.apk`。由于华为 HarmonyOS / EMUI 系统的安全保护机制，通过 USB 安装需要在平板亮屏并解锁状态下由用户在屏幕弹窗中点击“允许/继续安装”。

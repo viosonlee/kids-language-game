@@ -1,7 +1,12 @@
 package com.kidslanguage.companion.feature.repeat
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.Settings
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -28,6 +33,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -41,6 +47,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.core.content.ContextCompat
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kidslanguage.companion.core.asr.RecognitionResult
@@ -74,8 +81,9 @@ fun RepeatScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(language, categoryId) {
+    LifecycleResumeEffect(viewModel, language, categoryId) {
         viewModel.loadSession(language, categoryId)
+        onPauseOrDispose { viewModel.stopSession() }
     }
 
     LaunchedEffect(state.isSessionComplete) {
@@ -87,6 +95,16 @@ fun RepeatScreen(
     val currentItem = state.currentItem
     var showPermissionHint by remember { mutableStateOf(false) }
     val context = LocalContext.current
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            viewModel.toggleRecording()
+        } else {
+            showPermissionHint = true
+        }
+    }
 
     Box(
         modifier = modifier
@@ -213,7 +231,7 @@ fun RepeatScreen(
                         ) == PackageManager.PERMISSION_GRANTED
 
                         if (!hasPermission) {
-                            showPermissionHint = true
+                            permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
                         } else {
                             viewModel.toggleRecording()
                         }
@@ -229,9 +247,7 @@ fun RepeatScreen(
                             .clip(CircleShape)
                             .background(Primary100)
                             .clickable {
-                                viewModel.processRecognitionResult(
-                                    RecognitionResult(text = currentItem.text, isSuccess = true)
-                                )
+                                viewModel.demonstrateAnswer()
                             }
                             .padding(horizontal = AppSpacing.normal, vertical = AppSpacing.sm)
                     ) {
@@ -249,8 +265,20 @@ fun RepeatScreen(
         FeedbackOverlay(
             status = state.evaluationResult?.status ?: EvaluationStatus.Retry,
             visible = state.showFeedbackOverlay,
-            onDismiss = { viewModel.dismissFeedback() }
+            onDismiss = { viewModel.dismissFeedback() },
+            modifier = Modifier.zIndex(100f)
         )
+
+        if (state.recordingError != null) {
+            AlertDialog(
+                onDismissRequest = viewModel::dismissRecordingError,
+                title = { Text("再试一次吧") },
+                text = { Text(state.recordingError.orEmpty()) },
+                confirmButton = {
+                    TextButton(onClick = viewModel::dismissRecordingError) { Text("知道了") }
+                }
+            )
+        }
 
         if (showPermissionHint) {
             AlertDialog(
@@ -259,16 +287,23 @@ fun RepeatScreen(
                     Text("🐰 兔兔需要麦克风权限哦", fontWeight = FontWeight.Bold)
                 },
                 text = {
-                    Text("Momo Bunny 需要听到泡泡的声音才能判断发音呢！请在平板【系统设置 - 应用权限】中允许麦克风权限，或者先去玩有趣的【选图模式】吧！")
+                    Text("Momo Bunny 需要听到泡泡的声音才能判断发音呢！请允许麦克风权限，或者先去玩有趣的【选图模式】吧！")
                 },
                 confirmButton = {
                     Button(
                         onClick = {
                             showPermissionHint = false
-                            onBack()
+                            try {
+                                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                                    data = Uri.fromParts("package", context.packageName, null)
+                                }
+                                context.startActivity(intent)
+                            } catch (_: Exception) {
+                                onBack()
+                            }
                         }
                     ) {
-                        Text("去玩选图模式")
+                        Text("去系统设置开启")
                     }
                 },
                 dismissButton = {

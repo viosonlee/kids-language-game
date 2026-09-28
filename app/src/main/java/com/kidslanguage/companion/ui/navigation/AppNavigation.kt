@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavType
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -141,7 +142,7 @@ fun AppNavigation(container: AppContainer) {
             val categoryId = backStackEntry.arguments?.getString("categoryId") ?: "greetings"
             val language = try { LanguageCode.valueOf(langStr) } catch (_: Exception) { LanguageCode.JA_JP }
 
-            val repeatViewModel = remember(language, categoryId) {
+            val repeatViewModel: RepeatViewModel = viewModel(viewModelStoreOwner = backStackEntry) {
                 RepeatViewModel(
                     contentRepository = container.contentRepository,
                     promptPlayer = container.promptPlayer,

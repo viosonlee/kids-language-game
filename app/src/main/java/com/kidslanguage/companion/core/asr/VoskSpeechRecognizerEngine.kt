@@ -31,6 +31,7 @@ class VoskSpeechRecognizerEngine(
 
     private var activeCallback: ((RecognitionResult) -> Unit)? = null
     private var isUsingFallback = false
+    private var generation = 0
 
     override suspend fun load(language: LanguageCode): Result<Unit> = withContext(Dispatchers.IO) {
         if (currentLanguage == language && currentModel != null) {
@@ -80,10 +81,18 @@ class VoskSpeechRecognizerEngine(
         language: LanguageCode,
         onResult: (RecognitionResult) -> Unit
     ) = withContext(Dispatchers.Main) {
+        cancelListening()
+        val request = generation
         activeCallback = onResult
+        fun finish(result: RecognitionResult) {
+            if (request != generation) return
+            val callback = activeCallback ?: return
+            cancelListening()
+            callback(result)
+        }
 
         if (isUsingFallback || currentModel == null) {
-            fallbackEngine.startListening(language, onResult)
+            fallbackEngine.startListening(language, ::finish)
             return@withContext
         }
 
@@ -101,42 +110,46 @@ class VoskSpeechRecognizerEngine(
                     if (!hypothesis.isNullOrBlank()) {
                         val text = parseVoskJson(hypothesis)
                         if (text.isNotBlank()) {
-                            activeCallback?.invoke(RecognitionResult(text = text, isSuccess = true))
+                            finish(RecognitionResult(text = text, isSuccess = true))
                         }
                     }
                 }
 
                 override fun onFinalResult(hypothesis: String?) {
                     val text = if (!hypothesis.isNullOrBlank()) parseVoskJson(hypothesis) else ""
-                    activeCallback?.invoke(RecognitionResult(text = text, isSuccess = true))
+                    finish(RecognitionResult(text = text, isSuccess = true))
                 }
 
                 override fun onError(exception: java.lang.Exception?) {
-                    activeCallback?.invoke(
+                    finish(
                         RecognitionResult(text = "", isSuccess = false, error = exception?.message)
                     )
                 }
 
                 override fun onTimeout() {
-                    activeCallback?.invoke(
+                    finish(
                         RecognitionResult(text = "", isSuccess = true, error = "Timeout")
                     )
                 }
-            })
+            }, 10000)
         } catch (e: Exception) {
             e.printStackTrace()
-            // Fallback immediately if native recording throws
-            isUsingFallback = true
-            fallbackEngine.startListening(language, onResult)
+            finish(RecognitionResult(text = "", isSuccess = false, error = e.message))
         }
     }
 
     override fun stopListening() {
+        if (isUsingFallback) fallbackEngine.stopListening() else speechService?.stop()
+    }
+
+    override fun cancelListening() {
+        generation++
+        activeCallback = null
         if (isUsingFallback) {
-            fallbackEngine.stopListening()
+            fallbackEngine.cancelListening()
         } else {
             try {
-                speechService?.stop()
+                speechService?.cancel()
                 speechService?.shutdown()
                 speechService = null
                 currentRecognizer?.close()
@@ -148,7 +161,7 @@ class VoskSpeechRecognizerEngine(
     }
 
     override suspend fun unload() = withContext(Dispatchers.IO) {
-        stopListening()
+        withContext(Dispatchers.Main) { cancelListening() }
         currentModel?.close()
         currentModel = null
         currentLanguage = null

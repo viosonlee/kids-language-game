@@ -23,6 +23,7 @@ interface SpeechRecognizerEngine {
     suspend fun recognizeFromAudio(pcm: ByteArray): RecognitionResult
     suspend fun startListening(language: LanguageCode, onResult: (RecognitionResult) -> Unit)
     fun stopListening()
+    fun cancelListening() { stopListening() }
     suspend fun unload()
 }
 
@@ -34,6 +35,7 @@ class SystemSpeechRecognizerEngine(private val context: Context) : SpeechRecogni
     private var speechRecognizer: SpeechRecognizer? = null
     private var currentLanguage: LanguageCode = LanguageCode.JA_JP
     private var activeCallback: ((RecognitionResult) -> Unit)? = null
+    private var generation = 0
 
     override suspend fun load(language: LanguageCode): Result<Unit> = withContext(Dispatchers.Main) {
         currentLanguage = language
@@ -43,7 +45,7 @@ class SystemSpeechRecognizerEngine(private val context: Context) : SpeechRecogni
             }
             Result.success(Unit)
         } else {
-            Result.success(Unit)
+            Result.failure(IllegalStateException("Speech recognition unavailable"))
         }
     }
 
@@ -56,11 +58,18 @@ class SystemSpeechRecognizerEngine(private val context: Context) : SpeechRecogni
         language: LanguageCode,
         onResult: (RecognitionResult) -> Unit
     ) = withContext(Dispatchers.Main) {
+        cancelListening()
+        val request = generation
         activeCallback = onResult
+        fun finish(result: RecognitionResult) {
+            if (request != generation) return
+            val callback = activeCallback ?: return
+            cancelListening()
+            callback(result)
+        }
 
         if (!SpeechRecognizer.isRecognitionAvailable(context)) {
-            // Simulated recognition for development or devices without Google Speech Services
-            onResult(RecognitionResult(text = "", isSuccess = true))
+            finish(RecognitionResult(text = "", isSuccess = false, error = "Speech recognition unavailable"))
             return@withContext
         }
 
@@ -82,7 +91,7 @@ class SystemSpeechRecognizerEngine(private val context: Context) : SpeechRecogni
             override fun onBufferReceived(buffer: ByteArray?) {}
             override fun onEndOfSpeech() {}
             override fun onError(error: Int) {
-                activeCallback?.invoke(
+                finish(
                     RecognitionResult(
                         text = "",
                         isSuccess = false,
@@ -93,7 +102,7 @@ class SystemSpeechRecognizerEngine(private val context: Context) : SpeechRecogni
             override fun onResults(results: Bundle?) {
                 val matches = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                 val text = matches?.firstOrNull() ?: ""
-                activeCallback?.invoke(
+                finish(
                     RecognitionResult(
                         text = text,
                         confidence = 0.9f,
@@ -112,7 +121,14 @@ class SystemSpeechRecognizerEngine(private val context: Context) : SpeechRecogni
         speechRecognizer?.stopListening()
     }
 
+    override fun cancelListening() {
+        generation++
+        activeCallback = null
+        speechRecognizer?.cancel()
+    }
+
     override suspend fun unload() = withContext(Dispatchers.Main) {
+        cancelListening()
         speechRecognizer?.destroy()
         speechRecognizer = null
         activeCallback = null
