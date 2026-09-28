@@ -195,3 +195,40 @@
 2. **APK 打包验证 (`gradlew.bat assembleDebug`)**：
    - 成功打包包含 126 题离线卡通音频包的完整 APK。
 
+---
+
+## 2026-09-28 | V1.3 实装技术文档全量补齐、根目录 README 重构与远程推送 | By: Antigravity Agent
+
+### 1. 任务背景与目标
+- **输入来源**：用户要求全面核对代码实装与既有文档，对实际已实装但尚未独立归档的技术模块（离线 Vosk 语音识别规格、儿童发音多层宽容度评测算法规格）进行全量文档补充，重构根目录 `README.md`，并将全量成果推送至远程仓库。
+- **目标**：
+  1. 撰写 `docs/11_Vosk_Offline_ASR_Engine_Spec.md`，沉淀纯离线 Vosk 引擎的 JNI 架构、单模型内存驻留管理与分层容灾机制；
+  2. 撰写 `docs/12_Child_Speech_Evaluation_Algorithm_Spec.md`，详细记录跨语言清洗、平假名归一化、编辑距离与幼儿心理学 SoftPass 保护算法；
+  3. 全面重构根目录 `README.md`，提供包含徽标、产品特性、技术栈、架构图、目录树、构建指南与文档全景索引的高质量主页；
+  4. 运行全量单元测试与打包验证；
+  5. 严格执行每轮本地 Git 提交，并完成远程 `git push origin main`。
+
+### 2. 关键实施成果
+
+#### 2.1 技术文档全量补齐 (Milestone M8)
+- **Vosk 离线语音识别规格 (`docs/11_Vosk_Offline_ASR_Engine_Spec.md`)**：
+  - 详细定义了 Native AAR 与 JNA 的集成方式；
+  - 规范了单模型内存互斥加载（Single Model Lifecycle）机制，避免千元级儿童平板 OOM；
+  - 阐述了 Vosk -> System ASR -> Mock Engine 三级降级容灾链条，保障 0 崩溃。
+- **儿童发音宽容度评测算法规格 (`docs/12_Child_Speech_Evaluation_Algorithm_Spec.md`)**：
+  - 梳理了从标点清洗、日文片假名映射（Unicode -0x60）、口语别名缩略、双向子串、归一化编辑距离到 SoftPass 辅助通过的 5 层漏斗决策模型。
+
+#### 2.2 根目录 README 全面重构
+- 新增项目徽标、幼儿心理学交互设计理念（HIG 规范）、技术栈与架构解析、完整目录树、快速构建与测试指南、音频流水线使用方式及 00~12 完整技术文档矩阵索引。
+
+### 3. 构建与验证记录
+1. **单元测试 (`gradlew.bat test`)**：
+   - 12 个自动化测试用例全部通过（`BUILD SUCCESSFUL`）。
+2. **APK 打包验证 (`gradlew.bat assembleDebug`)**：
+   - 成功打包包含 126 题离线卡通音频包的完整 APK（`app-debug.apk`）。
+
+### 4. Git 提交与版本同步
+- **本地提交**：遵循规范完成每轮 commit。
+- **远程推送**：成功推送到 `origin/main`。
+
+
