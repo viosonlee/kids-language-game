@@ -353,6 +353,8 @@ fun ParentSettingsScreen(
                 colors = CardDefaults.cardColors(containerColor = Neutral0)
             ) {
                 Column(modifier = Modifier.padding(AppSpacing.xl)) {
+                    AppVersionInfo()
+                    Spacer(modifier = Modifier.height(AppSpacing.lg))
                     Text(text = "🛠️ 语音与 ASR 诊断实验室 (Developer Lab)", style = AppTypography.titleMedium, color = Primary600)
                     Spacer(modifier = Modifier.height(AppSpacing.sm))
                     Text(

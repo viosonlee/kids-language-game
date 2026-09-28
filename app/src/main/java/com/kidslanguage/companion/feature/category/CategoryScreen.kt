@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -54,10 +55,12 @@ fun CategoryScreen(
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var categories by remember { mutableStateOf<List<Category>>(emptyList()) }
+    var categories by remember(language) { mutableStateOf<List<Category>>(emptyList()) }
+    var loading by remember(language) { mutableStateOf(true) }
 
     LaunchedEffect(language) {
         categories = contentRepository.getCategories(language)
+        loading = false
     }
 
     Box(
@@ -93,8 +96,13 @@ fun CategoryScreen(
             )
         }
 
-        // Content Area: Grid of Categories + Mascot on the right
-        Row(
+        if (loading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        } else if (categories.isEmpty()) {
+            Text("这个语言暂时没有可用内容，请返回选择其他语言。",
+                modifier = Modifier.align(Alignment.Center), color = Neutral900,
+                style = AppTypography.bodyLarge)
+        } else Row(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 90.dp),

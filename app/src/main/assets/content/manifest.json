@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "languages": [
+    {"language": "ja-JP", "file": "items_ja.json", "itemCount": 62},
+    {"language": "zh-CN", "file": "items_zh.json", "itemCount": 32},
+    {"language": "en-US", "file": "items_en.json", "itemCount": 32}
+  ]
+}

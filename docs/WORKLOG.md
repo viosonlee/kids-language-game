@@ -467,3 +467,10 @@
 - 首页取消重复申请麦克风，跟读保留按需申请。
 - test assembleDebug assembleDebugAndroidTest --offline 全部成功；新增测试后再次 test --offline 成功，Debug/Release 各 54 项。仪器测试包已构建，但 adb devices 列表为空，实际 Room 设备测试仍待执行。
 - 新增 docs/22 补充说明，未覆盖历史规范；语音识别参数未改动。整体审查继续，尚未统一推送。
+
+## 2026-09-28 | 题库容错与版本信息 | By: Codex
+
+- 将整份题库一次解码改为逐条解析，隔离异常条目；检查资源/语言/干扰项，按语言及有效题目过滤分类，串行缓存并避免缓存临时错误。
+- 分类页补加载与空内容提示；增加内容版本清单、家长页三类版本信息。
+- 新增六项 ContentRepositoryTest，验证真实题库 62/32/32 条仍可用。test assembleDebug --offline 成功，Debug/Release 各 60 项通过；版本清单题数另与 JSON 核对一致。
+- 新增 docs/23，保留既有规范和其他任务吉祥物改动。完整审查尚未结束，未推送。
