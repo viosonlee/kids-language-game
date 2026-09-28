@@ -24,6 +24,14 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Test model setup tool
+        run: python -m unittest discover -s scripts -p test_setup_vosk_models.py
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
