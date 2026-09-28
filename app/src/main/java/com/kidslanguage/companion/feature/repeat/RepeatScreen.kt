@@ -259,7 +259,7 @@ fun RepeatScreen(
                     Text("🐰 兔兔需要麦克风权限哦", fontWeight = FontWeight.Bold)
                 },
                 text = {
-                    Text("Momo Bunny 需要听到宝宝的声音才能判断发音呢！请在平板【系统设置 - 应用权限】中允许麦克风权限，或者先去玩有趣的【选图模式】吧！")
+                    Text("Momo Bunny 需要听到泡泡的声音才能判断发音呢！请在平板【系统设置 - 应用权限】中允许麦克风权限，或者先去玩有趣的【选图模式】吧！")
                 },
                 confirmButton = {
                     Button(

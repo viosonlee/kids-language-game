@@ -323,7 +323,8 @@
 
 ### 4. 交付文档与同步
 - 编写技术设计文档：[`docs/15_Toy_Optimization_and_Zero_ADB_Spec.md`](file:///d:/personalworkspace/kids-language-game/docs/15_Toy_Optimization_and_Zero_ADB_Spec.md)；
-- 同步更新根目录 `README.md` 与工作日志。
+- 同步更新根目录 `README.md` 与工作日志；
+- **专属定制**：将发音评测第三次开口通过反馈与麦克风权限提示中的称谓由“宝宝”精准调整为“泡泡”，贴合家庭专属玩具定位。
 
 
 

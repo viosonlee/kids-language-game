@@ -103,7 +103,7 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
                     score = max(0.5f, similarity),
                     recognizedText = spokenText,
                     targetText = targetItem.text,
-                    message = "宝宝努力开口练习，太棒啦！"
+                    message = "泡泡努力开口练习，太棒啦！"
                 )
             }
             else -> {
