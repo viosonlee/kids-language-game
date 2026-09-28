@@ -19,23 +19,8 @@ import com.kidslanguage.companion.ui.theme.Neutral50
 
 class MainActivity : ComponentActivity() {
 
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { _ ->
-        // Permission granted or denied; handled gracefully by app
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Request audio recording permission for preschool child speech
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.RECORD_AUDIO
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-        }
 
         // Hide system bars for immersive preschool tablet experience
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -56,5 +41,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        (application as KidsLanguageApp).container.soundEffectManager.stop()
+        super.onStop()
     }
 }

@@ -75,6 +75,10 @@ class ParentViewModel(
         viewModelScope.launch { settingsRepository.setSessionLength(length) }
     }
 
+    fun setSoundVolume(volume: Float) {
+        viewModelScope.launch { settingsRepository.setSoundVolume(volume) }
+    }
+
     fun resetProgress() {
         if (_resetting.value) return
         _resetting.value = true

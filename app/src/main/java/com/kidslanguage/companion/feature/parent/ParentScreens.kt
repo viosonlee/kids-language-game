@@ -26,6 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -197,6 +198,31 @@ fun ParentSettingsScreen(
                     Text(text = "学习设置", style = AppTypography.titleMedium, color = Primary600)
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
 
+                    Text("默认语言", style = AppTypography.bodyLarge)
+                    Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.sm)) {
+                        LanguageCode.entries.forEach { language ->
+                            val title = when (language) {
+                                LanguageCode.JA_JP -> "日语"
+                                LanguageCode.ZH_CN -> "中文"
+                                LanguageCode.EN_US -> "英语"
+                            }
+                            Button(onClick = { viewModel.setLanguage(language) }) {
+                                Text(if (settings.selectedLanguage == language) "✓ $title" else title, maxLines = 1)
+                            }
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(AppSpacing.lg))
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Text("游戏音效", style = AppTypography.bodyLarge)
+                        Switch(checked = settings.soundVolume > 0f,
+                            onCheckedChange = { viewModel.setSoundVolume(if (it) 1f else 0f) })
+                    }
+                    Text("音效音量：${(settings.soundVolume * 100).toInt()}%", color = Neutral700)
+                    Slider(value = settings.soundVolume, onValueChange = viewModel::setSoundVolume)
+                    Text("控制提示和庆祝音效；示范发音仍由设备媒体音量控制。", color = Neutral700)
+                    Spacer(modifier = Modifier.height(AppSpacing.lg))
+
                     // Text display toggle
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -228,7 +254,7 @@ fun ParentSettingsScreen(
                         Column {
                             Text(text = "跟读通过后自动跳下一题", style = AppTypography.bodyLarge)
                             Text(
-                                text = "通过后给予 1.2 秒庆祝动画后自动进入下一题",
+                                text = "反馈语音结束后自动进入下一题，适用于跟读和选图",
                                 style = AppTypography.bodyMedium,
                                 color = Neutral700
                             )
@@ -285,6 +311,10 @@ fun ParentSettingsScreen(
                         style = AppTypography.bodyLarge
                     )
                     Text("今日练习：${today.practiced} 题 · 完成：${today.completed} 题", style = AppTypography.bodyLarge)
+                    Text("最近练习：" + if (totals.lastPracticedAt == 0L) "暂无记录" else
+                        java.time.Instant.ofEpochMilli(totals.lastPracticedAt)
+                            .atZone(java.time.ZoneId.systemDefault())
+                            .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                     Text("跟读正常通过：${totals.normalPasses} 次 · 辅助通过：${totals.assistedPasses} 次")
                     Text("选图答对：${totals.chooseCorrect} 次 · 再试：${totals.chooseWrong} 次")
                     LanguageCode.entries.forEach { language ->

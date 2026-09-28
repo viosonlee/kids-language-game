@@ -246,6 +246,7 @@ class ChooseViewModel(
     fun stopSession() {
         if (!sessionActive) return
         sessionActive = false
+        soundEffectManager?.stop()
         viewModelScope.coroutineContext.cancelChildren()
         promptPlayer.stop()
         _uiState.value = _uiState.value.copy(feedbackPlaying = false)

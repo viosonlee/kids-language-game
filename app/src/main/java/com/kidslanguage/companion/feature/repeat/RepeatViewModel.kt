@@ -172,6 +172,7 @@ class RepeatViewModel(
         promptJob?.cancel()
         promptPlayer.stop()
         val request = ++recordingGeneration
+        soundEffectManager?.stop()
 
         _uiState.value = _uiState.value.copy(
             isRecording = true,
@@ -327,6 +328,7 @@ class RepeatViewModel(
     fun stopSession() {
         if (!sessionActive) return
         sessionActive = false
+        soundEffectManager?.stop()
         recordingGeneration++
         viewModelScope.coroutineContext.cancelChildren()
         speechRecognizer.cancelListening()

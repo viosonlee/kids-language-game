@@ -8,12 +8,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Job
 
 interface SoundEffectManager {
     fun playPop()
     fun playSuccess()
     fun playCelebrate()
     fun playRetry()
+    fun stop() {}
     fun release()
 }
 
@@ -30,7 +32,10 @@ class AndroidSoundEffectManager(
     private var retryId: Int = 0
 
     @Volatile
-    private var isSoundEnabled: Boolean = true
+    private var volume: Float = 1f
+    private var settingsJob: Job? = null
+    private var released = false
+    private val streams = linkedMapOf<Int, Float>()
 
     init {
         val audioAttributes = AudioAttributes.Builder()
@@ -46,9 +51,13 @@ class AndroidSoundEffectManager(
         loadSounds()
 
         settingsRepository?.let { repo ->
-            scope.launch {
+            settingsJob = scope.launch {
                 repo.settingsFlow.collectLatest { s ->
-                    isSoundEnabled = s.soundVolume > 0f
+                    volume = s.soundVolume.coerceIn(0f, 1f)
+                    if (volume == 0f) stop()
+                    else if (!released) streams.forEach { (id, gain) ->
+                        soundPool.setVolume(id, gain * volume, gain * volume)
+                    }
                 }
             }
         }
@@ -81,26 +90,43 @@ class AndroidSoundEffectManager(
     }
 
     override fun playPop() {
-        if (!isSoundEnabled || popId == 0) return
-        soundPool.play(popId, 0.7f, 0.7f, 1, 0, 1.0f)
+        play(popId, 0.7f, 1)
     }
 
     override fun playSuccess() {
-        if (!isSoundEnabled || successId == 0) return
-        soundPool.play(successId, 0.9f, 0.9f, 2, 0, 1.0f)
+        play(successId, 0.9f, 2)
     }
 
     override fun playCelebrate() {
-        if (!isSoundEnabled || celebrateId == 0) return
-        soundPool.play(celebrateId, 1.0f, 1.0f, 3, 0, 1.0f)
+        play(celebrateId, 1f, 3)
     }
 
     override fun playRetry() {
-        if (!isSoundEnabled || retryId == 0) return
-        soundPool.play(retryId, 0.6f, 0.6f, 1, 0, 1.0f)
+        play(retryId, 0.6f, 1)
+    }
+
+    private fun play(sound: Int, gain: Float, priority: Int) {
+        if (released || volume <= 0f || sound == 0) return
+        if (streams.size >= 4) {
+            val oldest = streams.keys.first()
+            soundPool.stop(oldest)
+            streams.remove(oldest)
+        }
+        val stream = soundPool.play(sound, gain * volume, gain * volume, priority, 0, 1f)
+        if (stream != 0) streams[stream] = gain
+    }
+
+    override fun stop() {
+        if (released) return
+        streams.keys.forEach(soundPool::stop)
+        streams.clear()
     }
 
     override fun release() {
+        if (released) return
+        settingsJob?.cancel()
+        stop()
+        released = true
         soundPool.release()
     }
 }

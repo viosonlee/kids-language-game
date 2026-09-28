@@ -42,8 +42,8 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
             selectedLanguage = LanguageCode.fromCode(langStr),
             showText = preferences[KEY_SHOW_TEXT] ?: true,
             autoNext = preferences[KEY_AUTO_NEXT] ?: true,
-            sessionLength = preferences[KEY_SESSION_LENGTH] ?: 10,
-            soundVolume = preferences[KEY_SOUND_VOLUME] ?: 1.0f,
+            sessionLength = (preferences[KEY_SESSION_LENGTH] ?: 10).coerceIn(1, 30),
+            soundVolume = (preferences[KEY_SOUND_VOLUME] ?: 1.0f).let { if (it.isFinite()) it.coerceIn(0f, 1f) else 1f },
             animationEnabled = preferences[KEY_ANIMATION_ENABLED] ?: true,
             completedCount = preferences[KEY_COMPLETED_COUNT] ?: 0
         )
@@ -69,7 +69,7 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
 
     suspend fun setSessionLength(length: Int) {
         store.edit { preferences ->
-            preferences[KEY_SESSION_LENGTH] = length
+            preferences[KEY_SESSION_LENGTH] = length.coerceIn(1, 30)
         }
     }
 
@@ -77,6 +77,11 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
         store.edit { preferences ->
             preferences[KEY_ANIMATION_ENABLED] = enabled
         }
+    }
+
+    suspend fun setSoundVolume(volume: Float) {
+        require(volume.isFinite())
+        store.edit { it[KEY_SOUND_VOLUME] = volume.coerceIn(0f, 1f) }
     }
 
     suspend fun incrementCompletedCount() {

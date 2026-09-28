@@ -37,7 +37,8 @@ data class ProgressTotals(
     val normalPasses: Int = 0,
     val assistedPasses: Int = 0,
     val chooseCorrect: Int = 0,
-    val chooseWrong: Int = 0
+    val chooseWrong: Int = 0,
+    val lastPracticedAt: Long = 0
 )
 
 data class LanguageProgress(val language: String, val practiced: Int, val completed: Int)
@@ -73,7 +74,8 @@ abstract class ProgressDao {
         COALESCE(SUM(normalPasses), 0) AS normalPasses,
         COALESCE(SUM(assistedPasses), 0) AS assistedPasses,
         COALESCE(SUM(chooseCorrect), 0) AS chooseCorrect,
-        COALESCE(SUM(chooseWrong), 0) AS chooseWrong
+        COALESCE(SUM(chooseWrong), 0) AS chooseWrong,
+        COALESCE(MAX(practicedAt), 0) AS lastPracticedAt
         FROM practice_attempt WHERE practicedAt >= :start AND practicedAt < :end""")
     abstract fun totals(start: Long, end: Long): Flow<ProgressTotals>
 

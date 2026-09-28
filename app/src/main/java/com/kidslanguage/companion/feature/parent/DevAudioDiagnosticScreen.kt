@@ -79,6 +79,7 @@ fun DevAudioDiagnosticScreen(
             coroutineScope.coroutineContext.cancelChildren()
             container.speechRecognizerEngine.cancelListening()
             container.promptPlayer.stop()
+            container.soundEffectManager.stop()
         }
     }
 
@@ -304,6 +305,7 @@ fun DevAudioDiagnosticScreen(
                                             return@Button
                                         }
                                         container.promptPlayer.stop()
+                                        container.soundEffectManager.stop()
                                         val request = ++generation
                                         isRecording = true
                                         statusMessage = "正在录音与识别中... 请对着麦克风发音"
