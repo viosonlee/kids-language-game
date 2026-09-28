@@ -2,7 +2,7 @@ package com.kidslanguage.companion.app
 
 import android.content.Context
 import com.kidslanguage.companion.core.asr.SpeechRecognizerEngine
-import com.kidslanguage.companion.core.asr.SystemSpeechRecognizerEngine
+import com.kidslanguage.companion.core.asr.VoskSpeechRecognizerEngine
 import com.kidslanguage.companion.core.audio.AndroidPromptPlayer
 import com.kidslanguage.companion.core.audio.PromptPlayer
 import com.kidslanguage.companion.core.content.AssetContentRepository
@@ -21,7 +21,7 @@ class AppContainer(private val context: Context) {
     }
 
     val speechRecognizerEngine: SpeechRecognizerEngine by lazy {
-        SystemSpeechRecognizerEngine(context)
+        VoskSpeechRecognizerEngine(context)
     }
 
     val promptPlayer: PromptPlayer by lazy {

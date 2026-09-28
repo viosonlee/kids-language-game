@@ -103,3 +103,54 @@
 1. **ASR 离线引擎打包 (Milestone M3/M7)**：集成 Vosk 针对日语小模型的 `.aar` 与离线 model 资产解压。
 2. **真机与音频体验测试**：在真实 Android 10 平板上试听 Prompt 音频与儿童语音交互顺畅度。
 3. **内容扩充 (Milestone M7)**：将日语词库从 20 条扩充至 ≥ 60 条，中英语各扩充至 ≥ 30 条。
+
+---
+
+## 2026-09-28 | V1.1 题库全量扩充与 Vosk 离线 ASR 引擎落地 | By: Antigravity Agent
+
+### 1. 任务背景与目标
+- **输入来源**：用户指令要求继续推进第 1 点（题库规模扩充至 PRD 标准）与第 2 点（纯离线 Vosk ASR 引擎接入），并评估第 3 点（卡通音发音包）的 AI 替代方案。
+- **目标**：
+  1. 将题库从 32 条扩展至 ≥ 120 条（日语 ≥ 60，中文 ≥ 30，英语 ≥ 30）；
+  2. 接入 Vosk Android Native SDK，实现 `VoskSpeechRecognizerEngine` 并配置单模型内存管理机制；
+  3. 论证 AI 生成卡通语音（如 Edge-TTS、CosyVoice、ElevenLabs）离线音频包的替代方案可行性并给出规划；
+  4. 保持单元测试与 APK 打包 100% 绿灯，并进行本地 Git 提交。
+
+### 2. 关键实施成果
+
+#### 2.1 题库规模全量达标（Milestone M7）
+- **日语题库 (`items_ja.json`)**：由 20 条扩展至 **62 条**（满足 PRD ≥ 60 要求），全方位覆盖：
+  - 问候与礼貌（15 条）
+  - 一起玩与加入游戏（15 条）
+  - 日常作息与指令理解（16 条）
+  - 身体不适、求助与接送（16 条）
+- **中文题库 (`items_zh.json`)**：由 6 条扩展至 **32 条**（满足 PRD ≥ 30 要求）。
+- **英语题库 (`items_en.json`)**：由 6 条扩展至 **32 条**（满足 PRD ≥ 30 要求）。
+- **总计**：全库累计 **126 条练习条目**，全部配备拼音/平假名读音、中文含义、场景插图 Emoji、口语别名及 3 选 1 干扰项。
+- **自动化测试**：新增 `ContentValidationTest.kt`，从条目数、Schema 字段完整性、三大语言下限对 JSON 数据进行自动化测试验证。
+
+#### 2.2 Vosk 离线 ASR 引擎接入（Milestone M3 / M7）
+- **依赖集成**：引入 `com.alphacephei:vosk-android:0.3.47@aar` 与 `net.java.dev.jna:jna:5.13.0@aar`。
+- **引擎落地 (`VoskSpeechRecognizerEngine.kt`)**：
+  - 支持从应用外部/内部存储的 `models/vosk-model-small-{ja|cn|en-us}` 读取离线模型；
+  - 严格遵循 PRD 规范：内存中仅驻留当前所选语言的单个 ASR 模型，语言切换时主动 `unload()` 释放旧模型资源；
+  - 具备优雅降级能力：当特定语言模型文件尚未在真机解压就绪时，自动平滑 fallback 至系统识别/模拟引擎，保证 App 0 崩溃。
+- **依赖注入**：在 `AppContainer` 中完成替换，全局统一接入 Vosk 引擎。
+
+#### 2.3 关于“AI 生成卡通音”替代真人录音的评估方案
+- **可行性分析**：完全可行且属于业内目前效果与性价比最高的方案。
+- **方案建议**：
+  - 采用高质量神经语音合成模型（如 Edge-TTS 的 `ja-JP-NanamiNeural` 或动漫卡通声线、`zh-CN-XiaoxiaoNeural`、`en-US-AnaNeural`，或 CosyVoice/ElevenLabs 的可爱幼童声线）；
+  - 离线批处理脚本一次性为 126 条题目生成轻量 `.ogg` / `.mp3` 音频文件，存放于 `app/src/main/assets/audio/{lang}/`；
+  - 优势：发音纯正统一、语速可控（设定为 0.85x 幼儿友好语速）、语气软萌活泼、彻底免除真人录音周期与成本，同时在 Android 端实现 100% 零网络延迟离线播放。
+
+### 3. 构建与验证记录
+1. **单元测试 (`gradlew.bat test`)**：
+   - 运行 `SpeechEvaluationServiceTest` 与 `ContentValidationTest`；
+   - 全部 11 个测试用例通过（题库规模校验用例全部通过）；
+   - 结果：`BUILD SUCCESSFUL in 23s`。
+2. **APK 打包验证 (`gradlew.bat assembleDebug`)**：
+   - 包含 Vosk Native So 库（`libvosk.so`, `libjnidispatch.so`）及 126 条题库内容；
+   - 产物大小：103.5 MB；
+   - 结果：`BUILD SUCCESSFUL in 26s`。
+
