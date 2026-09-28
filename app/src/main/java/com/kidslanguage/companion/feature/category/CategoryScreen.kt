@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -104,14 +106,15 @@ fun CategoryScreen(
                     .weight(0.72f)
                     .padding(end = AppSpacing.xl),
                 horizontalArrangement = Arrangement.spacedBy(AppSpacing.lg),
-                verticalArrangement = Arrangement.spacedBy(AppSpacing.lg)
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.lg),
+                contentPadding = PaddingValues(8.dp)
             ) {
                 items(categories) { category ->
                     CategoryCard(
                         title = category.title,
                         iconEmoji = category.icon,
                         onClick = { onCategorySelected(category.id) },
-                        modifier = Modifier.height(150.dp)
+                        modifier = Modifier.heightIn(min = 176.dp)
                     )
                 }
             }

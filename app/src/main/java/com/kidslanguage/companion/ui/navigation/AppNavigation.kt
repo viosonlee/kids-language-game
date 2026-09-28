@@ -175,7 +175,7 @@ fun AppNavigation(container: AppContainer) {
             val categoryId = backStackEntry.arguments?.getString("categoryId") ?: "greetings"
             val language = try { LanguageCode.valueOf(langStr) } catch (_: Exception) { LanguageCode.JA_JP }
 
-            val chooseViewModel = remember(language, categoryId) {
+            val chooseViewModel: ChooseViewModel = viewModel(viewModelStoreOwner = backStackEntry) {
                 ChooseViewModel(
                     contentRepository = container.contentRepository,
                     promptPlayer = container.promptPlayer,

@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.style.TextAlign
 import com.kidslanguage.companion.core.model.EvaluationStatus
 import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.model.MascotState
@@ -135,6 +136,7 @@ fun CategoryCard(
             Text(
                 text = title,
                 style = AppTypography.titleMedium,
+                textAlign = TextAlign.Center,
                 color = Neutral900
             )
         }

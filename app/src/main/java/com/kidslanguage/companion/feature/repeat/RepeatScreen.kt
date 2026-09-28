@@ -27,6 +27,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Hearing
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -258,6 +259,17 @@ fun RepeatScreen(
                         )
                     }
                 }
+            }
+        }
+
+        if (state.sessionState == SessionStepState.Loading) {
+            Column(
+                modifier = Modifier.align(Alignment.Center).background(Neutral50).padding(AppSpacing.xl),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CircularProgressIndicator()
+                Spacer(modifier = Modifier.height(AppSpacing.md))
+                Text("正在准备语音，首次使用请稍等…")
             }
         }
 

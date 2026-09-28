@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "models": [
+    {
+      "version": "0.22",
+      "source": "https://alphacephei.com/vosk/models/vosk-model-small-cn-0.22.zip",
+      "language": "zh-CN",
+      "bytes": 43898754,
+      "sha256": "3af8b0e7e0f835ae9d414ce5df580237a3cfb08d586c9fbbb0f7ff29ad5b14ba",
+      "file": "vosk-model-small-cn.zip"
+    },
+    {
+      "version": "0.15",
+      "source": "https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip",
+      "language": "en-US",
+      "bytes": 41205931,
+      "sha256": "30f26242c4eb449f948e42cb302dd7a686cb29a3423a8367f99ff41780942498",
+      "file": "vosk-model-small-en-us.zip"
+    },
+    {
+      "version": "0.22",
+      "source": "https://alphacephei.com/vosk/models/vosk-model-small-ja-0.22.zip",
+      "language": "ja-JP",
+      "bytes": 49704573,
+      "sha256": "efa092d280153a77615e9e0c7d7283e93e600de3d19d3bec686c57ef19d52eac",
+      "file": "vosk-model-small-ja.zip"
+    }
+  ]
+}

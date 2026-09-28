@@ -408,3 +408,15 @@
 - 本轮代码已被同工作区另一任务纳入本地提交 2639829，保留该提交与其他任务的素材、权限修改。
 - 验证：Debug / Release 各 20 项测试，均 0 failures / 0 errors；最终执行 .\gradlew.bat test assembleDebug --offline，BUILD SUCCESSFUL。
 - 产物：app/build/outputs/apk/debug/app-debug.apk。本轮未操作平板安装，也未验证真机麦克风表现。
+
+## 2026-09-28 | 三语离线模型、场景标题与选图流程审查修复 | By: Codex
+
+- 用户追加问题：中文/英文识别不可用、场景选择卡片文字裁切；保留完整文档对照审查目标。
+- 设备取证：MRX-W09 / Android 10，系统 RecognitionService 查询返回 No services found；原安装仅有日语模型。补入官方中文 0.22、英语 0.15 模型，并记录三语模型的下载地址、版本、字节数与 SHA-256。
+- 模型解压改用临时目录发布，验证核心文件，拒绝越界路径；模型加载期间保持 Loading，避免点击喇叭绕过加载状态。
+- 场景卡片由固定 150dp 改为内容自适应且至少 176dp；网格增加边缘留白，标题居中，避免图标与标题挤压。
+- 选图模式补齐退出清理、回调/选项隔离、配音完成后跳题、autoNext 手动前进、连续错误重播/提示/辅助通过。
+- 新增或扩充回归测试：三语模型打包完整性、模型归档安全与完整性、选图生命周期和辅助逻辑、跟读模型加载状态。Debug / Release 各 33 个测试，全部通过；test assembleDebug --offline 成功。
+- 平板覆盖安装未完成：先确认并修正本地调试签名差异，使用与设备一致的证书重新构建；随后安装返回 INSTALL_FAILED_ABORTED: User rejected permissions。没有卸载旧应用或清除进度；本轮不声称真机识别/布局验证通过。
+- 新增 docs/16_Code_Review_Followup.md 记录证据及剩余范围，既有规范未覆盖。完整审查仍在进行，完成后按用户最新要求统一推送。
+- 本轮未改动/暂存其他任务的吉祥物素材及 current_screen.png。

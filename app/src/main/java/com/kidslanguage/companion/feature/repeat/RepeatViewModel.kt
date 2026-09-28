@@ -73,11 +73,19 @@ class RepeatViewModel(
                 items = sessionItems,
                 currentIndex = 0,
                 showText = settings.showText,
-                sessionState = SessionStepState.PromptPlaying,
+                sessionState = SessionStepState.Loading,
                 mascotState = MascotState.Listen
             )
 
-            speechRecognizer.load(language)
+            val loaded = speechRecognizer.load(language)
+            if (loaded.isFailure) {
+                _uiState.value = _uiState.value.copy(
+                    sessionState = SessionStepState.ReadyToSpeak,
+                    recordingError = "语音模型暂时不可用，请稍后重试，或先玩选图模式。"
+                )
+                return@launch
+            }
+            _uiState.value = _uiState.value.copy(sessionState = SessionStepState.PromptPlaying)
             playCurrentPrompt()
         }
     }

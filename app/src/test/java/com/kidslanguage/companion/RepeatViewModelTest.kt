@@ -29,7 +29,12 @@ class RepeatViewModelTest {
         val callbacks = mutableListOf<(RecognitionResult) -> Unit>()
         var recording = false
         var finalOnStop = false
-        override suspend fun load(language: LanguageCode) = Result.success(Unit)
+        var loadDelay = 0L
+        var loadFails = false
+        override suspend fun load(language: LanguageCode): Result<Unit> {
+            delay(loadDelay)
+            return if (loadFails) Result.failure(IllegalStateException("missing model")) else Result.success(Unit)
+        }
         override suspend fun recognizeFromAudio(pcm: ByteArray) = RecognitionResult("hello")
         override suspend fun startListening(language: LanguageCode, onResult: (RecognitionResult) -> Unit) {
             recording = true
@@ -142,5 +147,26 @@ class RepeatViewModelTest {
         runCurrent()
         vm.toggleRecording()
         assertEquals(SessionStepState.Passed, vm.uiState.value.sessionState)
+    }
+
+    @Test fun speakerCannotEnableRecordingBeforeModelIsLoaded() = scenario { vm, recorder, _ ->
+        recorder.loadDelay = 1000
+        vm.loadSession(LanguageCode.ZH_CN, null)
+        runCurrent()
+        vm.playCurrentPrompt()
+        vm.toggleRecording()
+        runCurrent()
+        assertEquals(SessionStepState.Loading, vm.uiState.value.sessionState)
+        assertFalse(recorder.recording)
+        advanceUntilIdle()
+        assertEquals(SessionStepState.ReadyToSpeak, vm.uiState.value.sessionState)
+    }
+
+    @Test fun modelLoadFailureRemainsVisible() = scenario { vm, recorder, _ ->
+        recorder.loadFails = true
+        vm.loadSession(LanguageCode.EN_US, null)
+        advanceUntilIdle()
+        assertNotNull(vm.uiState.value.recordingError)
+        assertFalse(vm.uiState.value.isRecording)
     }
 }

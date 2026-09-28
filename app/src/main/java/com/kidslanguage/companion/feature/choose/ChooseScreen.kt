@@ -19,6 +19,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material3.FilledIconButton
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -52,8 +55,9 @@ fun ChooseScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(language, categoryId) {
+    LifecycleResumeEffect(viewModel, language, categoryId) {
         viewModel.loadSession(language, categoryId)
+        onPauseOrDispose { viewModel.stopSession() }
     }
 
     LaunchedEffect(state.isSessionComplete) {
@@ -156,8 +160,8 @@ fun ChooseScreen(
 
                         ImageOptionCard(
                             title = if (state.showText) option.title else "",
-                            emoji = option.emoji,
-                            isSelected = isSelected,
+                            emoji = if (state.showAnswerHint && option.isCorrect) "${option.emoji} ✨" else option.emoji,
+                            isSelected = isSelected || (state.showAnswerHint && option.isCorrect),
                             isCorrect = isCorrect,
                             onClick = { viewModel.onOptionSelected(option) },
                             modifier = Modifier
@@ -179,6 +183,13 @@ fun ChooseScreen(
                         state = state.mascotState,
                         size = 240.dp
                     )
+                }
+            }
+
+            if (state.isAnswerCorrect == true && !state.autoNext && !state.feedbackPlaying) {
+                Spacer(modifier = Modifier.height(AppSpacing.md))
+                FilledIconButton(onClick = viewModel::nextQuestion, modifier = Modifier.size(88.dp)) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "下一题", modifier = Modifier.size(48.dp))
                 }
             }
         }

@@ -12,6 +12,7 @@ import com.kidslanguage.companion.core.model.PracticeItem
 import com.kidslanguage.companion.core.model.SessionStepState
 import com.kidslanguage.companion.core.persistence.SettingsRepository
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -37,7 +38,11 @@ data class ChooseUiState(
     val sessionState: SessionStepState = SessionStepState.Loading,
     val mascotState: MascotState = MascotState.Idle,
     val showText: Boolean = true,
-    val isSessionComplete: Boolean = false
+    val isSessionComplete: Boolean = false,
+    val attemptCount: Int = 0,
+    val showAnswerHint: Boolean = false,
+    val feedbackPlaying: Boolean = false,
+    val autoNext: Boolean = true
 ) {
     val currentItem: PracticeItem?
         get() = items.getOrNull(currentIndex)
@@ -54,17 +59,34 @@ class ChooseViewModel(
     val uiState: StateFlow<ChooseUiState> = _uiState.asStateFlow()
 
     private var autoAdvanceJob: Job? = null
+    private var promptJob: Job? = null
+    private var sessionActive = false
+    private var sessionKey: Pair<LanguageCode, String?>? = null
 
     fun loadSession(language: LanguageCode, categoryId: String?) {
+        if (sessionActive) return
+        sessionActive = true
+        val key = language to categoryId
+        if (sessionKey == key && _uiState.value.items.isNotEmpty() &&
+            !_uiState.value.isSessionComplete) {
+            if (_uiState.value.isAnswerCorrect == true) {
+                if (_uiState.value.autoNext) nextQuestion()
+            } else playPrompt()
+            return
+        }
+        sessionKey = key
+        _uiState.value = ChooseUiState()
         viewModelScope.launch {
             val settings = settingsRepository.settingsFlow.first()
             val allItems = contentRepository.getItems(language, categoryId)
-            val sessionItems = allItems.take(settings.sessionLength)
+            val sessionItems = allItems.filter { "choose" in it.modes }.take(settings.sessionLength.coerceAtLeast(1))
 
             _uiState.value = ChooseUiState(
                 items = sessionItems,
                 currentIndex = 0,
                 showText = settings.showText,
+                autoNext = settings.autoNext,
+                isSessionComplete = sessionItems.isEmpty(),
                 sessionState = SessionStepState.PromptPlaying,
                 mascotState = MascotState.Listen
             )
@@ -77,7 +99,7 @@ class ChooseViewModel(
 
         // Build 3 options: 1 correct + 2 distractors
         val correctOption = ChooseOption(
-            id = "correct",
+            id = "${item.id}:correct",
             title = item.translation ?: item.text,
             emoji = item.image ?: "⭐",
             isCorrect = true
@@ -86,7 +108,7 @@ class ChooseViewModel(
         val distractors = if (item.distractors.isNotEmpty()) {
             item.distractors.take(2).mapIndexed { index, distractorEmoji ->
                 ChooseOption(
-                    id = "distractor_$index",
+                    id = "${item.id}:distractor_$index",
                     title = "选项",
                     emoji = distractorEmoji,
                     isCorrect = false
@@ -94,8 +116,8 @@ class ChooseViewModel(
             }
         } else {
             listOf(
-                ChooseOption("d1", "选项", "🌟", false),
-                ChooseOption("d2", "选项", "🎈", false)
+                ChooseOption("${item.id}:d1", "选项", "🌟", false),
+                ChooseOption("${item.id}:d2", "选项", "🎈", false)
             )
         }
 
@@ -105,6 +127,9 @@ class ChooseViewModel(
             currentOptions = options,
             selectedOptionId = null,
             isAnswerCorrect = null,
+            attemptCount = 0,
+            showAnswerHint = false,
+            feedbackPlaying = false,
             sessionState = SessionStepState.PromptPlaying,
             mascotState = MascotState.Listen
         )
@@ -113,9 +138,15 @@ class ChooseViewModel(
     }
 
     fun playPrompt() {
+        if (!sessionActive || _uiState.value.isAnswerCorrect == true ||
+            _uiState.value.isSessionComplete) return
         val item = _uiState.value.currentItem ?: return
-        viewModelScope.launch {
+        autoAdvanceJob?.cancel()
+        promptJob?.cancel()
+        promptPlayer.stop()
+        promptJob = viewModelScope.launch {
             _uiState.value = _uiState.value.copy(
+                feedbackPlaying = false,
                 sessionState = SessionStepState.PromptPlaying,
                 mascotState = MascotState.Listen
             )
@@ -132,38 +163,51 @@ class ChooseViewModel(
     }
 
     fun onOptionSelected(option: ChooseOption) {
-        if (_uiState.value.isAnswerCorrect == true) return // already answered correctly
+        val state = _uiState.value
+        if (!sessionActive || state.isAnswerCorrect == true || state.feedbackPlaying ||
+            state.sessionState !in listOf(SessionStepState.ReadyToSpeak, SessionStepState.Retry)) return
+        val selected = state.currentOptions.firstOrNull { it.id == option.id } ?: return
+        val attempts = state.attemptCount + 1
+        val passed = selected.isCorrect || attempts >= 3
+        promptJob?.cancel()
+        autoAdvanceJob?.cancel()
+        promptPlayer.stop()
 
         _uiState.value = _uiState.value.copy(
-            selectedOptionId = option.id,
-            isAnswerCorrect = option.isCorrect,
-            mascotState = if (option.isCorrect) MascotState.Great else MascotState.TryAgain,
-            sessionState = if (option.isCorrect) SessionStepState.Passed else SessionStepState.Retry
+            selectedOptionId = if (passed) state.currentOptions.first { it.isCorrect }.id else selected.id,
+            isAnswerCorrect = passed,
+            attemptCount = attempts,
+            showAnswerHint = attempts >= 2,
+            feedbackPlaying = true,
+            mascotState = if (passed) MascotState.Great else MascotState.TryAgain,
+            sessionState = if (passed) SessionStepState.Passed else SessionStepState.Retry
         )
 
-        if (option.isCorrect) {
+        if (passed) {
             soundEffectManager?.playSuccess()
-            viewModelScope.launch {
+            autoAdvanceJob = viewModelScope.launch {
                 settingsRepository.incrementCompletedCount()
                 delay(300)
-                val voice = if (Random.nextBoolean()) PaoPaoVoices.PRAISE_1 else PaoPaoVoices.PRAISE_2
+                val voice = if (!selected.isCorrect) PaoPaoVoices.PRAISE_EFFORT
+                    else if (Random.nextBoolean()) PaoPaoVoices.PRAISE_1 else PaoPaoVoices.PRAISE_2
                 promptPlayer.playVoiceAsset(voice)
-            }
-            autoAdvanceJob?.cancel()
-            autoAdvanceJob = viewModelScope.launch {
-                delay(2200)
-                nextQuestion()
+                _uiState.value = _uiState.value.copy(feedbackPlaying = false)
+                delay(500)
+                if (_uiState.value.autoNext) nextQuestion()
             }
         } else {
             soundEffectManager?.playRetry()
-            viewModelScope.launch {
+            autoAdvanceJob = viewModelScope.launch {
                 delay(300)
                 promptPlayer.playVoiceAsset(PaoPaoVoices.TRY_AGAIN)
+                playPrompt()
             }
         }
     }
 
     fun nextQuestion() {
+        if (!sessionActive || _uiState.value.isAnswerCorrect != true ||
+            _uiState.value.feedbackPlaying || _uiState.value.isSessionComplete) return
         autoAdvanceJob?.cancel()
         val nextIndex = _uiState.value.currentIndex + 1
         if (nextIndex < _uiState.value.items.size) {
@@ -181,7 +225,14 @@ class ChooseViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        autoAdvanceJob?.cancel()
+        stopSession()
+    }
+
+    fun stopSession() {
+        if (!sessionActive) return
+        sessionActive = false
+        viewModelScope.coroutineContext.cancelChildren()
         promptPlayer.stop()
+        _uiState.value = _uiState.value.copy(feedbackPlaying = false)
     }
 }
