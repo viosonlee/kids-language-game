@@ -438,3 +438,9 @@
 - 新增 docs/18_Session_Audio_and_Diagnostic_Interaction.md，保留历史规范。test assembleDebug --offline 成功，Debug/Release 各 43 个测试通过。
 - 前一版已成功覆盖安装到 Huawei MRX-W09；本次 UI 调整重新构建后继续覆盖安装。真实语音效果仍待实际发音体验验证。
 - 仅提交本任务代码和文档，保留其他任务的 mascot 素材及 MascotView 改动。
+
+## 2026-09-28 | 成功反馈淡出时图片闪变修复 | By: Codex
+
+- 根因：进入下一题清空 evaluationResult 后，RepeatScreen 默认传入 Retry，而 AnimatedVisibility 的淡出内容仍在渲染，导致成功兔子闪变为重试兔子。
+- FeedbackOverlay 在可见期间保存显示状态，隐藏后的淡出过程继续使用最后一次状态；图片、文案和配色保持一致，下一次显示使用新结果。
+- test assembleDebug --offline 成功；实际淡出动画仍需设备体验确认。诊断页按钮与首页兔子点击修复版本已覆盖安装成功；本修复继续更新安装。

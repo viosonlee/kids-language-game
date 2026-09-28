@@ -30,6 +30,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -231,7 +235,11 @@ fun FeedbackOverlay(
         exit = fadeOut(),
         modifier = modifier.fillMaxSize()
     ) {
-        val isSuccess = status == EvaluationStatus.Pass || status == EvaluationStatus.SoftPass
+        // The parent clears its result when advancing, while fadeOut still renders us.
+        // Retain the last visible result until this visibility lifetime ends.
+        var displayedStatus by remember { mutableStateOf(status) }
+        if (visible) displayedStatus = status
+        val isSuccess = displayedStatus == EvaluationStatus.Pass || displayedStatus == EvaluationStatus.SoftPass
         val bgColor = if (isSuccess) SuccessBg else RetryBg
         val mascotState = if (isSuccess) MascotState.Great else MascotState.TryAgain
 
