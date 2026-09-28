@@ -1,0 +1,1 @@
+This package contains Markdown design documents and mascot concept asset for Kids Language Companion. See 00_README.md first.

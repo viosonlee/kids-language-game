@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "name": "Kids Language Companion",
+    "version": "1.0",
+    "referenceFrame": "1600x1000"
+  },
+  "color": {
+    "primary500": "#4DA3FF",
+    "primary600": "#338DEB",
+    "primary100": "#DCEEFF",
+    "accentYellow": "#FFC94A",
+    "accentOrange": "#FF9E42",
+    "accentGreen": "#66C56A",
+    "accentPurple": "#A98AF8",
+    "accentPink": "#FF88B7",
+    "neutral0": "#FFFFFF",
+    "neutral50": "#F8FAFC",
+    "neutral100": "#F0F4F8",
+    "neutral300": "#C9D3DD",
+    "neutral700": "#425466",
+    "neutral900": "#1E293B",
+    "successBg": "#FFF6CE",
+    "retryBg": "#F2EDFF",
+    "infoBg": "#EAF6FF"
+  },
+  "radiusDp": {
+    "button": 28,
+    "card": 32,
+    "optionCard": 28,
+    "dialog": 32
+  },
+  "spacingDp": [4, 8, 12, 16, 24, 32, 40, 48, 64],
+  "typeSp": {
+    "displayLarge": 44,
+    "titleLarge": 34,
+    "titleMedium": 28,
+    "bodyLarge": 26,
+    "bodyMedium": 22,
+    "labelLarge": 22,
+    "labelMedium": 18
+  },
+  "mascotStates": ["Idle", "Listen", "Speak", "Great", "TryAgain", "Praise"]
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "greetings",
+    "language": "all",
+    "title": "问候与礼貌",
+    "description": "日常打招呼与礼貌用语",
+    "icon": "\uD83D\uDC4B",
+    "order": 1
+  },
+  {
+    "id": "play",
+    "language": "all",
+    "title": "一起玩耍",
+    "description": "借玩具、轮流与加入游戏",
+    "icon": "\uD83C\uDFA8",
+    "order": 2
+  },
+  {
+    "id": "daily",
+    "language": "all",
+    "title": "日常习惯",
+    "description": "喝水、洗手、吃饭与整理",
+    "icon": "\uD83C\uDF71",
+    "order": 3
+  },
+  {
+    "id": "help",
+    "language": "all",
+    "title": "求助与表达",
+    "description": "上厕所、身体不适与找老师",
+    "icon": "\uD83E\uDE7A",
+    "order": 4
+  }
+]

@@ -1,0 +1,122 @@
+package com.kidslanguage.companion.feature.mode
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Mic
+import androidx.compose.material.icons.filled.TouchApp
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
+import com.kidslanguage.companion.core.model.MascotState
+import com.kidslanguage.companion.core.model.PracticeMode
+import com.kidslanguage.companion.ui.components.MascotView
+import com.kidslanguage.companion.ui.components.PrimaryLargeButton
+import com.kidslanguage.companion.ui.components.SecondaryLargeButton
+import com.kidslanguage.companion.ui.theme.AppSpacing
+import com.kidslanguage.companion.ui.theme.AppTypography
+import com.kidslanguage.companion.ui.theme.Neutral50
+import com.kidslanguage.companion.ui.theme.Neutral900
+import com.kidslanguage.companion.ui.theme.Primary100
+import com.kidslanguage.companion.ui.theme.Primary600
+
+@Composable
+fun ModeSelectScreen(
+    onModeSelected: (PracticeMode) -> Unit,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(Neutral50)
+            .padding(AppSpacing.xl)
+    ) {
+        // Top Back Button
+        IconButton(
+            onClick = onBack,
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .size(64.dp)
+                .clip(CircleShape)
+                .background(Primary100)
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Back",
+                tint = Primary600,
+                modifier = Modifier.size(36.dp)
+            )
+        }
+
+        // Center Content
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = AppSpacing.xxl),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            // Left Column: 2 Practice Mode options
+            Column(
+                modifier = Modifier.weight(0.55f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "选择练习玩法",
+                    style = AppTypography.displayLarge,
+                    color = Neutral900
+                )
+                Spacer(modifier = Modifier.height(AppSpacing.xxl))
+
+                PrimaryLargeButton(
+                    text = "听一听，说一说 (跟读)",
+                    icon = Icons.Default.Mic,
+                    onClick = { onModeSelected(PracticeMode.REPEAT) },
+                    modifier = Modifier.fillMaxWidth(0.9f),
+                    height = 96.dp
+                )
+
+                Spacer(modifier = Modifier.height(AppSpacing.xl))
+
+                SecondaryLargeButton(
+                    text = "听一听，选图片 (认图)",
+                    icon = Icons.Default.TouchApp,
+                    onClick = { onModeSelected(PracticeMode.CHOOSE) },
+                    modifier = Modifier.fillMaxWidth(0.9f),
+                    height = 96.dp
+                )
+            }
+
+            // Right Column: Mascot Praise
+            Column(
+                modifier = Modifier.weight(0.45f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                MascotView(
+                    state = MascotState.Praise,
+                    size = 320.dp
+                )
+            }
+        }
+    }
+}

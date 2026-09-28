@@ -1,0 +1,67 @@
+{
+  "character": "momo_bunny",
+  "version": "1.0",
+  "source_sheet": "bunny_mascot_expression_sheet.png",
+  "poses": [
+    {
+      "state": "idle",
+      "png": "assets/mascot/png/bunny_idle.png",
+      "webp": "assets/mascot/webp/bunny_idle.webp",
+      "preview": "assets/mascot/preview/bunny_idle.png",
+      "size": {
+        "width": 451,
+        "height": 543
+      }
+    },
+    {
+      "state": "listen",
+      "png": "assets/mascot/png/bunny_listen.png",
+      "webp": "assets/mascot/webp/bunny_listen.webp",
+      "preview": "assets/mascot/preview/bunny_listen.png",
+      "size": {
+        "width": 465,
+        "height": 543
+      }
+    },
+    {
+      "state": "speak",
+      "png": "assets/mascot/png/bunny_speak.png",
+      "webp": "assets/mascot/webp/bunny_speak.webp",
+      "preview": "assets/mascot/preview/bunny_speak.png",
+      "size": {
+        "width": 467,
+        "height": 543
+      }
+    },
+    {
+      "state": "great",
+      "png": "assets/mascot/png/bunny_great.png",
+      "webp": "assets/mascot/webp/bunny_great.webp",
+      "preview": "assets/mascot/preview/bunny_great.png",
+      "size": {
+        "width": 443,
+        "height": 543
+      }
+    },
+    {
+      "state": "try_again",
+      "png": "assets/mascot/png/bunny_try_again.png",
+      "webp": "assets/mascot/webp/bunny_try_again.webp",
+      "preview": "assets/mascot/preview/bunny_try_again.png",
+      "size": {
+        "width": 479,
+        "height": 543
+      }
+    },
+    {
+      "state": "praise",
+      "png": "assets/mascot/png/bunny_praise.png",
+      "webp": "assets/mascot/webp/bunny_praise.webp",
+      "preview": "assets/mascot/preview/bunny_praise.png",
+      "size": {
+        "width": 449,
+        "height": 543
+      }
+    }
+  ]
+}

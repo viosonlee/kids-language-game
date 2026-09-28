@@ -1,0 +1,80 @@
+[
+  {
+    "id": "zh_greet_001",
+    "language": "zh-CN",
+    "category": "greetings",
+    "modes": ["repeat", "choose"],
+    "text": "早上好",
+    "reading": "zǎo shang hǎo",
+    "pinyin": "zaoshanghao",
+    "translation": "Good morning",
+    "image": "🌅",
+    "aliases": ["早安", "早"],
+    "distractors": ["🌙", "👋"]
+  },
+  {
+    "id": "zh_greet_002",
+    "language": "zh-CN",
+    "category": "greetings",
+    "modes": ["repeat", "choose"],
+    "text": "谢谢",
+    "reading": "xiè xie",
+    "pinyin": "xiexie",
+    "translation": "Thank you",
+    "image": "🎁",
+    "aliases": ["谢谢你", "多谢"],
+    "distractors": ["🙅", "🏃"]
+  },
+  {
+    "id": "zh_greet_003",
+    "language": "zh-CN",
+    "category": "greetings",
+    "modes": ["repeat", "choose"],
+    "text": "对不起",
+    "reading": "duì bu qǐ",
+    "pinyin": "duibuqi",
+    "translation": "Sorry",
+    "image": "🙇",
+    "aliases": ["不好意思", "对不住"],
+    "distractors": ["😄", "🎉"]
+  },
+  {
+    "id": "zh_play_001",
+    "language": "zh-CN",
+    "category": "play",
+    "modes": ["repeat", "choose"],
+    "text": "一起玩吧",
+    "reading": "yì qǐ wán ba",
+    "pinyin": "yiqiwanba",
+    "translation": "Let's play together",
+    "image": "🛝",
+    "aliases": ["我们一起玩", "一起玩"],
+    "distractors": ["💤", "🌧️"]
+  },
+  {
+    "id": "zh_daily_001",
+    "language": "zh-CN",
+    "category": "daily",
+    "modes": ["repeat", "choose"],
+    "text": "我想喝水",
+    "reading": "wǒ xiǎng hē shuǐ",
+    "pinyin": "woxiangheshui",
+    "translation": "Water please",
+    "image": "🥤",
+    "aliases": ["喝水", "给我水"],
+    "distractors": ["🧼", "🧦"]
+  },
+  {
+    "id": "zh_help_001",
+    "language": "zh-CN",
+    "category": "help",
+    "modes": ["repeat", "choose"],
+    "text": "我要上厕所",
+    "reading": "wǒ yào shàng cè suǒ",
+    "pinyin": "woyaoshangcesuo",
+    "translation": "Bathroom please",
+    "image": "🚽",
+    "aliases": ["去厕所", "尿尿", "上厕所"],
+    "distractors": ["🎒", "🍎"]
+  }
+]

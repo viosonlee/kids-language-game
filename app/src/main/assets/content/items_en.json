@@ -1,0 +1,74 @@
+[
+  {
+    "id": "en_greet_001",
+    "language": "en-US",
+    "category": "greetings",
+    "modes": ["repeat", "choose"],
+    "text": "Good morning",
+    "reading": "Good morning",
+    "translation": "早上好",
+    "image": "🌅",
+    "aliases": ["morning"],
+    "distractors": ["🌙", "👋"]
+  },
+  {
+    "id": "en_greet_002",
+    "language": "en-US",
+    "category": "greetings",
+    "modes": ["repeat", "choose"],
+    "text": "Thank you",
+    "reading": "Thank you",
+    "translation": "谢谢",
+    "image": "🎁",
+    "aliases": ["thanks"],
+    "distractors": ["🙅", "🏃"]
+  },
+  {
+    "id": "en_greet_003",
+    "language": "en-US",
+    "category": "greetings",
+    "modes": ["repeat", "choose"],
+    "text": "Excuse me",
+    "reading": "Excuse me",
+    "translation": "打扰一下 / 对不起",
+    "image": "🙇",
+    "aliases": ["sorry"],
+    "distractors": ["😄", "🎉"]
+  },
+  {
+    "id": "en_play_001",
+    "language": "en-US",
+    "category": "play",
+    "modes": ["repeat", "choose"],
+    "text": "Let's play together",
+    "reading": "Let's play together",
+    "translation": "一起玩吧",
+    "image": "🛝",
+    "aliases": ["let's play", "play together"],
+    "distractors": ["💤", "🌧️"]
+  },
+  {
+    "id": "en_daily_001",
+    "language": "en-US",
+    "category": "daily",
+    "modes": ["repeat", "choose"],
+    "text": "Water please",
+    "reading": "Water please",
+    "translation": "请给我水",
+    "image": "🥤",
+    "aliases": ["water", "can I have water"],
+    "distractors": ["🧼", "🧦"]
+  },
+  {
+    "id": "en_help_001",
+    "language": "en-US",
+    "category": "help",
+    "modes": ["repeat", "choose"],
+    "text": "Bathroom please",
+    "reading": "Bathroom please",
+    "translation": "我想去洗手间",
+    "image": "🚽",
+    "aliases": ["restroom", "toilet please"],
+    "distractors": ["🎒", "🍎"]
+  }
+]

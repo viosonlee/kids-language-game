@@ -1,0 +1,66 @@
+{
+  "project": "Kids Language Companion",
+  "version": "1.0",
+  "target": {
+    "platform": "Android",
+    "minSdk": 29,
+    "primaryDevice": "10.8-inch 2560x1600 tablet",
+    "orientation": "landscape-first"
+  },
+  "milestones": [
+    {
+      "id": "M0",
+      "name": "Project Skeleton",
+      "dependsOn": [],
+      "exitCriteria": "All placeholder screens reachable on Android 10 tablet"
+    },
+    {
+      "id": "M1",
+      "name": "High Fidelity UI Shell",
+      "dependsOn": ["M0"],
+      "exitCriteria": "Figma spec represented in Compose without business logic"
+    },
+    {
+      "id": "M2",
+      "name": "Content and Audio",
+      "dependsOn": ["M0", "M1"],
+      "exitCriteria": "20 Japanese PoC items load offline with image/audio mapping"
+    },
+    {
+      "id": "M3",
+      "name": "ASR PoC",
+      "dependsOn": ["M0"],
+      "exitCriteria": "Real-child test determines whether Vosk is acceptable"
+    },
+    {
+      "id": "M4",
+      "name": "Repeat Mode",
+      "dependsOn": ["M1", "M2", "M3"],
+      "exitCriteria": "10-item offline Listen & Repeat session completes end-to-end"
+    },
+    {
+      "id": "M5",
+      "name": "Choose Mode",
+      "dependsOn": ["M1", "M2"],
+      "exitCriteria": "10-item Listen & Choose session works without reading text"
+    },
+    {
+      "id": "M6",
+      "name": "Persistence and Parent Mode",
+      "dependsOn": ["M4", "M5"],
+      "exitCriteria": "Settings and progress survive restart"
+    },
+    {
+      "id": "M7",
+      "name": "Three-language Expansion",
+      "dependsOn": ["M4", "M5", "M6"],
+      "exitCriteria": "JA>=60, ZH>=30, EN>=30 with model switching"
+    },
+    {
+      "id": "M8",
+      "name": "Stabilization",
+      "dependsOn": ["M7"],
+      "exitCriteria": "V1 release gate satisfied"
+    }
+  ]
+}
