@@ -24,7 +24,33 @@
 
 ---
 
-## 2. 需求与实现对齐原则 (Alignment Principles)
+## 2. 署名与追溯规则 (Signature & Attribution Rule)
+
+为保证所有文档变更来源清晰、意图可回溯、多 Agent 协作时权责明确，强制执行以下署名规范：
+
+### ✍️ 署名要求
+所有在 `docs/` 下**新建文档**，或在允许追加的文档（如 `docs/WORKLOG.md`）中**追加内容**的 Agent，**必须明确署上自己的 Agent 名字与操作日期**。
+
+### 📋 格式建议
+
+1. **新建文档（在文档头部元数据块中署名）**：
+   ```markdown
+   # 文档标题
+
+   > Author / Agent: [Agent Name / Role / Model]  
+   > Date: YYYY-MM-DD  
+   > Status: Draft / Baseline  
+   > Scope: [简要说明]
+   ```
+
+2. **追加工作日志或记录（在日志标题中署名）**：
+   ```markdown
+   ## YYYY-MM-DD | [模块或任务名称] | By: [Agent Name]
+   ```
+
+---
+
+## 3. 需求与实现对齐原则 (Alignment Principles)
 
 1. **以 `docs/` 为唯一真理来源**：
    - 所有功能的开发实现必须回溯至 `docs/` 中的 PRD、UI 设计与技术规范。
