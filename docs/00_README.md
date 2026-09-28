@@ -39,6 +39,9 @@
 9. `09_Development_Backlog.md`  
    面向 Human / AI Agent 的 V1 Milestone Backlog。
 
+10. `WORKLOG.md`  
+    开发工作日志。记录项目每次迭代与实装交付细节。
+
 ---
 
 ## 2. 产品一句话定义
