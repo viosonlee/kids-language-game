@@ -3,744 +3,1359 @@
     "id": "ja_greet_001",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おはよう",
     "reading": "おはよう",
     "translation": "早上好",
     "image": "🌅",
-    "aliases": ["おはよー", "おはようございます"],
-    "distractors": ["🌙", "👋"]
+    "aliases": [
+      "おはよー",
+      "おはようございます"
+    ],
+    "distractors": [
+      "🌙",
+      "👋"
+    ],
+    "audio": "audio/ja/ja_greet_001.mp3"
   },
   {
     "id": "ja_greet_002",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "ありがとう",
     "reading": "ありがとう",
     "translation": "谢谢",
     "image": "🎁",
-    "aliases": ["ありがと", "ありがとうございます"],
-    "distractors": ["🙅", "🏃"]
+    "aliases": [
+      "ありがと",
+      "ありがとうございます"
+    ],
+    "distractors": [
+      "🙅",
+      "🏃"
+    ],
+    "audio": "audio/ja/ja_greet_002.mp3"
   },
   {
     "id": "ja_greet_003",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "ごめんね",
     "reading": "ごめんね",
     "translation": "对不起",
     "image": "🙇",
-    "aliases": ["ごめんなさい", "ごめん"],
-    "distractors": ["😄", "🎉"]
+    "aliases": [
+      "ごめんなさい",
+      "ごめん"
+    ],
+    "distractors": [
+      "😄",
+      "🎉"
+    ],
+    "audio": "audio/ja/ja_greet_003.mp3"
   },
   {
     "id": "ja_greet_004",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "どうぞ",
     "reading": "どうぞ",
     "translation": "请 / 给你",
     "image": "🤲",
-    "aliases": ["どーぞ"],
-    "distractors": ["🚫", "🙈"]
+    "aliases": [
+      "どーぞ"
+    ],
+    "distractors": [
+      "🚫",
+      "🙈"
+    ],
+    "audio": "audio/ja/ja_greet_004.mp3"
   },
   {
     "id": "ja_greet_005",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "こんにちは",
     "reading": "こんにちは",
     "translation": "你好",
     "image": "☀️",
-    "aliases": ["こんにちわ"],
-    "distractors": ["🌙", "💤"]
+    "aliases": [
+      "こんにちわ"
+    ],
+    "distractors": [
+      "🌙",
+      "💤"
+    ],
+    "audio": "audio/ja/ja_greet_005.mp3"
   },
   {
     "id": "ja_greet_006",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "さようなら",
     "reading": "さようなら",
     "translation": "再见",
     "image": "👋",
-    "aliases": ["さよなら", "バイバイ"],
-    "distractors": ["🤝", "🍲"]
+    "aliases": [
+      "さよなら",
+      "バイバイ"
+    ],
+    "distractors": [
+      "🤝",
+      "🍲"
+    ],
+    "audio": "audio/ja/ja_greet_006.mp3"
   },
   {
     "id": "ja_greet_007",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "バイバイ",
     "reading": "ばいばい",
     "translation": "拜拜",
     "image": "🙋",
-    "aliases": ["ばいばいー"],
-    "distractors": ["🪑", "🚽"]
+    "aliases": [
+      "ばいばいー"
+    ],
+    "distractors": [
+      "🪑",
+      "🚽"
+    ],
+    "audio": "audio/ja/ja_greet_007.mp3"
   },
   {
     "id": "ja_greet_008",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "いただきます",
     "reading": "いただきます",
     "translation": "我开动了 (饭前)",
     "image": "🙏",
-    "aliases": ["いただきまーす"],
-    "distractors": ["🏃", "⚽"]
+    "aliases": [
+      "いただきまーす"
+    ],
+    "distractors": [
+      "🏃",
+      "⚽"
+    ],
+    "audio": "audio/ja/ja_greet_008.mp3"
   },
   {
     "id": "ja_greet_009",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "ごちそうさま",
     "reading": "ごちそうさま",
     "translation": "多谢款待 (饭后)",
     "image": "🍽️",
-    "aliases": ["ごちそうさまでした", "ごちそーさま"],
-    "distractors": ["🛝", "🌧️"]
+    "aliases": [
+      "ごちそうさまでした",
+      "ごちそーさま"
+    ],
+    "distractors": [
+      "🛝",
+      "🌧️"
+    ],
+    "audio": "audio/ja/ja_greet_009.mp3"
   },
   {
     "id": "ja_greet_010",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "よろしくね",
     "reading": "よろしくね",
     "translation": "请多关照",
     "image": "🤝",
-    "aliases": ["よろしく", "よろしくおねがいします"],
-    "distractors": ["🚪", "📦"]
+    "aliases": [
+      "よろしく",
+      "よろしくおねがいします"
+    ],
+    "distractors": [
+      "🚪",
+      "📦"
+    ],
+    "audio": "audio/ja/ja_greet_010.mp3"
   },
   {
     "id": "ja_greet_011",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "またあした",
     "reading": "またあした",
     "translation": "明天见",
     "image": "🌈",
-    "aliases": ["また明日", "またね"],
-    "distractors": ["⏰", "🥄"]
+    "aliases": [
+      "また明日",
+      "またね"
+    ],
+    "distractors": [
+      "⏰",
+      "🥄"
+    ],
+    "audio": "audio/ja/ja_greet_011.mp3"
   },
   {
     "id": "ja_greet_012",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "いいよ",
     "reading": "いいよ",
     "translation": "好呀 / 可以",
     "image": "👌",
-    "aliases": ["いーよ", "いいですよ"],
-    "distractors": ["🙅", "🚫"]
+    "aliases": [
+      "いーよ",
+      "いいですよ"
+    ],
+    "distractors": [
+      "🙅",
+      "🚫"
+    ],
+    "audio": "audio/ja/ja_greet_012.mp3"
   },
   {
     "id": "ja_greet_013",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "だめ",
     "reading": "だめ",
     "translation": "不行哦",
     "image": "🙅",
-    "aliases": ["だめだよ", "いけません"],
-    "distractors": ["👍", "🎉"]
+    "aliases": [
+      "だめだよ",
+      "いけません"
+    ],
+    "distractors": [
+      "👍",
+      "🎉"
+    ],
+    "audio": "audio/ja/ja_greet_013.mp3"
   },
   {
     "id": "ja_greet_014",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "はい",
     "reading": "はい",
     "translation": "到！/ 是的",
     "image": "✋",
-    "aliases": ["はーい"],
-    "distractors": ["💤", "🚶"]
+    "aliases": [
+      "はーい"
+    ],
+    "distractors": [
+      "💤",
+      "🚶"
+    ],
+    "audio": "audio/ja/ja_greet_014.mp3"
   },
   {
     "id": "ja_greet_015",
     "language": "ja-JP",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おねがい",
     "reading": "おねがい",
     "translation": "拜托了",
     "image": "🥺",
-    "aliases": ["おねがいします", "たのむね"],
-    "distractors": ["⚽", "🪑"]
+    "aliases": [
+      "おねがいします",
+      "たのむね"
+    ],
+    "distractors": [
+      "⚽",
+      "🪑"
+    ],
+    "audio": "audio/ja/ja_greet_015.mp3"
   },
   {
     "id": "ja_play_001",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "いっしょにあそぼう",
     "reading": "いっしょにあそぼう",
     "translation": "一起玩吧",
     "image": "🛝",
-    "aliases": ["いっしょにあそぼ", "あそぼう"],
-    "distractors": ["💤", "🌧️"]
+    "aliases": [
+      "いっしょにあそぼ",
+      "あそぼう"
+    ],
+    "distractors": [
+      "💤",
+      "🌧️"
+    ],
+    "audio": "audio/ja/ja_play_001.mp3"
   },
   {
     "id": "ja_play_002",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "いれて",
     "reading": "いれて",
     "translation": "让我加入吧",
     "image": "⚽",
-    "aliases": ["いれてー", "いれてください"],
-    "distractors": ["🚪", "🤫"]
+    "aliases": [
+      "いれてー",
+      "いれてください"
+    ],
+    "distractors": [
+      "🚪",
+      "🤫"
+    ],
+    "audio": "audio/ja/ja_play_002.mp3"
   },
   {
     "id": "ja_play_003",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "かして",
     "reading": "かして",
     "translation": "借我玩一下",
     "image": "🧸",
-    "aliases": ["かしてー", "かしてください"],
-    "distractors": ["💥", "🚶"]
+    "aliases": [
+      "かしてー",
+      "かしてください"
+    ],
+    "distractors": [
+      "💥",
+      "🚶"
+    ],
+    "audio": "audio/ja/ja_play_003.mp3"
   },
   {
     "id": "ja_play_004",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "まって",
     "reading": "まって",
     "translation": "等等我",
     "image": "✋",
-    "aliases": ["まってー", "ちょっとまって"],
-    "distractors": ["🏃", "🚀"]
+    "aliases": [
+      "まってー",
+      "ちょっとまって"
+    ],
+    "distractors": [
+      "🏃",
+      "🚀"
+    ],
+    "audio": "audio/ja/ja_play_004.mp3"
   },
   {
     "id": "ja_play_005",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "もういっかい",
     "reading": "もういっかい",
     "translation": "再来一次",
     "image": "🔁",
-    "aliases": ["もう１回", "もういちど"],
-    "distractors": ["⏹️", "❌"]
+    "aliases": [
+      "もう１回",
+      "もういちど"
+    ],
+    "distractors": [
+      "⏹️",
+      "❌"
+    ],
+    "audio": "audio/ja/ja_play_005.mp3"
   },
   {
     "id": "ja_play_006",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "つぎぼく",
     "reading": "つぎぼく",
     "translation": "下一个轮到我",
     "image": "👦",
-    "aliases": ["つぎわたし", "つぎじぶん"],
-    "distractors": ["💤", "👟"]
+    "aliases": [
+      "つぎわたし",
+      "つぎじぶん"
+    ],
+    "distractors": [
+      "💤",
+      "👟"
+    ],
+    "audio": "audio/ja/ja_play_006.mp3"
   },
   {
     "id": "ja_play_007",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "じゅんばん",
     "reading": "じゅんばん",
     "translation": "按顺序轮流",
     "image": "🔢",
-    "aliases": ["じゅんばんだよ", "ならんで"],
-    "distractors": ["💥", "🍕"]
+    "aliases": [
+      "じゅんばんだよ",
+      "ならんで"
+    ],
+    "distractors": [
+      "💥",
+      "🍕"
+    ],
+    "audio": "audio/ja/ja_play_007.mp3"
   },
   {
     "id": "ja_play_008",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "かわりばんこ",
     "reading": "かわりばんこ",
     "translation": "交换轮流玩",
     "image": "🔄",
-    "aliases": ["こうたい", "じゅんばんこ"],
-    "distractors": ["🪑", "🧼"]
+    "aliases": [
+      "こうたい",
+      "じゅんばんこ"
+    ],
+    "distractors": [
+      "🪑",
+      "🧼"
+    ],
+    "audio": "audio/ja/ja_play_008.mp3"
   },
   {
     "id": "ja_play_009",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "これみて",
     "reading": "これみて",
     "translation": "看这个！",
     "image": "👀",
-    "aliases": ["みてみて", "ほらみて"],
-    "distractors": ["👂", "🙈"]
+    "aliases": [
+      "みてみて",
+      "ほらみて"
+    ],
+    "distractors": [
+      "👂",
+      "🙈"
+    ],
+    "audio": "audio/ja/ja_play_009.mp3"
   },
   {
     "id": "ja_play_010",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "すごいね",
     "reading": "すごいね",
     "translation": "好厉害啊",
     "image": "🌟",
-    "aliases": ["すごーい", "かっこいい"],
-    "distractors": ["🌧️", "😴"]
+    "aliases": [
+      "すごーい",
+      "かっこいい"
+    ],
+    "distractors": [
+      "🌧️",
+      "😴"
+    ],
+    "audio": "audio/ja/ja_play_010.mp3"
   },
   {
     "id": "ja_play_011",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おもしろい",
     "reading": "おもしろい",
     "translation": "真好玩",
     "image": "😆",
-    "aliases": ["たのしい", "おもしろーい"],
-    "distractors": ["😭", "🩹"]
+    "aliases": [
+      "たのしい",
+      "おもしろーい"
+    ],
+    "distractors": [
+      "😭",
+      "🩹"
+    ],
+    "audio": "audio/ja/ja_play_011.mp3"
   },
   {
     "id": "ja_play_012",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おもちゃかして",
     "reading": "おもちゃかして",
     "translation": "借我玩具玩",
     "image": "🚗",
-    "aliases": ["くるまかして", "かして"],
-    "distractors": ["🥣", "🧦"]
+    "aliases": [
+      "くるまかして",
+      "かして"
+    ],
+    "distractors": [
+      "🥣",
+      "🧦"
+    ],
+    "audio": "audio/ja/ja_play_012.mp3"
   },
   {
     "id": "ja_play_013",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "いっしょにいこう",
     "reading": "いっしょにいこう",
     "translation": "一起走吧",
     "image": "🏃‍♂️🏃‍♀️",
-    "aliases": ["いこー", "いっしょにいこ"],
-    "distractors": ["🛌", "🛑"]
+    "aliases": [
+      "いこー",
+      "いっしょにいこ"
+    ],
+    "distractors": [
+      "🛌",
+      "🛑"
+    ],
+    "audio": "audio/ja/ja_play_013.mp3"
   },
   {
     "id": "ja_play_014",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おにごっこしよう",
     "reading": "おにごっこしよう",
     "translation": "来捉迷藏/抓人吧",
     "image": "🏃",
-    "aliases": ["おにごっこ", "あそぼう"],
-    "distractors": ["📖", "🥣"]
+    "aliases": [
+      "おにごっこ",
+      "あそぼう"
+    ],
+    "distractors": [
+      "📖",
+      "🥣"
+    ],
+    "audio": "audio/ja/ja_play_014.mp3"
   },
   {
     "id": "ja_play_015",
     "language": "ja-JP",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "すなばであそぼう",
     "reading": "すなばであそぼう",
     "translation": "去沙坑玩吧",
     "image": "🏖️",
-    "aliases": ["すなあそび", "すなばいこう"],
-    "distractors": ["🚽", "🪑"]
+    "aliases": [
+      "すなあそび",
+      "すなばいこう"
+    ],
+    "distractors": [
+      "🚽",
+      "🪑"
+    ],
+    "audio": "audio/ja/ja_play_015.mp3"
   },
   {
     "id": "ja_daily_001",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おみずください",
     "reading": "おみずください",
     "translation": "请给我水",
     "image": "🥤",
-    "aliases": ["おみず", "みずください"],
-    "distractors": ["🧼", "🧦"]
+    "aliases": [
+      "おみず",
+      "みずください"
+    ],
+    "distractors": [
+      "🧼",
+      "🧦"
+    ],
+    "audio": "audio/ja/ja_daily_001.mp3"
   },
   {
     "id": "ja_daily_002",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "てをあらって",
     "reading": "てをあらって",
     "translation": "去洗手吧",
     "image": "🫧",
-    "aliases": ["てをあらう", "てあらい"],
-    "distractors": ["⚽", "📖"]
+    "aliases": [
+      "てをあらう",
+      "てあらい"
+    ],
+    "distractors": [
+      "⚽",
+      "📖"
+    ],
+    "audio": "audio/ja/ja_daily_002.mp3"
   },
   {
     "id": "ja_daily_003",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "すわって",
     "reading": "すわって",
     "translation": "坐下",
     "image": "🪑",
-    "aliases": ["すわる", "おすわり"],
-    "distractors": ["🏃", "🧍"]
+    "aliases": [
+      "すわる",
+      "おすわり"
+    ],
+    "distractors": [
+      "🏃",
+      "🧍"
+    ],
+    "audio": "audio/ja/ja_daily_003.mp3"
   },
   {
     "id": "ja_daily_004",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "あつまって",
     "reading": "あつまって",
     "translation": "集合啦",
     "image": "🧑‍🤝‍🧑",
-    "aliases": ["あつまる", "しゅうごう"],
-    "distractors": ["🏃💨", "🛌"]
+    "aliases": [
+      "あつまる",
+      "しゅうごう"
+    ],
+    "distractors": [
+      "🏃💨",
+      "🛌"
+    ],
+    "audio": "audio/ja/ja_daily_004.mp3"
   },
   {
     "id": "ja_daily_005",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "ならんで",
     "reading": "ならんで",
     "translation": "排队排好",
     "image": "🚶🚶",
-    "aliases": ["ならぶ", "れつにならぶ"],
-    "distractors": ["🤼", "🪑"]
+    "aliases": [
+      "ならぶ",
+      "れつにならぶ"
+    ],
+    "distractors": [
+      "🤼",
+      "🪑"
+    ],
+    "audio": "audio/ja/ja_daily_005.mp3"
   },
   {
     "id": "ja_daily_006",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "かたづけて",
     "reading": "かたづけて",
     "translation": "收拾玩具",
     "image": "📦",
-    "aliases": ["おかたづけ", "かたづけ"],
-    "distractors": ["🎨", "🍕"]
+    "aliases": [
+      "おかたづけ",
+      "かたづけ"
+    ],
+    "distractors": [
+      "🎨",
+      "🍕"
+    ],
+    "audio": "audio/ja/ja_daily_006.mp3"
   },
   {
     "id": "ja_daily_007",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おきがえして",
     "reading": "おきがえして",
     "translation": "换衣服",
     "image": "👕",
-    "aliases": ["きがえて", "おきがえ"],
-    "distractors": ["🥄", "🧼"]
+    "aliases": [
+      "きがえて",
+      "おきがえ"
+    ],
+    "distractors": [
+      "🥄",
+      "🧼"
+    ],
+    "audio": "audio/ja/ja_daily_007.mp3"
   },
   {
     "id": "ja_daily_008",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "くつをはいて",
     "reading": "くつをはいて",
     "translation": "穿好鞋子",
     "image": "👟",
-    "aliases": ["くつはく", "くつはいて"],
-    "distractors": ["🧢", "🧤"]
+    "aliases": [
+      "くつはく",
+      "くつはいて"
+    ],
+    "distractors": [
+      "🧢",
+      "🧤"
+    ],
+    "audio": "audio/ja/ja_daily_008.mp3"
   },
   {
     "id": "ja_daily_009",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "ぼうしをかぶって",
     "reading": "ぼうしをかぶって",
     "translation": "戴上帽子",
     "image": "🧢",
-    "aliases": ["ぼうしかぶる", "ぼうし"],
-    "distractors": ["👟", "🎒"]
+    "aliases": [
+      "ぼうしかぶる",
+      "ぼうし"
+    ],
+    "distractors": [
+      "👟",
+      "🎒"
+    ],
+    "audio": "audio/ja/ja_daily_009.mp3"
   },
   {
     "id": "ja_daily_010",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "きいて",
     "reading": "きいて",
     "translation": "仔细听老师说",
     "image": "👂",
-    "aliases": ["おはなしきいて", "よくきいて"],
-    "distractors": ["👟", "⚽"]
+    "aliases": [
+      "おはなしきいて",
+      "よくきいて"
+    ],
+    "distractors": [
+      "👟",
+      "⚽"
+    ],
+    "audio": "audio/ja/ja_daily_010.mp3"
   },
   {
     "id": "ja_daily_011",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "しずかに",
     "reading": "しずかに",
     "translation": "请保持安静",
     "image": "🤫",
-    "aliases": ["しずかにしてね", "シー"],
-    "distractors": ["📢", "🎉"]
+    "aliases": [
+      "しずかにしてね",
+      "シー"
+    ],
+    "distractors": [
+      "📢",
+      "🎉"
+    ],
+    "audio": "audio/ja/ja_daily_011.mp3"
   },
   {
     "id": "ja_daily_012",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "たって",
     "reading": "たって",
     "translation": "站起来",
     "image": "🧍",
-    "aliases": ["たつ", "おきて"],
-    "distractors": ["🪑", "🛌"]
+    "aliases": [
+      "たつ",
+      "おきて"
+    ],
+    "distractors": [
+      "🪑",
+      "🛌"
+    ],
+    "audio": "audio/ja/ja_daily_012.mp3"
   },
   {
     "id": "ja_daily_013",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "あるいて",
     "reading": "あるいて",
     "translation": "慢慢走，不要跑",
     "image": "🚶",
-    "aliases": ["あるく", "はしらない"],
-    "distractors": ["🏎️", "✈️"]
+    "aliases": [
+      "あるく",
+      "はしらない"
+    ],
+    "distractors": [
+      "🏎️",
+      "✈️"
+    ],
+    "audio": "audio/ja/ja_daily_013.mp3"
   },
   {
     "id": "ja_daily_014",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おいしい",
     "reading": "おいしい",
     "translation": "真好吃",
     "image": "😋",
-    "aliases": ["おいしー", "うまーい"],
-    "distractors": ["🌧️", "🩹"]
+    "aliases": [
+      "おいしー",
+      "うまーい"
+    ],
+    "distractors": [
+      "🌧️",
+      "🩹"
+    ],
+    "audio": "audio/ja/ja_daily_014.mp3"
   },
   {
     "id": "ja_daily_015",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おなかすいた",
     "reading": "おなかすいた",
     "translation": "肚子饿了",
     "image": "🤤",
-    "aliases": ["おなかすいたー", "ごはんまだ"],
-    "distractors": ["💤", "⚽"]
+    "aliases": [
+      "おなかすいたー",
+      "ごはんまだ"
+    ],
+    "distractors": [
+      "💤",
+      "⚽"
+    ],
+    "audio": "audio/ja/ja_daily_015.mp3"
   },
   {
     "id": "ja_daily_016",
     "language": "ja-JP",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おかわり",
     "reading": "おかわり",
     "translation": "我还想要一份",
     "image": "🥣",
-    "aliases": ["おかわりください", "もっとたべたい"],
-    "distractors": ["🗑️", "🚪"]
+    "aliases": [
+      "おかわりください",
+      "もっとたべたい"
+    ],
+    "distractors": [
+      "🗑️",
+      "🚪"
+    ],
+    "audio": "audio/ja/ja_daily_016.mp3"
   },
   {
     "id": "ja_help_001",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "トイレにいきたい",
     "reading": "といれにいきたい",
     "translation": "我想上厕所",
     "image": "🚽",
-    "aliases": ["といれ", "おてあらい", "トイレ"],
-    "distractors": ["🎒", "🍎"]
+    "aliases": [
+      "といれ",
+      "おてあらい",
+      "トイレ"
+    ],
+    "distractors": [
+      "🎒",
+      "🍎"
+    ],
+    "audio": "audio/ja/ja_help_001.mp3"
   },
   {
     "id": "ja_help_002",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "いたい",
     "reading": "いたい",
     "translation": "痛 / 不舒服",
     "image": "🩹",
-    "aliases": ["いたいよ", "ここいたい"],
-    "distractors": ["🎈", "🍨"]
+    "aliases": [
+      "いたいよ",
+      "ここいたい"
+    ],
+    "distractors": [
+      "🎈",
+      "🍨"
+    ],
+    "audio": "audio/ja/ja_help_002.mp3"
   },
   {
     "id": "ja_help_003",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "せんせい",
     "reading": "せんせい",
     "translation": "老师！",
     "image": "👩‍🏫",
-    "aliases": ["せんせー", "先生"],
-    "distractors": ["🐶", "🚗"]
+    "aliases": [
+      "せんせー",
+      "先生"
+    ],
+    "distractors": [
+      "🐶",
+      "🚗"
+    ],
+    "audio": "audio/ja/ja_help_003.mp3"
   },
   {
     "id": "ja_help_004",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "わからない",
     "reading": "わからない",
     "translation": "听不懂 / 不知道",
     "image": "❓",
-    "aliases": ["わかんない", "わかりません"],
-    "distractors": ["💡", "👍"]
+    "aliases": [
+      "わかんない",
+      "わかりません"
+    ],
+    "distractors": [
+      "💡",
+      "👍"
+    ],
+    "audio": "audio/ja/ja_help_004.mp3"
   },
   {
     "id": "ja_help_005",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "たすけて",
     "reading": "たすけて",
     "translation": "救命 / 帮帮我",
     "image": "🆘",
-    "aliases": ["てつだって", "たすけてー"],
-    "distractors": ["🎉", "💤"]
+    "aliases": [
+      "てつだって",
+      "たすけてー"
+    ],
+    "distractors": [
+      "🎉",
+      "💤"
+    ],
+    "audio": "audio/ja/ja_help_005.mp3"
   },
   {
     "id": "ja_help_006",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おなかいたい",
     "reading": "おなかいたい",
     "translation": "肚子痛",
     "image": "😣",
-    "aliases": ["おなかいたいよ", "ぽんぽんいたい"],
-    "distractors": ["⚽", "🍎"]
+    "aliases": [
+      "おなかいたいよ",
+      "ぽんぽんいたい"
+    ],
+    "distractors": [
+      "⚽",
+      "🍎"
+    ],
+    "audio": "audio/ja/ja_help_006.mp3"
   },
   {
     "id": "ja_help_007",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "あたまいたい",
     "reading": "あたまいたい",
     "translation": "头痛",
     "image": "🤕",
-    "aliases": ["あたまいたいよ"],
-    "distractors": ["👟", "🛝"]
+    "aliases": [
+      "あたまいたいよ"
+    ],
+    "distractors": [
+      "👟",
+      "🛝"
+    ],
+    "audio": "audio/ja/ja_help_007.mp3"
   },
   {
     "id": "ja_help_008",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "きもちわるい",
     "reading": "きもちわるい",
     "translation": "想吐 / 难受",
     "image": "🤢",
-    "aliases": ["はきそう", "気分わるい"],
-    "distractors": ["😄", "🍰"]
+    "aliases": [
+      "はきそう",
+      "気分わるい"
+    ],
+    "distractors": [
+      "😄",
+      "🍰"
+    ],
+    "audio": "audio/ja/ja_help_008.mp3"
   },
   {
     "id": "ja_help_009",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "ねむい",
     "reading": "ねむい",
     "translation": "困了 / 想睡觉",
     "image": "🥱",
-    "aliases": ["ねむたい", "ねむいよ"],
-    "distractors": ["🏃", "📢"]
+    "aliases": [
+      "ねむたい",
+      "ねむいよ"
+    ],
+    "distractors": [
+      "🏃",
+      "📢"
+    ],
+    "audio": "audio/ja/ja_help_009.mp3"
   },
   {
     "id": "ja_help_010",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "てつだって",
     "reading": "てつだって",
     "translation": "帮帮我",
     "image": "🤝",
-    "aliases": ["てつだってください", "おねがい"],
-    "distractors": ["🚫", "🪑"]
+    "aliases": [
+      "てつだってください",
+      "おねがい"
+    ],
+    "distractors": [
+      "🚫",
+      "🪑"
+    ],
+    "audio": "audio/ja/ja_help_010.mp3"
   },
   {
     "id": "ja_help_011",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "せんせいきて",
     "reading": "せんせいきて",
     "translation": "老师快来",
     "image": "👩‍🏫",
-    "aliases": ["せんせいー", "こっちきて"],
-    "distractors": ["💤", "⚽"]
+    "aliases": [
+      "せんせいー",
+      "こっちきて"
+    ],
+    "distractors": [
+      "💤",
+      "⚽"
+    ],
+    "audio": "audio/ja/ja_help_011.mp3"
   },
   {
     "id": "ja_help_012",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おしっこでる",
     "reading": "おしっこでる",
     "translation": "要尿尿了！",
     "image": "🚽",
-    "aliases": ["おしっこ", "といれいきたい"],
-    "distractors": ["🍔", "🎨"]
+    "aliases": [
+      "おしっこ",
+      "といれいきたい"
+    ],
+    "distractors": [
+      "🍔",
+      "🎨"
+    ],
+    "audio": "audio/ja/ja_help_012.mp3"
   },
   {
     "id": "ja_help_013",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "かえる",
     "reading": "かえる",
     "translation": "要回家了",
     "image": "🏠",
-    "aliases": ["おうちかえる", "かえりたい"],
-    "distractors": ["🛝", "⚽"]
+    "aliases": [
+      "おうちかえる",
+      "かえりたい"
+    ],
+    "distractors": [
+      "🛝",
+      "⚽"
+    ],
+    "audio": "audio/ja/ja_help_013.mp3"
   },
   {
     "id": "ja_help_014",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "ママきた",
     "reading": "ままきた",
     "translation": "妈妈来接我啦",
     "image": "👩‍👧",
-    "aliases": ["おかあさんきた", "ママ"],
-    "distractors": ["🌧️", "💤"]
+    "aliases": [
+      "おかあさんきた",
+      "ママ"
+    ],
+    "distractors": [
+      "🌧️",
+      "💤"
+    ],
+    "audio": "audio/ja/ja_help_014.mp3"
   },
   {
     "id": "ja_help_015",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "パパきた",
     "reading": "ぱぱきた",
     "translation": "爸爸来接我啦",
     "image": "👨‍👦",
-    "aliases": ["おとうさんきた", "パパ"],
-    "distractors": ["🌧️", "💤"]
+    "aliases": [
+      "おとうさんきた",
+      "パパ"
+    ],
+    "distractors": [
+      "🌧️",
+      "💤"
+    ],
+    "audio": "audio/ja/ja_help_015.mp3"
   },
   {
     "id": "ja_help_016",
     "language": "ja-JP",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "おみずこぼれた",
     "reading": "おみずこぼれた",
     "translation": "水洒了",
     "image": "💧",
-    "aliases": ["こぼれた", "ぬれちゃった"],
-    "distractors": ["🌞", "🎁"]
+    "aliases": [
+      "こぼれた",
+      "ぬれちゃった"
+    ],
+    "distractors": [
+      "🌞",
+      "🎁"
+    ],
+    "audio": "audio/ja/ja_help_016.mp3"
   }
 ]

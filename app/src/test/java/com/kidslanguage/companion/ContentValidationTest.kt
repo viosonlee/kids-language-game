@@ -54,4 +54,20 @@ class ContentValidationTest {
         val total = ja.size + zh.size + en.size
         assertTrue("Total items must be >= 120, found $total", total >= 120)
     }
+
+    @Test
+    fun `validate all practice items have corresponding audio asset file`() {
+        val files = listOf("items_ja.json", "items_zh.json", "items_en.json")
+        for (fileName in files) {
+            val file = File("src/main/assets/content/$fileName")
+            val items = json.decodeFromString<List<PracticeItem>>(file.readText())
+            for (item in items) {
+                val audioPath = item.audio
+                assertTrue("Item ${item.id} in $fileName should have audio path set", !audioPath.isNullOrBlank())
+                val audioFile = File("src/main/assets", audioPath!!)
+                assertTrue("Audio file for ${item.id} ($audioPath) must exist on disk and be non-empty", audioFile.exists() && audioFile.length() > 0)
+            }
+        }
+    }
 }
+

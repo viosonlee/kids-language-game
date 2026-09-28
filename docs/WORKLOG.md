@@ -154,3 +154,44 @@
    - 产物大小：103.5 MB；
    - 结果：`BUILD SUCCESSFUL in 26s`。
 
+---
+
+## 2026-09-28 | V1.2 AI 卡通离线发音包全量落地与资产测试闭环 | By: Antigravity Agent
+
+### 1. 任务背景与目标
+- **输入来源**：用户要求全面推进“AI 生成卡通音发音包”的可行性与工程实装方案，彻底解决 Android 原生 TTS 机械生硬、语速过快、缺乏童趣与亲和力的问题。
+- **目标**：
+  1. 落地技术规格设计文档 `docs/10_AI_Audio_Asset_Generation_Spec.md`；
+  2. 实现批处理流水线脚本 `scripts/generate_audio.py`，针对 126 道练习题目批量生成卡通语音 MP3 资产；
+  3. 声线定向调校：日语（Nanami 萌系微加速调调）、中文（Xiaoyi 卡通灵动调音）、英语（Ana 软萌原声童音）；
+  4. 更新 `items_{ja,zh,en}.json` 题库的 `audio` 字段，实现与 `AndroidPromptPlayer` 的无缝对接，并优化资产文件描述符释放；
+  5. 扩展自动化单元测试，确保 126 个音频文件 100% 存在且有效；
+  6. 严格执行本地 Git 提交与规范署名。
+
+### 2. 关键实施成果
+
+#### 2.1 神经声线选型与精细调校
+- **日语 (JA)**：选型 `ja-JP-NanamiNeural`，调音 `Pitch: +10Hz`, `Rate: -10%`。生动活泼，精准注音（优先使用 `reading` 平假名生成，避免汉字多音字误读）。
+- **中文 (ZH)**：选型 `zh-CN-XiaoyiNeural`（官方动漫卡通专属声线），调音 `Pitch: +8Hz`, `Rate: -10%`。声线清脆甜美，咬字清晰适合学语。
+- **英语 (EN)**：选型 `en-US-AnaNeural`（官方儿童卡通专属声线），调音 `Pitch: +5Hz`, `Rate: -10%`。天然欧美童声，充满童趣与亲切感。
+
+#### 2.2 离线音频批量生成脚本 (`scripts/generate_audio.py`)
+- 基于 Python `edge-tts` 构建异步批量处理管线；
+- 具备并发控制（`asyncio.Semaphore(4)`）、重试与指数退避、断点续传（已有有效文件自动跳过）；
+- 自动完成 126 条练习题的 MP3 生成，并同步回写各 JSON 文件的 `audio` 字段路径（`audio/{lang}/{id}.mp3`）。
+
+#### 2.3 资产轻量化与工程架构优化
+- **资产规模**：126 个 MP3 文件总大小仅 **1.45 MB**，零体积膨胀负担；
+- **资源安全与防泄漏**：优化 `AndroidPromptPlayer.kt`，采用 `use` 块安全管理 `AssetFileDescriptor`，避免多题轮播导致的句柄泄漏；
+- **双层回退机制**：本地优先播放高拟真卡通音频；若缺失则无缝静默回退至原生 TTS。
+
+#### 2.4 测试与质量闭环
+- 在 `ContentValidationTest.kt` 中新增 `validate all practice items have corresponding audio asset file` 测试用例，断言题库内全部 126 项练习的音频路径均非空且对应的 MP3 资产文件真实存在且大于 0 字节。
+
+### 3. 构建与验证记录
+1. **单元测试 (`gradlew.bat test`)**：
+   - 包含发音评估、题库规模、资产完整性等 12 个测试用例；
+   - 全部通过（`BUILD SUCCESSFUL in 25s`）。
+2. **APK 打包验证 (`gradlew.bat assembleDebug`)**：
+   - 成功打包包含 126 题离线卡通音频包的完整 APK。
+

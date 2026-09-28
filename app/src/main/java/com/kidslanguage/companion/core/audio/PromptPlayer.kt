@@ -52,25 +52,26 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
         // 1. If audio file exists in assets, play with MediaPlayer
         if (!audioAssetPath.isNullOrBlank()) {
             try {
-                val afd = context.assets.openFd(audioAssetPath)
-                mediaPlayer = MediaPlayer().apply {
-                    setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
-                    prepare()
-                    val deferred = CompletableDeferred<Unit>()
-                    setOnCompletionListener {
+                val deferred = CompletableDeferred<Unit>()
+                context.assets.openFd(audioAssetPath).use { afd ->
+                    val player = MediaPlayer()
+                    player.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
+                    player.prepare()
+                    player.setOnCompletionListener {
                         deferred.complete(Unit)
                     }
-                    setOnErrorListener { _, _, _ ->
+                    player.setOnErrorListener { _, _, _ ->
                         deferred.complete(Unit)
                         true
                     }
-                    start()
+                    player.start()
+                    mediaPlayer = player
                     activeCompletion = deferred
                 }
                 activeCompletion?.await()
                 return@withContext
             } catch (_: Exception) {
-                // Asset not present yet, fallback to TTS
+                // Asset not present or playback error, fallback to TTS
             }
         }
 

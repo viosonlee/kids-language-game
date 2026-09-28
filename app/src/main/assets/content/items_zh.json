@@ -3,416 +3,736 @@
     "id": "zh_greet_001",
     "language": "zh-CN",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "早上好",
     "reading": "zǎo shang hǎo",
     "pinyin": "zaoshanghao",
     "translation": "Good morning",
     "image": "🌅",
-    "aliases": ["早安", "早"],
-    "distractors": ["🌙", "👋"]
+    "aliases": [
+      "早安",
+      "早"
+    ],
+    "distractors": [
+      "🌙",
+      "👋"
+    ],
+    "audio": "audio/zh/zh_greet_001.mp3"
   },
   {
     "id": "zh_greet_002",
     "language": "zh-CN",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "谢谢",
     "reading": "xiè xie",
     "pinyin": "xiexie",
     "translation": "Thank you",
     "image": "🎁",
-    "aliases": ["谢谢你", "多谢"],
-    "distractors": ["🙅", "🏃"]
+    "aliases": [
+      "谢谢你",
+      "多谢"
+    ],
+    "distractors": [
+      "🙅",
+      "🏃"
+    ],
+    "audio": "audio/zh/zh_greet_002.mp3"
   },
   {
     "id": "zh_greet_003",
     "language": "zh-CN",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "对不起",
     "reading": "duì bu qǐ",
     "pinyin": "duibuqi",
     "translation": "Sorry",
     "image": "🙇",
-    "aliases": ["不好意思", "对不住"],
-    "distractors": ["😄", "🎉"]
+    "aliases": [
+      "不好意思",
+      "对不住"
+    ],
+    "distractors": [
+      "😄",
+      "🎉"
+    ],
+    "audio": "audio/zh/zh_greet_003.mp3"
   },
   {
     "id": "zh_greet_004",
     "language": "zh-CN",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "没关系",
     "reading": "méi guān xi",
     "pinyin": "meiguanxi",
     "translation": "No problem",
     "image": "👌",
-    "aliases": ["没事", "不要紧"],
-    "distractors": ["😭", "💥"]
+    "aliases": [
+      "没事",
+      "不要紧"
+    ],
+    "distractors": [
+      "😭",
+      "💥"
+    ],
+    "audio": "audio/zh/zh_greet_004.mp3"
   },
   {
     "id": "zh_greet_005",
     "language": "zh-CN",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "你好",
     "reading": "nǐ hǎo",
     "pinyin": "nihao",
     "translation": "Hello",
     "image": "👋",
-    "aliases": ["您好"],
-    "distractors": ["💤", "🌧️"]
+    "aliases": [
+      "您好"
+    ],
+    "distractors": [
+      "💤",
+      "🌧️"
+    ],
+    "audio": "audio/zh/zh_greet_005.mp3"
   },
   {
     "id": "zh_greet_006",
     "language": "zh-CN",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "再见",
     "reading": "zài jiàn",
     "pinyin": "zaijian",
     "translation": "Goodbye",
     "image": "🙋",
-    "aliases": ["拜拜", "明天见"],
-    "distractors": ["🍲", "🪑"]
+    "aliases": [
+      "拜拜",
+      "明天见"
+    ],
+    "distractors": [
+      "🍲",
+      "🪑"
+    ],
+    "audio": "audio/zh/zh_greet_006.mp3"
   },
   {
     "id": "zh_greet_007",
     "language": "zh-CN",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "请给我",
     "reading": "qǐng gěi wǒ",
     "pinyin": "qinggeiwo",
     "translation": "Please give me",
     "image": "🤲",
-    "aliases": ["给我", "给我吧"],
-    "distractors": ["🏃", "🚪"]
+    "aliases": [
+      "给我",
+      "给我吧"
+    ],
+    "distractors": [
+      "🏃",
+      "🚪"
+    ],
+    "audio": "audio/zh/zh_greet_007.mp3"
   },
   {
     "id": "zh_greet_008",
     "language": "zh-CN",
     "category": "greetings",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "我开动了",
     "reading": "wǒ kāi dòng le",
     "pinyin": "wokaidongle",
     "translation": "Let's eat",
     "image": "🙏",
-    "aliases": ["吃饭啦", "开饭了"],
-    "distractors": ["⚽", "🛌"]
+    "aliases": [
+      "吃饭啦",
+      "开饭了"
+    ],
+    "distractors": [
+      "⚽",
+      "🛌"
+    ],
+    "audio": "audio/zh/zh_greet_008.mp3"
   },
   {
     "id": "zh_play_001",
     "language": "zh-CN",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "一起玩吧",
     "reading": "yì qǐ wán ba",
     "pinyin": "yiqiwanba",
     "translation": "Let's play together",
     "image": "🛝",
-    "aliases": ["我们一起玩", "一起玩"],
-    "distractors": ["💤", "🌧️"]
+    "aliases": [
+      "我们一起玩",
+      "一起玩"
+    ],
+    "distractors": [
+      "💤",
+      "🌧️"
+    ],
+    "audio": "audio/zh/zh_play_001.mp3"
   },
   {
     "id": "zh_play_002",
     "language": "zh-CN",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "让我加入吧",
     "reading": "ràng wǒ jiā rù ba",
     "pinyin": "rangwojiaruba",
     "translation": "Can I join?",
     "image": "⚽",
-    "aliases": ["我也要玩", "加我一个"],
-    "distractors": ["🚪", "🤫"]
+    "aliases": [
+      "我也要玩",
+      "加我一个"
+    ],
+    "distractors": [
+      "🚪",
+      "🤫"
+    ],
+    "audio": "audio/zh/zh_play_002.mp3"
   },
   {
     "id": "zh_play_003",
     "language": "zh-CN",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "借我玩一下",
     "reading": "jiè wǒ wán yí xià",
     "pinyin": "jiewowanyixia",
     "translation": "Can I borrow it?",
     "image": "🧸",
-    "aliases": ["借给我", "给我玩玩"],
-    "distractors": ["💥", "🚶"]
+    "aliases": [
+      "借给我",
+      "给我玩玩"
+    ],
+    "distractors": [
+      "💥",
+      "🚶"
+    ],
+    "audio": "audio/zh/zh_play_003.mp3"
   },
   {
     "id": "zh_play_004",
     "language": "zh-CN",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "请等一等",
     "reading": "qǐng děng yi děng",
     "pinyin": "qingdengyideng",
     "translation": "Wait for me",
     "image": "✋",
-    "aliases": ["等一下", "等等我"],
-    "distractors": ["🏃", "🚀"]
+    "aliases": [
+      "等一下",
+      "等等我"
+    ],
+    "distractors": [
+      "🏃",
+      "🚀"
+    ],
+    "audio": "audio/zh/zh_play_004.mp3"
   },
   {
     "id": "zh_play_005",
     "language": "zh-CN",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "再来一次",
     "reading": "zài lái yí cì",
     "pinyin": "zailaiyici",
     "translation": "One more time",
     "image": "🔁",
-    "aliases": ["还要一次", "再玩一次"],
-    "distractors": ["⏹️", "❌"]
+    "aliases": [
+      "还要一次",
+      "再玩一次"
+    ],
+    "distractors": [
+      "⏹️",
+      "❌"
+    ],
+    "audio": "audio/zh/zh_play_005.mp3"
   },
   {
     "id": "zh_play_006",
     "language": "zh-CN",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "轮到我了",
     "reading": "lún dào wǒ le",
     "pinyin": "lundaowole",
     "translation": "My turn",
     "image": "👦",
-    "aliases": ["该我了", "到我了"],
-    "distractors": ["💤", "👟"]
+    "aliases": [
+      "该我了",
+      "到我了"
+    ],
+    "distractors": [
+      "💤",
+      "👟"
+    ],
+    "audio": "audio/zh/zh_play_006.mp3"
   },
   {
     "id": "zh_play_007",
     "language": "zh-CN",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "排队轮流玩",
     "reading": "pái duì lún liú wán",
     "pinyin": "paiduilunliuwan",
     "translation": "Take turns",
     "image": "🔢",
-    "aliases": ["排好队", "轮流"],
-    "distractors": ["💥", "🍕"]
+    "aliases": [
+      "排好队",
+      "轮流"
+    ],
+    "distractors": [
+      "💥",
+      "🍕"
+    ],
+    "audio": "audio/zh/zh_play_007.mp3"
   },
   {
     "id": "zh_play_008",
     "language": "zh-CN",
     "category": "play",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "看这个",
     "reading": "kàn zhè ge",
     "pinyin": "kanzhege",
     "translation": "Look at this",
     "image": "👀",
-    "aliases": ["看这里", "快看"],
-    "distractors": ["👂", "🙈"]
+    "aliases": [
+      "看这里",
+      "快看"
+    ],
+    "distractors": [
+      "👂",
+      "🙈"
+    ],
+    "audio": "audio/zh/zh_play_008.mp3"
   },
   {
     "id": "zh_daily_001",
     "language": "zh-CN",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "我想喝水",
     "reading": "wǒ xiǎng hē shuǐ",
     "pinyin": "woxiangheshui",
     "translation": "Water please",
     "image": "🥤",
-    "aliases": ["喝水", "给我水"],
-    "distractors": ["🧼", "🧦"]
+    "aliases": [
+      "喝水",
+      "给我水"
+    ],
+    "distractors": [
+      "🧼",
+      "🧦"
+    ],
+    "audio": "audio/zh/zh_daily_001.mp3"
   },
   {
     "id": "zh_daily_002",
     "language": "zh-CN",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "洗手手",
     "reading": "xǐ shǒu shou",
     "pinyin": "xishoushou",
     "translation": "Wash hands",
     "image": "🫧",
-    "aliases": ["去洗手", "洗手"],
-    "distractors": ["⚽", "📖"]
+    "aliases": [
+      "去洗手",
+      "洗手"
+    ],
+    "distractors": [
+      "⚽",
+      "📖"
+    ],
+    "audio": "audio/zh/zh_daily_002.mp3"
   },
   {
     "id": "zh_daily_003",
     "language": "zh-CN",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "请坐下",
     "reading": "qǐng zuò xià",
     "pinyin": "qingzuoxia",
     "translation": "Sit down",
     "image": "🪑",
-    "aliases": ["坐好", "坐下"],
-    "distractors": ["🏃", "🧍"]
+    "aliases": [
+      "坐好",
+      "坐下"
+    ],
+    "distractors": [
+      "🏃",
+      "🧍"
+    ],
+    "audio": "audio/zh/zh_daily_003.mp3"
   },
   {
     "id": "zh_daily_004",
     "language": "zh-CN",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "大家集合",
     "reading": "dà jiā jí hé",
     "pinyin": "dajiajihe",
     "translation": "Gather together",
     "image": "🧑‍🤝‍🧑",
-    "aliases": ["过来集合", "快来"],
-    "distractors": ["🏃💨", "🛌"]
+    "aliases": [
+      "过来集合",
+      "快来"
+    ],
+    "distractors": [
+      "🏃💨",
+      "🛌"
+    ],
+    "audio": "audio/zh/zh_daily_004.mp3"
   },
   {
     "id": "zh_daily_005",
     "language": "zh-CN",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "排好队伍",
     "reading": "pái hǎo duì wǔ",
     "pinyin": "paihaoduiwu",
     "translation": "Line up",
     "image": "🚶🚶",
-    "aliases": ["排队", "站好"],
-    "distractors": ["🤼", "🪑"]
+    "aliases": [
+      "排队",
+      "站好"
+    ],
+    "distractors": [
+      "🤼",
+      "🪑"
+    ],
+    "audio": "audio/zh/zh_daily_005.mp3"
   },
   {
     "id": "zh_daily_006",
     "language": "zh-CN",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "收拾玩具",
     "reading": "shōu shi wán jù",
     "pinyin": "shoushiwanju",
     "translation": "Clean up toys",
     "image": "📦",
-    "aliases": ["把玩具收起来", "整理好"],
-    "distractors": ["🎨", "🍕"]
+    "aliases": [
+      "把玩具收起来",
+      "整理好"
+    ],
+    "distractors": [
+      "🎨",
+      "🍕"
+    ],
+    "audio": "audio/zh/zh_daily_006.mp3"
   },
   {
     "id": "zh_daily_007",
     "language": "zh-CN",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "穿好衣服",
     "reading": "chuān hǎo yī fu",
     "pinyin": "chuanhaoyifu",
     "translation": "Put on clothes",
     "image": "👕",
-    "aliases": ["穿衣服", "换衣服"],
-    "distractors": ["🥄", "🧼"]
+    "aliases": [
+      "穿衣服",
+      "换衣服"
+    ],
+    "distractors": [
+      "🥄",
+      "🧼"
+    ],
+    "audio": "audio/zh/zh_daily_007.mp3"
   },
   {
     "id": "zh_daily_008",
     "language": "zh-CN",
     "category": "daily",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "穿鞋子",
     "reading": "chuān xié zi",
     "pinyin": "chuanxiezi",
     "translation": "Put on shoes",
     "image": "👟",
-    "aliases": ["穿好鞋", "鞋子"],
-    "distractors": ["🧢", "🧤"]
+    "aliases": [
+      "穿好鞋",
+      "鞋子"
+    ],
+    "distractors": [
+      "🧢",
+      "🧤"
+    ],
+    "audio": "audio/zh/zh_daily_008.mp3"
   },
   {
     "id": "zh_help_001",
     "language": "zh-CN",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "我要上厕所",
     "reading": "wǒ yào shàng cè suǒ",
     "pinyin": "woyaoshangcesuo",
     "translation": "Bathroom please",
     "image": "🚽",
-    "aliases": ["去厕所", "尿尿", "上厕所"],
-    "distractors": ["🎒", "🍎"]
+    "aliases": [
+      "去厕所",
+      "尿尿",
+      "上厕所"
+    ],
+    "distractors": [
+      "🎒",
+      "🍎"
+    ],
+    "audio": "audio/zh/zh_help_001.mp3"
   },
   {
     "id": "zh_help_002",
     "language": "zh-CN",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "这里痛",
     "reading": "zhè lǐ tòng",
     "pinyin": "zhelitong",
     "translation": "It hurts here",
     "image": "🩹",
-    "aliases": ["好痛", "痛痛"],
-    "distractors": ["🎈", "🍨"]
+    "aliases": [
+      "好痛",
+      "痛痛"
+    ],
+    "distractors": [
+      "🎈",
+      "🍨"
+    ],
+    "audio": "audio/zh/zh_help_002.mp3"
   },
   {
     "id": "zh_help_003",
     "language": "zh-CN",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "老师",
     "reading": "lǎo shī",
     "pinyin": "laoshi",
     "translation": "Teacher",
     "image": "👩‍🏫",
-    "aliases": ["老师好", "找老师"],
-    "distractors": ["🐶", "🚗"]
+    "aliases": [
+      "老师好",
+      "找老师"
+    ],
+    "distractors": [
+      "🐶",
+      "🚗"
+    ],
+    "audio": "audio/zh/zh_help_003.mp3"
   },
   {
     "id": "zh_help_004",
     "language": "zh-CN",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "我不知道",
     "reading": "wǒ bù zhī dào",
     "pinyin": "wobuzhidao",
     "translation": "I don't know",
     "image": "❓",
-    "aliases": ["不知道", "我不明白"],
-    "distractors": ["💡", "👍"]
+    "aliases": [
+      "不知道",
+      "我不明白"
+    ],
+    "distractors": [
+      "💡",
+      "👍"
+    ],
+    "audio": "audio/zh/zh_help_004.mp3"
   },
   {
     "id": "zh_help_005",
     "language": "zh-CN",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "帮帮我",
     "reading": "bāng bang wǒ",
     "pinyin": "bangbangwo",
     "translation": "Help me",
     "image": "🆘",
-    "aliases": ["请帮我", "帮我一下"],
-    "distractors": ["🎉", "💤"]
+    "aliases": [
+      "请帮我",
+      "帮我一下"
+    ],
+    "distractors": [
+      "🎉",
+      "💤"
+    ],
+    "audio": "audio/zh/zh_help_005.mp3"
   },
   {
     "id": "zh_help_006",
     "language": "zh-CN",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "我肚子痛",
     "reading": "wǒ dù zi tòng",
     "pinyin": "woduzitong",
     "translation": "My tummy hurts",
     "image": "😣",
-    "aliases": ["肚子好痛", "肚子疼"],
-    "distractors": ["⚽", "🍎"]
+    "aliases": [
+      "肚子好痛",
+      "肚子疼"
+    ],
+    "distractors": [
+      "⚽",
+      "🍎"
+    ],
+    "audio": "audio/zh/zh_help_006.mp3"
   },
   {
     "id": "zh_help_007",
     "language": "zh-CN",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "妈妈来了",
     "reading": "mā ma lái le",
     "pinyin": "mamalaile",
     "translation": "Mom is here",
     "image": "👩‍👧",
-    "aliases": ["我妈妈来了", "回家啦"],
-    "distractors": ["🌧️", "💤"]
+    "aliases": [
+      "我妈妈来了",
+      "回家啦"
+    ],
+    "distractors": [
+      "🌧️",
+      "💤"
+    ],
+    "audio": "audio/zh/zh_help_007.mp3"
   },
   {
     "id": "zh_help_008",
     "language": "zh-CN",
     "category": "help",
-    "modes": ["repeat", "choose"],
+    "modes": [
+      "repeat",
+      "choose"
+    ],
     "text": "爸爸来了",
     "reading": "bà ba lái le",
     "pinyin": "babalaile",
     "translation": "Dad is here",
     "image": "👨‍👦",
-    "aliases": ["我爸爸来了", "接我了"],
-    "distractors": ["🌧️", "💤"]
+    "aliases": [
+      "我爸爸来了",
+      "接我了"
+    ],
+    "distractors": [
+      "🌧️",
+      "💤"
+    ],
+    "audio": "audio/zh/zh_help_008.mp3"
   }
 ]
