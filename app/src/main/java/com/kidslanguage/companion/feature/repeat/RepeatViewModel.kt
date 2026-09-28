@@ -22,6 +22,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import com.kidslanguage.companion.core.audio.PaoPaoVoices
+import kotlin.random.Random
 
 data class RepeatUiState(
     val items: List<PracticeItem> = emptyList(),
@@ -151,14 +153,25 @@ class RepeatViewModel(
             soundEffectManager?.playSuccess()
             viewModelScope.launch {
                 settingsRepository.incrementCompletedCount()
+                delay(300)
+                if (eval.status == EvaluationStatus.SoftPass && currentAttempts >= 3) {
+                    promptPlayer.playVoiceAsset(PaoPaoVoices.PRAISE_EFFORT)
+                } else {
+                    val voice = if (Random.nextBoolean()) PaoPaoVoices.PRAISE_1 else PaoPaoVoices.PRAISE_2
+                    promptPlayer.playVoiceAsset(voice)
+                }
             }
             autoAdvanceJob?.cancel()
             autoAdvanceJob = viewModelScope.launch {
-                delay(1400)
+                delay(2200)
                 nextItem()
             }
         } else {
             soundEffectManager?.playRetry()
+            viewModelScope.launch {
+                delay(300)
+                promptPlayer.playVoiceAsset(PaoPaoVoices.TRY_AGAIN)
+            }
         }
     }
 

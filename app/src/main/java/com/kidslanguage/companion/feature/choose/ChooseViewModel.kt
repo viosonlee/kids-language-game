@@ -18,6 +18,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import com.kidslanguage.companion.core.audio.PaoPaoVoices
+import kotlin.random.Random
 
 data class ChooseOption(
     val id: String,
@@ -143,14 +145,21 @@ class ChooseViewModel(
             soundEffectManager?.playSuccess()
             viewModelScope.launch {
                 settingsRepository.incrementCompletedCount()
+                delay(300)
+                val voice = if (Random.nextBoolean()) PaoPaoVoices.PRAISE_1 else PaoPaoVoices.PRAISE_2
+                promptPlayer.playVoiceAsset(voice)
             }
             autoAdvanceJob?.cancel()
             autoAdvanceJob = viewModelScope.launch {
-                delay(1200)
+                delay(2200)
                 nextQuestion()
             }
         } else {
             soundEffectManager?.playRetry()
+            viewModelScope.launch {
+                delay(300)
+                promptPlayer.playVoiceAsset(PaoPaoVoices.TRY_AGAIN)
+            }
         }
     }
 

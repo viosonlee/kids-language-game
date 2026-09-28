@@ -2,6 +2,8 @@ package com.kidslanguage.companion.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kidslanguage.companion.core.audio.PaoPaoVoices
+import com.kidslanguage.companion.core.audio.PromptPlayer
 import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.persistence.SettingsRepository
 import kotlinx.coroutines.flow.SharingStarted
@@ -10,7 +12,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val promptPlayer: PromptPlayer? = null
 ) : ViewModel() {
 
     val settings = settingsRepository.settingsFlow.stateIn(
@@ -22,6 +25,12 @@ class HomeViewModel(
     fun selectLanguage(language: LanguageCode) {
         viewModelScope.launch {
             settingsRepository.setLanguage(language)
+        }
+    }
+
+    fun playGreeting() {
+        viewModelScope.launch {
+            promptPlayer?.playVoiceAsset(PaoPaoVoices.GREETING)
         }
     }
 }

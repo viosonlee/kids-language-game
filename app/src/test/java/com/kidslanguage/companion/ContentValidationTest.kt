@@ -79,5 +79,24 @@ class ContentValidationTest {
             assertTrue("SFX file $name must be non-empty", file.length() > 0)
         }
     }
+
+    @Test
+    fun `validate paopao companion voice clips exist and are non-empty`() {
+        val clips = listOf(
+            "paopao_greeting.mp3",
+            "paopao_praise_1.mp3",
+            "paopao_praise_2.mp3",
+            "paopao_praise_effort.mp3",
+            "paopao_try_again.mp3",
+            "paopao_guide_repeat.mp3",
+            "paopao_celebrate.mp3"
+        )
+        for (clip in clips) {
+            val file = File("src/main/assets/audio/paopao/$clip")
+            assertTrue("Pao Pao voice clip $clip must exist", file.exists())
+            assertTrue("Pao Pao voice clip $clip must be non-empty", file.length() > 0)
+        }
+    }
 }
+
 

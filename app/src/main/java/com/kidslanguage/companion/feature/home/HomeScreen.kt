@@ -30,6 +30,7 @@ import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.model.MascotState
 import com.kidslanguage.companion.ui.components.LanguageCard
 import com.kidslanguage.companion.ui.components.MascotView
+import com.kidslanguage.companion.ui.components.debouncedClickable
 import com.kidslanguage.companion.ui.components.PrimaryLargeButton
 import com.kidslanguage.companion.ui.theme.AppSpacing
 import com.kidslanguage.companion.ui.theme.AppTypography
@@ -89,16 +90,19 @@ fun HomeScreen(
             ) {
                 MascotView(
                     state = MascotState.Idle,
-                    size = 340.dp
+                    size = 340.dp,
+                    modifier = Modifier.debouncedClickable(debounceMillis = 1000L) {
+                        viewModel.playGreeting()
+                    }
                 )
                 Spacer(modifier = Modifier.height(AppSpacing.md))
                 Text(
-                    text = "Momo Bunny",
+                    text = "Momo Bunny 🐰",
                     style = AppTypography.titleLarge,
                     color = Primary600
                 )
                 Text(
-                    text = "来和我一起大声说吧！",
+                    text = "点我听兔兔跟泡泡打招呼哦~",
                     style = AppTypography.bodyMedium,
                     color = Neutral700
                 )

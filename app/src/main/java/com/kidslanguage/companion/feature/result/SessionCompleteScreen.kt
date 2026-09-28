@@ -15,9 +15,12 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.kidslanguage.companion.core.audio.PaoPaoVoices
+import com.kidslanguage.companion.core.audio.PromptPlayer
 import com.kidslanguage.companion.core.model.MascotState
 import com.kidslanguage.companion.ui.components.MascotView
 import com.kidslanguage.companion.ui.components.PrimaryLargeButton
@@ -26,15 +29,19 @@ import com.kidslanguage.companion.ui.theme.AppSpacing
 import com.kidslanguage.companion.ui.theme.AppTypography
 import com.kidslanguage.companion.ui.theme.Neutral50
 import com.kidslanguage.companion.ui.theme.Neutral700
-import com.kidslanguage.companion.ui.theme.Neutral900
 import com.kidslanguage.companion.ui.theme.Primary600
 
 @Composable
 fun SessionCompleteScreen(
+    promptPlayer: PromptPlayer? = null,
     onPlayAgain: () -> Unit,
     onBackHome: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    LaunchedEffect(Unit) {
+        promptPlayer?.playVoiceAsset(PaoPaoVoices.CELEBRATE)
+    }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -52,13 +59,13 @@ fun SessionCompleteScreen(
             )
             Spacer(modifier = Modifier.height(AppSpacing.md))
             Text(
-                text = "🎉 太棒啦！练习完成！ 🎉",
+                text = "🎉 泡泡太棒啦！练习完成！ 🎉",
                 style = AppTypography.displayLarge,
                 color = Primary600
             )
             Spacer(modifier = Modifier.height(AppSpacing.xs))
             Text(
-                text = "你今天表现超级棒，小兔子为你骄傲！",
+                text = "泡泡今天表现超级棒，小兔子为你骄傲！",
                 style = AppTypography.titleMedium,
                 color = Neutral700
             )

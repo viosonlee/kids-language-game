@@ -13,8 +13,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Locale
 
+object PaoPaoVoices {
+    const val GREETING = "audio/paopao/paopao_greeting.mp3"
+    const val PRAISE_1 = "audio/paopao/paopao_praise_1.mp3"
+    const val PRAISE_2 = "audio/paopao/paopao_praise_2.mp3"
+    const val PRAISE_EFFORT = "audio/paopao/paopao_praise_effort.mp3"
+    const val TRY_AGAIN = "audio/paopao/paopao_try_again.mp3"
+    const val GUIDE_REPEAT = "audio/paopao/paopao_guide_repeat.mp3"
+    const val CELEBRATE = "audio/paopao/paopao_celebrate.mp3"
+}
+
 interface PromptPlayer {
     suspend fun playPrompt(text: String, language: LanguageCode, audioAssetPath: String? = null)
+    suspend fun playVoiceAsset(audioAssetPath: String)
     fun stop()
     fun release()
 }
@@ -76,6 +87,37 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
             focusRequest?.let { audioManager?.abandonAudioFocusRequest(it) }
             focusRequest = null
         } catch (_: Exception) {}
+    }
+
+    override suspend fun playVoiceAsset(audioAssetPath: String): Unit = withContext(Dispatchers.Main) {
+        stop()
+        requestAudioFocus()
+
+        try {
+            val deferred = CompletableDeferred<Unit>()
+            context.assets.openFd(audioAssetPath).use { afd ->
+                val player = MediaPlayer()
+                player.setAudioAttributes(audioAttributes)
+                player.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
+                player.prepare()
+                player.setOnCompletionListener {
+                    releaseAudioFocus()
+                    deferred.complete(Unit)
+                }
+                player.setOnErrorListener { _, _, _ ->
+                    releaseAudioFocus()
+                    deferred.complete(Unit)
+                    true
+                }
+                player.start()
+                mediaPlayer = player
+                activeCompletion = deferred
+            }
+            activeCompletion?.await()
+        } catch (_: Exception) {
+            releaseAudioFocus()
+        }
+        Unit
     }
 
     override suspend fun playPrompt(text: String, language: LanguageCode, audioAssetPath: String?) = withContext(Dispatchers.Main) {

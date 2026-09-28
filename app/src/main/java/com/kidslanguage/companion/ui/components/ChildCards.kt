@@ -259,7 +259,7 @@ fun FeedbackOverlay(
                     )
                     Spacer(modifier = Modifier.height(AppSpacing.xs))
                     Text(
-                        text = if (isSuccess) "说得非常好！" else "不要着急，跟着兔子再听一次吧",
+                        text = if (isSuccess) "泡泡说得非常好！" else "不要着急，泡泡，跟着兔子再听一次吧",
                         style = AppTypography.bodyMedium,
                         color = Neutral700
                     )

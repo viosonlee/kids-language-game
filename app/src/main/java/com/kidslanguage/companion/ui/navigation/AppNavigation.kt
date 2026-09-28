@@ -50,7 +50,7 @@ fun AppNavigation(container: AppContainer) {
     val navController = rememberNavController()
     var showParentGate by remember { mutableStateOf(false) }
 
-    val homeViewModel = remember { HomeViewModel(container.settingsRepository) }
+    val homeViewModel = remember { HomeViewModel(container.settingsRepository, container.promptPlayer) }
     val parentViewModel = remember { ParentViewModel(container.settingsRepository) }
 
     if (showParentGate) {
@@ -196,6 +196,7 @@ fun AppNavigation(container: AppContainer) {
 
         composable(Routes.SESSION_COMPLETE) {
             SessionCompleteScreen(
+                promptPlayer = container.promptPlayer,
                 onPlayAgain = {
                     navController.popBackStack()
                 },

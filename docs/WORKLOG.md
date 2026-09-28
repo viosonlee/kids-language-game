@@ -324,7 +324,10 @@
 ### 4. 交付文档与同步
 - 编写技术设计文档：[`docs/15_Toy_Optimization_and_Zero_ADB_Spec.md`](file:///d:/personalworkspace/kids-language-game/docs/15_Toy_Optimization_and_Zero_ADB_Spec.md)；
 - 同步更新根目录 `README.md` 与工作日志；
-- **专属定制**：将发音评测第三次开口通过反馈与麦克风权限提示中的称谓由“宝宝”精准调整为“泡泡”，贴合家庭专属玩具定位。
+- **专属定制与个性化语音实装**：
+  1. 将发音评测第三次开口通过反馈、麦克风权限提示及界面浮层称谓由“宝宝”精准调整为“泡泡”；
+  2. 针对 3 岁幼儿不识字、纯靠听觉感知的特点，编写并执行 `scripts/generate_paopao_voices.py`，使用高质量卡通萌兔声线（`zh-CN-XiaoyiNeural`）生成全套 7 种“叫出泡泡名字”的专属语音（`audio/paopao/*.mp3`）；
+  3. 在 `PromptPlayer.kt` 扩展 `playVoiceAsset`，并在首页点击兔兔吉祥物、跟读通过/重试、选图答题以及最终星星结算页面全面接入“泡泡”真实发音交互！
 
 
 
