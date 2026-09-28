@@ -331,3 +331,31 @@
 
 
 
+
+---
+
+## 2026-09-28 | 本地构建工具链迁移与真机部署交付 | By: Antigravity Agent
+
+### 1. 任务背景与目标
+- **输入来源**：用户指令克隆项目 git@github.com:viosonlee/kids-language-game.git 并编译运行至设备/模拟器。
+- **目标**：
+  1. 克隆代码仓库并排查本地运行环境；
+  2. 克服原 D 盘损坏导致的历史缓存与 SDK 路径失效问题；
+  3. 修复 gradle.properties 中硬编码的无效 JDK 路径；
+  4. 解决 Gradle Wrapper 国内网络下载超时问题；
+  5. 完整搭建 C 盘本地构建链（OpenJDK 21 + Android SDK Platform 35 + Build-Tools 34.0.0）；
+  6. 执行 ./gradlew.bat assembleDebug 编译并在连接的真机（OPPO Find X6 Pro，Android 16）上安装与拉起运行；
+  7. 遵循治理规范完成 Git 提交与远程推送。
+
+### 2. 关键实施成果
+1. **构建配置修复与网络镜像**：
+   - 修复 gradle.properties 中已失效的 org.gradle.java.home，配置为本地部署的 OpenJDK 21；
+   - 更新 gradle/wrapper/gradle-wrapper.properties 为腾讯云镜像发行版地址，大幅提升构建拉取稳定性；
+   - 重定向 GRADLE_USER_HOME 与 ANDROID_SDK_HOME 至本地用户目录，摆脱对已损坏 D 盘的依赖。
+2. **环境自动化部署**：
+   - 自动化下载并部署 Microsoft OpenJDK 21 (21.0.6+7)；
+   - 自动化下载并解压 Android SDK platforms;android-35 与 uild-tools;34.0.0；
+   - 自动生成 local.properties 并配置受支持的 SDK 许可签名。
+3. **构建与真机部署**：
+   - 本地构建 ./gradlew.bat assembleDebug 一次性构建成功，产出 pp-debug.apk（约 147 MB）；
+   - 通过 ADB 将安装包成功推送到 OPPO Find X6 Pro 手机，授予麦克风权限并拉起前台 MainActivity 运行。
