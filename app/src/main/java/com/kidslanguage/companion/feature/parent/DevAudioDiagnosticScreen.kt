@@ -116,7 +116,7 @@ fun DevAudioDiagnosticScreen(
                 Button(
                     onClick = { selectedLanguage = lang },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (isSelected) Primary500 else Color(0xFFE2E8F0),
+                        containerColor = if (isSelected) com.kidslanguage.companion.ui.theme.Primary700 else Color(0xFFE2E8F0),
                         contentColor = if (isSelected) Color.White else Neutral900
                     ),
                     shape = RoundedCornerShape(12.dp)
@@ -236,7 +236,7 @@ fun DevAudioDiagnosticScreen(
                                         statusMessage = "播放完毕"
                                     }
                                 },
-                                colors = ButtonDefaults.buttonColors(containerColor = Primary500),
+                                colors = ButtonDefaults.buttonColors(containerColor = com.kidslanguage.companion.ui.theme.Primary700),
                                 shape = RoundedCornerShape(16.dp)
                             ) {
                                 Text("🔊 播放 AI 卡通音频", fontWeight = FontWeight.Bold)

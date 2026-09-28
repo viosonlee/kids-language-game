@@ -297,7 +297,7 @@ fun ParentSettingsScreen(
                     Button(
                         onClick = onOpenDevLab,
                         colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                            containerColor = Primary600
+                            containerColor = com.kidslanguage.companion.ui.theme.Primary700
                         )
                     ) {
                         Text("进入语音与 ASR 诊断实验室 →")

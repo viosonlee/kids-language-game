@@ -5,6 +5,8 @@ import androidx.compose.ui.graphics.Color
 // Primary Tokens
 val Primary500 = Color(0xFF4DA3FF)
 val Primary600 = Color(0xFF338DEB)
+val Primary700 = Color(0xFF1766B5)
+val Primary800 = Color(0xFF12518F)
 val Primary100 = Color(0xFFDCEEFF)
 
 // Accent Tokens

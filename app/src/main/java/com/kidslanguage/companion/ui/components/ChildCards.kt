@@ -224,9 +224,9 @@ fun FeedbackOverlay(
 ) {
     AnimatedVisibility(
         visible = visible,
-        enter = fadeIn() + scaleIn(initialScale = 0.9f),
-        exit = fadeOut() + scaleOut(targetScale = 0.9f),
-        modifier = modifier
+        enter = fadeIn(),
+        exit = fadeOut(),
+        modifier = modifier.fillMaxSize()
     ) {
         val isSuccess = status == EvaluationStatus.Pass || status == EvaluationStatus.SoftPass
         val bgColor = if (isSuccess) SuccessBg else RetryBg

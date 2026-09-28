@@ -3,10 +3,15 @@ package com.kidslanguage.companion.feature.result
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -19,6 +24,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextAlign
 import com.kidslanguage.companion.core.audio.PaoPaoVoices
 import com.kidslanguage.companion.core.audio.PromptPlayer
 import com.kidslanguage.companion.core.model.MascotState
@@ -42,51 +48,56 @@ fun SessionCompleteScreen(
         promptPlayer?.playVoiceAsset(PaoPaoVoices.CELEBRATE)
     }
 
-    Box(
+    BoxWithConstraints(
         modifier = modifier
             .fillMaxSize()
             .background(Neutral50)
             .padding(AppSpacing.xl),
         contentAlignment = Alignment.Center
     ) {
+        val mascotSize = (maxHeight * 0.38f).coerceAtMost(240.dp)
         Column(
+            modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             MascotView(
                 state = MascotState.Great,
-                size = 320.dp
+                size = mascotSize
             )
             Spacer(modifier = Modifier.height(AppSpacing.md))
             Text(
                 text = "🎉 泡泡太棒啦！练习完成！ 🎉",
                 style = AppTypography.displayLarge,
+                textAlign = TextAlign.Center,
                 color = Primary600
             )
             Spacer(modifier = Modifier.height(AppSpacing.xs))
             Text(
                 text = "泡泡今天表现超级棒，小兔子为你骄傲！",
                 style = AppTypography.titleMedium,
+                textAlign = TextAlign.Center,
                 color = Neutral700
             )
 
-            Spacer(modifier = Modifier.height(AppSpacing.xxxl))
+            Spacer(modifier = Modifier.height(AppSpacing.lg))
 
             Row(
+                modifier = Modifier.widthIn(max = 560.dp).fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(AppSpacing.xl)
             ) {
                 PrimaryLargeButton(
                     text = "再玩一次",
                     icon = Icons.Default.Refresh,
                     onClick = onPlayAgain,
-                    modifier = Modifier.width(240.dp)
+                    modifier = Modifier.weight(1f)
                 )
 
                 SecondaryLargeButton(
                     text = "回主页",
                     icon = Icons.Default.Home,
                     onClick = onBackHome,
-                    modifier = Modifier.width(200.dp)
+                    modifier = Modifier.weight(1f)
                 )
             }
         }

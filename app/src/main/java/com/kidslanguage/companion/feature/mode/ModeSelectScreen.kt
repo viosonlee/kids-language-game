@@ -88,7 +88,7 @@ fun ModeSelectScreen(
                 Spacer(modifier = Modifier.height(AppSpacing.xxl))
 
                 PrimaryLargeButton(
-                    text = "听一听，说一说 (跟读)",
+                    text = "听一听，说一说",
                     icon = Icons.Default.Mic,
                     onClick = { onModeSelected(PracticeMode.REPEAT) },
                     modifier = Modifier.fillMaxWidth(0.9f),
@@ -98,7 +98,7 @@ fun ModeSelectScreen(
                 Spacer(modifier = Modifier.height(AppSpacing.xl))
 
                 SecondaryLargeButton(
-                    text = "听一听，选图片 (认图)",
+                    text = "听一听，选图片",
                     icon = Icons.Default.TouchApp,
                     onClick = { onModeSelected(PracticeMode.CHOOSE) },
                     modifier = Modifier.fillMaxWidth(0.9f),

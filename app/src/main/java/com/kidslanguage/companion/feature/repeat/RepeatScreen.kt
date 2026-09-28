@@ -111,155 +111,157 @@ fun RepeatScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Neutral50)
-            .padding(AppSpacing.xl)
     ) {
-        // Top Bar
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            IconButton(
-                onClick = onBack,
-                modifier = Modifier
-                    .size(64.dp)
-                    .clip(CircleShape)
-                    .background(Primary100)
+        Box(Modifier.fillMaxSize().padding(AppSpacing.xl)) {
+            // Top Bar
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    tint = Primary600,
-                    modifier = Modifier.size(36.dp)
+                IconButton(
+                    onClick = onBack,
+                    modifier = Modifier
+                        .size(64.dp)
+                        .clip(CircleShape)
+                        .background(Primary100)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Primary600,
+                        modifier = Modifier.size(36.dp)
+                    )
+                }
+
+                ProgressIndicatorBar(
+                    currentStep = state.currentIndex + 1,
+                    totalSteps = state.items.size,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = AppSpacing.xl)
+                )
+
+                SpeakerButton(
+                    onClick = { viewModel.playCurrentPrompt() },
+                    isPlaying = state.sessionState == SessionStepState.PromptPlaying,
+                    size = 76.dp
                 )
             }
 
-            ProgressIndicatorBar(
-                currentStep = state.currentIndex + 1,
-                totalSteps = state.items.size,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = AppSpacing.xl)
-            )
-
-            SpeakerButton(
-                onClick = { viewModel.playCurrentPrompt() },
-                isPlaying = state.sessionState == SessionStepState.PromptPlaying,
-                size = 76.dp
-            )
-        }
-
-        // Center Content Area: Scene Card (Left) + Mascot (Right)
-        if (currentItem != null) {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 80.dp, bottom = 120.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Scene Card
-                Box(
+            // Center Content Area: Scene Card (Left) + Mascot (Right)
+            if (currentItem != null) {
+                Row(
                     modifier = Modifier
-                        .weight(0.68f)
-                        .shadow(6.dp, RoundedCornerShape(AppRadius.card))
-                        .clip(RoundedCornerShape(AppRadius.card))
-                        .background(Neutral0)
-                        .border(2.dp, Neutral300, RoundedCornerShape(AppRadius.card))
-                        .padding(AppSpacing.xl),
-                    contentAlignment = Alignment.Center
+                        .fillMaxSize()
+                        .padding(top = 80.dp, bottom = 120.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // Scene Card
+                    Box(
+                        modifier = Modifier
+                            .weight(0.68f)
+                            .shadow(6.dp, RoundedCornerShape(AppRadius.card))
+                            .clip(RoundedCornerShape(AppRadius.card))
+                            .background(Neutral0)
+                            .border(2.dp, Neutral300, RoundedCornerShape(AppRadius.card))
+                            .padding(AppSpacing.xl),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = currentItem.image ?: "⭐",
+                                fontSize = 110.sp
+                            )
+                            Spacer(modifier = Modifier.height(AppSpacing.md))
+
+                            if (state.showText) {
+                                Text(
+                                    text = currentItem.text,
+                                    style = AppTypography.displayLarge,
+                                    color = Neutral900
+                                )
+                                if (!currentItem.reading.isNullOrBlank() && currentItem.reading != currentItem.text) {
+                                    Spacer(modifier = Modifier.height(AppSpacing.xs))
+                                    Text(
+                                        text = currentItem.reading,
+                                        style = AppTypography.bodyMedium,
+                                        color = Neutral700
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    // Mascot on the Right
                     Column(
+                        modifier = Modifier
+                            .weight(0.32f)
+                            .padding(start = AppSpacing.xl),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        Text(
-                            text = currentItem.image ?: "⭐",
-                            fontSize = 110.sp
+                        MascotView(
+                            state = state.mascotState,
+                            size = 280.dp
                         )
-                        Spacer(modifier = Modifier.height(AppSpacing.md))
-
-                        if (state.showText) {
-                            Text(
-                                text = currentItem.text,
-                                style = AppTypography.displayLarge,
-                                color = Neutral900
-                            )
-                            if (!currentItem.reading.isNullOrBlank() && currentItem.reading != currentItem.text) {
-                                Spacer(modifier = Modifier.height(AppSpacing.xs))
-                                Text(
-                                    text = currentItem.reading,
-                                    style = AppTypography.bodyMedium,
-                                    color = Neutral700
-                                )
-                            }
-                        }
                     }
                 }
-
-                // Mascot on the Right
-                Column(
-                    modifier = Modifier
-                        .weight(0.32f)
-                        .padding(start = AppSpacing.xl),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    MascotView(
-                        state = state.mascotState,
-                        size = 280.dp
-                    )
-                }
             }
-        }
 
-        // Bottom Action Area: Big Mic Button
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = AppSpacing.xs),
-            contentAlignment = Alignment.Center
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
+            // Bottom Action Area: Big Mic Button
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = AppSpacing.xs),
+                contentAlignment = Alignment.Center
             ) {
-                BigMicButton(
-                    isRecording = state.isRecording,
-                    onClick = {
-                        val hasPermission = ContextCompat.checkSelfPermission(
-                            context,
-                            Manifest.permission.RECORD_AUDIO
-                        ) == PackageManager.PERMISSION_GRANTED
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    BigMicButton(
+                        isRecording = state.isRecording,
+                        onClick = {
+                            val hasPermission = ContextCompat.checkSelfPermission(
+                                context,
+                                Manifest.permission.RECORD_AUDIO
+                            ) == PackageManager.PERMISSION_GRANTED
 
-                        if (!hasPermission) {
-                            permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-                        } else {
-                            viewModel.toggleRecording()
-                        }
-                    },
-                    size = 130.dp
-                )
-
-                // Quick tap simulation helper for devices/testing without real mic
-                if (currentItem != null) {
-                    Spacer(modifier = Modifier.width(AppSpacing.lg))
-                    Box(
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .background(Primary100)
-                            .clickable {
-                                viewModel.demonstrateAnswer()
+                            if (!hasPermission) {
+                                permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                            } else {
+                                viewModel.toggleRecording()
                             }
-                            .padding(horizontal = AppSpacing.normal, vertical = AppSpacing.sm)
-                    ) {
-                        Text(
-                            text = "✨ 示范说出",
-                            style = AppTypography.labelMedium,
-                            color = Primary600
-                        )
+                        },
+                        size = 130.dp
+                    )
+
+                    // Quick tap simulation helper for devices/testing without real mic
+                    if (currentItem != null) {
+                        Spacer(modifier = Modifier.width(AppSpacing.lg))
+                        Box(
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .background(Primary100)
+                                .clickable {
+                                    viewModel.demonstrateAnswer()
+                                }
+                                .padding(horizontal = AppSpacing.normal, vertical = AppSpacing.sm)
+                        ) {
+                            Text(
+                                text = "✨ 示范说出",
+                                style = AppTypography.labelMedium,
+                                color = Primary600
+                            )
+                        }
                     }
                 }
             }
+
         }
 
         if (state.sessionState == SessionStepState.Loading) {
