@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.kidslanguage.companion.core.model.LanguageCode
+import com.kidslanguage.companion.feature.update.AppUpdateCard
 import com.kidslanguage.companion.ui.theme.AppRadius
 import com.kidslanguage.companion.ui.theme.AppSpacing
 import com.kidslanguage.companion.ui.theme.AppTypography
@@ -360,6 +361,9 @@ fun ParentSettingsScreen(
                 }
             }
 
+            Spacer(modifier = Modifier.height(AppSpacing.xl))
+
+            AppUpdateCard()
             Spacer(modifier = Modifier.height(AppSpacing.xl))
 
             // Developer / Diagnostic Lab Card

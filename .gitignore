@@ -12,3 +12,6 @@ local.properties
 app/build/
 /models/
 __pycache__/
+*.jks
+*.keystore
+/release-notes.txt

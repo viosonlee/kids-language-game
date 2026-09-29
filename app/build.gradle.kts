@@ -8,6 +8,13 @@ plugins {
 
 ksp { arg("room.schemaLocation", "$projectDir/schemas") }
 
+val updateRepository = providers.gradleProperty("updateRepository")
+    .getOrElse("viosonlee/kid-game-release")
+require(updateRepository.matches(Regex("[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+")))
+val appVersionCode = providers.gradleProperty("appVersionCode").getOrElse("2").toInt()
+val appVersionName = providers.gradleProperty("appVersionName").getOrElse("1.0.1")
+require(appVersionCode > 0 && appVersionName.matches(Regex("[A-Za-z0-9.+-]{1,64}")))
+
 android {
     namespace = "com.kidslanguage.companion"
     compileSdk = 35
@@ -16,8 +23,8 @@ android {
         applicationId = "com.kidslanguage.companion"
         minSdk = 29
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = appVersionCode
+        versionName = appVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -27,6 +34,7 @@ android {
 
     buildTypes {
         release {
+            buildConfigField("String", "UPDATE_MANIFEST_URL", "\"https://github.com/$updateRepository/releases/latest/download/update-release.json\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -35,6 +43,7 @@ android {
         }
         debug {
             applicationIdSuffix = ".debug"
+            buildConfigField("String", "UPDATE_MANIFEST_URL", "\"https://github.com/$updateRepository/releases/latest/download/update-debug.json\"")
         }
     }
 
@@ -49,6 +58,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     packaging {

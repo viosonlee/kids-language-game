@@ -518,3 +518,14 @@
 - 核查远端 refs/heads/main 与本地 HEAD 均为 d48c1b9，历史提交已由现有推送同步；本次仅剩上述新增修改和本日志。
 - 剩余：新增数据库测试运行与设备验证；三语言真实录音、音频焦点/音乐及平板布局验收；ASR 超时丢最终结果问题（用户要求先调查，未修改）；课程配置、文字辅助尺寸、反馈静音覆盖等需求的最终逐项复核；验证发现的问题修复与最终报告。未声明总目标完成。
 - 暂停保存前 assembleDebug --offline 构建成功；新增 Robolectric 测试仍未验证通过。
+
+## 2026-09-29 | 家长页应用升级与免费分发 | By: Codex
+
+- 用户新增应用内更新需求，选择独立公开 GitHub APK 分发仓库，随后提供 viosonlee/kid-game-release；匿名 API 确认仓库公开且尚无 Release。按用户“先完成代码”要求，未创建凭据、未上传公开 Release、未改源码可见性。
+- 应用更新到 1.0.1（versionCode 2），家长页接入手动检查/下载/取消/安装、进度和更新说明、自定义 HTTPS 更新源；默认指向用户提供的仓库。儿童练习不自动检查更新。
+- 下载限制 HTTPS 重定向、大小、空间、SHA-256；APK 包名/版本/minSdk/现有签名匹配后才提供系统安装。安装前复核文件，离开家长页面取消任务；权限返回后需再次点击，后台不自动拉起安装器。FileProvider 仅共享更新缓存目录。
+- 新增 prepare_app_update.py，从签名验证通过的 APK 读取实际元数据并生成清单；新增手动 Actions 发布工作流和密钥忽略规则。公开分发只需 APK/JSON，自动发布的 token/固定签名 secrets 由用户后续配置。
+- 新增 docs/28 和 README 更新入口。首次手动发布 tag 为 v1.0.1-2，待上传文件准备于 build/update-release/app-debug.apk 与 update-debug.json，均为构建产物，不提交源码仓库。
+- 最终 test assembleDebug --offline 成功，Debug/Release 各 76 项测试全部通过（含新增 8 项更新测试及此前未完成的 Room 数据库测试）。Python 发布/模型工具共 12 项通过。真实 APK 经 apksigner 验证，与已知平板旧版证书 SHA-256 一致。
+- 本次查明此前测试等待发生在 Robolectric 额外 Android artifact 下载；下载完成后 Room 测试正常通过，未修改测试规避问题。Windows JDK 临时路径 socket 问题通过命令环境临时目录修复，未提交机器专属 Gradle 路径。
+- 尚未进行公开 Release 上传、Actions 实际发布、平板下载/安装授权/覆盖更新数据保留端到端验证；旧版需先手动安装一次新 APK。其他代码总审查事项仍按此前记录保留。

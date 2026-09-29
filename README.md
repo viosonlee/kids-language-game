@@ -45,6 +45,12 @@ Debug 包名为 `com.kidslanguage.companion.debug`。覆盖安装须使用与设
 
 仪器测试会安装/启动测试 APK，应使用测试设备。构建测试包成功不代表设备测试已执行。
 
+## 应用内更新
+
+家长设置提供手动检查、下载和安装更新，默认分发源为 [kid-game-release](https://github.com/viosonlee/kid-game-release) 的 GitHub Releases。首次需手动安装带更新功能的版本；后续升级必须保持相同包名和签名，并递增 versionCode。支持自定义 HTTPS 更新地址。
+
+打包清单、首次发布和可选 Actions 自动签名发布步骤见 [应用内升级与分发说明](docs/28_In_App_Updates_and_GitHub_Distribution.md)。源码和私钥不上传公开分发仓库。
+
 ## 测试与 CI
 
 GitHub Actions 在 main 推送或 PR 时执行单元测试、应用构建和仪器测试包构建。测试覆盖题库容错、资产、三语言模型大小/哈希、评测规则、会话生命周期、设置及记录语义；实际 Room 事务有独立仪器测试。CI 保存 APK 和测试报告。
