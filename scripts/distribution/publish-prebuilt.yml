@@ -1,0 +1,74 @@
+name: Publish verified APK
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'artifacts/**'
+      - '.github/workflows/publish-prebuilt.yml'
+      - '.github/scripts/verify_release.py'
+      - 'signer-sha256.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-apk
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out prebuilt package with Git LFS
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify APK signature, version and manifest
+        id: verify
+        run: |
+          export BUILD_TOOLS=$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)
+          python .github/scripts/verify_release.py
+      - name: Publish a complete Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.verify.outputs.tag }}
+          RELEASE_VERSION: ${{ steps.verify.outputs.version }}
+          RELEASE_CODE: ${{ steps.verify.outputs.code }}
+        run: |
+          python - <<'PY'
+          import json, os, subprocess, urllib.request
+          def gh(*args, check=True):
+              return subprocess.run(['gh', *args], check=check, capture_output=True, text=True)
+          repo, tag = os.environ['GITHUB_REPOSITORY'], os.environ['RELEASE_TAG']
+          releases = json.loads(gh('api', f'repos/{repo}/releases?per_page=100').stdout)
+          existing = next((r for r in releases if r['tag_name'] == tag), None)
+          # Never replace an already public binary, including a retry of an old workflow run.
+          if existing and not existing['draft']:
+              print(f'{tag} is already published; leaving it unchanged')
+              raise SystemExit(0)
+          public = [r for r in releases if not r['draft'] and not r['prerelease']]
+          for release in public:
+              asset = next((a for a in release['assets'] if a['name'] == 'update-debug.json'), None)
+              assert asset, 'Existing releases must use the same debug update channel'
+              with urllib.request.urlopen(asset['browser_download_url'], timeout=30) as response:
+                  previous = json.load(response)
+              assert int(os.environ['RELEASE_CODE']) > previous['versionCode'], 'versionCode must increase'
+          if not existing:
+              gh('release', 'create', tag, '--repo', repo, '--target', os.environ['GITHUB_SHA'],
+                 '--draft', '--title', os.environ['RELEASE_VERSION'], '--notes-file', 'release-notes.txt')
+          gh('release', 'upload', tag, '--repo', repo, '--clobber',
+             'artifacts/app-debug.apk', 'artifacts/update-debug.json')
+          gh('release', 'edit', tag, '--repo', repo, '--draft=false', '--latest',
+             '--title', os.environ['RELEASE_VERSION'], '--notes-file', 'release-notes.txt')
+          print(f'https://github.com/{repo}/releases/tag/{tag}')
+          PY

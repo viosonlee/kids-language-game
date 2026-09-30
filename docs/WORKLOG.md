@@ -529,3 +529,12 @@
 - 最终 test assembleDebug --offline 成功，Debug/Release 各 76 项测试全部通过（含新增 8 项更新测试及此前未完成的 Room 数据库测试）。Python 发布/模型工具共 12 项通过。真实 APK 经 apksigner 验证，与已知平板旧版证书 SHA-256 一致。
 - 本次查明此前测试等待发生在 Robolectric 额外 Android artifact 下载；下载完成后 Room 测试正常通过，未修改测试规避问题。Windows JDK 临时路径 socket 问题通过命令环境临时目录修复，未提交机器专属 Gradle 路径。
 - 尚未进行公开 Release 上传、Actions 实际发布、平板下载/安装授权/覆盖更新数据保留端到端验证；旧版需先手动安装一次新 APK。其他代码总审查事项仍按此前记录保留。
+
+## 2026-09-30 | SSH 自动发布首个 APK 与免费平台核查 | By: Codex
+
+- 用户提醒分发仓库仍为空并要求使用自动化工具、核查其他免费平台。本轮初始化 viosonlee/kid-game-release，使用已有 SSH + Git LFS 推送已签名 APK，再由仓库自身 GitHub Actions 的临时 GITHUB_TOKEN 自动创建 Release；不需要内置浏览器登录、个人访问 token 或上传私钥。
+- 公开 v1.0.1-2 Release 已发布，包含 app-debug.apk 与 update-debug.json，成功工作流为 actions/runs/36706776961。APK 为 238657519 字节，GitHub 服务器 SHA-256 与本地清单一致；匿名 latest JSON 与本地内容一致，APK 下载入口返回 200 和正确长度。
+- 前两次云端校验运行未发布，在证书输出解析处失败；修正 SDK 工具证书输出差异，保持完整 apksigner 验证与固定证书匹配，第三次运行成功。源码保存脚本/工作流模板，新增六项发布验证测试；Python 共 18 项通过，assembleDebug 成功，应用运行代码未改动。
+- 新增 docs/29，README 链接已公开的 APK 与 SSH 自动发布流程。原 docs/28 不修改，由新文档补充实际生效的发布方法。
+- 官方资料核查：GitHub Free LFS 包含 10 GiB 存储/下载带宽；Cloudflare R2 有 10 GB-month 标准存储等免费额度且出站流量免费；蒲公英当前官方页面声明分发永久免费并提供 API（仍需账户/API Key）。未注册新平台、未购买额度、未切换应用更新源。
+- 公开分发链路已验证；真机首次安装、应用内升级和记录保留仍待设备测试。原始文档全量审查中的课程配置、辅助文字尺寸、反馈静音等剩余事项尚未修改或宣称完成。

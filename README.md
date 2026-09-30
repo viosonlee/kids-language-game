@@ -51,6 +51,8 @@ Debug 包名为 `com.kidslanguage.companion.debug`。覆盖安装须使用与设
 
 打包清单、首次发布和可选 Actions 自动签名发布步骤见 [应用内升级与分发说明](docs/28_In_App_Updates_and_GitHub_Distribution.md)。源码和私钥不上传公开分发仓库。
 
+首个版本已经发布：[下载 APK](https://github.com/viosonlee/kid-game-release/releases/latest/download/app-debug.apk)。当前使用已有 SSH、Git LFS 和分发仓库自身的 GitHub Actions 自动发布，无需额外网页登录或提供个人 token，具体见 [自动发布与免费平台核查](docs/29_SSH_Automated_Releases_and_Free_Hosting.md)。
+
 ## 测试与 CI
 
 GitHub Actions 在 main 推送或 PR 时执行单元测试、应用构建和仪器测试包构建。测试覆盖题库容错、资产、三语言模型大小/哈希、评测规则、会话生命周期、设置及记录语义；实际 Room 事务有独立仪器测试。CI 保存 APK 和测试报告。
