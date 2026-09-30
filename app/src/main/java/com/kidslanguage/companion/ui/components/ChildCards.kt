@@ -155,7 +155,9 @@ fun ImageOptionCard(
     isSelected: Boolean,
     isCorrect: Boolean?,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    smallText: Boolean = false,
+    highlighted: Boolean = false,
 ) {
     val borderColor = when (isCorrect) {
         true -> AccentGreen
@@ -164,7 +166,7 @@ fun ImageOptionCard(
     }
     val borderWidth = if (isCorrect != null || isSelected) 5.dp else 2.dp
 
-    Box(
+    androidx.compose.foundation.layout.BoxWithConstraints(
         modifier = modifier
             .shadow(if (isSelected) 10.dp else 4.dp, RoundedCornerShape(AppRadius.optionCard))
             .clip(RoundedCornerShape(AppRadius.optionCard))
@@ -174,18 +176,20 @@ fun ImageOptionCard(
             .padding(AppSpacing.md),
         contentAlignment = Alignment.Center
     ) {
+        val imageFontSize = (maxWidth.value * 0.6f).coerceIn(40f, 72f).sp
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = emoji, fontSize = 72.sp)
-            Spacer(modifier = Modifier.height(AppSpacing.sm))
-            Text(
-                text = title,
-                style = AppTypography.bodyLarge,
-                color = Neutral900
-            )
+            Text(text = emoji, fontSize = imageFontSize)
+            if (title.isNotBlank()) {
+                Spacer(modifier = Modifier.height(AppSpacing.sm))
+                Text(text = title,
+                    style = if (smallText) AppTypography.labelMedium else AppTypography.bodyLarge,
+                    textAlign = TextAlign.Center, color = Neutral900)
+            }
         }
+        if (highlighted) Text("✨", fontSize = 24.sp, modifier = Modifier.align(Alignment.TopEnd))
     }
 }
 

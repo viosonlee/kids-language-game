@@ -11,8 +11,8 @@ ksp { arg("room.schemaLocation", "$projectDir/schemas") }
 val updateRepository = providers.gradleProperty("updateRepository")
     .getOrElse("viosonlee/kid-game-release")
 require(updateRepository.matches(Regex("[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+")))
-val appVersionCode = providers.gradleProperty("appVersionCode").getOrElse("2").toInt()
-val appVersionName = providers.gradleProperty("appVersionName").getOrElse("1.0.1")
+val appVersionCode = providers.gradleProperty("appVersionCode").getOrElse("3").toInt()
+val appVersionName = providers.gradleProperty("appVersionName").getOrElse("1.0.2")
 require(appVersionCode > 0 && appVersionName.matches(Regex("[A-Za-z0-9.+-]{1,64}")))
 
 android {

@@ -15,24 +15,38 @@ import kotlinx.coroutines.flow.map
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_settings")
 
+enum class TextDisplayMode(val title: String) { NORMAL("标准文字"), SMALL("辅助小字"), HIDDEN("隐藏文字") }
+
 data class UserSettings(
     val selectedLanguage: LanguageCode = LanguageCode.JA_JP,
     val showText: Boolean = true,
+    val smallText: Boolean = false,
     val autoNext: Boolean = true,
     val autoPlayPrompt: Boolean = true,
     val autoStartRecording: Boolean = false,
     val sessionLength: Int = 10,
+    val choiceCount: Int = 3,
+    val shuffleItems: Boolean = false,
     val soundVolume: Float = 1.0f,
     val musicEnabled: Boolean = false,
     val animationEnabled: Boolean = true,
     val completedCount: Int = 0
-)
+) {
+    val textDisplayMode: TextDisplayMode get() = when {
+        !showText -> TextDisplayMode.HIDDEN
+        smallText -> TextDisplayMode.SMALL
+        else -> TextDisplayMode.NORMAL
+    }
+}
 
 class SettingsRepository(private val store: DataStore<Preferences>) {
     constructor(context: Context) : this(context.dataStore)
 
     private val KEY_LANGUAGE = stringPreferencesKey("selected_language")
     private val KEY_SHOW_TEXT = booleanPreferencesKey("show_text")
+    private val KEY_SMALL_TEXT = booleanPreferencesKey("small_text")
+    private val KEY_CHOICE_COUNT = intPreferencesKey("choice_count")
+    private val KEY_SHUFFLE = booleanPreferencesKey("shuffle_items")
     private val KEY_AUTO_NEXT = booleanPreferencesKey("auto_next")
     private val KEY_AUTO_PLAY = booleanPreferencesKey("auto_play_prompt")
     private val KEY_AUTO_RECORD = booleanPreferencesKey("auto_start_recording")
@@ -47,6 +61,9 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
         UserSettings(
             selectedLanguage = LanguageCode.fromCode(langStr),
             showText = preferences[KEY_SHOW_TEXT] ?: true,
+            smallText = preferences[KEY_SMALL_TEXT] ?: false,
+            choiceCount = (preferences[KEY_CHOICE_COUNT] ?: 3).coerceIn(2, 4),
+            shuffleItems = preferences[KEY_SHUFFLE] ?: false,
             autoNext = preferences[KEY_AUTO_NEXT] ?: true,
             autoPlayPrompt = preferences[KEY_AUTO_PLAY] ?: true,
             autoStartRecording = preferences[KEY_AUTO_RECORD] ?: false,
@@ -69,6 +86,17 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
             preferences[KEY_SHOW_TEXT] = show
         }
     }
+
+    suspend fun setTextDisplayMode(mode: TextDisplayMode) {
+        store.edit {
+            it[KEY_SHOW_TEXT] = mode != TextDisplayMode.HIDDEN
+            it[KEY_SMALL_TEXT] = mode == TextDisplayMode.SMALL
+        }
+    }
+
+    suspend fun setChoiceCount(count: Int) { store.edit { it[KEY_CHOICE_COUNT] = count.coerceIn(2, 4) } }
+
+    suspend fun setShuffleItems(enabled: Boolean) { store.edit { it[KEY_SHUFFLE] = enabled } }
 
     suspend fun setAutoNext(autoNext: Boolean) {
         store.edit { preferences ->

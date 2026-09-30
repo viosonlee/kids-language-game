@@ -26,7 +26,7 @@ object PaoPaoVoices {
 
 interface PromptPlayer {
     suspend fun playPrompt(text: String, language: LanguageCode, audioAssetPath: String? = null)
-    suspend fun playVoiceAsset(audioAssetPath: String)
+    suspend fun playVoiceAsset(audioAssetPath: String, volume: Float = 1f)
     fun stop()
     fun release()
 }
@@ -98,11 +98,12 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
         }
     }
 
-    private suspend fun playAsset(path: String, ticket: PlaybackGate.Ticket) {
+    private suspend fun playAsset(path: String, ticket: PlaybackGate.Ticket, volume: Float = 1f) {
         context.assets.openFd(path).use { descriptor ->
             val player = MediaPlayer()
             mediaPlayer = player
             player.setAudioAttributes(audioAttributes)
+            player.setVolume(volume, volume)
             player.setDataSource(descriptor.fileDescriptor, descriptor.startOffset, descriptor.length)
             player.setOnCompletionListener { gate.complete(ticket.id) }
             player.setOnErrorListener { _, _, _ ->
@@ -115,10 +116,11 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
         ticket.completion.await()
     }
 
-    override suspend fun playVoiceAsset(audioAssetPath: String) {
+    override suspend fun playVoiceAsset(audioAssetPath: String, volume: Float) {
+        if (volume <= 0f) return
         play { ticket ->
             try {
-                playAsset(audioAssetPath, ticket)
+                playAsset(audioAssetPath, ticket, volume.coerceIn(0f, 1f))
             } catch (e: CancellationException) {
                 throw e
             } catch (_: Exception) {

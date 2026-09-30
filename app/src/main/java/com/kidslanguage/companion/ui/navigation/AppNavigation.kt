@@ -8,6 +8,8 @@ import android.content.pm.PackageManager
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.produceState
+import com.kidslanguage.companion.core.content.availableModes
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavType
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -125,7 +127,11 @@ fun AppNavigation(container: AppContainer) {
             val categoryId = backStackEntry.arguments?.getString("categoryId") ?: "greetings"
             val language = try { LanguageCode.valueOf(langStr) } catch (_: Exception) { LanguageCode.JA_JP }
 
+            val availableModes by produceState<List<PracticeMode>?>(null, language, categoryId) {
+                value = container.contentRepository.availableModes(language, categoryId)
+            }
             ModeSelectScreen(
+                availableModes = availableModes,
                 onModeSelected = { mode ->
                     when (mode) {
                         PracticeMode.REPEAT -> navController.navigate(Routes.repeat(language, categoryId))

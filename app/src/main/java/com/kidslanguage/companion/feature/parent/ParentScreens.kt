@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -122,6 +124,7 @@ fun ParentGateDialog(
     )
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ParentSettingsScreen(
     viewModel: ParentViewModel,
@@ -215,37 +218,41 @@ fun ParentSettingsScreen(
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically) {
-                        Text("游戏音效", style = AppTypography.bodyLarge)
+                        Text("反馈语音与音效", style = AppTypography.bodyLarge)
                         Switch(checked = settings.soundVolume > 0f,
                             onCheckedChange = { viewModel.setSoundVolume(if (it) 1f else 0f) })
                     }
                     Text("音效音量：${(settings.soundVolume * 100).toInt()}%", color = Neutral700)
                     Slider(value = settings.soundVolume, onValueChange = viewModel::setSoundVolume)
-                    Text("控制提示和庆祝音效；示范发音仍由设备媒体音量控制。", color = Neutral700)
+                    Text("控制兔子招呼、表扬、重试和庆祝声音；示范发音仍由设备媒体音量控制。", color = Neutral700)
                     ParentToggle("首页背景音乐", "只在首页播放，兔子说话、进入练习或切到后台时停止。",
                         settings.musicEnabled, viewModel::setMusicEnabled)
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
 
-                    // Text display toggle
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column {
-                            Text(text = "显示文字字幕", style = AppTypography.bodyLarge)
-                            Text(
-                                text = "关闭后练习界面将不显示文本，强化纯听音辨别能力",
-                                style = AppTypography.bodyMedium,
-                                color = Neutral700
-                            )
+                    Text("练习文字", style = AppTypography.bodyLarge)
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(AppSpacing.sm)) {
+                        com.kidslanguage.companion.core.persistence.TextDisplayMode.entries.forEach { mode ->
+                            Button(onClick = { viewModel.setTextDisplayMode(mode) }) {
+                                Text(if (settings.textDisplayMode == mode) "✓ ${mode.title}" else mode.title,
+                                    maxLines = 1, softWrap = false)
+                            }
                         }
-                        Switch(
-                            checked = settings.showText,
-                            onCheckedChange = { viewModel.setShowText(it) }
-                        )
                     }
-
+                    Text("辅助小字保留目标文字和读音；隐藏后仍可看图、听示范完成练习。", color = Neutral700)
+                    Spacer(modifier = Modifier.height(AppSpacing.lg))
+                    ParentToggle("随机出题", "每轮重新排列题目；关闭后按课程顺序练习。",
+                        settings.shuffleItems, viewModel::setShuffleItems)
+                    Spacer(modifier = Modifier.height(AppSpacing.lg))
+                    Text("选图数量", style = AppTypography.bodyLarge)
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(AppSpacing.sm)) {
+                        (2..4).forEach { count ->
+                            Button(onClick = { viewModel.setChoiceCount(count) }) {
+                                Text(if (settings.choiceCount == count) "✓ $count 张" else "$count 张",
+                                    maxLines = 1, softWrap = false)
+                            }
+                        }
+                    }
+                    Text("下一轮生效；候选图片不足时使用实际可用数量。", color = Neutral700)
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
 
                     // Auto Next toggle

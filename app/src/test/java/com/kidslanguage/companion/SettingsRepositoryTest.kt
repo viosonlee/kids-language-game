@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.persistence.SettingsRepository
+import com.kidslanguage.companion.core.persistence.TextDisplayMode
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -15,6 +16,30 @@ class SettingsRepositoryTest {
         override val data = MutableStateFlow(initial)
         override suspend fun updateData(transform: suspend (Preferences) -> Preferences): Preferences =
             transform(data.value).also { data.value = it }
+    }
+
+    @Test fun textModesPreserveLegacyHiddenPreferenceAndPersistAcrossRepositories() = runTest {
+        val store = Store(preferencesOf(booleanPreferencesKey("show_text") to false))
+        val repo = SettingsRepository(store)
+        assertEquals(TextDisplayMode.HIDDEN, repo.settingsFlow.first().textDisplayMode)
+        for (mode in TextDisplayMode.entries) {
+            repo.setTextDisplayMode(mode)
+            assertEquals(mode, SettingsRepository(store).settingsFlow.first().textDisplayMode)
+        }
+        repo.setTextDisplayMode(TextDisplayMode.SMALL)
+        repo.resetProgress()
+        assertEquals(TextDisplayMode.SMALL, repo.settingsFlow.first().textDisplayMode)
+    }
+
+    @Test fun lessonPreferencesAreBoundedAndPersisted() = runTest {
+        val store = Store(preferencesOf(intPreferencesKey("choice_count") to 99))
+        val repo = SettingsRepository(store)
+        assertEquals(4, repo.settingsFlow.first().choiceCount)
+        repo.setChoiceCount(1)
+        repo.setShuffleItems(true)
+        val restored = SettingsRepository(store).settingsFlow.first()
+        assertEquals(2, restored.choiceCount)
+        assertTrue(restored.shuffleItems)
     }
 
     @Test fun legacyInvalidValuesCannotReachAudioOrSession() = runTest {

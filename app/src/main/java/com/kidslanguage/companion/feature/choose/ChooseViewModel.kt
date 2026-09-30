@@ -5,6 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.kidslanguage.companion.core.audio.PromptPlayer
 import com.kidslanguage.companion.core.audio.SoundEffectManager
 import com.kidslanguage.companion.core.content.ContentRepository
+import com.kidslanguage.companion.core.content.planLesson
+import com.kidslanguage.companion.core.content.choiceDistractors
+import com.kidslanguage.companion.core.model.PracticeMode
 import com.kidslanguage.companion.core.model.EvaluationStatus
 import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.model.MascotState
@@ -41,6 +44,7 @@ data class ChooseUiState(
     val sessionState: SessionStepState = SessionStepState.Loading,
     val mascotState: MascotState = MascotState.Idle,
     val showText: Boolean = true,
+    val smallText: Boolean = false,
     val isSessionComplete: Boolean = false,
     val attemptCount: Int = 0,
     val showAnswerHint: Boolean = false,
@@ -68,6 +72,8 @@ class ChooseViewModel(
     private var sessionActive = false
     private var sessionKey: Pair<LanguageCode, String?>? = null
     private var sessionId = UUID.randomUUID().toString()
+    private var optionCount = 3
+    private var categoryItems: List<PracticeItem> = emptyList()
 
     fun loadSession(language: LanguageCode, categoryId: String?) {
         if (sessionActive) return
@@ -86,12 +92,16 @@ class ChooseViewModel(
         viewModelScope.launch {
             val settings = settingsRepository.settingsFlow.first()
             val allItems = contentRepository.getItems(language, categoryId)
-            val sessionItems = allItems.filter { "choose" in it.modes }.take(settings.sessionLength.coerceAtLeast(1))
+            categoryItems = allItems
+            val plan = planLesson(allItems, contentRepository.getLesson(language, categoryId), PracticeMode.CHOOSE, settings)
+            optionCount = plan.choiceCount
+            val sessionItems = plan.items
 
             _uiState.value = ChooseUiState(
                 items = sessionItems,
                 currentIndex = 0,
                 showText = settings.showText,
+                smallText = settings.smallText,
                 autoNext = settings.autoNext,
                 contentError = if (sessionItems.isEmpty()) "这个场景还没有可练习的内容，请返回选择其他场景。" else null,
                 sessionState = if (sessionItems.isEmpty()) SessionStepState.Completed else SessionStepState.PromptPlaying,
@@ -104,7 +114,7 @@ class ChooseViewModel(
     private fun setupCurrentQuestion() {
         val item = _uiState.value.currentItem ?: return
 
-        // Build 3 options: 1 correct + 2 distractors
+        // Use curated distractors first, then distinct images from the same category.
         val correctOption = ChooseOption(
             id = "${item.id}:correct",
             title = item.translation ?: item.text,
@@ -112,19 +122,12 @@ class ChooseViewModel(
             isCorrect = true
         )
 
-        val distractors = if (item.distractors.isNotEmpty()) {
-            item.distractors.take(2).mapIndexed { index, distractorEmoji ->
-                ChooseOption(
-                    id = "${item.id}:distractor_$index",
-                    title = "选项",
-                    emoji = distractorEmoji,
-                    isCorrect = false
-                )
-            }
-        } else {
-            listOf(
-                ChooseOption("${item.id}:d1", "选项", "🌟", false),
-                ChooseOption("${item.id}:d2", "选项", "🎈", false)
+        val distractors = choiceDistractors(item, categoryItems, optionCount).mapIndexed { index, distractorEmoji ->
+            ChooseOption(
+                id = "${item.id}:distractor_$index",
+                title = "选项",
+                emoji = distractorEmoji,
+                isCorrect = false
             )
         }
 
@@ -160,6 +163,7 @@ class ChooseViewModel(
                 sessionState = SessionStepState.PromptPlaying,
                 mascotState = MascotState.Listen,
                 showText = settings.showText,
+                smallText = settings.smallText,
                 autoNext = settings.autoNext
             )
             if (!automatic || settings.autoPlayPrompt) {

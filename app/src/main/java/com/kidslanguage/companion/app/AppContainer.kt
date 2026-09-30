@@ -41,7 +41,8 @@ class AppContainer(private val context: Context) {
     }
 
     val promptPlayer: PromptPlayer by lazy {
-        AndroidPromptPlayer(context)
+        com.kidslanguage.companion.core.audio.SettingsPromptPlayer(
+            AndroidPromptPlayer(context), settingsRepository.settingsFlow)
     }
 
     val settingsRepository: SettingsRepository by lazy {

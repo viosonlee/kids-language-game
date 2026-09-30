@@ -29,7 +29,8 @@ class ContentRepositoryTest {
         val repo = AssetContentRepository({ Json.encodeToString(source) }, { it != "missing.mp3" })
         val loaded = repo.getItems(LanguageCode.EN_US)
         assertEquals(listOf("hello", "ambiguous"), loaded.map { it.id })
-        assertEquals(listOf("repeat"), loaded.last().modes)
+        assertEquals(listOf("repeat", "choose"), loaded.last().modes)
+        assertEquals(listOf("🍎"), loaded.last().distractors)
     }
 
     @Test fun categoriesFollowLanguageAndPlayableItemsRegardlessOfCallOrder() = runTest {

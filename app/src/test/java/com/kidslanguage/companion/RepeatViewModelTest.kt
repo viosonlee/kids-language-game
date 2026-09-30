@@ -5,9 +5,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import com.kidslanguage.companion.core.asr.*
 import com.kidslanguage.companion.core.audio.PromptPlayer
+import com.kidslanguage.companion.core.audio.SettingsPromptPlayer
 import com.kidslanguage.companion.core.content.ContentRepository
 import com.kidslanguage.companion.core.model.*
 import com.kidslanguage.companion.core.persistence.SettingsRepository
+import com.kidslanguage.companion.core.persistence.TextDisplayMode
 import com.kidslanguage.companion.core.scoring.ChildSpeechEvaluationService
 import com.kidslanguage.companion.feature.repeat.RepeatViewModel
 import kotlinx.coroutines.*
@@ -56,7 +58,7 @@ class RepeatViewModelTest {
             prompts++
             delay(promptDelay)
         }
-        override suspend fun playVoiceAsset(audioAssetPath: String) {
+        override suspend fun playVoiceAsset(audioAssetPath: String, volume: Float) {
             voices++
             playing = true
             delay(1000)
@@ -68,6 +70,7 @@ class RepeatViewModelTest {
 
     private fun scenario(autoNext: Boolean = true, autoPlay: Boolean = true, autoRecord: Boolean = false,
                          permission: Boolean = false, promptDelay: Long = 0,
+                         soundVolume: Float = 1f, textMode: TextDisplayMode = TextDisplayMode.NORMAL,
                          block: suspend TestScope.(RepeatViewModel, Recorder, Player) -> Unit) = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
         val recorder = Recorder()
@@ -85,7 +88,9 @@ class RepeatViewModelTest {
         settings.setAutoNext(autoNext)
         settings.setAutoPlayPrompt(autoPlay)
         settings.setAutoStartRecording(autoRecord)
-        val vm = RepeatViewModel(content, player, recorder, ChildSpeechEvaluationService(), settings,
+        settings.setSoundVolume(soundVolume)
+        settings.setTextDisplayMode(textMode)
+        val vm = RepeatViewModel(content, SettingsPromptPlayer(player, settings.settingsFlow), recorder, ChildSpeechEvaluationService(), settings,
             canRecord = { permission })
         try {
             vm.loadSession(LanguageCode.EN_US, null)
@@ -96,6 +101,24 @@ class RepeatViewModelTest {
             Dispatchers.resetMain()
         }
     }
+
+    @Test fun mutedSuccessAdvancesAndKeepsSmallTextAfterResume() =
+        scenario(soundVolume = 0f, textMode = TextDisplayMode.SMALL) { vm, recorder, player ->
+            assertTrue(vm.uiState.value.smallText)
+            vm.toggleRecording()
+            runCurrent()
+            recorder.callbacks.last()(RecognitionResult("hello"))
+            advanceUntilIdle()
+            assertEquals(0, player.voices)
+            assertEquals(1, vm.uiState.value.currentIndex)
+            assertEquals(2, player.prompts)
+            vm.stopSession()
+            vm.loadSession(LanguageCode.EN_US, null)
+            advanceUntilIdle()
+            assertEquals(1, vm.uiState.value.currentIndex)
+            assertTrue(vm.uiState.value.smallText)
+            assertTrue(vm.uiState.value.showText)
+        }
 
     @Test fun disabledAutomaticPromptKeepsManualSpeakerAvailable() = scenario(autoPlay = false) { vm, _, player ->
         assertEquals(0, player.prompts)

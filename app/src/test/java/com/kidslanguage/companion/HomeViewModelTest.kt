@@ -32,7 +32,7 @@ class HomeViewModelTest {
         val music = Music()
         val player = object : PromptPlayer {
             override suspend fun playPrompt(text: String, language: LanguageCode, audioAssetPath: String?) {}
-            override suspend fun playVoiceAsset(audioAssetPath: String) { delay(1000) }
+            override suspend fun playVoiceAsset(audioAssetPath: String, volume: Float) { delay(1000) }
             override fun stop() {}
             override fun release() {}
         }

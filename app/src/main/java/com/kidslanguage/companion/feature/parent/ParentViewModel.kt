@@ -67,6 +67,14 @@ class ParentViewModel(
         viewModelScope.launch { settingsRepository.setShowText(show) }
     }
 
+    fun setTextDisplayMode(mode: com.kidslanguage.companion.core.persistence.TextDisplayMode) {
+        viewModelScope.launch { settingsRepository.setTextDisplayMode(mode) }
+    }
+
+    fun setChoiceCount(count: Int) { viewModelScope.launch { settingsRepository.setChoiceCount(count) } }
+
+    fun setShuffleItems(enabled: Boolean) { viewModelScope.launch { settingsRepository.setShuffleItems(enabled) } }
+
     fun setAutoNext(autoNext: Boolean) {
         viewModelScope.launch { settingsRepository.setAutoNext(autoNext) }
     }

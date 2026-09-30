@@ -1,0 +1,248 @@
+[
+  {
+    "language": "ja-JP",
+    "categoryId": "greetings",
+    "itemIds": [
+      "ja_greet_001",
+      "ja_greet_002",
+      "ja_greet_003",
+      "ja_greet_004",
+      "ja_greet_005",
+      "ja_greet_006",
+      "ja_greet_007",
+      "ja_greet_008",
+      "ja_greet_009",
+      "ja_greet_010",
+      "ja_greet_011",
+      "ja_greet_012",
+      "ja_greet_013",
+      "ja_greet_014",
+      "ja_greet_015"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  },
+  {
+    "language": "ja-JP",
+    "categoryId": "play",
+    "itemIds": [
+      "ja_play_001",
+      "ja_play_002",
+      "ja_play_003",
+      "ja_play_004",
+      "ja_play_005",
+      "ja_play_006",
+      "ja_play_007",
+      "ja_play_008",
+      "ja_play_009",
+      "ja_play_010",
+      "ja_play_011",
+      "ja_play_012",
+      "ja_play_013",
+      "ja_play_014",
+      "ja_play_015"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  },
+  {
+    "language": "ja-JP",
+    "categoryId": "daily",
+    "itemIds": [
+      "ja_daily_001",
+      "ja_daily_002",
+      "ja_daily_003",
+      "ja_daily_004",
+      "ja_daily_005",
+      "ja_daily_006",
+      "ja_daily_007",
+      "ja_daily_008",
+      "ja_daily_009",
+      "ja_daily_010",
+      "ja_daily_011",
+      "ja_daily_012",
+      "ja_daily_013",
+      "ja_daily_014",
+      "ja_daily_015",
+      "ja_daily_016"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  },
+  {
+    "language": "ja-JP",
+    "categoryId": "help",
+    "itemIds": [
+      "ja_help_001",
+      "ja_help_002",
+      "ja_help_003",
+      "ja_help_004",
+      "ja_help_005",
+      "ja_help_006",
+      "ja_help_007",
+      "ja_help_008",
+      "ja_help_009",
+      "ja_help_010",
+      "ja_help_011",
+      "ja_help_012",
+      "ja_help_013",
+      "ja_help_014",
+      "ja_help_015",
+      "ja_help_016"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  },
+  {
+    "language": "zh-CN",
+    "categoryId": "greetings",
+    "itemIds": [
+      "zh_greet_001",
+      "zh_greet_002",
+      "zh_greet_003",
+      "zh_greet_004",
+      "zh_greet_005",
+      "zh_greet_006",
+      "zh_greet_007",
+      "zh_greet_008"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  },
+  {
+    "language": "zh-CN",
+    "categoryId": "play",
+    "itemIds": [
+      "zh_play_001",
+      "zh_play_002",
+      "zh_play_003",
+      "zh_play_004",
+      "zh_play_005",
+      "zh_play_006",
+      "zh_play_007",
+      "zh_play_008"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  },
+  {
+    "language": "zh-CN",
+    "categoryId": "daily",
+    "itemIds": [
+      "zh_daily_001",
+      "zh_daily_002",
+      "zh_daily_003",
+      "zh_daily_004",
+      "zh_daily_005",
+      "zh_daily_006",
+      "zh_daily_007",
+      "zh_daily_008"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  },
+  {
+    "language": "zh-CN",
+    "categoryId": "help",
+    "itemIds": [
+      "zh_help_001",
+      "zh_help_002",
+      "zh_help_003",
+      "zh_help_004",
+      "zh_help_005",
+      "zh_help_006",
+      "zh_help_007",
+      "zh_help_008"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  },
+  {
+    "language": "en-US",
+    "categoryId": "greetings",
+    "itemIds": [
+      "en_greet_001",
+      "en_greet_002",
+      "en_greet_003",
+      "en_greet_004",
+      "en_greet_005",
+      "en_greet_006",
+      "en_greet_007",
+      "en_greet_008"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  },
+  {
+    "language": "en-US",
+    "categoryId": "play",
+    "itemIds": [
+      "en_play_001",
+      "en_play_002",
+      "en_play_003",
+      "en_play_004",
+      "en_play_005",
+      "en_play_006",
+      "en_play_007",
+      "en_play_008"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  },
+  {
+    "language": "en-US",
+    "categoryId": "daily",
+    "itemIds": [
+      "en_daily_001",
+      "en_daily_002",
+      "en_daily_003",
+      "en_daily_004",
+      "en_daily_005",
+      "en_daily_006",
+      "en_daily_007",
+      "en_daily_008"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  },
+  {
+    "language": "en-US",
+    "categoryId": "help",
+    "itemIds": [
+      "en_help_001",
+      "en_help_002",
+      "en_help_003",
+      "en_help_004",
+      "en_help_005",
+      "en_help_006",
+      "en_help_007",
+      "en_help_008"
+    ],
+    "modes": [
+      "repeat",
+      "choose"
+    ]
+  }
+]

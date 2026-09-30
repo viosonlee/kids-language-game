@@ -7,6 +7,8 @@ import com.kidslanguage.companion.core.asr.SpeechRecognizerEngine
 import com.kidslanguage.companion.core.audio.PromptPlayer
 import com.kidslanguage.companion.core.audio.SoundEffectManager
 import com.kidslanguage.companion.core.content.ContentRepository
+import com.kidslanguage.companion.core.content.planLesson
+import com.kidslanguage.companion.core.model.PracticeMode
 import com.kidslanguage.companion.core.model.EvaluationResult
 import com.kidslanguage.companion.core.model.EvaluationStatus
 import com.kidslanguage.companion.core.model.LanguageCode
@@ -40,6 +42,7 @@ data class RepeatUiState(
     val showFeedbackOverlay: Boolean = false,
     val isRecording: Boolean = false,
     val showText: Boolean = true,
+    val smallText: Boolean = false,
     val isSessionComplete: Boolean = false,
     val recordingError: String? = null,
     val autoNext: Boolean = true,
@@ -86,8 +89,8 @@ class RepeatViewModel(
         viewModelScope.launch {
             val settings = settingsRepository.settingsFlow.first()
             if (!resume) {
-                val sessionItems = contentRepository.getItems(language, categoryId)
-                    .filter { "repeat" in it.modes }.take(settings.sessionLength.coerceIn(1, 30))
+                val sessionItems = planLesson(contentRepository.getItems(language, categoryId),
+                    contentRepository.getLesson(language, categoryId), PracticeMode.REPEAT, settings).items
                 _uiState.value = RepeatUiState(items = sessionItems)
                 if (sessionItems.isEmpty()) {
                     _uiState.value = _uiState.value.copy(
@@ -99,6 +102,7 @@ class RepeatViewModel(
             }
             _uiState.value = _uiState.value.copy(
                 showText = settings.showText,
+                smallText = settings.smallText,
                 autoNext = settings.autoNext,
                 sessionState = SessionStepState.Loading,
                 mascotState = MascotState.Listen
@@ -147,6 +151,7 @@ class RepeatViewModel(
                 mascotState = MascotState.Listen,
                 showFeedbackOverlay = false,
                 showText = settings.showText,
+                smallText = settings.smallText,
                 autoNext = settings.autoNext
             )
             if (!automatic || settings.autoPlayPrompt) {

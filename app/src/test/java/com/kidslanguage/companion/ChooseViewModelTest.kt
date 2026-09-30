@@ -4,9 +4,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import com.kidslanguage.companion.core.audio.PromptPlayer
+import com.kidslanguage.companion.core.audio.SettingsPromptPlayer
 import com.kidslanguage.companion.core.content.ContentRepository
 import com.kidslanguage.companion.core.model.*
 import com.kidslanguage.companion.core.persistence.SettingsRepository
+import com.kidslanguage.companion.core.persistence.TextDisplayMode
 import com.kidslanguage.companion.feature.choose.ChooseViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,7 +34,7 @@ class ChooseViewModelTest {
             delay(100)
             playing = false
         }
-        override suspend fun playVoiceAsset(audioAssetPath: String) {
+        override suspend fun playVoiceAsset(audioAssetPath: String, volume: Float) {
             voices++
             playing = true
             delay(3000)
@@ -42,21 +44,27 @@ class ChooseViewModelTest {
         override fun release() = stop()
     }
 
-    private fun scenario(autoNext: Boolean = true, autoPlay: Boolean = true, block: suspend TestScope.(ChooseViewModel, Player) -> Unit) = runTest {
+    private fun scenario(autoNext: Boolean = true, autoPlay: Boolean = true,
+                         soundVolume: Float = 1f, textMode: TextDisplayMode = TextDisplayMode.NORMAL,
+                         choiceCount: Int = 3,
+                         block: suspend TestScope.(ChooseViewModel, Player) -> Unit) = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
         val settings = SettingsRepository(Store())
         settings.setAutoNext(autoNext)
         settings.setAutoPlayPrompt(autoPlay)
+        settings.setSoundVolume(soundVolume)
+        settings.setTextDisplayMode(textMode)
+        settings.setChoiceCount(choiceCount)
         val player = Player()
         val content = object : ContentRepository {
             override suspend fun getCategories(language: LanguageCode) = emptyList<Category>()
             override suspend fun getItems(language: LanguageCode, categoryId: String?) = listOf(
-                PracticeItem("1", "en-US", "greetings", text = "hello", image = "👋"),
-                PracticeItem("2", "en-US", "greetings", text = "goodbye", image = "🏠")
+                PracticeItem("1", "en-US", "greetings", text = "hello", image = "👋", distractors = listOf("🏠", "🍎", "🐱")),
+                PracticeItem("2", "en-US", "greetings", text = "goodbye", image = "🏠", distractors = listOf("👋", "🍎", "🐱"))
             )
             override suspend fun getItemById(id: String): PracticeItem? = null
         }
-        val vm = ChooseViewModel(content, player, settings)
+        val vm = ChooseViewModel(content, SettingsPromptPlayer(player, settings.settingsFlow), settings)
         try {
             vm.loadSession(LanguageCode.EN_US, null)
             advanceUntilIdle()
@@ -66,6 +74,33 @@ class ChooseViewModelTest {
             Dispatchers.resetMain()
         }
     }
+
+    @Test fun mutedFeedbackStillReplaysWrongAnswerPromptAndAdvancesSuccess() = scenario(soundVolume = 0f) { vm, player ->
+        vm.onOptionSelected(vm.uiState.value.currentOptions.first { !it.isCorrect })
+        advanceUntilIdle()
+        assertEquals(2, player.prompts)
+        assertEquals(0, player.voices)
+        vm.onOptionSelected(vm.uiState.value.currentOptions.first { it.isCorrect })
+        advanceUntilIdle()
+        assertEquals(1, vm.uiState.value.currentIndex)
+        assertEquals(3, player.prompts)
+        assertEquals(0, player.voices)
+    }
+
+    @Test fun fourChoicesAndSmallTextPersistAcrossQuestionsAndResume() =
+        scenario(choiceCount = 4, textMode = TextDisplayMode.SMALL) { vm, _ ->
+            assertEquals(4, vm.uiState.value.currentOptions.size)
+            assertTrue(vm.uiState.value.smallText)
+            vm.onOptionSelected(vm.uiState.value.currentOptions.first { it.isCorrect })
+            advanceUntilIdle()
+            vm.stopSession()
+            vm.loadSession(LanguageCode.EN_US, null)
+            advanceUntilIdle()
+            assertEquals(1, vm.uiState.value.currentIndex)
+            assertEquals(4, vm.uiState.value.currentOptions.size)
+            assertTrue(vm.uiState.value.showText)
+            assertTrue(vm.uiState.value.smallText)
+        }
 
     @Test fun disabledAutoplayAppliesToEachQuestionButManualReplayWorks() = scenario(autoPlay = false) { vm, player ->
         assertEquals(0, player.prompts)

@@ -17,6 +17,7 @@ interface ContentRepository {
     suspend fun getCategories(language: LanguageCode): List<Category>
     suspend fun getItems(language: LanguageCode, categoryId: String? = null): List<PracticeItem>
     suspend fun getItemById(id: String): PracticeItem?
+    suspend fun getLesson(language: LanguageCode, categoryId: String?): LessonConfig? = null
 }
 
 class AssetContentRepository(
@@ -39,8 +40,20 @@ class AssetContentRepository(
     }
 
     private var cachedCategories: List<Category>? = null
+    private var cachedLessons: List<LessonConfig>? = null
     private val cachedItems = mutableMapOf<LanguageCode, List<PracticeItem>>()
     private val cacheLock = Mutex()
+
+    override suspend fun getLesson(language: LanguageCode, categoryId: String?): LessonConfig? = withContext(Dispatchers.IO) {
+        if (categoryId == null || categoryId == "all") return@withContext null
+        cacheLock.withLock {
+            val lessons = cachedLessons ?: readEntries<LessonConfig>("content/lessons.json")
+                ?.filter { config ->
+                    config.isValid().also { if (!it) report("Skipping invalid lesson ${config.language}/${config.categoryId}") }
+                }?.distinctBy { it.language to it.categoryId }?.also { cachedLessons = it }.orEmpty()
+            lessons.firstOrNull { it.language == language.code && it.categoryId == categoryId }
+        }
+    }
 
     private inline fun <reified T> readEntries(path: String): List<T>? {
         return try {
@@ -106,7 +119,7 @@ class AssetContentRepository(
         }
         val distractors = item.distractors.filter { it.isNotBlank() && it != item.image }.distinct()
         val modes = item.modes.distinct().filter {
-            it == "repeat" || (it == "choose" && !item.image.isNullOrBlank() && distractors.size >= 2)
+            it == "repeat" || (it == "choose" && !item.image.isNullOrBlank() && distractors.isNotEmpty())
         }
         if (modes != item.modes) report("Removed unsupported or invalid modes from ${item.id}")
         return if (modes.isEmpty()) null else item.copy(

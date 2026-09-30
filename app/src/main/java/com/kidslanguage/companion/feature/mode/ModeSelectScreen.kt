@@ -41,7 +41,8 @@ import com.kidslanguage.companion.ui.theme.Primary600
 fun ModeSelectScreen(
     onModeSelected: (PracticeMode) -> Unit,
     onBack: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    availableModes: List<PracticeMode>? = PracticeMode.entries,
 ) {
     Box(
         modifier = modifier
@@ -87,7 +88,12 @@ fun ModeSelectScreen(
                 )
                 Spacer(modifier = Modifier.height(AppSpacing.xxl))
 
-                PrimaryLargeButton(
+                if (availableModes == null) {
+                    androidx.compose.material3.CircularProgressIndicator()
+                } else if (availableModes.isEmpty()) {
+                    Text("这个场景还没有可用的练习，请返回选择其他场景。", color = Neutral900)
+                }
+                if (availableModes?.contains(PracticeMode.REPEAT) == true) PrimaryLargeButton(
                     text = "听一听，说一说",
                     icon = Icons.Default.Mic,
                     onClick = { onModeSelected(PracticeMode.REPEAT) },
@@ -97,7 +103,7 @@ fun ModeSelectScreen(
 
                 Spacer(modifier = Modifier.height(AppSpacing.xl))
 
-                SecondaryLargeButton(
+                if (availableModes?.contains(PracticeMode.CHOOSE) == true) SecondaryLargeButton(
                     text = "听一听，选图片",
                     icon = Icons.Default.TouchApp,
                     onClick = { onModeSelected(PracticeMode.CHOOSE) },

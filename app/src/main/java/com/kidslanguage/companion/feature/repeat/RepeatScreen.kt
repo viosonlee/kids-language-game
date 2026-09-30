@@ -181,14 +181,16 @@ fun RepeatScreen(
                             if (state.showText) {
                                 Text(
                                     text = currentItem.text,
-                                    style = AppTypography.displayLarge,
+                                    style = if (state.smallText) AppTypography.bodyMedium else AppTypography.displayLarge,
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                                     color = Neutral900
                                 )
                                 if (!currentItem.reading.isNullOrBlank() && currentItem.reading != currentItem.text) {
                                     Spacer(modifier = Modifier.height(AppSpacing.xs))
                                     Text(
                                         text = currentItem.reading,
-                                        style = AppTypography.bodyMedium,
+                                        style = if (state.smallText) AppTypography.labelMedium else AppTypography.bodyMedium,
+                                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                                         color = Neutral700
                                     )
                                 }

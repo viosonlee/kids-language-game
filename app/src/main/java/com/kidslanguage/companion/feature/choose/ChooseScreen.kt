@@ -3,12 +3,16 @@ package com.kidslanguage.companion.feature.choose
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -30,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.model.MascotState
@@ -124,7 +129,8 @@ fun ChooseScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 80.dp),
+                .padding(top = 80.dp)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -132,14 +138,16 @@ fun ChooseScreen(
             if (currentItem != null && state.showText) {
                 Text(
                     text = currentItem.text,
-                    style = AppTypography.titleLarge,
+                    style = if (state.smallText) AppTypography.bodyMedium else AppTypography.titleLarge,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                     color = Primary600
                 )
                 if (!currentItem.reading.isNullOrBlank() && currentItem.reading != currentItem.text) {
                     Spacer(modifier = Modifier.height(AppSpacing.xs))
                     Text(
                         text = currentItem.reading,
-                        style = AppTypography.bodyMedium,
+                        style = if (state.smallText) AppTypography.labelMedium else AppTypography.bodyMedium,
+                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                         color = Neutral700
                     )
                 }
@@ -159,25 +167,33 @@ fun ChooseScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                // 3 Options
-                Row(
-                    modifier = Modifier.weight(0.72f),
-                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.lg)
-                ) {
-                    state.currentOptions.forEach { option ->
-                        val isSelected = state.selectedOptionId == option.id
-                        val isCorrect = if (isSelected) state.isAnswerCorrect else null
+                // Keep image cards readable when four choices or larger system fonts need more rows.
+                BoxWithConstraints(modifier = Modifier.weight(0.72f)) {
+                    val minCardWidth = 160.dp * LocalDensity.current.fontScale.coerceAtLeast(1f)
+                    val columns = ((maxWidth + AppSpacing.lg) / (minCardWidth + AppSpacing.lg))
+                        .toInt().coerceIn(1, state.currentOptions.size.coerceAtLeast(1))
+                    Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.lg)) {
+                        state.currentOptions.chunked(columns).forEach { rowOptions ->
+                            Row(modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(AppSpacing.lg)) {
+                                rowOptions.forEach { option ->
+                                    val isSelected = state.selectedOptionId == option.id
+                                    val isCorrect = if (isSelected) state.isAnswerCorrect else null
 
-                        ImageOptionCard(
-                            title = if (state.showText) option.title else "",
-                            emoji = if (state.showAnswerHint && option.isCorrect) "${option.emoji} ✨" else option.emoji,
-                            isSelected = isSelected || (state.showAnswerHint && option.isCorrect),
-                            isCorrect = isCorrect,
-                            onClick = { viewModel.onOptionSelected(option) },
-                            modifier = Modifier
-                                .weight(1f)
-                                .height(220.dp)
-                        )
+                                    ImageOptionCard(
+                                        title = if (state.showText) option.title else "",
+                                        emoji = option.emoji,
+                                        smallText = state.smallText,
+                                        highlighted = state.showAnswerHint && option.isCorrect,
+                                        isSelected = isSelected || (state.showAnswerHint && option.isCorrect),
+                                        isCorrect = isCorrect,
+                                        onClick = { viewModel.onOptionSelected(option) },
+                                        modifier = Modifier.weight(1f).heightIn(min = 220.dp)
+                                    )
+                                }
+                                repeat(columns - rowOptions.size) { Spacer(Modifier.weight(1f)) }
+                            }
+                        }
                     }
                 }
 
