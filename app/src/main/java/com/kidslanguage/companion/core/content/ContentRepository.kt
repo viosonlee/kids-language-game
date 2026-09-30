@@ -1,6 +1,7 @@
 package com.kidslanguage.companion.core.content
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import com.kidslanguage.companion.core.model.Category
 import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.model.PracticeItem
@@ -28,7 +29,13 @@ class AssetContentRepository(
     constructor(context: Context) : this(
         readAsset = { path -> context.assets.open(path).bufferedReader().use { it.readText() } },
         assetExists = { path ->
-            try { context.assets.open(path).use { it.read() != -1 } }
+            try { context.assets.open(path).use {
+                if (path.substringAfterLast('.', "").lowercase() in setOf("png", "webp", "jpg", "jpeg")) {
+                    val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+                    BitmapFactory.decodeStream(it, null, bounds)
+                    bounds.outWidth > 0 && bounds.outHeight > 0
+                } else it.read() != -1
+            } }
             catch (_: java.io.IOException) { false }
         },
         report = { android.util.Log.w("ContentRepository", it) }
@@ -43,6 +50,12 @@ class AssetContentRepository(
     private var cachedLessons: List<LessonConfig>? = null
     private val cachedItems = mutableMapOf<LanguageCode, List<PracticeItem>>()
     private val cacheLock = Mutex()
+
+    // Caller holds cacheLock. A read failure is not cached, so a later request can recover.
+    private fun categoryDefinitions(): List<Category>? = cachedCategories ?: readEntries<Category>("content/categories.json")
+        ?.filter { it.id.isNotBlank() && it.title.isNotBlank() && it.icon.isNotBlank() }
+        ?.distinctBy { it.language.lowercase() to it.id }?.sortedBy { it.order }
+        ?.also { cachedCategories = it }
 
     override suspend fun getLesson(language: LanguageCode, categoryId: String?): LessonConfig? = withContext(Dispatchers.IO) {
         if (categoryId == null || categoryId == "all") return@withContext null
@@ -75,10 +88,7 @@ class AssetContentRepository(
     override suspend fun getCategories(language: LanguageCode): List<Category> = withContext(Dispatchers.IO) {
         val activeCategories = getItems(language).map { it.category }.toSet()
         cacheLock.withLock {
-            val categories = cachedCategories ?: readEntries<Category>("content/categories.json")
-                ?.filter { it.id.isNotBlank() && it.title.isNotBlank() }
-                ?.distinctBy { it.language to it.id }?.sortedBy { it.order }
-                ?.also { cachedCategories = it }.orEmpty()
+            val categories = categoryDefinitions().orEmpty()
             categories.filter {
                 (it.language == "all" || it.language.equals(language.code, ignoreCase = true)) &&
                     it.id in activeCategories
@@ -89,12 +99,13 @@ class AssetContentRepository(
     override suspend fun getItems(language: LanguageCode, categoryId: String?): List<PracticeItem> = withContext(Dispatchers.IO) {
         val list = cacheLock.withLock {
             cachedItems[language]?.let { return@withLock it }
+            val categories = categoryDefinitions() ?: return@withLock emptyList()
             val fileName = when (language) {
                 LanguageCode.JA_JP -> "content/items_ja.json"
                 LanguageCode.ZH_CN -> "content/items_zh.json"
                 LanguageCode.EN_US -> "content/items_en.json"
             }
-            readEntries<PracticeItem>(fileName)?.mapNotNull { validate(it, language) }
+            readEntries<PracticeItem>(fileName)?.mapNotNull { validate(it, language, categories) }
                 ?.distinctBy { it.id }?.also { cachedItems[language] = it }.orEmpty()
         }
 
@@ -105,19 +116,15 @@ class AssetContentRepository(
         }
     }
 
-    private fun validate(item: PracticeItem, language: LanguageCode): PracticeItem? {
-        if (item.id.isBlank() || item.category.isBlank() || item.text.none { it.isLetterOrDigit() } ||
-            !item.language.equals(language.code, ignoreCase = true)) {
-            report("Skipping invalid item ${item.id} for ${language.code}")
+    private fun validate(item: PracticeItem, language: LanguageCode, categories: List<Category>): PracticeItem? {
+        val issues = contentItemIssues(item, language, categories, assetExists)
+        if (issues.isNotEmpty()) {
+            report("Skipping item ${item.id}: ${issues.joinToString()}")
             return null
         }
-        val audio = item.audio
-        if (audio != null && (audio.isBlank() || audio.startsWith('/') || '\\' in audio ||
-                audio.split('/').any { it == ".." } || !assetExists(audio))) {
-            report("Skipping item ${item.id}: missing or invalid audio")
-            return null
-        }
-        val distractors = item.distractors.filter { it.isNotBlank() && it != item.image }.distinct()
+        val distractors = item.distractors.filter {
+            it != item.image && validContentImage(it, assetExists)
+        }.distinct()
         val modes = item.modes.distinct().filter {
             it == "repeat" || (it == "choose" && !item.image.isNullOrBlank() && distractors.isNotEmpty())
         }

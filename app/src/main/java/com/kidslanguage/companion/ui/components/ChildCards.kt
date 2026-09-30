@@ -177,12 +177,12 @@ fun ImageOptionCard(
             .padding(AppSpacing.md),
         contentAlignment = Alignment.Center
     ) {
-        val imageFontSize = (maxWidth.value * 0.6f).coerceIn(40f, 72f).sp
+        val imageSize = (maxWidth.value * 0.6f).coerceIn(40f, 72f).dp
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = emoji, fontSize = imageFontSize)
+            PracticeIllustration(emoji, size = imageSize)
             if (title.isNotBlank()) {
                 Spacer(modifier = Modifier.height(AppSpacing.sm))
                 Text(text = title,

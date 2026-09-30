@@ -1,5 +1,13 @@
 package com.kidslanguage.companion.feature.parent
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.Settings
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -140,6 +148,13 @@ fun ParentSettingsScreen(
     val resetError by viewModel.resetError.collectAsState()
     val resetting by viewModel.resetting.collectAsState()
     var confirmReset by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    var microphoneGranted by remember { mutableStateOf(false) }
+    var permissionSettingsError by remember { mutableStateOf<String?>(null) }
+    LifecycleResumeEffect(context) {
+        microphoneGranted = ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+        onPauseOrDispose { }
+    }
 
     if (confirmReset) {
         AlertDialog(
@@ -200,6 +215,20 @@ fun ParentSettingsScreen(
             ) {
                 Column(modifier = Modifier.padding(AppSpacing.xl)) {
                     Text(text = "学习设置", style = AppTypography.titleMedium, color = Primary600)
+                    Spacer(modifier = Modifier.height(AppSpacing.lg))
+
+                    Text(if (microphoneGranted) "麦克风权限：已允许" else "麦克风权限：未允许", style = AppTypography.bodyMedium)
+                    Button(onClick = {
+                        try {
+                            context.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                                data = Uri.fromParts("package", context.packageName, null)
+                            })
+                            permissionSettingsError = null
+                        } catch (_: Exception) {
+                            permissionSettingsError = "无法打开系统设置，请在设备的应用设置中检查麦克风权限。"
+                        }
+                    }) { Text("管理麦克风权限", maxLines = 1, softWrap = false) }
+                    permissionSettingsError?.let { Text(it, color = Neutral700) }
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
 
                     Text("默认语言", style = AppTypography.bodyLarge)

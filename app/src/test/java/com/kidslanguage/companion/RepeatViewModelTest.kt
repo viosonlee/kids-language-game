@@ -12,6 +12,7 @@ import com.kidslanguage.companion.core.persistence.SettingsRepository
 import com.kidslanguage.companion.core.persistence.TextDisplayMode
 import com.kidslanguage.companion.core.scoring.ChildSpeechEvaluationService
 import com.kidslanguage.companion.feature.repeat.RepeatViewModel
+import com.kidslanguage.companion.feature.repeat.RepeatProblem
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.*
@@ -33,8 +34,10 @@ class RepeatViewModelTest {
         var finalOnStop = false
         var loadDelay = 0L
         var loadFails = false
+        var loadThrows = false
         override suspend fun load(language: LanguageCode): Result<Unit> {
             delay(loadDelay)
+            if (loadThrows) throw IllegalStateException("engine unavailable")
             return if (loadFails) Result.failure(IllegalStateException("missing model")) else Result.success(Unit)
         }
         override suspend fun recognizeFromAudio(pcm: ByteArray) = RecognitionResult("hello")
@@ -71,6 +74,7 @@ class RepeatViewModelTest {
     private fun scenario(autoNext: Boolean = true, autoPlay: Boolean = true, autoRecord: Boolean = false,
                          permission: Boolean = false, promptDelay: Long = 0,
                          soundVolume: Float = 1f, textMode: TextDisplayMode = TextDisplayMode.NORMAL,
+                         choiceContent: Boolean = true,
                          block: suspend TestScope.(RepeatViewModel, Recorder, Player) -> Unit) = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
         val recorder = Recorder()
@@ -79,8 +83,8 @@ class RepeatViewModelTest {
         val content = object : ContentRepository {
             override suspend fun getCategories(language: LanguageCode) = emptyList<Category>()
             override suspend fun getItems(language: LanguageCode, categoryId: String?) = listOf(
-                PracticeItem("1", "en-US", "greetings", text = "hello"),
-                PracticeItem("2", "en-US", "greetings", text = "goodbye")
+                PracticeItem("1", "en-US", "greetings", text = "hello", image = if (choiceContent) "👋" else null),
+                PracticeItem("2", "en-US", "greetings", text = "goodbye", image = if (choiceContent) "🏠" else null)
             )
             override suspend fun getItemById(id: String): PracticeItem? = null
         }
@@ -240,6 +244,40 @@ class RepeatViewModelTest {
         advanceUntilIdle()
         assertNotNull(vm.uiState.value.recordingError)
         assertFalse(vm.uiState.value.isRecording)
+    }
+
+    @Test fun failedModelCannotRecordAfterReplayAndExplicitRetryRecovers() = scenario { vm, recorder, player ->
+        recorder.loadFails = true
+        vm.loadSession(LanguageCode.EN_US, null)
+        advanceUntilIdle()
+        assertEquals(RepeatProblem.MODEL, vm.uiState.value.recordingProblem)
+        assertTrue(vm.uiState.value.canChoose)
+        vm.playCurrentPrompt()
+        advanceUntilIdle()
+        assertEquals(2, player.prompts)
+        vm.startRecordingIfReady()
+        runCurrent()
+        assertTrue(recorder.callbacks.isEmpty())
+        recorder.loadFails = false
+        vm.retryModel()
+        advanceUntilIdle()
+        assertTrue(vm.uiState.value.modelReady)
+        vm.startRecordingIfReady()
+        runCurrent()
+        assertTrue(recorder.recording)
+    }
+
+    @Test fun thrownModelFailureOffersRecoveryInsteadOfEscapingViewModel() = scenario { vm, recorder, _ ->
+        recorder.loadThrows = true
+        vm.retryModel()
+        advanceUntilIdle()
+        assertFalse(vm.uiState.value.modelReady)
+        assertEquals(RepeatProblem.MODEL, vm.uiState.value.recordingProblem)
+        assertEquals(0, vm.uiState.value.attemptCount)
+    }
+
+    @Test fun recoveryDoesNotOfferAnEmptyChoiceLesson() = scenario(choiceContent = false) { vm, _, _ ->
+        assertFalse(vm.uiState.value.canChoose)
     }
 
     @Test fun manualNextWaitsForUserAndCannotSkipDuringPraise() = scenario(autoNext = false) { vm, recorder, _ ->

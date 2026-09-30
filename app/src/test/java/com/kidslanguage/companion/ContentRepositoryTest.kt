@@ -11,13 +11,17 @@ import org.junit.Test
 import java.io.File
 
 class ContentRepositoryTest {
+    private val categoriesJson = Json.encodeToString(listOf(Category("greetings", "all", "问候")))
+    private fun assets(body: String): (String) -> String = { path ->
+        if (path == "content/categories.json") categoriesJson else body
+    }
     private fun item(id: String = "hello") = PracticeItem(id, "en-US", "greetings", text = "hello",
         image = "👋", distractors = listOf("🍎", "🌙"), audio = "audio/hello.mp3")
 
     @Test fun malformedSiblingDoesNotDiscardValidItems() = runTest {
         val reports = mutableListOf<String>()
         val body = "[${Json.encodeToString(item())},{\"id\":13}]"
-        val repo = AssetContentRepository({ body }, { true }, reports::add)
+        val repo = AssetContentRepository(assets(body), { true }, reports::add)
         assertEquals(listOf("hello"), repo.getItems(LanguageCode.EN_US).map { it.id })
         assertTrue(reports.any { "entry 1" in it })
     }
@@ -26,7 +30,7 @@ class ContentRepositoryTest {
         val source = listOf(item(), item("foreign").copy(language = "zh-CN"),
             item("missing").copy(audio = "missing.mp3"), item("blank").copy(text = "！"),
             item("ambiguous").copy(distractors = listOf("👋", "🍎", "🍎")))
-        val repo = AssetContentRepository({ Json.encodeToString(source) }, { it != "missing.mp3" })
+        val repo = AssetContentRepository(assets(Json.encodeToString(source)), { it != "missing.mp3" })
         val loaded = repo.getItems(LanguageCode.EN_US)
         assertEquals(listOf("hello", "ambiguous"), loaded.map { it.id })
         assertEquals(listOf("repeat", "choose"), loaded.last().modes)
@@ -51,9 +55,11 @@ class ContentRepositoryTest {
 
     @Test fun transientReadFailureCanRecover() = runTest {
         var reads = 0
-        val repo = AssetContentRepository({
-            if (reads++ == 0) throw java.io.IOException("temporarily unavailable")
-            Json.encodeToString(listOf(item()))
+        val repo = AssetContentRepository({ path ->
+            if (path == "content/categories.json") categoriesJson else {
+                if (reads++ == 0) throw java.io.IOException("temporarily unavailable")
+                Json.encodeToString(listOf(item()))
+            }
         }, { true })
         assertTrue(repo.getItems(LanguageCode.EN_US).isEmpty())
         assertEquals(1, repo.getItems(LanguageCode.EN_US).size)
@@ -76,5 +82,28 @@ class ContentRepositoryTest {
             assertTrue(items.all { "repeat" in it.modes && "choose" in it.modes })
             assertEquals(4, repo.getCategories(language).size)
         }
+    }
+
+    @Test fun missingRequiredAssetsAndUnknownCategoriesAreSkippedWithoutLosingValidSibling() = runTest {
+        val source = listOf(item(), item("no-audio").copy(audio = null), item("no-image").copy(image = " "),
+            item("wrong-category").copy(category = "unknown"), item("missing-image").copy(image = "images/missing.png"),
+            item("unsafe").copy(audio = "../hello.mp3"), item("bitmap").copy(image = "images/hello.png"))
+        val reports = mutableListOf<String>()
+        val repo = AssetContentRepository(assets(Json.encodeToString(source)), { it != "images/missing.png" }, reports::add)
+        assertEquals(listOf("hello", "bitmap"), repo.getItems(LanguageCode.EN_US).map { it.id })
+        assertEquals(5, reports.size)
+    }
+
+    @Test fun missingCategoryDefinitionsCanRecoverWithoutCachingEmptyItems() = runTest {
+        var unavailable = true
+        val repo = AssetContentRepository({ path ->
+            if (path == "content/categories.json") {
+                if (unavailable) throw java.io.IOException("not ready")
+                categoriesJson
+            } else Json.encodeToString(listOf(item()))
+        }, { true })
+        assertTrue(repo.getItems(LanguageCode.EN_US).isEmpty())
+        unavailable = false
+        assertEquals(listOf("hello"), repo.getItems(LanguageCode.EN_US).map { it.id })
     }
 }

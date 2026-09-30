@@ -184,6 +184,22 @@ fun AppNavigation(container: AppContainer) {
                 language = language,
                 categoryId = categoryId,
                 onBack = { navController.popBackStack() },
+                onChoose = {
+                    navController.navigate(Routes.choose(language, categoryId)) {
+                        popUpTo(backStackEntry.destination.id) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                },
+                onBrowse = {
+                    navController.navigate(Routes.category(language)) {
+                        popUpTo(Routes.category(language)) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                },
+                onParent = {
+                    parentViewModel.regenerateGate()
+                    showParentGate = true
+                },
                 onSessionComplete = {
                     navController.navigate(Routes.SESSION_COMPLETE)
                 }

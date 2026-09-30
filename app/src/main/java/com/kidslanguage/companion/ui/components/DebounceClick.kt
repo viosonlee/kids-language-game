@@ -22,7 +22,8 @@ fun Modifier.debouncedClickable(
     indication: Indication? = null,
     onClick: () -> Unit
 ): Modifier = composed {
-    var lastClickTime by remember { mutableLongStateOf(0L) }
+    // A fresh control must accept a tap even before the device's first debounce interval.
+    var lastClickTime by remember { mutableLongStateOf(Long.MIN_VALUE) }
 
     if (interactionSource != null) {
         clickable(
@@ -31,7 +32,7 @@ fun Modifier.debouncedClickable(
             enabled = enabled
         ) {
             val currentTime = SystemClock.uptimeMillis()
-            if (currentTime - lastClickTime >= debounceMillis) {
+            if (lastClickTime == Long.MIN_VALUE || currentTime - lastClickTime >= debounceMillis) {
                 lastClickTime = currentTime
                 onClick()
             }
@@ -39,7 +40,7 @@ fun Modifier.debouncedClickable(
     } else {
         clickable(enabled = enabled) {
             val currentTime = SystemClock.uptimeMillis()
-            if (currentTime - lastClickTime >= debounceMillis) {
+            if (lastClickTime == Long.MIN_VALUE || currentTime - lastClickTime >= debounceMillis) {
                 lastClickTime = currentTime
                 onClick()
             }

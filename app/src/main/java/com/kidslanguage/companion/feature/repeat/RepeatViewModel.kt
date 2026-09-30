@@ -44,10 +44,13 @@ data class RepeatUiState(
     val showText: Boolean = true,
     val smallText: Boolean = false,
     val isSessionComplete: Boolean = false,
-    val recordingError: String? = null,
+    val recordingProblem: RepeatProblem? = null,
+    val modelReady: Boolean = false,
+    val canChoose: Boolean = false,
     val autoNext: Boolean = true,
     val feedbackPlaying: Boolean = false
 ) {
+    val recordingError: String? get() = recordingProblem?.message
     val currentItem: PracticeItem?
         get() = items.getOrNull(currentIndex)
 }
@@ -84,18 +87,20 @@ class RepeatViewModel(
         if (!resume) sessionId = UUID.randomUUID().toString()
         _uiState.value = if (resume) previous.copy(
             sessionState = SessionStepState.Loading, isRecording = false,
-            showFeedbackOverlay = false, feedbackPlaying = false, recordingError = null
+            showFeedbackOverlay = false, feedbackPlaying = false, recordingProblem = null, modelReady = false
         ) else RepeatUiState()
         viewModelScope.launch {
             val settings = settingsRepository.settingsFlow.first()
             if (!resume) {
-                val sessionItems = planLesson(contentRepository.getItems(language, categoryId),
-                    contentRepository.getLesson(language, categoryId), PracticeMode.REPEAT, settings).items
-                _uiState.value = RepeatUiState(items = sessionItems)
+                val items = contentRepository.getItems(language, categoryId)
+                val lesson = contentRepository.getLesson(language, categoryId)
+                val sessionItems = planLesson(items, lesson, PracticeMode.REPEAT, settings).items
+                _uiState.value = RepeatUiState(items = sessionItems,
+                    canChoose = planLesson(items, lesson, PracticeMode.CHOOSE, settings).items.isNotEmpty())
                 if (sessionItems.isEmpty()) {
                     _uiState.value = _uiState.value.copy(
                         sessionState = SessionStepState.Completed,
-                        recordingError = "这个场景还没有可练习的内容，请返回选择其他场景。"
+                        recordingProblem = RepeatProblem.CONTENT
                     )
                     return@launch
                 }
@@ -108,14 +113,17 @@ class RepeatViewModel(
                 mascotState = MascotState.Listen
             )
 
-            val loaded = speechRecognizer.load(language)
+            val loaded = try { speechRecognizer.load(language) }
+            catch (e: CancellationException) { throw e }
+            catch (e: Exception) { Result.failure(e) }
             if (loaded.isFailure) {
                 _uiState.value = _uiState.value.copy(
                     sessionState = SessionStepState.ReadyToSpeak,
-                    recordingError = "语音模型暂时不可用，请稍后重试，或先玩选图模式。"
+                    recordingProblem = RepeatProblem.MODEL
                 )
                 return@launch
             }
+            _uiState.value = _uiState.value.copy(modelReady = true)
             if (resume && previous.sessionState == SessionStepState.Passed) {
                 _uiState.value = _uiState.value.copy(
                     sessionState = SessionStepState.Passed, showFeedbackOverlay = true,
@@ -146,7 +154,7 @@ class RepeatViewModel(
             _uiState.value = _uiState.value.copy(
                 isRecording = false,
                 feedbackPlaying = false,
-                recordingError = null,
+                recordingProblem = null,
                 sessionState = SessionStepState.PromptPlaying,
                 mascotState = MascotState.Listen,
                 showFeedbackOverlay = false,
@@ -165,7 +173,7 @@ class RepeatViewModel(
                 sessionState = SessionStepState.ReadyToSpeak,
                 mascotState = MascotState.Speak
             )
-            if (settings.autoStartRecording && canRecord()) {
+            if (settings.autoStartRecording && _uiState.value.modelReady && canRecord()) {
                 delay(400)
                 if (sessionActive && canRecord() && _uiState.value.sessionState == SessionStepState.ReadyToSpeak) {
                     promptJob = null
@@ -189,6 +197,10 @@ class RepeatViewModel(
         if (!sessionActive || _uiState.value.feedbackPlaying || _uiState.value.sessionState !in listOf(
                 SessionStepState.ReadyToSpeak, SessionStepState.Retry)) return
         val item = _uiState.value.currentItem ?: return
+        if (!_uiState.value.modelReady) {
+            _uiState.value = _uiState.value.copy(recordingProblem = RepeatProblem.MODEL)
+            return
+        }
         val language = LanguageCode.fromCode(item.language)
         autoAdvanceJob?.cancel()
         promptJob?.cancel()
@@ -198,7 +210,7 @@ class RepeatViewModel(
 
         _uiState.value = _uiState.value.copy(
             isRecording = true,
-            recordingError = null,
+            recordingProblem = null,
             showFeedbackOverlay = false,
             sessionState = SessionStepState.Recording,
             mascotState = MascotState.Speak
@@ -238,8 +250,7 @@ class RepeatViewModel(
                 sessionState = SessionStepState.ReadyToSpeak,
                 mascotState = MascotState.Speak,
                 showFeedbackOverlay = false,
-                recordingError = if (result.isSuccess) "没有听到声音，请再试一次。"
-                    else "录音或语音识别暂时不可用，请检查麦克风权限和语音服务，或先玩选图模式。"
+                recordingProblem = if (result.isSuccess) RepeatProblem.NO_SPEECH else RepeatProblem.RECORDING
             )
             return
         }
@@ -258,7 +269,7 @@ class RepeatViewModel(
                 sessionState = SessionStepState.ReadyToSpeak,
                 mascotState = MascotState.Speak,
                 showFeedbackOverlay = false,
-                recordingError = eval.message
+                recordingProblem = if (eval.status == EvaluationStatus.NoSpeech) RepeatProblem.NO_SPEECH else RepeatProblem.CONTENT
             )
             return
         }
@@ -344,7 +355,12 @@ class RepeatViewModel(
     }
 
     fun dismissRecordingError() {
-        _uiState.value = _uiState.value.copy(recordingError = null)
+        _uiState.value = _uiState.value.copy(recordingProblem = null)
+    }
+
+    fun retryModel() {
+        val (language, categoryId) = sessionKey ?: return
+        loadSession(language, categoryId)
     }
 
     fun stopSession() {

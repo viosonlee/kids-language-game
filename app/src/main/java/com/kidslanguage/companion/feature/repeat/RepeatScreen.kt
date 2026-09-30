@@ -1,15 +1,11 @@
 package com.kidslanguage.companion.feature.repeat
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
-import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,19 +16,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Hearing
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -44,14 +35,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.core.content.ContextCompat
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.zIndex
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.kidslanguage.companion.core.asr.RecognitionResult
 import com.kidslanguage.companion.core.model.EvaluationStatus
 import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.model.SessionStepState
@@ -59,6 +47,7 @@ import com.kidslanguage.companion.ui.components.BigMicButton
 import com.kidslanguage.companion.ui.components.FeedbackOverlay
 import com.kidslanguage.companion.ui.components.MascotView
 import com.kidslanguage.companion.ui.components.ProgressIndicatorBar
+import com.kidslanguage.companion.ui.components.PracticeIllustration
 import com.kidslanguage.companion.ui.components.SpeakerButton
 import com.kidslanguage.companion.ui.theme.AppRadius
 import com.kidslanguage.companion.ui.theme.AppSpacing
@@ -78,6 +67,9 @@ fun RepeatScreen(
     categoryId: String?,
     onBack: () -> Unit,
     onSessionComplete: () -> Unit,
+    onChoose: () -> Unit,
+    onBrowse: () -> Unit,
+    onParent: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -172,10 +164,7 @@ fun RepeatScreen(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            Text(
-                                text = currentItem.image ?: "⭐",
-                                fontSize = 110.sp
-                            )
+                            PracticeIllustration(currentItem.image.orEmpty(), size = 110.dp)
                             Spacer(modifier = Modifier.height(AppSpacing.md))
 
                             if (state.showText) {
@@ -268,49 +257,25 @@ fun RepeatScreen(
             modifier = Modifier.zIndex(100f)
         )
 
-        if (state.recordingError != null) {
-            AlertDialog(
-                onDismissRequest = viewModel::dismissRecordingError,
-                title = { Text("再试一次吧") },
-                text = { Text(state.recordingError.orEmpty()) },
-                confirmButton = {
-                    TextButton(onClick = viewModel::dismissRecordingError) { Text("知道了") }
-                }
-            )
-        }
-
-        if (showPermissionHint) {
-            AlertDialog(
-                onDismissRequest = { showPermissionHint = false },
-                title = {
-                    Text("🐰 兔兔需要麦克风权限哦", fontWeight = FontWeight.Bold)
-                },
-                text = {
-                    Text("Momo Bunny 需要听到泡泡的声音才能判断发音呢！请允许麦克风权限，或者先去玩有趣的【选图模式】吧！")
-                },
-                confirmButton = {
-                    Button(
-                        onClick = {
-                            showPermissionHint = false
-                            try {
-                                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                                    data = Uri.fromParts("package", context.packageName, null)
-                                }
-                                context.startActivity(intent)
-                            } catch (_: Exception) {
-                                onBack()
-                            }
-                        }
-                    ) {
-                        Text("去系统设置开启")
+        val problem = if (showPermissionHint) RepeatProblem.PERMISSION else state.recordingProblem
+        if (problem != null) {
+            val dismiss = { showPermissionHint = false; viewModel.dismissRecordingError() }
+            RepeatRecoveryDialog(
+                problem = problem,
+                onDismiss = { if (problem == RepeatProblem.CONTENT) { viewModel.stopSession(); onBrowse() } else dismiss() },
+                onBrowse = { dismiss(); viewModel.stopSession(); onBrowse() },
+                onParent = { dismiss(); onParent() },
+                onRetry = if (problem == RepeatProblem.CONTENT) null else {
+                    {
+                        dismiss()
+                        if (!state.modelReady) viewModel.retryModel()
+                        else if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                            permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                        } else viewModel.startRecordingIfReady()
                     }
                 },
-                dismissButton = {
-                    TextButton(onClick = { showPermissionHint = false }) {
-                        Text("知道了")
-                    }
-                },
-                shape = RoundedCornerShape(AppRadius.card)
+                onChoose = if (state.canChoose) { { dismiss(); viewModel.stopSession(); onChoose() } } else null,
+                onReplay = if (currentItem != null) { { dismiss(); viewModel.playCurrentPrompt() } } else null,
             )
         }
     }

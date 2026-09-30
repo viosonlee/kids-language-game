@@ -13,7 +13,7 @@ import kotlin.random.Random
 
 class LessonPlanTest {
     private val items = (1..8).map {
-        PracticeItem("item-$it", "en-US", "greetings", text = "word $it", image = "image-$it")
+        PracticeItem("item-$it", "en-US", "greetings", text = "word $it", image = "image-$it", audio = "audio/word-$it.mp3")
     }
 
     @Test fun explicitOrderModeAndCountAreRespectedWithinParentLimit() {
@@ -66,6 +66,7 @@ class LessonPlanTest {
         val repo = AssetContentRepository({ path -> when (path) {
             "content/lessons.json" -> Json.encodeToString(configs)
             "content/items_en.json" -> Json.encodeToString(items)
+            "content/categories.json" -> Json.encodeToString(listOf(Category("greetings", "all", "问候")))
             else -> "[]"
         } }, { true }, reports::add)
         assertNull(repo.getLesson(LanguageCode.EN_US, "invalid"))
