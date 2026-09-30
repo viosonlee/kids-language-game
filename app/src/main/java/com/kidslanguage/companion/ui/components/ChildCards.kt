@@ -1,10 +1,11 @@
 package com.kidslanguage.companion.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import com.kidslanguage.companion.ui.theme.LocalAnimationsEnabled
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -235,8 +236,8 @@ fun FeedbackOverlay(
 ) {
     AnimatedVisibility(
         visible = visible,
-        enter = fadeIn(),
-        exit = fadeOut(),
+        enter = if (LocalAnimationsEnabled.current) fadeIn() else EnterTransition.None,
+        exit = if (LocalAnimationsEnabled.current) fadeOut() else ExitTransition.None,
         modifier = modifier.fillMaxSize()
     ) {
         // The parent clears its result when advancing, while fadeOut still renders us.

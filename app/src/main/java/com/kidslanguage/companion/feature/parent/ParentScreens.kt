@@ -227,6 +227,8 @@ fun ParentSettingsScreen(
                     Text("控制兔子招呼、表扬、重试和庆祝声音；示范发音仍由设备媒体音量控制。", color = Neutral700)
                     ParentToggle("首页背景音乐", "只在首页播放，兔子说话、进入练习或切到后台时停止。",
                         settings.musicEnabled, viewModel::setMusicEnabled)
+                    ParentToggle("界面动效", "控制兔子浮动、按钮脉冲和页面淡入淡出；关闭后仍显示录音状态和反馈表情。",
+                        settings.animationEnabled, viewModel::setAnimationEnabled)
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
 
                     Text("练习文字", style = AppTypography.bodyLarge)

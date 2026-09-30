@@ -1,11 +1,5 @@
 package com.kidslanguage.companion.ui.components
 
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -28,7 +22,6 @@ import androidx.compose.material3.ripple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,6 +52,7 @@ import com.kidslanguage.companion.ui.theme.Primary500
 import com.kidslanguage.companion.ui.theme.Primary600
 import com.kidslanguage.companion.ui.theme.Primary700
 import com.kidslanguage.companion.ui.theme.Primary800
+import com.kidslanguage.companion.ui.theme.loopingFloat
 
 @Composable
 private fun ButtonLabel(text: String, style: TextStyle, color: Color, modifier: Modifier = Modifier) {
@@ -183,14 +177,10 @@ fun SpeakerButton(
     isPlaying: Boolean = false,
     size: Dp = 96.dp
 ) {
-    val infiniteTransition = rememberInfiniteTransition(label = "speaker_anim")
-    val pulseScale by infiniteTransition.animateFloat(
+    val pulseScale = loopingFloat(
         initialValue = 1f,
         targetValue = if (isPlaying) 1.12f else 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(400, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
+        durationMillis = 400,
         label = "speaker_scale"
     )
 
@@ -224,24 +214,17 @@ fun BigMicButton(
     modifier: Modifier = Modifier,
     size: Dp = 140.dp
 ) {
-    val infiniteTransition = rememberInfiniteTransition(label = "mic_pulse")
-    val pulseScale by infiniteTransition.animateFloat(
+    val pulseScale = loopingFloat(
         initialValue = 1f,
         targetValue = if (isRecording) 1.15f else 1.03f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = if (isRecording) 500 else 1200, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
+        durationMillis = if (isRecording) 500 else 1200,
         label = "mic_scale"
     )
 
-    val waveAlpha by infiniteTransition.animateFloat(
+    val waveAlpha = loopingFloat(
         initialValue = 0.4f,
         targetValue = if (isRecording) 0.05f else 0.2f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = if (isRecording) 600 else 1400, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
+        durationMillis = if (isRecording) 600 else 1400,
         label = "mic_alpha"
     )
 

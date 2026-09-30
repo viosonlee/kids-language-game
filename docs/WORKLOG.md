@@ -547,3 +547,13 @@
 - 新增 docs/30 并更新 README。手机适配询问已核查当前横屏锁定、首页卡片和跟读固定尺寸，新增 docs/31 方案比较：建议先紧凑横屏，再加竖屏响应式布局，共用业务代码；本轮尚未实施全应用手机适配。
 - 再次匿名确认 GitHub 已公开 v1.0.1-2 及 APK/JSON。再次核查蒲公英官方分发免费与 API、R2 标准存储免费额度；补充 R2 官方公开桶说明：r2.dev 用于非生产用途，长期公开分发应配置自有域名（https://developers.cloudflare.com/r2/buckets/public-buckets/）。没有注册新账户或切换更新源。
 - 设备布局、语音听感、儿童识别率和安装更新仍需实测；没有修改 ASR 参数。完整需求逐项验收尚未完成，本次保存并推送已验证的代码和评估记录。
+
+## 2026-09-30 | 动效控制、渲染修复与 PRD 证据审查 | By: Codex
+
+- 补齐已存在但无人消费的 animationEnabled 设置：家长页入口、根界面偏好传递、兔子/麦克风/喇叭动画、首页点击缩放与反馈/导航淡入淡出。关闭后保留状态提示，停止装饰动画帧请求，修复 animate=false 仍轻微缩放的问题。
+- 兔子 PNG 读取和解码移到 IO 线程，保留页面取消语义。新增真实 Compose Recomposer/帧时钟 MotionTest 与设置持久化回归；不是截图或真机测试。
+- 初次 lint 离线失败是工具未缓存；联网完成工具下载后报告 produceState 赋值检查错误。改成等价的 remember + LaunchedEffect 加载，无 suppression/baseline。CI 接入 lintDebug 并保存报告。
+- 最终 test assembleDebug lintDebug --offline 成功，Debug/Release 各 92 项测试通过；lint 0 errors、26 warnings、2 information。警告主要为依赖升级、图标、Modifier 参数顺序、横屏和空间 API 建议，完整分类见新增 docs/32。
+- 新增 docs/33：PRD 全部 83 个 FR/NFR ID 一条一行，无缺漏或重复；记录自动化范围、源码证据、已知缺口与设备/儿童验收不足，覆盖相关用户流程和其他规范门禁。README 链接审查记录。
+- 后续优先事项：图形化录音错误恢复、全局内容 ID/资源验证、识别器异常与系统回退策略、Compose 页面流程与重置整合测试、音频/图片/平板验收。ASR 超时优化仍按用户先调查要求保留，未改录音参数。
+- 当前配置的 SDK 缺 platform-tools，本轮未运行设备测试。公开 Release 未替换；本轮已验证代码与文档将提交推送，总目标尚未宣称完成。

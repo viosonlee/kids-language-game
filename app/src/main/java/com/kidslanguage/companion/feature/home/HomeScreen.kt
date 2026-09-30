@@ -28,6 +28,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import com.kidslanguage.companion.ui.theme.LocalAnimationsEnabled
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -60,6 +62,10 @@ fun HomeScreen(
     val settings by viewModel.settings.collectAsState()
     val selectedLanguage = settings.selectedLanguage
     val tapScale = remember { Animatable(1f) }
+    val motionEnabled = LocalAnimationsEnabled.current
+    LaunchedEffect(motionEnabled) {
+        if (!motionEnabled) tapScale.snapTo(1f)
+    }
     val tapScope = rememberCoroutineScope()
     val tapInteraction = remember { MutableInteractionSource() }
     val lastTap = remember { longArrayOf(-1000L) }
@@ -109,7 +115,7 @@ fun HomeScreen(
                     state = MascotState.Idle,
                     size = 340.dp,
                     modifier = Modifier
-                        .scale(tapScale.value)
+                        .scale(if (motionEnabled) tapScale.value else 1f)
                         .clickable(
                             interactionSource = tapInteraction,
                             indication = null,
@@ -119,7 +125,7 @@ fun HomeScreen(
                             if (now - lastTap[0] >= 1000L) {
                                 lastTap[0] = now
                                 viewModel.playGreeting()
-                                tapScope.launch {
+                                if (motionEnabled) tapScope.launch {
                                     tapScale.animateTo(0.96f, tween(100))
                                     tapScale.animateTo(1f, tween(180))
                                 }

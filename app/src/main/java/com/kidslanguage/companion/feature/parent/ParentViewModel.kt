@@ -99,6 +99,10 @@ class ParentViewModel(
         viewModelScope.launch { settingsRepository.setMusicEnabled(enabled) }
     }
 
+    fun setAnimationEnabled(enabled: Boolean) {
+        viewModelScope.launch { settingsRepository.setAnimationEnabled(enabled) }
+    }
+
     fun resetProgress() {
         if (_resetting.value) return
         _resetting.value = true

@@ -12,6 +12,17 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class SettingsRepositoryTest {
+    @Test fun animationPreferenceSurvivesRepositoryRecreationAndProgressReset() = runTest {
+        val store = Store()
+        val repo = SettingsRepository(store)
+        repo.setAnimationEnabled(false)
+        assertFalse(SettingsRepository(store).settingsFlow.first().animationEnabled)
+        repo.resetProgress()
+        assertFalse(repo.settingsFlow.first().animationEnabled)
+        repo.setAnimationEnabled(true)
+        assertTrue(repo.settingsFlow.first().animationEnabled)
+    }
+
     private class Store(initial: Preferences = emptyPreferences()) : DataStore<Preferences> {
         override val data = MutableStateFlow(initial)
         override suspend fun updateData(transform: suspend (Preferences) -> Preferences): Preferences =

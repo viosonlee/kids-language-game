@@ -1,13 +1,7 @@
 package com.kidslanguage.companion.ui.components
 
 import android.graphics.BitmapFactory
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
@@ -28,7 +22,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.kidslanguage.companion.core.model.MascotState
-import java.io.InputStream
+import com.kidslanguage.companion.ui.theme.LocalAnimationsEnabled
+import com.kidslanguage.companion.ui.theme.loopingFloat
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun MascotView(
@@ -51,43 +49,34 @@ fun MascotView(
         }
 
         try {
-            val decoded = context.assets.open("mascot/png/$assetName.png").use { stream ->
-                BitmapFactory.decodeStream(stream)
+            val decoded = withContext(Dispatchers.IO) {
+                context.assets.open("mascot/png/$assetName.png").use { stream -> BitmapFactory.decodeStream(stream) }
             }
             bitmap = decoded?.asImageBitmap()
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
     // Gentle animations based on mascot state
-    val infiniteTransition = rememberInfiniteTransition(label = "mascot_anim")
-    
-    val floatOffset by infiniteTransition.animateFloat(
-        initialValue = if (animate) -8f else 0f,
-        targetValue = if (animate) 8f else 0f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(
-                durationMillis = when (state) {
-                    MascotState.Great -> 500
-                    MascotState.Speak -> 700
-                    else -> 1800
-                },
-                easing = FastOutSlowInEasing
-            ),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "mascot_float"
+    val motionEnabled = animate && LocalAnimationsEnabled.current
+    val floatOffset = loopingFloat(
+        initialValue = -8f, targetValue = 8f, restingValue = 0f,
+        durationMillis = when (state) {
+            MascotState.Great -> 500
+            MascotState.Speak -> 700
+            else -> 1800
+        },
+        label = "mascot_float", enabled = motionEnabled,
     )
 
-    val scaleFactor by infiniteTransition.animateFloat(
+    val scaleFactor = loopingFloat(
         initialValue = 1f,
-        targetValue = if (animate && (state == MascotState.Great || state == MascotState.Praise)) 1.05f else 1.01f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 800, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "mascot_scale"
+        targetValue = if (state == MascotState.Great || state == MascotState.Praise) 1.05f else 1.01f,
+        durationMillis = 800, easing = LinearEasing,
+        label = "mascot_scale", enabled = motionEnabled,
     )
 
     Box(

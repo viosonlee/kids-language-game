@@ -8,6 +8,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
@@ -16,6 +19,8 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.kidslanguage.companion.ui.navigation.AppNavigation
 import com.kidslanguage.companion.ui.theme.KidsLanguageTheme
 import com.kidslanguage.companion.ui.theme.Neutral50
+import com.kidslanguage.companion.ui.theme.LocalAnimationsEnabled
+import com.kidslanguage.companion.core.persistence.UserSettings
 
 class MainActivity : ComponentActivity() {
 
@@ -32,12 +37,17 @@ class MainActivity : ComponentActivity() {
         val app = application as KidsLanguageApp
 
         setContent {
+            val settings by app.container.settingsRepository.settingsFlow.collectAsStateWithLifecycle(
+                initialValue = UserSettings(animationEnabled = false)
+            )
             KidsLanguageTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = Neutral50
                 ) {
-                    AppNavigation(container = app.container)
+                    CompositionLocalProvider(LocalAnimationsEnabled provides settings.animationEnabled) {
+                        AppNavigation(container = app.container)
+                    }
                 }
             }
         }

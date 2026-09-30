@@ -38,8 +38,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Test assets and code, build application and instrumented tests
-        run: ./gradlew test assembleDebug assembleDebugAndroidTest --stacktrace
+      - name: Lint and test assets and code, build application and instrumented tests
+        run: ./gradlew lintDebug test assembleDebug assembleDebugAndroidTest --stacktrace
 
       - name: Upload test reports
         if: always()
@@ -49,6 +49,7 @@ jobs:
           path: |
             app/build/reports/tests/
             app/build/test-results/
+            app/build/reports/lint-results-debug.*
           if-no-files-found: warn
           retention-days: 14
 

@@ -1,6 +1,12 @@
 package com.kidslanguage.companion.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import com.kidslanguage.companion.ui.theme.LocalAnimationsEnabled
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import android.Manifest
@@ -8,7 +14,6 @@ import android.content.pm.PackageManager
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.produceState
 import com.kidslanguage.companion.core.content.availableModes
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavType
@@ -57,6 +62,7 @@ fun AppNavigation(container: AppContainer) {
     val context = LocalContext.current.applicationContext
     val navController = rememberNavController()
     var showParentGate by remember { mutableStateOf(false) }
+    val motionEnabled = LocalAnimationsEnabled.current
 
     val homeViewModel: HomeViewModel = viewModel { HomeViewModel(container.settingsRepository, container.promptPlayer, container.backgroundMusic) }
     val parentViewModel: ParentViewModel = viewModel { ParentViewModel(container.settingsRepository, container.progressRepository) }
@@ -74,7 +80,11 @@ fun AppNavigation(container: AppContainer) {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.SPLASH
+        startDestination = Routes.SPLASH,
+        enterTransition = { if (motionEnabled) fadeIn() else EnterTransition.None },
+        exitTransition = { if (motionEnabled) fadeOut() else ExitTransition.None },
+        popEnterTransition = { if (motionEnabled) fadeIn() else EnterTransition.None },
+        popExitTransition = { if (motionEnabled) fadeOut() else ExitTransition.None },
     ) {
         composable(Routes.SPLASH) {
             SplashScreen(
@@ -127,8 +137,11 @@ fun AppNavigation(container: AppContainer) {
             val categoryId = backStackEntry.arguments?.getString("categoryId") ?: "greetings"
             val language = try { LanguageCode.valueOf(langStr) } catch (_: Exception) { LanguageCode.JA_JP }
 
-            val availableModes by produceState<List<PracticeMode>?>(null, language, categoryId) {
-                value = container.contentRepository.availableModes(language, categoryId)
+            var availableModes by remember(language, categoryId) {
+                mutableStateOf<List<PracticeMode>?>(null)
+            }
+            LaunchedEffect(language, categoryId) {
+                availableModes = container.contentRepository.availableModes(language, categoryId)
             }
             ModeSelectScreen(
                 availableModes = availableModes,
