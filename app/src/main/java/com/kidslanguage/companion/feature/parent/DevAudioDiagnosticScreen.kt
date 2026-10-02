@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kidslanguage.companion.app.AppContainer
+import com.kidslanguage.companion.app.AppDependencies
 import com.kidslanguage.companion.core.model.EvaluationResult
 import com.kidslanguage.companion.core.model.EvaluationStatus
 import com.kidslanguage.companion.core.model.LanguageCode
@@ -39,7 +39,7 @@ import android.content.pm.PackageManager
 
 @Composable
 fun DevAudioDiagnosticScreen(
-    container: AppContainer,
+    container: AppDependencies,
     onBack: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()

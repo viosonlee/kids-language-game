@@ -19,37 +19,37 @@ import com.kidslanguage.companion.core.persistence.SettingsRepository
 import com.kidslanguage.companion.core.scoring.ChildSpeechEvaluationService
 import com.kidslanguage.companion.core.scoring.SpeechEvaluationService
 
-class AppContainer(private val context: Context) {
-    val backgroundMusic by lazy { com.kidslanguage.companion.core.audio.AndroidBackgroundMusicPlayer(context) }
+class AppContainer(private val context: Context) : AppDependencies {
+    override val backgroundMusic by lazy { com.kidslanguage.companion.core.audio.AndroidBackgroundMusicPlayer(context) }
     private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-    val progressRepository by lazy {
+    override val progressRepository by lazy {
         RoomProgressRepository(
             Room.databaseBuilder(context.applicationContext, ProgressDatabase::class.java, "practice_progress.db")
                 .build().progressDao(), applicationScope
         )
     }
-    val contentRepository: ContentRepository by lazy {
+    override val contentRepository: ContentRepository by lazy {
         AssetContentRepository(context)
     }
 
-    val speechEvaluationService: SpeechEvaluationService by lazy {
+    override val speechEvaluationService: SpeechEvaluationService by lazy {
         ChildSpeechEvaluationService()
     }
 
-    val speechRecognizerEngine: SpeechRecognizerEngine by lazy {
+    override val speechRecognizerEngine: SpeechRecognizerEngine by lazy {
         VoskSpeechRecognizerEngine(context)
     }
 
-    val promptPlayer: PromptPlayer by lazy {
+    override val promptPlayer: PromptPlayer by lazy {
         com.kidslanguage.companion.core.audio.SettingsPromptPlayer(
             AndroidPromptPlayer(context), settingsRepository.settingsFlow)
     }
 
-    val settingsRepository: SettingsRepository by lazy {
+    override val settingsRepository: SettingsRepository by lazy {
         SettingsRepository(context)
     }
 
-    val soundEffectManager: SoundEffectManager by lazy {
+    override val soundEffectManager: SoundEffectManager by lazy {
         AndroidSoundEffectManager(context, settingsRepository)
     }
 }

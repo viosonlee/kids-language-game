@@ -606,3 +606,11 @@
 - 首轮定向 24 项有 3 项失败：两项为新统计测试清理后访问已恢复主线程调度器，一项暴露源取消被 flatMapLatest 吞掉导致等待。修正清理和生产取消传播并增加实际订阅取消测试后，定向 25 项全部通过。
 - 最终 test assembleDebug assembleDebugAndroidTest lintDebug --offline 成功；实际 XML 为 Debug 148 项、Release 136 项，均 0 failures、0 errors、0 skipped。lint 0 errors、13 warnings、2 information。新增故障测试使用受控存储/Flow，界面为 Robolectric，不等同于真实磁盘故障或设备验收。
 - 新增 docs/37 并同步 README，原规范保留。未安装/发布 APK；完整页面流程、进程中断、音频/图片/设备验收继续处理，ASR 参数与手机布局范围保持原约定，总目标未宣称完成。
+
+## 2026-10-02 | 真实页面导航与练习流程回归 | By: Codex
+
+- 新增 AppDependencies 接口供真实导航图注入服务，AppContainer 的 Android 初始化与页面业务行为保持不变。测试运行真实页面、ViewModel、评分与设置仓库，控制题库、ASR 回调、播放和记录调用。
+- 新增八项 Robolectric API 29 导航测试，覆盖三语言入口、跟读/选图重试及辅助通过、重玩、模型失败切换玩法、退出录音后的迟到回调、家长门禁、实际权限结果桥接拒绝和两种玩法自动完成。检查独立题目轮次、记录数量、录音停止和反馈语音次数。
+- 扩展测试初轮发现两项语音次数断言漏算结果页庆祝，按真实流程改为核查单题表扬和整轮庆祝各一次；另有一次录音图标即时可见断言失败，重跑通过后补充有界布局等待及识别器已启动断言。保留原业务断言，没有修改生产录音或反馈时序。
+- 最终 test assembleDebug assembleDebugAndroidTest lintDebug --offline 成功，实际 XML 为 Debug 156 项、Release 136 项，均无失败、错误、跳过；lint 0 errors、13 warnings、2 information。权限测试调用系统结果桥接的弃用编译警告已说明，生产页面使用 Activity Result API。
+- 新增 docs/38 并同步 README，原规范保留。新增流程用例为 testDebug 受控测试，不代表真实设备、全题库或动画验收；SDK 仍缺 platform-tools，本批未安装或发布 APK。跨存储进程中断、声音/图片/设备与儿童观察继续保留，ASR 调参及手机布局范围不变，总目标未宣称完成。

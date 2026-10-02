@@ -22,7 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.kidslanguage.companion.app.AppContainer
+import com.kidslanguage.companion.app.AppDependencies
 import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.model.PracticeMode
 import com.kidslanguage.companion.feature.category.CategoryScreen
@@ -58,7 +58,7 @@ object Routes {
 }
 
 @Composable
-fun AppNavigation(container: AppContainer) {
+fun AppNavigation(container: AppDependencies) {
     val context = LocalContext.current.applicationContext
     val navController = rememberNavController()
     var showParentGate by remember { mutableStateOf(false) }
