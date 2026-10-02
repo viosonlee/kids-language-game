@@ -64,7 +64,7 @@ import com.kidslanguage.companion.ui.theme.Neutral700
 import com.kidslanguage.companion.ui.theme.Neutral900
 import com.kidslanguage.companion.ui.theme.Primary100
 import com.kidslanguage.companion.ui.theme.Primary500
-import com.kidslanguage.companion.ui.theme.Primary600
+import com.kidslanguage.companion.ui.theme.Primary800
 import com.kidslanguage.companion.ui.theme.RetryBg
 import com.kidslanguage.companion.ui.theme.SuccessBg
 
@@ -104,7 +104,7 @@ fun LanguageCard(
             Text(
                 text = language.displayName,
                 style = AppTypography.titleMedium,
-                color = if (isSelected) Primary600 else Neutral900
+                color = if (isSelected) Primary800 else Neutral900
             )
             Text(
                 text = language.englishName,
@@ -221,7 +221,7 @@ fun ProgressIndicatorBar(
         Text(
             text = "$shownStep / ${totalSteps.coerceAtLeast(0)}",
             style = AppTypography.labelLarge,
-            color = Primary600
+            color = Primary800
         )
     }
 }

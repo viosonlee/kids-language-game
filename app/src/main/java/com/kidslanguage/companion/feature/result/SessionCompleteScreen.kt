@@ -38,7 +38,7 @@ import com.kidslanguage.companion.ui.theme.AppSpacing
 import com.kidslanguage.companion.ui.theme.AppTypography
 import com.kidslanguage.companion.ui.theme.Neutral50
 import com.kidslanguage.companion.ui.theme.Neutral700
-import com.kidslanguage.companion.ui.theme.Primary600
+import com.kidslanguage.companion.ui.theme.Primary800
 
 @Composable
 fun SessionCompleteScreen(
@@ -79,7 +79,7 @@ fun SessionCompleteScreen(
                 text = "🎉 泡泡太棒啦！练习完成！ 🎉",
                 style = AppTypography.displayLarge,
                 textAlign = TextAlign.Center,
-                color = Primary600
+                color = Primary800
             )
             Spacer(modifier = Modifier.height(AppSpacing.xs))
             Text(

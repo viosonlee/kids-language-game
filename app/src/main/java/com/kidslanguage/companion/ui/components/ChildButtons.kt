@@ -108,7 +108,7 @@ fun PrimaryLargeButton(
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = Neutral0,
+                    tint = if (enabled) Neutral0 else Neutral700,
                     modifier = Modifier.size(36.dp)
                 )
                 Spacer(modifier = Modifier.width(AppSpacing.md))
@@ -201,7 +201,7 @@ fun SpeakerButton(
         Icon(
             imageVector = Icons.AutoMirrored.Filled.VolumeUp,
             contentDescription = "Speaker",
-            tint = if (isPlaying) Neutral900 else Neutral0,
+            tint = Neutral900,
             modifier = Modifier.size(size * 0.55f)
         )
     }
@@ -260,7 +260,7 @@ fun BigMicButton(
             Icon(
                 imageVector = Icons.Default.Mic,
                 contentDescription = if (isRecording) "Recording" else "Tap to Speak",
-                tint = if (enabled) Neutral0 else Neutral700,
+                tint = if (enabled) Neutral900 else Neutral700,
                 modifier = Modifier.size(size * 0.52f)
             )
         }

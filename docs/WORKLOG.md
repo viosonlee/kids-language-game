@@ -646,3 +646,10 @@
 - 新增动画时钟与真实 MascotView Robolectric 回归，验证完成、重播、关闭动效及稳定尺寸。完整 Gradle test assembleDebug assembleDebugAndroidTest lintDebug --offline 成功；Debug 172 / Release 150 项无失败或错误，lint 0 errors、13 warnings、2 information。
 - 用户确认下一步优先兔子眨眼、挥手、开口和庆祝。目前仅六张完整 PNG，无角色图层或动作帧，本次短跳跃不等于角色动画。新增 docs/42 记录实施范围、素材方案和验收边界。
 - 内置图片生成工具不可用，已询问是否选用需要本机 API Key 的 imagegen API/CLI 备用方式，未发起生成调用。未安装或发布 APK，真机视觉和角色动作仍待完成，总目标未完成。
+
+## 2026-10-03 | 文字与操作图标对比度补充修复 | By: Codex
+
+- 对照 docs/03、docs/07 继续检查视觉实现，发现浅蓝/橙色按钮的白色操作图标、诊断绿/黄状态白字及小字模式蓝色文字对比度不足。喇叭/麦克风改深色图标，禁用主按钮图标与文字一致；浅底显式蓝色文字采用 Primary800，诊断标签及录音按钮加深背景。
+- 相对亮度计算：原通过/辅助通过标签 2.54/2.15:1，现 5.48/7.09:1；页面蓝字 3.26→7.72:1；蓝/橙渐变较暗端深色图标分别 4.28/4.62:1。数据只证明所检查颜色，不代表完整截图、CJK、大字号或儿童视觉验收。
+- 首次编译发现 Neutral700 缺 import，补齐后最终 test assembleDebug lintDebug --offline 成功；实际 XML Debug 172 / Release 150 项，失败/错误/跳过均零，lint 0 errors、13 warnings、2 information。
+- 新增 docs/43，历史文档保持不变，日志仅追加。本批未改布局、触控尺寸或 ASR，未安装/发布 APK。兔子动作素材待用户选择生成方式，真机/布局/素材与儿童观察等总审查未完成。

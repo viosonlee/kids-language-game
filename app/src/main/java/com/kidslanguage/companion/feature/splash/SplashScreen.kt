@@ -18,7 +18,7 @@ import com.kidslanguage.companion.ui.components.MascotView
 import com.kidslanguage.companion.ui.theme.AppSpacing
 import com.kidslanguage.companion.ui.theme.AppTypography
 import com.kidslanguage.companion.ui.theme.Neutral50
-import com.kidslanguage.companion.ui.theme.Primary600
+import com.kidslanguage.companion.ui.theme.Primary800
 import kotlinx.coroutines.delay
 
 @Composable
@@ -50,7 +50,7 @@ fun SplashScreen(
             Text(
                 text = "Kids Language Companion",
                 style = AppTypography.displayLarge,
-                color = Primary600
+                color = Primary800
             )
             Spacer(modifier = Modifier.height(AppSpacing.xs))
             Text(

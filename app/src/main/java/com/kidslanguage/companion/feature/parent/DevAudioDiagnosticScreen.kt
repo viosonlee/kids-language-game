@@ -26,6 +26,7 @@ import com.kidslanguage.companion.core.model.EvaluationStatus
 import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.model.PracticeItem
 import com.kidslanguage.companion.ui.theme.Neutral900
+import com.kidslanguage.companion.ui.theme.Neutral700
 import com.kidslanguage.companion.ui.theme.Primary100
 import com.kidslanguage.companion.ui.theme.Primary500
 import kotlinx.coroutines.launch
@@ -337,7 +338,7 @@ fun DevAudioDiagnosticScreen(
                                     }
                                 },
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = if (isRecording) Color(0xFFEF4444) else Color(0xFF10B981)
+                                    containerColor = if (isRecording) Color(0xFFB91C1C) else Color(0xFF047857)
                                 ),
                                 shape = RoundedCornerShape(16.dp),
                                 modifier = Modifier.height(48.dp)
@@ -379,7 +380,7 @@ fun DevAudioDiagnosticScreen(
                                     Text(
                                         text = if (recognizedText.isNotBlank()) "「$recognizedText」" else "(暂无识别结果)",
                                         fontWeight = FontWeight.Bold,
-                                        color = if (recognizedText.isNotBlank()) Color(0xFF0284C7) else Color.Gray
+                                        color = if (recognizedText.isNotBlank()) Color(0xFF0369A1) else Neutral700
                                     )
                                 }
 
@@ -388,9 +389,9 @@ fun DevAudioDiagnosticScreen(
                                     Row(verticalAlignment = Alignment.CenterVertically) {
                                         Text("评测判定状态: ", fontWeight = FontWeight.SemiBold, color = Color.DarkGray)
                                         val (statusColor, statusLabel) = when (eval.status) {
-                                            EvaluationStatus.Pass -> Color(0xFF10B981) to "Pass (通过 100%)"
-                                            EvaluationStatus.SoftPass -> Color(0xFFF59E0B) to "SoftPass (幼儿温和辅助通过)"
-                                            EvaluationStatus.Retry -> Color(0xFFEF4444) to "Retry (建议重试)"
+                                            EvaluationStatus.Pass -> Color(0xFF047857) to "Pass (通过 100%)"
+                                            EvaluationStatus.SoftPass -> Color(0xFF92400E) to "SoftPass (幼儿温和辅助通过)"
+                                            EvaluationStatus.Retry -> Color(0xFFB91C1C) to "Retry (建议重试)"
                                             EvaluationStatus.NoSpeech -> Color(0xFF6B7280) to "NoSpeech (未检出有效语音)"
                                             EvaluationStatus.Error -> Color(0xFFDC2626) to "Error (发生异常)"
                                         }
@@ -406,7 +407,7 @@ fun DevAudioDiagnosticScreen(
 
                                     Row {
                                         Text("算法相似度评分: ", fontWeight = FontWeight.SemiBold, color = Color.DarkGray)
-                                        Text("${(eval.score * 100).toInt()}%", fontWeight = FontWeight.Bold, color = Primary500)
+                                        Text("${(eval.score * 100).toInt()}%", fontWeight = FontWeight.Bold, color = com.kidslanguage.companion.ui.theme.Primary800)
                                     }
 
                                     Row {

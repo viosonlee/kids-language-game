@@ -35,7 +35,7 @@ import com.kidslanguage.companion.ui.theme.AppSpacing
 import com.kidslanguage.companion.ui.theme.AppTypography
 import com.kidslanguage.companion.ui.theme.Neutral0
 import com.kidslanguage.companion.ui.theme.Neutral700
-import com.kidslanguage.companion.ui.theme.Primary600
+import com.kidslanguage.companion.ui.theme.Primary800
 import java.util.Locale
 
 @Composable
@@ -56,7 +56,7 @@ fun AppUpdateCard() {
     Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(AppRadius.card),
         colors = CardDefaults.cardColors(containerColor = Neutral0, contentColor = Neutral700)) {
         Column(Modifier.padding(AppSpacing.xl), verticalArrangement = Arrangement.spacedBy(AppSpacing.sm)) {
-            Text("应用更新", style = AppTypography.titleMedium, color = Primary600)
+            Text("应用更新", style = AppTypography.titleMedium, color = Primary800)
             Text("当前版本：${BuildConfig.VERSION_NAME}")
             Text("由家长检查和安装更新，保留练习记录与设置。")
             Text(state.message)

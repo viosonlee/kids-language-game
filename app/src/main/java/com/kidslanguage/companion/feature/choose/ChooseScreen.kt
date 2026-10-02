@@ -49,6 +49,7 @@ import com.kidslanguage.companion.ui.theme.Neutral50
 import com.kidslanguage.companion.ui.theme.Neutral700
 import com.kidslanguage.companion.ui.theme.Neutral900
 import com.kidslanguage.companion.ui.theme.Primary100
+import com.kidslanguage.companion.ui.theme.Primary800
 import com.kidslanguage.companion.ui.theme.Primary600
 
 @Composable
@@ -140,7 +141,7 @@ fun ChooseScreen(
                     text = currentItem.text,
                     style = if (state.smallText) AppTypography.bodyMedium else AppTypography.titleLarge,
                     textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                    color = Primary600
+                    color = Primary800
                 )
                 if (!currentItem.reading.isNullOrBlank() && currentItem.reading != currentItem.text) {
                     Spacer(modifier = Modifier.height(AppSpacing.xs))

@@ -61,6 +61,7 @@ import com.kidslanguage.companion.ui.theme.Neutral50
 import com.kidslanguage.companion.ui.theme.Neutral700
 import com.kidslanguage.companion.ui.theme.Neutral900
 import com.kidslanguage.companion.ui.theme.Primary100
+import com.kidslanguage.companion.ui.theme.Primary800
 import com.kidslanguage.companion.ui.theme.Primary600
 
 @Composable
@@ -89,7 +90,7 @@ fun ParentGateDialog(
                 Text(
                     text = "${gate.num1} × ${gate.num2} = ?",
                     style = AppTypography.titleLarge,
-                    color = Primary600
+                    color = Primary800
                 )
                 Spacer(modifier = Modifier.height(AppSpacing.md))
                 OutlinedTextField(
@@ -204,7 +205,7 @@ fun ParentSettingsScreen(
                 colors = CardDefaults.cardColors(containerColor = Neutral0)
             ) {
                 Column(modifier = Modifier.padding(AppSpacing.xl)) {
-                    Text(text = "学习设置", style = AppTypography.titleMedium, color = Primary600)
+                    Text(text = "学习设置", style = AppTypography.titleMedium, color = Primary800)
                     settingsReadError?.let { StorageNotice(it, viewModel::retrySettingsRead) }
                     if (savedSettings == null) Text("正在读取学习设置…", color = Neutral900)
                     settingsError?.let { Text(it, color = Neutral900) }
@@ -352,7 +353,7 @@ fun ParentSettingsScreen(
                 colors = CardDefaults.cardColors(containerColor = Neutral0)
             ) {
                 Column(modifier = Modifier.padding(AppSpacing.xl)) {
-                    Text(text = "练习统计与数据", style = AppTypography.titleMedium, color = Primary600)
+                    Text(text = "练习统计与数据", style = AppTypography.titleMedium, color = Primary800)
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
                     ProgressSummary(progress,
                         onRetry = viewModel::retryProgressRead)
@@ -376,7 +377,7 @@ fun ParentSettingsScreen(
                 Column(modifier = Modifier.padding(AppSpacing.xl)) {
                     AppVersionInfo()
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
-                    Text(text = "🛠️ 语音与 ASR 诊断实验室 (Developer Lab)", style = AppTypography.titleMedium, color = Primary600)
+                    Text(text = "🛠️ 语音与 ASR 诊断实验室 (Developer Lab)", style = AppTypography.titleMedium, color = Primary800)
                     Spacer(modifier = Modifier.height(AppSpacing.sm))
                     Text(
                         text = "针对 Vosk 离线语音识别、儿童发音多层算法评分与 AI 卡通音频进行实时调校与检测",

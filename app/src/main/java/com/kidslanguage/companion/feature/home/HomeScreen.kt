@@ -52,6 +52,7 @@ import com.kidslanguage.companion.ui.theme.Neutral50
 import com.kidslanguage.companion.ui.theme.Neutral700
 import com.kidslanguage.companion.ui.theme.Neutral900
 import com.kidslanguage.companion.ui.theme.Primary100
+import com.kidslanguage.companion.ui.theme.Primary800
 import com.kidslanguage.companion.ui.theme.Primary600
 
 @Composable
@@ -141,7 +142,7 @@ fun HomeScreen(
                 Text(
                     text = "Momo Bunny 🐰",
                     style = AppTypography.titleLarge,
-                    color = Primary600
+                    color = Primary800
                 )
                 Text(
                     text = "点我听兔兔跟泡泡打招呼哦~",
