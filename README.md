@@ -82,3 +82,5 @@ GitHub Actions 在 main 推送或 PR 时执行 lint、单元测试、应用构�
 录音图形恢复、题库完整性、本地图片渲染及首次点击修复见 [增量记录](docs/34_Recording_Recovery_and_Content_Integrity.md)。该记录保留了中途审批故障；恢复后最终验证已通过（Debug 107 项、Release 101 项，构建与 lint 通过），最新结果见 [工作日志](docs/WORKLOG.md)。这批改动尚未发布到公开 APK。
 
 家长设置保存异常与进度清空状态的后续修复见 [审查记录](docs/36_Parent_Settings_and_Progress_Reset.md)。该记录保留了中途审批故障；恢复后 Debug 134 项、Release 125 项测试全部通过，APK 构建与 lint 通过，最终结果见 [工作日志](docs/WORKLOG.md)。这些验证不替代真实设备测试。
+
+设置与统计读取失败现在有恢复提示和重试，读取异常不会写回默认偏好或显示假零值；首页语言保存失败也可重试。实现边界与 Debug 148 项、Release 136 项验证结果见 [读取恢复记录](docs/37_Settings_and_Statistics_Read_Recovery.md)。

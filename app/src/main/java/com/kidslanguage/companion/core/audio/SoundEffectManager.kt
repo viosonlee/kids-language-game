@@ -32,7 +32,7 @@ class AndroidSoundEffectManager(
     private var retryId: Int = 0
 
     @Volatile
-    private var volume: Float = 1f
+    private var volume: Float = if (settingsRepository == null) 1f else 0f
     private var settingsJob: Job? = null
     private var released = false
     private val streams = linkedMapOf<Int, Float>()

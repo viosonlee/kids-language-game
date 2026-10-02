@@ -43,6 +43,8 @@ import com.kidslanguage.companion.ui.components.LanguageCard
 import com.kidslanguage.companion.ui.components.MascotView
 import com.kidslanguage.companion.ui.components.debouncedClickable
 import com.kidslanguage.companion.ui.components.PrimaryLargeButton
+import com.kidslanguage.companion.ui.components.StorageNotice
+import com.kidslanguage.companion.core.persistence.UserSettings
 import com.kidslanguage.companion.ui.theme.AppSpacing
 import com.kidslanguage.companion.ui.theme.AppTypography
 import com.kidslanguage.companion.ui.theme.Neutral0
@@ -59,7 +61,10 @@ fun HomeScreen(
     onOpenParentMode: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val settings by viewModel.settings.collectAsState()
+    val snapshot by viewModel.settings.collectAsState()
+    val settings = snapshot?.value ?: UserSettings(soundVolume = 0f, animationEnabled = false)
+    val saveError by viewModel.languageSaveError.collectAsState()
+    val readError = snapshot?.error
     val selectedLanguage = settings.selectedLanguage
     val tapScale = remember { Animatable(1f) }
     val motionEnabled = LocalAnimationsEnabled.current
@@ -172,6 +177,10 @@ fun HomeScreen(
                     }
                 }
 
+                (saveError ?: readError)?.let {
+                    Spacer(modifier = Modifier.height(AppSpacing.sm))
+                    StorageNotice(it, viewModel::retrySettings)
+                }
                 Spacer(modifier = Modifier.height(AppSpacing.xxxl))
 
                 PrimaryLargeButton(

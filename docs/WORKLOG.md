@@ -597,3 +597,12 @@
 - lint 0 errors、13 warnings、2 information；包括现有图标、Modifier 参数、状态装箱、横屏与存储空间 API 建议，未新增 suppression/baseline。实际 Room 两表删除失败回滚、清空与后续写入顺序、取消、设置保存失败及家长门禁均在本批覆盖范围内。
 - README 更新最终结果，原有规范未修改，WORKLOG 历史前缀保留。生成本地 Debug APK；本轮未安装到设备或更新公开 Release，SDK 仍未配置 platform-tools。
 - 继续审查发现 Settings Flow、Room 统计 Flow 及首页语言保存仍缺少完整异常恢复；完整 Compose 导航、跨存储进程中断、音频/布局真机和儿童观察也未完成。原始总目标继续保留，不以本批测试通过宣称整体验收。
+
+## 2026-10-02 | 设置与统计读取恢复 | By: Codex
+
+- SettingsRepository 增加每次读取的数据/错误快照：保留本订阅最近成功值，首次失败使用临时静音与关闭动效的设置，不写回默认值。普通异常带退避重试（最长间隔 30 秒），手动重试或成功写入可立即唤醒；保留数据源主动取消和订阅取消语义。
+- 首页补语言保存失败提示与最后请求重试，旧请求的迟到错误不会覆盖新选择；首页及家长设置展示读取恢复入口。音效首次读到设置前保持静音。
+- 家长统计区分加载、数据和失败，三个查询任一异常不显示假零值；重试不清空记录或旧写入警告。旧版累计未加载/不可读时明确从合计中排除；明确重置成功后重启统计读取。未改 schema 或跨存储事务。
+- 首轮定向 24 项有 3 项失败：两项为新统计测试清理后访问已恢复主线程调度器，一项暴露源取消被 flatMapLatest 吞掉导致等待。修正清理和生产取消传播并增加实际订阅取消测试后，定向 25 项全部通过。
+- 最终 test assembleDebug assembleDebugAndroidTest lintDebug --offline 成功；实际 XML 为 Debug 148 项、Release 136 项，均 0 failures、0 errors、0 skipped。lint 0 errors、13 warnings、2 information。新增故障测试使用受控存储/Flow，界面为 Robolectric，不等同于真实磁盘故障或设备验收。
+- 新增 docs/37 并同步 README，原规范保留。未安装/发布 APK；完整页面流程、进程中断、音频/图片/设备验收继续处理，ASR 参数与手机布局范围保持原约定，总目标未宣称完成。

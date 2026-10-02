@@ -4,9 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.persistence.SettingsRepository
-import com.kidslanguage.companion.core.persistence.UserSettings
+import com.kidslanguage.companion.core.persistence.SettingsSnapshot
 import com.kidslanguage.companion.core.persistence.ProgressRepository
 import com.kidslanguage.companion.core.persistence.ProgressTotals
+import com.kidslanguage.companion.core.persistence.LanguageProgress
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -14,6 +15,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.update
 import kotlin.random.Random
 
 data class MathGate(
@@ -29,23 +36,41 @@ sealed interface ProgressResetState {
     data class Failed(val message: String) : ProgressResetState
 }
 
+sealed interface ProgressReadState {
+    data object Loading : ProgressReadState
+    data class Ready(val totals: ProgressTotals, val today: ProgressTotals, val languages: List<LanguageProgress>) : ProgressReadState
+    data class Failed(val message: String) : ProgressReadState
+}
+
+@OptIn(ExperimentalCoroutinesApi::class)
 class ParentViewModel(
     private val settingsRepository: SettingsRepository,
     private val progressRepository: ProgressRepository
 ) : ViewModel() {
-    val totals = progressRepository.totals.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProgressTotals())
-    val today = progressRepository.today.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProgressTotals())
-    val languages = progressRepository.languages.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    private val progressReads = MutableStateFlow(0L)
+    val progress = progressReads.flatMapLatest {
+        combine<ProgressTotals, ProgressTotals, List<LanguageProgress>, ProgressReadState>(
+            progressRepository.totals, progressRepository.today, progressRepository.languages
+        ) { totals, today, languages -> ProgressReadState.Ready(totals, today, languages) }
+            .onStart { emit(ProgressReadState.Loading) }
+            .catch { cause ->
+                if (cause is CancellationException || cause !is Exception) throw cause
+                emit(ProgressReadState.Failed("练习记录暂时无法读取，请重试。"))
+            }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProgressReadState.Loading)
+
+    fun retryProgressRead() { progressReads.update { it + 1 } }
+    fun retrySettingsRead() = settingsRepository.retryRead()
     val progressError = progressRepository.error
     private val _resetState = MutableStateFlow<ProgressResetState>(ProgressResetState.Idle)
     val resetState = _resetState.asStateFlow()
     private val _settingsError = MutableStateFlow<String?>(null)
     val settingsError = _settingsError.asStateFlow()
 
-    val settings: StateFlow<UserSettings> = settingsRepository.settingsFlow.stateIn(
+    val settings: StateFlow<SettingsSnapshot?> = settingsRepository.settingsState.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = UserSettings()
+        initialValue = null
     )
 
     private val _gate = MutableStateFlow(generateMathGate())
@@ -133,6 +158,7 @@ class ParentViewModel(
                 recordsCleared = true
                 settingsRepository.resetProgress()
                 _resetState.value = ProgressResetState.Complete
+                retryProgressRead()
             } catch (e: CancellationException) {
                 _resetState.value = ProgressResetState.Idle
                 throw e

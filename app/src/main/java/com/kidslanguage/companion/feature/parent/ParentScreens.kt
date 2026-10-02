@@ -40,6 +40,8 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import com.kidslanguage.companion.core.persistence.UserSettings
+import com.kidslanguage.companion.ui.components.StorageNotice
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -140,10 +142,11 @@ fun ParentSettingsScreen(
     onOpenDevLab: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    val settings by viewModel.settings.collectAsState()
-    val totals by viewModel.totals.collectAsState()
-    val today by viewModel.today.collectAsState()
-    val languages by viewModel.languages.collectAsState()
+    val settingsSnapshot by viewModel.settings.collectAsState()
+    val savedSettings = settingsSnapshot?.value
+    val settings = savedSettings ?: UserSettings(soundVolume = 0f, animationEnabled = false)
+    val settingsReadError = settingsSnapshot?.error
+    val progress by viewModel.progress.collectAsState()
     val progressError by viewModel.progressError.collectAsState()
     val resetState by viewModel.resetState.collectAsState()
     val settingsError by viewModel.settingsError.collectAsState()
@@ -202,6 +205,8 @@ fun ParentSettingsScreen(
             ) {
                 Column(modifier = Modifier.padding(AppSpacing.xl)) {
                     Text(text = "学习设置", style = AppTypography.titleMedium, color = Primary600)
+                    settingsReadError?.let { StorageNotice(it, viewModel::retrySettingsRead) }
+                    if (savedSettings == null) Text("正在读取学习设置…", color = Neutral900)
                     settingsError?.let { Text(it, color = Neutral900) }
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
 
@@ -349,30 +354,9 @@ fun ParentSettingsScreen(
                 Column(modifier = Modifier.padding(AppSpacing.xl)) {
                     Text(text = "练习统计与数据", style = AppTypography.titleMedium, color = Primary600)
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
-                    Text(
-                        text = "累计完成题目数：${totals.completed + settings.completedCount} 题",
-                        style = AppTypography.bodyLarge
-                    )
-                    Text("今日练习：${today.practiced} 题 · 完成：${today.completed} 题", style = AppTypography.bodyLarge)
-                    Text("最近练习：" + if (totals.lastPracticedAt == 0L) "暂无记录" else
-                        java.time.Instant.ofEpochMilli(totals.lastPracticedAt)
-                            .atZone(java.time.ZoneId.systemDefault())
-                            .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
-                    Text("跟读正常通过：${totals.normalPasses} 次 · 辅助通过：${totals.assistedPasses} 次")
-                    Text("选图答对：${totals.chooseCorrect} 次 · 再试：${totals.chooseWrong} 次")
-                    LanguageCode.entries.forEach { language ->
-                        val row = languages.firstOrNull { it.language == language.code }
-                        val name = when (language) {
-                            LanguageCode.JA_JP -> "日语"
-                            LanguageCode.ZH_CN -> "中文"
-                            LanguageCode.EN_US -> "英语"
-                        }
-                        Text("$name：练习 ${row?.practiced ?: 0} 题 · 完成 ${row?.completed ?: 0} 题")
-                    }
-                    if (settings.completedCount > 0) {
-                        Text("含旧版本历史累计 ${settings.completedCount} 题；历史记录没有日期和语言明细。", color = Neutral700)
-                    }
-                    Text("同一题反复尝试计为一道练习；重新开始练习会再次计数。统计只供家长观察。", color = Neutral700)
+                    ProgressSummary(progress,
+                        legacyCompletedCount = savedSettings?.completedCount?.takeIf { settingsReadError == null },
+                        onRetry = viewModel::retryProgressRead)
                     progressError?.let { Text(it, color = Neutral900) }
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
                     ProgressResetControl(resetState, viewModel::resetProgress)

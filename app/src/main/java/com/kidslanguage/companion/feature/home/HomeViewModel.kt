@@ -11,6 +11,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import com.kidslanguage.companion.core.audio.BackgroundMusicPlayer
 
 class HomeViewModel(
@@ -24,6 +27,15 @@ class HomeViewModel(
     private var musicEnabled = false
     private var greeting = false
     private var greetingGeneration = 0
+    private var languageRequest = 0
+    private var requestedLanguage: LanguageCode? = null
+    private val _languageSaveError = MutableStateFlow<String?>(null)
+    val languageSaveError = _languageSaveError.asStateFlow()
+
+    fun retrySettings() {
+        settingsRepository.retryRead()
+        if (_languageSaveError.value != null) requestedLanguage?.let(::selectLanguage)
+    }
 
     fun resumeHome() {
         if (active) return
@@ -47,15 +59,26 @@ class HomeViewModel(
         updateMusic()
     }
 
-    val settings = settingsRepository.settingsFlow.stateIn(
+    val settings = settingsRepository.settingsState.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = com.kidslanguage.companion.core.persistence.UserSettings()
+        initialValue = null
     )
 
     fun selectLanguage(language: LanguageCode) {
+        requestedLanguage = language
+        val request = ++languageRequest
         viewModelScope.launch {
-            settingsRepository.setLanguage(language)
+            try {
+                settingsRepository.setLanguage(language)
+                if (request == languageRequest) _languageSaveError.value = null
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: Exception) {
+                if (request == languageRequest) {
+                    _languageSaveError.value = "语言选择未能保存，请重试或请家长帮忙。"
+                }
+            }
         }
     }
 
