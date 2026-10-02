@@ -1,0 +1,83 @@
+{
+  "author": "Codex",
+  "date": "2026-10-03",
+  "voice": "zh-CN-XiaoyiNeural",
+  "pitch": "+8Hz",
+  "rate": "+0%",
+  "generator": "edge-tts 7.2.8",
+  "trailing_silence_threshold_db": -55,
+  "retained_tail_seconds": 0.12,
+  "minimum_visual_seconds": 0.8,
+  "chime_seconds": 0.55,
+  "max_voice_seconds": 0.95,
+  "all_129_audio_assets_passed": true,
+  "apk_hashes_match": true,
+  "files": [
+    {
+      "path": "audio/paopao/paopao_praise_1.mp3",
+      "before": {
+        "lufs": -19.32,
+        "true_peak_dbtp": -6.27,
+        "duration_seconds": 0.680458,
+        "sample_rate": 24000,
+        "channels": 1,
+        "sha256": "4e68927b58c1016c08dce9f96e74f4bedfff10d98c84e7a624789092339ab6ef"
+      },
+      "after": {
+        "lufs": -19.32,
+        "true_peak_dbtp": -6.27,
+        "duration_seconds": 0.680458,
+        "sample_rate": 24000,
+        "channels": 1,
+        "sha256": "4e68927b58c1016c08dce9f96e74f4bedfff10d98c84e7a624789092339ab6ef"
+      },
+      "passed": true,
+      "text": "真棒！",
+      "nominal_total_seconds": 1.230458
+    },
+    {
+      "path": "audio/paopao/paopao_praise_2.mp3",
+      "before": {
+        "lufs": -19.98,
+        "true_peak_dbtp": -6.17,
+        "duration_seconds": 0.868792,
+        "sample_rate": 24000,
+        "channels": 1,
+        "sha256": "ad1caa2d7629ccfc495dd9b4a4db6ab95f80d6b07cf381da4b730a96d0dbfcd7"
+      },
+      "after": {
+        "lufs": -19.98,
+        "true_peak_dbtp": -6.17,
+        "duration_seconds": 0.868792,
+        "sample_rate": 24000,
+        "channels": 1,
+        "sha256": "ad1caa2d7629ccfc495dd9b4a4db6ab95f80d6b07cf381da4b730a96d0dbfcd7"
+      },
+      "passed": true,
+      "text": "太棒啦！",
+      "nominal_total_seconds": 1.418792
+    },
+    {
+      "path": "audio/paopao/paopao_praise_effort.mp3",
+      "before": {
+        "lufs": -20.45,
+        "true_peak_dbtp": -5.89,
+        "duration_seconds": 0.911375,
+        "sample_rate": 24000,
+        "channels": 1,
+        "sha256": "2b425625050e7e3e36e11d469472710ef34f5438f0e057d739adb7192769e649"
+      },
+      "after": {
+        "lufs": -20.45,
+        "true_peak_dbtp": -5.89,
+        "duration_seconds": 0.911375,
+        "sample_rate": 24000,
+        "channels": 1,
+        "sha256": "2b425625050e7e3e36e11d469472710ef34f5438f0e057d739adb7192769e649"
+      },
+      "passed": true,
+      "text": "好样的！",
+      "nominal_total_seconds": 1.461375
+    }
+  ]
+}

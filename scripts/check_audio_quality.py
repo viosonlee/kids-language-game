@@ -8,11 +8,14 @@ from pathlib import Path
 import re
 import subprocess
 import tempfile
+import wave
 
 TARGET_LUFS = -20.0
 TOLERANCE_LU = 1.0
 MAX_TRUE_PEAK = -1.5
 ROOT = Path(__file__).resolve().parents[1]
+SHORT_FEEDBACK_FILES = ("paopao_praise_1.mp3", "paopao_praise_2.mp3", "paopao_praise_effort.mp3")
+MAX_VOICE_SECONDS = 0.95
 
 
 def run(*args):
@@ -101,7 +104,7 @@ def main():
     parser.add_argument("--normalize", action="store_true", help="Replace only individually verified outputs")
     args = parser.parse_args()
     root = args.assets_root.resolve()
-    files = item_audio_files(root)
+    files = item_audio_files(root) + [root / "audio/paopao" / name for name in SHORT_FEEDBACK_FILES]
     if args.report.resolve().is_relative_to(root):
         parser.error("Report must be outside the assets directory")
 
@@ -110,21 +113,25 @@ def main():
         try:
             row["before"] = measure(path)
             row["after"] = normalize(path, row["before"]) if args.normalize else row["before"]
-            row["passed"] = compliant(row["after"])
+            short_enough = path.name not in SHORT_FEEDBACK_FILES or row["after"]["duration_seconds"] <= MAX_VOICE_SECONDS
+            row["passed"] = compliant(row["after"]) and short_enough
         except (ValueError, KeyError, OSError, subprocess.SubprocessError) as error:
             row.update(passed=False, error=str(error))
         return row
 
     with ThreadPoolExecutor(max_workers=4) as pool:
         rows = list(pool.map(inspect, files))
-    passed = all(row["passed"] for row in rows)
+    with wave.open(str(root / "audio/sfx/success.wav"), "rb") as chime:
+        chime_seconds = chime.getnframes() / chime.getframerate()
+    passed = all(row["passed"] for row in rows) and 0 < chime_seconds <= 0.55
     report = {"target_lufs": TARGET_LUFS, "tolerance_lu": TOLERANCE_LU,
               "max_true_peak_dbtp": MAX_TRUE_PEAK, "normalized": args.normalize,
+              "max_short_voice_seconds": MAX_VOICE_SECONDS, "success_chime_seconds": chime_seconds,
               "ffmpeg": run("ffmpeg", "-version").stdout.splitlines()[0],
               "passed": passed, "files": rows}
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
-    print(f"{sum(row['passed'] for row in rows)}/{len(rows)} assets passed; report: {args.report}")
+    print(f"{sum(row['passed'] for row in rows)}/{len(rows)} assets passed; chime {chime_seconds:.3f}s (limit 0.550s); report: {args.report}")
     return 0 if passed else 1
 
 

@@ -9,9 +9,12 @@ Date: 2026-09-28
 """
 
 import asyncio
+import argparse
 import sys
+import tempfile
 from pathlib import Path
 import edge_tts
+from feedback_audio import SHORT_FEEDBACK_FILES, prepare_short_voice
 
 # Ensure utf-8 stdout on Windows
 if sys.platform == "win32":
@@ -35,26 +38,26 @@ PAOPAO_CLIPS = [
     },
     {
         "name": "praise_1",
-        "text": "泡泡太棒啦！",
+        "text": "真棒！",
         "voice": "zh-CN-XiaoyiNeural",
-        "pitch": "+10Hz",
-        "rate": "-5%",
+        "pitch": "+8Hz",
+        "rate": "+0%",
         "file": "paopao_praise_1.mp3"
     },
     {
         "name": "praise_2",
-        "text": "哇，泡泡说得真好！真聪明！",
+        "text": "太棒啦！",
         "voice": "zh-CN-XiaoyiNeural",
         "pitch": "+8Hz",
-        "rate": "-5%",
+        "rate": "+0%",
         "file": "paopao_praise_2.mp3"
     },
     {
         "name": "praise_effort",
-        "text": "泡泡努力开口练习，太棒啦！送你一颗大星星！",
+        "text": "好样的！",
         "voice": "zh-CN-XiaoyiNeural",
         "pitch": "+8Hz",
-        "rate": "-5%",
+        "rate": "+0%",
         "file": "paopao_praise_effort.mp3"
     },
     {
@@ -92,14 +95,24 @@ async def generate_clip(clip_info):
         pitch=clip_info["pitch"],
         rate=clip_info["rate"]
     )
-    await communicate.save(str(output_path))
+    if clip_info["file"] in SHORT_FEEDBACK_FILES:
+        with tempfile.TemporaryDirectory(prefix="tts-", dir=OUTPUT_DIR) as temp:
+            source = Path(temp) / "source.mp3"
+            await asyncio.wait_for(communicate.save(str(source)), timeout=45)
+            prepare_short_voice(source, output_path)
+    else:
+        await communicate.save(str(output_path))
     print(f" Saved: {output_path} ({output_path.stat().st_size} bytes)")
 
-async def main():
+async def main(short_only=False):
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     for clip in PAOPAO_CLIPS:
+        if short_only and clip["file"] not in SHORT_FEEDBACK_FILES:
+            continue
         await generate_clip(clip)
     print("\nAll Pao Pao voice clips generated successfully!")
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--short-only", action="store_true")
+    asyncio.run(main(parser.parse_args().short_only))

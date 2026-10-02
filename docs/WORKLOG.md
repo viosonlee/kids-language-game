@@ -631,3 +631,11 @@
 - 独立只读复测 126/126 通过，APK 内逐文件 SHA-256 与报告一致；再次 --normalize 未改变任何文件。Gradle test assembleDebug assembleDebugAndroidTest lintDebug --offline 通过，Debug 165 / Release 144 项零失败/错误/跳过，lint 0 errors、13 warnings、2 information。
 - CI 新增 FFmpeg 与只读审核并保存报告；未宣称远端运行已验证。新增 docs/40 与带作者/日期的逐文件测量 JSON，README 同步，历史规范和日志保持不变。
 - 本批不处理泡泡反馈/音效/背景音乐，短反馈时长和真实设备听感仍未验收；没有调 ASR、安装或发布 APK。图片/动效/设备性能、升级和儿童观察等剩余审查继续保留，总目标未完成。
+
+## 2026-10-03 | 短成功反馈与顺序播放 | By: Codex
+
+- 三段逐题表扬重新生成“真棒/太棒啦/好样的”，保留原声线，去除多余稳定尾静音并留 120ms 余量，最终长 0.680458/0.868792/0.911375 秒；通过响度与峰值检查。内容版本推进到 1.0.3，问候、重试与整轮庆祝不变。
+- 跟读/选图共用反馈协程，先播放完整 550ms 成功音效再停止音效流、播放完整短句，去掉额外后等待；静音视觉反馈至少 800ms。名义总时长 1.230458～1.461375 秒，慢播放仍等完整结束，不通过超时截断人声。退出时取消音效/语音与后续导航。
+- 生成器增加 --short-only 和验证后替换；本轮 edge-tts 7.2.8 安装于忽略的 build 虚拟环境。CI 共用检查扩至 129 条 MP3、短句最长 950ms 与成功 WAV 最长 550ms；APK 逐文件哈希均与最终测量一致。
+- 新增五项协程时序/取消测试及两项素材准备测试。六条旧用例初轮仍按原时间点操作而失败，按新时序调整后最终 Gradle test assembleDebug assembleDebugAndroidTest lintDebug --offline 通过；Debug 170 / Release 149 项零失败/错误/跳过，Python 25 项通过，lint 0 errors、13 warnings、2 information。
+- 新增 docs/41、带作者日期的短反馈 JSON 并同步 README，原规范日志保留。上述时长是素材/代码名义值，设备时延和听感尚未验收；未安装或发布 APK，ASR 范围未变，图片/动效/设备与儿童观察等总审查剩余项继续处理。

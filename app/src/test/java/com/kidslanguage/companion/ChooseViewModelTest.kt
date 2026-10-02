@@ -139,7 +139,7 @@ class ChooseViewModelTest {
 
     @Test fun leavingDuringPraiseStopsPlayback() = scenario { vm, player ->
         vm.onOptionSelected(vm.uiState.value.currentOptions.first { it.isCorrect })
-        advanceTimeBy(400)
+        advanceTimeBy(600)
         assertTrue(player.playing)
         vm.stopSession()
         advanceUntilIdle()

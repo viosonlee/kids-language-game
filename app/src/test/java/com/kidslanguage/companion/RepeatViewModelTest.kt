@@ -209,7 +209,7 @@ class RepeatViewModelTest {
         vm.toggleRecording()
         runCurrent()
         recorder.callbacks.last()(RecognitionResult("hello"))
-        advanceTimeBy(400)
+        advanceTimeBy(600)
         assertTrue(player.playing)
         vm.stopSession()
         advanceUntilIdle()

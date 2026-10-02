@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import com.kidslanguage.companion.core.audio.PaoPaoVoices
+import com.kidslanguage.companion.core.audio.playSuccessFeedback
 import kotlin.random.Random
 
 data class ChooseOption(
@@ -205,14 +206,11 @@ class ChooseViewModel(
         )
 
         if (passed) {
-            soundEffectManager?.playSuccess()
             autoAdvanceJob = viewModelScope.launch {
-                delay(300)
                 val voice = if (!selected.isCorrect) PaoPaoVoices.PRAISE_EFFORT
                     else if (Random.nextBoolean()) PaoPaoVoices.PRAISE_1 else PaoPaoVoices.PRAISE_2
-                promptPlayer.playVoiceAsset(voice)
+                promptPlayer.playSuccessFeedback(voice, soundEffectManager)
                 _uiState.value = _uiState.value.copy(feedbackPlaying = false)
-                delay(500)
                 if (_uiState.value.autoNext) nextQuestion()
             }
         } else {

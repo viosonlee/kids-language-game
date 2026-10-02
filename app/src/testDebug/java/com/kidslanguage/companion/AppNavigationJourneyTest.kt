@@ -199,9 +199,9 @@ class AppNavigationJourneyTest {
     @Test fun chooseAssistedCompletionCanReplayAndFinishANewRoundWithoutDuplicateRecords() {
         launchApp()
         enterPractice(PracticeMode.CHOOSE)
-        repeat(3) {
+        repeat(3) { attempt ->
             compose.onNodeWithText("🐱").performClick()
-            advance(600)
+            advance(if (attempt < 2) 600 else 900)
         }
         compose.runOnIdle {
             assertEquals(3, dependencies.progressRepository.attempts.size)
@@ -213,7 +213,7 @@ class AppNavigationJourneyTest {
         compose.onNodeWithText("再玩一次").performScrollTo().performClick()
         compose.onNodeWithText("🐶").assertIsDisplayed()
         compose.onNodeWithText("👋").performClick()
-        advance(600)
+        advance(900)
         compose.onNodeWithContentDescription("下一题").performClick()
         waitForCompletionPage()
         compose.onNodeWithText("回主页").performScrollTo().performClick()
@@ -235,7 +235,7 @@ class AppNavigationJourneyTest {
             compose.runOnIdle { dependencies.speechRecognizerEngine.result("banana") }
             if (attempt < 2) compose.onNodeWithText("再试试看哦！", substring = true).assertIsDisplayed()
             else compose.onNodeWithText("太棒啦！", substring = true).assertIsDisplayed()
-            advance(600)
+            advance(if (attempt < 2) 600 else 900)
         }
         compose.onNodeWithText("下一题").performClick()
         waitForCompletionPage()
@@ -310,7 +310,7 @@ class AppNavigationJourneyTest {
         compose.onNodeWithText("麦克风还没打开", substring = true).assertIsDisplayed()
         compose.onNodeWithText("玩选图").performClick()
         compose.onNodeWithText("👋").performClick()
-        advance(600)
+        advance(900)
         compose.onNodeWithContentDescription("下一题").performClick()
         waitForCompletionPage()
         compose.onNodeWithText("回主页").performScrollTo().performClick()
@@ -348,6 +348,7 @@ class AppNavigationJourneyTest {
         compose.onNodeWithContentDescription("Tap to Speak").assertIsNotEnabled()
         advance(600)
         compose.onNodeWithContentDescription("Tap to Speak").assertIsNotEnabled()
+        advance(300)
         compose.onNodeWithText("下一题").assertIsDisplayed()
     }
 

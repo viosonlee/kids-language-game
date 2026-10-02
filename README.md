@@ -90,3 +90,5 @@ GitHub Actions 在 main 推送或 PR 时执行 lint、单元测试、应用构�
 进度库现为 schema v2，旧累计一次性迁入 Room，重置事务同时清空当前与历史计数，防止中断后旧累计复活；跟读麦克风只在可录音/停止时启用。最新 Debug 165 项、Release 144 项测试全部通过，构建与 lint 通过；迁移边界及已测出的反馈语音时长缺口见 [原子清空与录音就绪](docs/39_Atomic_Progress_Reset_and_Recording_Readiness.md)。
 
 内容版本 1.0.2 对 126 条示范语音完成基本响度归一化，全部通过 -20 LUFS ±1 LU 和真峰值门限；CI 加入只读音频检查。工具命令、逐文件报告及听感验收边界见 [示范语音响度](docs/40_Bundled_Speech_Loudness.md)。
+
+内容版本 1.0.3 将逐题表扬改为完整短句，成功音效后依次播放，名义总时长约 1.23～1.46 秒；静音仍保留至少 0.8 秒视觉反馈。工具检查扩至 129 条语音及反馈时长，Debug 170 / Release 149 项测试通过，详见 [短成功反馈](docs/41_Short_Success_Feedback.md)。
