@@ -1,6 +1,8 @@
 package com.kidslanguage.companion.core.persistence
 
 import androidx.room.*
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.flow.Flow
 
 @Entity(tableName = "item_progress", primaryKeys = ["language", "itemId"])
@@ -30,6 +32,10 @@ data class PracticeAttemptEntity(
     val completed: Int = 0
 )
 
+// Presence of the singleton row also marks legacy import as complete, including after reset.
+@Entity(tableName = "legacy_progress")
+data class LegacyProgressEntity(@PrimaryKey val id: Int = 0, val completedCount: Int)
+
 data class ProgressTotals(
     val practiced: Int = 0,
     val attempts: Int = 0,
@@ -38,13 +44,23 @@ data class ProgressTotals(
     val assistedPasses: Int = 0,
     val chooseCorrect: Int = 0,
     val chooseWrong: Int = 0,
-    val lastPracticedAt: Long = 0
+    val lastPracticedAt: Long = 0,
+    val legacyCompleted: Int = 0
 )
 
 data class LanguageProgress(val language: String, val practiced: Int, val completed: Int)
 
 @Dao
 abstract class ProgressDao {
+    @Query("SELECT * FROM legacy_progress WHERE id = 0")
+    abstract suspend fun legacyProgress(): LegacyProgressEntity?
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract suspend fun importLegacyProgress(progress: LegacyProgressEntity)
+
+    @Upsert
+    abstract suspend fun saveLegacyProgress(progress: LegacyProgressEntity)
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract suspend fun insertAttempt(attempt: PracticeAttemptEntity): Long
 
@@ -75,7 +91,8 @@ abstract class ProgressDao {
         COALESCE(SUM(assistedPasses), 0) AS assistedPasses,
         COALESCE(SUM(chooseCorrect), 0) AS chooseCorrect,
         COALESCE(SUM(chooseWrong), 0) AS chooseWrong,
-        COALESCE(MAX(practicedAt), 0) AS lastPracticedAt
+        COALESCE(MAX(practicedAt), 0) AS lastPracticedAt,
+        COALESCE((SELECT completedCount FROM legacy_progress WHERE id = 0), 0) AS legacyCompleted
         FROM practice_attempt WHERE practicedAt >= :start AND practicedAt < :end""")
     abstract fun totals(start: Long, end: Long): Flow<ProgressTotals>
 
@@ -93,10 +110,19 @@ abstract class ProgressDao {
     open suspend fun clear() {
         deleteAttempts()
         deleteItems()
+        saveLegacyProgress(LegacyProgressEntity(completedCount = 0))
     }
 }
 
-@Database(entities = [ItemProgressEntity::class, PracticeAttemptEntity::class], version = 1, exportSchema = true)
+@Database(entities = [ItemProgressEntity::class, PracticeAttemptEntity::class, LegacyProgressEntity::class], version = 2, exportSchema = true)
 abstract class ProgressDatabase : RoomDatabase() {
     abstract fun progressDao(): ProgressDao
+
+    companion object {
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("CREATE TABLE IF NOT EXISTS legacy_progress (id INTEGER NOT NULL, completedCount INTEGER NOT NULL, PRIMARY KEY(id))")
+            }
+        }
+    }
 }

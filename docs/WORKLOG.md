@@ -614,3 +614,12 @@
 - 扩展测试初轮发现两项语音次数断言漏算结果页庆祝，按真实流程改为核查单题表扬和整轮庆祝各一次；另有一次录音图标即时可见断言失败，重跑通过后补充有界布局等待及识别器已启动断言。保留原业务断言，没有修改生产录音或反馈时序。
 - 最终 test assembleDebug assembleDebugAndroidTest lintDebug --offline 成功，实际 XML 为 Debug 156 项、Release 136 项，均无失败、错误、跳过；lint 0 errors、13 warnings、2 information。权限测试调用系统结果桥接的弃用编译警告已说明，生产页面使用 Activity Result API。
 - 新增 docs/38 并同步 README，原规范保留。新增流程用例为 testDebug 受控测试，不代表真实设备、全题库或动画验收；SDK 仍缺 platform-tools，本批未安装或发布 APK。跨存储进程中断、声音/图片/设备与儿童观察继续保留，ASR 调参及手机布局范围不变，总目标未宣称完成。
+
+## 2026-10-03 | 进度原子清空与录音就绪状态 | By: Codex
+
+- Room 升级 schema v2，显式 1→2 迁移保留旧表/索引；增加单行历史累计，可靠读取旧 DataStore 后 INSERT IGNORE 一次导入。源读取失败不会导入临时零；清空把两个明细表删除和历史计数归零置于同一事务，保留零值行防止重启或迟到导入恢复旧数。
+- 旧 completed_count 仅保留为只读迁移输入，不再进入设置模型或当前统计，也不宣称物理擦除旧键。家长清空不再执行第二个 DataStore 写入；移除废弃旧计数写入接口。统计 UI 使用 Room 的历史累计，与今日/语言事件明细分开。
+- 新增八项真实 Room/SQLite 迁移回归，覆盖冻结 v1 schema 升级、读取/导入失败、第三步重置失败全回滚、关闭重开、重置前未导入、之后新增记录、迟到导入和取消。初轮两个长名称磁盘测试打开失败，缩短测试名后 21 项定向全部通过；未改数据断言。
+- 全量回归另暴露录音按钮在加载时可点却被忽略的问题，补禁用状态、静态灰色外观与一条延迟模型加载导航测试；测试等待就绪后点击，并等待 LaunchedEffect 导航到完成页后操作，保留记录/语音/重玩断言。
+- 最终 test assembleDebug assembleDebugAndroidTest lintDebug --offline 成功。实际 XML：Debug 165 项、Release 144 项，无失败/错误/跳过；lint 0 errors、13 warnings、2 information。原 schema v1 与规范未改，新增 docs/39、schema v2 并同步 README。
+- ffprobe 实测逐题表扬文件为 2.064/4.152/5.400 秒，加现有 0.8 秒等待超过短反馈要求；响度与短反馈仍待处理。SDK 缺 platform-tools，未做真机强杀/覆盖安装、未安装或发布 APK；设备、图片/动效与儿童观察等剩余验收继续保留，总目标未完成。

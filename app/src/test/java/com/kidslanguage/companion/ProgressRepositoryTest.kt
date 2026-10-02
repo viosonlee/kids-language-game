@@ -33,6 +33,9 @@ class ProgressRepositoryTest {
         override suspend fun saveItem(item: ItemProgressEntity) = error("not used")
         override suspend fun deleteAttempts() = error("not used")
         override suspend fun deleteItems() = error("not used")
+        override suspend fun legacyProgress(): LegacyProgressEntity? = error("not used")
+        override suspend fun importLegacyProgress(progress: LegacyProgressEntity) = error("not used")
+        override suspend fun saveLegacyProgress(progress: LegacyProgressEntity) = error("not used")
         override fun totals(start: Long, end: Long) = flowOf(ProgressTotals())
         override fun languages() = flowOf(emptyList<LanguageProgress>())
     }
@@ -41,7 +44,7 @@ class ProgressRepositoryTest {
 
     @Test fun clearWaitsForEarlierWritesAndKeepsSubsequentPractice() = runTest {
         val dao = Dao()
-        val repo = RoomProgressRepository(dao, backgroundScope)
+        val repo = RoomProgressRepository(dao, backgroundScope) { error("not used") }
         dao.recordGate = CompletableDeferred()
         repo.record(attempt("old"))
         val clear = launch(start = CoroutineStart.UNDISPATCHED) { repo.clear() }
@@ -56,7 +59,7 @@ class ProgressRepositoryTest {
 
     @Test fun cancelledClearDoesNotDeleteRecordsLaterOrCancelApplicationWrites() = runTest {
         val dao = Dao()
-        val repo = RoomProgressRepository(dao, backgroundScope)
+        val repo = RoomProgressRepository(dao, backgroundScope) { error("not used") }
         dao.recordGate = CompletableDeferred()
         val screen = launch(start = CoroutineStart.UNDISPATCHED) {
             repo.record(attempt("old"))
@@ -74,7 +77,7 @@ class ProgressRepositoryTest {
 
     @Test fun failedWriteWarningSurvivesFailedClearAndClearsOnlyAfterSuccessfulReset() = runTest {
         val dao = Dao()
-        val repo = RoomProgressRepository(dao, backgroundScope)
+        val repo = RoomProgressRepository(dao, backgroundScope) { error("not used") }
         dao.recordFails = true
         repo.record(attempt("failed"))
         runCurrent()

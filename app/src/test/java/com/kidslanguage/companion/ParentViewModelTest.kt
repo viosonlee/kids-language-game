@@ -26,7 +26,7 @@ class ParentViewModelTest {
     }
 
     private class Progress : ProgressRepository {
-        override val totals = MutableStateFlow(ProgressTotals(completed = 3))
+        override val totals = MutableStateFlow(ProgressTotals(completed = 3, legacyCompleted = 17))
         override val today = totals
         override val languages = MutableStateFlow(emptyList<LanguageProgress>())
         override val error = MutableStateFlow<String?>(null)
@@ -72,12 +72,12 @@ class ParentViewModelTest {
         assertEquals(ProgressResetState.Running, vm.resetState.value)
         runCurrent()
         assertEquals(1, progress.clearCalls)
-        assertEquals(17, settings.settingsFlow.first().completedCount)
+        assertEquals(17, settings.readLegacyCompletedCount())
         progress.block!!.complete(Unit)
         advanceUntilIdle()
         assertEquals(ProgressResetState.Complete, vm.resetState.value)
         assertEquals(ProgressTotals(), progress.totals.value)
-        assertEquals(before.copy(completedCount = 0), settings.settingsFlow.first())
+        assertEquals(before, settings.settingsFlow.first())
     }
 
     @Test fun failedDatabaseClearDoesNotClearLegacyCountAndCanRetry() = scenario { vm, settings, _, progress ->
@@ -85,31 +85,26 @@ class ParentViewModelTest {
         vm.resetProgress()
         advanceUntilIdle()
         assertTrue(vm.resetState.value is ProgressResetState.Failed)
-        assertEquals(17, settings.settingsFlow.first().completedCount)
+        assertEquals(17, settings.readLegacyCompletedCount())
         assertEquals(3, progress.totals.value.completed)
         progress.fail = false
         vm.resetProgress()
         assertEquals(ProgressResetState.Running, vm.resetState.value)
         advanceUntilIdle()
         assertEquals(ProgressResetState.Complete, vm.resetState.value)
-        assertEquals(0, settings.settingsFlow.first().completedCount)
+        assertEquals(0, progress.totals.value.legacyCompleted)
+        assertEquals(17, settings.readLegacyCompletedCount()) // The old key is only a migration seed.
         assertEquals(2, progress.clearCalls)
     }
 
-    @Test fun legacyWriteFailureReportsPartialClearInsteadOfSuccess() = scenario { vm, settings, store, progress ->
+    @Test fun resetNoLongerDependsOnWritingTheSettingsStore() = scenario { vm, settings, store, progress ->
         store.fail = true
         vm.resetProgress()
         advanceUntilIdle()
-        val failed = vm.resetState.value as ProgressResetState.Failed
-        assertTrue(failed.message.contains("练习明细已清空"))
-        assertTrue(failed.message.contains("旧版本累计数未能清空"))
-        assertEquals(ProgressTotals(), progress.totals.value)
-        assertEquals(17, settings.settingsFlow.first().completedCount)
-        store.fail = false
-        vm.resetProgress()
-        advanceUntilIdle()
         assertEquals(ProgressResetState.Complete, vm.resetState.value)
-        assertEquals(0, settings.settingsFlow.first().completedCount)
+        assertEquals(ProgressTotals(), progress.totals.value)
+        assertEquals(17, settings.readLegacyCompletedCount())
+        assertEquals(1, progress.clearCalls)
     }
 
     @Test fun cancellingResetDoesNotReportSuccessOrClearLegacyCount() = scenario { vm, settings, _, progress ->
@@ -119,7 +114,7 @@ class ParentViewModelTest {
         vm.viewModelScope.cancel()
         runCurrent()
         assertEquals(ProgressResetState.Idle, vm.resetState.value)
-        assertEquals(17, settings.settingsFlow.first().completedCount)
+        assertEquals(17, settings.readLegacyCompletedCount())
         assertEquals(3, progress.totals.value.completed)
     }
 

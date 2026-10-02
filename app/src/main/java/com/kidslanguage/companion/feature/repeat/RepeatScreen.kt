@@ -216,6 +216,8 @@ fun RepeatScreen(
                 ) {
                     BigMicButton(
                         isRecording = state.isRecording,
+                        enabled = state.modelReady && state.currentItem != null && !state.feedbackPlaying &&
+                            state.sessionState in listOf(SessionStepState.ReadyToSpeak, SessionStepState.Retry, SessionStepState.Recording),
                         onClick = {
                             val hasPermission = ContextCompat.checkSelfPermission(
                                 context,

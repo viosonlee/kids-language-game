@@ -25,7 +25,8 @@ class AppContainer(private val context: Context) : AppDependencies {
     override val progressRepository by lazy {
         RoomProgressRepository(
             Room.databaseBuilder(context.applicationContext, ProgressDatabase::class.java, "practice_progress.db")
-                .build().progressDao(), applicationScope
+                .addMigrations(ProgressDatabase.MIGRATION_1_2)
+                .build().progressDao(), applicationScope, settingsRepository::readLegacyCompletedCount
         )
     }
     override val contentRepository: ContentRepository by lazy {

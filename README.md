@@ -86,3 +86,5 @@ GitHub Actions 在 main 推送或 PR 时执行 lint、单元测试、应用构�
 设置与统计读取失败现在有恢复提示和重试，读取异常不会写回默认偏好或显示假零值；首页语言保存失败也可重试。实现边界与 Debug 148 项、Release 136 项验证结果见 [读取恢复记录](docs/37_Settings_and_Statistics_Read_Recovery.md)。
 
 新增八项真实页面导航测试，覆盖三语言入口、两种玩法辅助通过与重玩、权限拒绝、模型恢复、退出后的迟到回调、自动完成和家长门禁。最新 Debug 156 项、Release 136 项测试全部通过，应用/仪器测试包构建与 lint 通过；受控测试范围及设备验收限制见 [页面流程回归](docs/38_App_Navigation_Journeys.md)。
+
+进度库现为 schema v2，旧累计一次性迁入 Room，重置事务同时清空当前与历史计数，防止中断后旧累计复活；跟读麦克风只在可录音/停止时启用。最新 Debug 165 项、Release 144 项测试全部通过，构建与 lint 通过；迁移边界及已测出的反馈语音时长缺口见 [原子清空与录音就绪](docs/39_Atomic_Progress_Reset_and_Recording_Readiness.md)。

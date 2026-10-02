@@ -56,7 +56,7 @@ class SettingsReadRecoveryTest {
         val restored = SettingsRepository(store).settingsState.first()
         assertNull(restored.error)
         assertEquals(LanguageCode.ZH_CN, restored.value.selectedLanguage)
-        assertEquals(17, restored.value.completedCount)
+        assertEquals(17, repo.readLegacyCompletedCount())
         assertEquals(0.3f, restored.value.soundVolume)
     }
 
@@ -119,7 +119,7 @@ class SettingsReadRecoveryTest {
         assertEquals(0L, testScheduler.currentTime)
         assertNull(seen.last().error)
         assertEquals(LanguageCode.EN_US, seen.last().value.selectedLanguage)
-        assertEquals(17, seen.last().value.completedCount)
+        assertEquals(17, repo.readLegacyCompletedCount())
         assertEquals(1, store.writes)
     }
 
@@ -167,6 +167,6 @@ class SettingsReadRecoveryTest {
         val restored = repo.settingsState.first()
         assertNull(restored.error)
         assertEquals(0.25f, restored.value.soundVolume)
-        assertEquals(17, restored.value.completedCount)
+        assertEquals(17, repo.readLegacyCompletedCount())
     }
 }

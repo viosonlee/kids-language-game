@@ -12,13 +12,11 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class SettingsRepositoryTest {
-    @Test fun animationPreferenceSurvivesRepositoryRecreationAndProgressReset() = runTest {
+    @Test fun animationPreferenceSurvivesRepositoryRecreation() = runTest {
         val store = Store()
         val repo = SettingsRepository(store)
         repo.setAnimationEnabled(false)
         assertFalse(SettingsRepository(store).settingsFlow.first().animationEnabled)
-        repo.resetProgress()
-        assertFalse(repo.settingsFlow.first().animationEnabled)
         repo.setAnimationEnabled(true)
         assertTrue(repo.settingsFlow.first().animationEnabled)
     }
@@ -38,7 +36,6 @@ class SettingsRepositoryTest {
             assertEquals(mode, SettingsRepository(store).settingsFlow.first().textDisplayMode)
         }
         repo.setTextDisplayMode(TextDisplayMode.SMALL)
-        repo.resetProgress()
         assertEquals(TextDisplayMode.SMALL, repo.settingsFlow.first().textDisplayMode)
     }
 
@@ -66,14 +63,13 @@ class SettingsRepositoryTest {
         assertEquals(30, repo.settingsFlow.first().sessionLength)
     }
 
-    @Test fun clearingLegacyProgressPreservesParentPreferences() = runTest {
+    @Test fun readingLegacyMigrationInputPreservesParentPreferences() = runTest {
         val repo = SettingsRepository(Store(preferencesOf(intPreferencesKey("completed_count") to 17)))
         repo.setLanguage(LanguageCode.ZH_CN)
         repo.setSoundVolume(0f)
         repo.setAutoNext(false)
-        repo.resetProgress()
         val settings = repo.settingsFlow.first()
-        assertEquals(0, settings.completedCount)
+        assertEquals(17, repo.readLegacyCompletedCount())
         assertEquals(LanguageCode.ZH_CN, settings.selectedLanguage)
         assertEquals(0f, settings.soundVolume)
         assertFalse(settings.autoNext)

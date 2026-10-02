@@ -41,12 +41,22 @@ fun chooseAttempt(item: PracticeItem, runId: String, number: Int, correct: Boole
 @OptIn(ExperimentalCoroutinesApi::class)
 class RoomProgressRepository(
     private val dao: ProgressDao,
-    private val applicationScope: CoroutineScope
+    private val applicationScope: CoroutineScope,
+    private val readLegacyCompletedCount: suspend () -> Int
 ) : ProgressRepository {
     private val writes = Mutex()
     private val _error = MutableStateFlow<String?>(null)
     override val error = _error.asStateFlow()
-    override val totals = dao.totals(Long.MIN_VALUE, Long.MAX_VALUE)
+    override val totals = flow {
+        writes.withLock {
+            if (dao.legacyProgress() == null) {
+                // Never import temporary settings defaults after a read failure. The singleton
+                // INSERT also prevents an older importer from undoing a concurrent reset.
+                dao.importLegacyProgress(LegacyProgressEntity(completedCount = readLegacyCompletedCount().coerceAtLeast(0)))
+            }
+        }
+        emitAll(dao.totals(Long.MIN_VALUE, Long.MAX_VALUE))
+    }
     override val languages = dao.languages()
     // Recompute on date/time-zone changes while the parent screen remains open.
     override val today = flow {

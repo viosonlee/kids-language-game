@@ -152,20 +152,15 @@ class ParentViewModel(
         if (_resetState.value == ProgressResetState.Running) return
         _resetState.value = ProgressResetState.Running
         viewModelScope.launch {
-            var recordsCleared = false
             try {
                 progressRepository.clear()
-                recordsCleared = true
-                settingsRepository.resetProgress()
                 _resetState.value = ProgressResetState.Complete
                 retryProgressRead()
             } catch (e: CancellationException) {
                 _resetState.value = ProgressResetState.Idle
                 throw e
             } catch (_: Exception) {
-                _resetState.value = ProgressResetState.Failed(if (recordsCleared)
-                    "练习明细已清空，但旧版本累计数未能清空，请重试。"
-                else "清空记录未完成，请重试。")
+                _resetState.value = ProgressResetState.Failed("清空记录未完成，请重试。")
             }
         }
     }

@@ -355,7 +355,6 @@ fun ParentSettingsScreen(
                     Text(text = "练习统计与数据", style = AppTypography.titleMedium, color = Primary600)
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
                     ProgressSummary(progress,
-                        legacyCompletedCount = savedSettings?.completedCount?.takeIf { settingsReadError == null },
                         onRetry = viewModel::retryProgressRead)
                     progressError?.let { Text(it, color = Neutral900) }
                     Spacer(modifier = Modifier.height(AppSpacing.lg))

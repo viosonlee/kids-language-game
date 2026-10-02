@@ -25,6 +25,7 @@ import java.io.IOException
 import java.time.Duration
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CompletableDeferred
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -41,10 +42,12 @@ class AppNavigationJourneyTest {
     private class Recognizer : SpeechRecognizerEngine {
         var failLoad = false
         var listening = false
+        var loadGate: CompletableDeferred<Unit>? = null
         val loads = mutableListOf<LanguageCode>()
         var callback: ((RecognitionResult) -> Unit)? = null
         override suspend fun load(language: LanguageCode): Result<Unit> {
             loads += language
+            loadGate?.await()
             return if (failLoad) Result.failure(IOException("model unavailable")) else Result.success(Unit)
         }
         override suspend fun startListening(language: LanguageCode, onResult: (RecognitionResult) -> Unit) {
@@ -160,9 +163,22 @@ class AppNavigationJourneyTest {
         compose.waitForIdle()
     }
 
+    private fun readyMicrophone() {
+        compose.waitUntil(timeoutMillis = 5_000) {
+            compose.onNode(hasContentDescription("Tap to Speak") and isEnabled()).isDisplayed()
+        }
+    }
+
+    private fun waitForCompletionPage() {
+        // Completion navigates from a LaunchedEffect, after the button callback returns.
+        compose.waitUntil(timeoutMillis = 5_000) {
+            compose.onAllNodesWithText("回主页").fetchSemanticsNodes().size == 1
+        }
+    }
+
     private fun startRecording() {
+        readyMicrophone()
         compose.onNodeWithContentDescription("Tap to Speak").performClick()
-        // The semantics update can precede layout after replacing a navigation destination.
         compose.waitUntil(timeoutMillis = 5_000) {
             compose.onNodeWithContentDescription("Recording").isDisplayed()
         }
@@ -193,11 +209,13 @@ class AppNavigationJourneyTest {
             assertTrue(dependencies.promptPlayer.voices.contains(PaoPaoVoices.PRAISE_EFFORT))
         }
         compose.onNodeWithContentDescription("下一题").performClick()
+        waitForCompletionPage()
         compose.onNodeWithText("再玩一次").performScrollTo().performClick()
         compose.onNodeWithText("🐶").assertIsDisplayed()
         compose.onNodeWithText("👋").performClick()
         advance(600)
         compose.onNodeWithContentDescription("下一题").performClick()
+        waitForCompletionPage()
         compose.onNodeWithText("回主页").performScrollTo().performClick()
         advance(2_000)
         compose.onAllNodesWithText("开始练习").assertCountEquals(1)
@@ -220,6 +238,7 @@ class AppNavigationJourneyTest {
             advance(600)
         }
         compose.onNodeWithText("下一题").performClick()
+        waitForCompletionPage()
         compose.onNodeWithText("再玩一次").performScrollTo().performClick()
         compose.onNodeWithContentDescription("Tap to Speak").assertIsDisplayed()
         compose.onNodeWithText("太棒啦！", substring = true).assertDoesNotExist()
@@ -279,6 +298,7 @@ class AppNavigationJourneyTest {
     @Test fun deniedMicrophonePermissionOffersAPlayableChooseJourney() {
         launchApp(microphoneGranted = false)
         enterPractice(PracticeMode.REPEAT)
+        readyMicrophone()
         compose.onNodeWithContentDescription("Tap to Speak").performClick()
         compose.runOnIdle {
             val request = checkNotNull(shadowOf(compose.activity).lastRequestedPermission)
@@ -292,6 +312,7 @@ class AppNavigationJourneyTest {
         compose.onNodeWithText("👋").performClick()
         advance(600)
         compose.onNodeWithContentDescription("下一题").performClick()
+        waitForCompletionPage()
         compose.onNodeWithText("回主页").performScrollTo().performClick()
         compose.onNodeWithText("开始练习").assertIsDisplayed()
         compose.runOnIdle {
@@ -310,6 +331,26 @@ class AppNavigationJourneyTest {
         autoNextJourney(PracticeMode.REPEAT)
     }
 
+    @Test fun microphoneIsDisabledUntilModelReadyAndDuringPassedFeedback() {
+        val modelReady = CompletableDeferred<Unit>()
+        dependencies.speechRecognizerEngine.loadGate = modelReady
+        launchApp()
+        enterPractice(PracticeMode.REPEAT)
+        compose.onNodeWithText("正在准备语音", substring = true).assertIsDisplayed()
+        compose.onNodeWithContentDescription("Tap to Speak").assertIsNotEnabled()
+            .performTouchInput { click() }
+        compose.runOnIdle {
+            assertFalse(dependencies.speechRecognizerEngine.listening)
+            modelReady.complete(Unit)
+        }
+        startRecording()
+        compose.runOnIdle { dependencies.speechRecognizerEngine.result("hello") }
+        compose.onNodeWithContentDescription("Tap to Speak").assertIsNotEnabled()
+        advance(600)
+        compose.onNodeWithContentDescription("Tap to Speak").assertIsNotEnabled()
+        compose.onNodeWithText("下一题").assertIsDisplayed()
+    }
+
     private fun autoNextJourney(mode: PracticeMode) {
         runBlocking { dependencies.settingsRepository.setAutoNext(true) }
         launchApp()
@@ -321,6 +362,7 @@ class AppNavigationJourneyTest {
             compose.onNodeWithText("👋").performClick()
         }
         advance(1_200)
+        waitForCompletionPage()
         compose.onAllNodesWithText("再玩一次").assertCountEquals(1)
         compose.onNodeWithText("回主页").performScrollTo().performClick()
         advance(5_000)

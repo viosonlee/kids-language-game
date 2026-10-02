@@ -212,18 +212,19 @@ fun BigMicButton(
     isRecording: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    size: Dp = 140.dp
+    size: Dp = 140.dp,
+    enabled: Boolean = true
 ) {
     val pulseScale = loopingFloat(
         initialValue = 1f,
-        targetValue = if (isRecording) 1.15f else 1.03f,
+        targetValue = if (!enabled) 1f else if (isRecording) 1.15f else 1.03f,
         durationMillis = if (isRecording) 500 else 1200,
         label = "mic_scale"
     )
 
     val waveAlpha = loopingFloat(
         initialValue = 0.4f,
-        targetValue = if (isRecording) 0.05f else 0.2f,
+        targetValue = if (!enabled) 0.4f else if (isRecording) 0.05f else 0.2f,
         durationMillis = if (isRecording) 600 else 1400,
         label = "mic_alpha"
     )
@@ -249,16 +250,17 @@ fun BigMicButton(
                 .clip(CircleShape)
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = if (isRecording) listOf(AccentOrange, Color(0xFFFF5722)) else listOf(Primary500, Primary600)
+                        colors = if (!enabled) listOf(Neutral300, Neutral300)
+                            else if (isRecording) listOf(AccentOrange, Color(0xFFFF5722)) else listOf(Primary500, Primary600)
                     )
                 )
-                .debouncedClickable(debounceMillis = 500L, onClick = onClick),
+                .debouncedClickable(debounceMillis = 500L, enabled = enabled, onClick = onClick),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = Icons.Default.Mic,
                 contentDescription = if (isRecording) "Recording" else "Tap to Speak",
-                tint = Neutral0,
+                tint = if (enabled) Neutral0 else Neutral700,
                 modifier = Modifier.size(size * 0.52f)
             )
         }

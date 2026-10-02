@@ -34,8 +34,7 @@ data class UserSettings(
     val shuffleItems: Boolean = false,
     val soundVolume: Float = 1.0f,
     val musicEnabled: Boolean = false,
-    val animationEnabled: Boolean = true,
-    val completedCount: Int = 0
+    val animationEnabled: Boolean = true
 ) {
     val textDisplayMode: TextDisplayMode get() = when {
         !showText -> TextDisplayMode.HIDDEN
@@ -118,8 +117,7 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
             sessionLength = (preferences[KEY_SESSION_LENGTH] ?: 10).coerceIn(1, 30),
             soundVolume = (preferences[KEY_SOUND_VOLUME] ?: 1.0f).let { if (it.isFinite()) it.coerceIn(0f, 1f) else 1f },
             animationEnabled = preferences[KEY_ANIMATION_ENABLED] ?: true,
-            musicEnabled = preferences[KEY_MUSIC_ENABLED] ?: false,
-            completedCount = preferences[KEY_COMPLETED_COUNT] ?: 0
+            musicEnabled = preferences[KEY_MUSIC_ENABLED] ?: false
         )
     }
 
@@ -181,16 +179,6 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
         write { it[KEY_MUSIC_ENABLED] = enabled }
     }
 
-    suspend fun incrementCompletedCount() {
-        write { preferences ->
-            val current = preferences[KEY_COMPLETED_COUNT] ?: 0
-            preferences[KEY_COMPLETED_COUNT] = current + 1
-        }
-    }
-
-    suspend fun resetProgress() {
-        write { preferences ->
-            preferences[KEY_COMPLETED_COUNT] = 0
-        }
-    }
+    // Migration input only: errors must propagate rather than importing quiet fallback values.
+    suspend fun readLegacyCompletedCount(): Int = (store.data.first()[KEY_COMPLETED_COUNT] ?: 0).coerceAtLeast(0)
 }

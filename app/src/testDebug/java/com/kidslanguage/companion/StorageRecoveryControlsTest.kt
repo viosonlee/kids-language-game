@@ -27,7 +27,7 @@ class StorageRecoveryControlsTest {
         val message = "练习记录暂时无法读取，请重试。"
         compose.setContent {
             KidsLanguageTheme { Box(Modifier.fillMaxSize()) {
-                ProgressSummary(ProgressReadState.Failed(message), 17) { retries++ }
+                ProgressSummary(ProgressReadState.Failed(message)) { retries++ }
             } }
         }
         compose.onNodeWithText(message).assertIsDisplayed()
@@ -38,19 +38,21 @@ class StorageRecoveryControlsTest {
         compose.runOnIdle { assertEquals(1, retries) }
     }
 
-    @Test fun unavailableLegacyCountIsLabelledInsteadOfReportedAsZero() {
+    @Test fun migratedLegacyCountIsIncludedOnlyInAllTimeTotal() {
         compose.setContent {
             KidsLanguageTheme { Box(Modifier.fillMaxSize()) {
-                ProgressSummary(ProgressReadState.Ready(ProgressTotals(completed = 12), ProgressTotals(), emptyList()), null) {}
+                ProgressSummary(ProgressReadState.Ready(ProgressTotals(completed = 12, legacyCompleted = 17), ProgressTotals(), emptyList())) {}
             } }
         }
-        compose.onNodeWithText("累计完成题目数：12 题（旧版累计暂不可用）").assertIsDisplayed()
+        compose.onNodeWithText("累计完成题目数：29 题").assertIsDisplayed()
+        compose.onNodeWithText("今日练习：0 题 · 完成：0 题").assertIsDisplayed()
+        compose.onNodeWithText("含旧版本历史累计 17 题", substring = true).assertIsDisplayed()
         compose.onNodeWithText("重试").assertDoesNotExist()
     }
 
     @Test fun initialLoadingDoesNotLookLikeAnEmptyDatabase() {
         compose.setContent {
-            KidsLanguageTheme { ProgressSummary(ProgressReadState.Loading, null) {} }
+            KidsLanguageTheme { ProgressSummary(ProgressReadState.Loading) {} }
         }
         compose.onNodeWithText("正在读取练习记录…").assertIsDisplayed()
         compose.onNodeWithText("累计完成题目数", substring = true).assertDoesNotExist()
