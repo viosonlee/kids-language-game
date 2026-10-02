@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.Snapshot
 import com.kidslanguage.companion.ui.theme.LocalAnimationsEnabled
 import com.kidslanguage.companion.ui.theme.loopingFloat
+import com.kidslanguage.companion.ui.theme.celebrationProgress
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runCurrent
@@ -29,6 +30,49 @@ class MotionTest {
         override fun move(from: Int, to: Int, count: Int) {}
         override fun remove(index: Int, count: Int) {}
         override fun onClear() {}
+    }
+
+    @Test fun celebrationEndsAndPreferenceCancelsItWithoutLeavingFrameRequests() = runTest {
+        val clock = BroadcastFrameClock()
+        val recomposer = Recomposer(coroutineContext + clock)
+        val composition = Composition(NoUiApplier(), recomposer)
+        val runner = launch(clock) { recomposer.runRecomposeAndApplyChanges() }
+        val enabled = mutableStateOf(true)
+        val pose = mutableStateOf(0)
+        var progress = Float.NaN
+        suspend fun frame(milliseconds: Long) {
+            runCurrent()
+            clock.sendFrame(milliseconds * 1_000_000)
+            runCurrent()
+        }
+        try {
+            composition.setContent { progress = celebrationProgress(pose.value, enabled.value) }
+            frame(0); frame(16); frame(366)
+            assertTrue(progress in 0.4f..0.6f)
+            assertTrue(clock.hasAwaiters)
+            frame(748); frame(764)
+            assertEquals(1f, progress, 0f)
+            assertFalse(clock.hasAwaiters)
+
+            Snapshot.withMutableSnapshot { pose.value++ }
+            frame(780); frame(796); frame(1046)
+            assertTrue(progress in 0.2f..0.6f)
+            Snapshot.withMutableSnapshot { enabled.value = false }
+            frame(1062); frame(1078)
+            assertEquals(1f, progress, 0f)
+            assertFalse(clock.hasAwaiters)
+
+            Snapshot.withMutableSnapshot { enabled.value = true }
+            frame(1094); frame(1110); frame(1460)
+            assertTrue(progress in 0.4f..0.6f)
+            frame(1826); frame(1842)
+            assertEquals(1f, progress, 0f)
+            assertFalse(clock.hasAwaiters)
+        } finally {
+            composition.dispose()
+            recomposer.cancel()
+            runner.join()
+        }
     }
 
     @Test fun preferenceStopsRunningMotionAndRestoresItWithoutRemountingContent() = runTest {

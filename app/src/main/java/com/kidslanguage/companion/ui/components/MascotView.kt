@@ -24,6 +24,9 @@ import androidx.compose.ui.unit.dp
 import com.kidslanguage.companion.core.model.MascotState
 import com.kidslanguage.companion.ui.theme.LocalAnimationsEnabled
 import com.kidslanguage.companion.ui.theme.loopingFloat
+import com.kidslanguage.companion.ui.theme.celebrationProgress
+import kotlin.math.PI
+import kotlin.math.sin
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -62,19 +65,21 @@ fun MascotView(
 
     // Gentle animations based on mascot state
     val motionEnabled = animate && LocalAnimationsEnabled.current
-    val floatOffset = loopingFloat(
+    val celebrating = state == MascotState.Great || state == MascotState.Praise
+    val progress = if (celebrating && bitmap != null) celebrationProgress(state, motionEnabled) else 1f
+    val bounce = if (progress <= 0f || progress >= 1f) 0f else sin(PI * progress).toFloat()
+    val floatOffset = if (celebrating) -8f * bounce else loopingFloat(
         initialValue = -8f, targetValue = 8f, restingValue = 0f,
         durationMillis = when (state) {
-            MascotState.Great -> 500
             MascotState.Speak -> 700
             else -> 1800
         },
         label = "mascot_float", enabled = motionEnabled,
     )
 
-    val scaleFactor = loopingFloat(
+    val scaleFactor = if (celebrating) 1f + 0.05f * bounce else loopingFloat(
         initialValue = 1f,
-        targetValue = if (state == MascotState.Great || state == MascotState.Praise) 1.05f else 1.01f,
+        targetValue = 1.01f,
         durationMillis = 800, easing = LinearEasing,
         label = "mascot_scale", enabled = motionEnabled,
     )
@@ -93,6 +98,9 @@ fun MascotView(
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.size(size)
             )
+        }
+        if (celebrating && motionEnabled && bitmap != null) {
+            SuccessStars(progress, Modifier.matchParentSize())
         }
     }
 }

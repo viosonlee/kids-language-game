@@ -639,3 +639,10 @@
 - 生成器增加 --short-only 和验证后替换；本轮 edge-tts 7.2.8 安装于忽略的 build 虚拟环境。CI 共用检查扩至 129 条 MP3、短句最长 950ms 与成功 WAV 最长 550ms；APK 逐文件哈希均与最终测量一致。
 - 新增五项协程时序/取消测试及两项素材准备测试。六条旧用例初轮仍按原时间点操作而失败，按新时序调整后最终 Gradle test assembleDebug assembleDebugAndroidTest lintDebug --offline 通过；Debug 170 / Release 149 项零失败/错误/跳过，Python 25 项通过，lint 0 errors、13 warnings、2 information。
 - 新增 docs/41、带作者日期的短反馈 JSON 并同步 README，原规范日志保留。上述时长是素材/代码名义值，设备时延和听感尚未验收；未安装或发布 APK，ASR 范围未变，图片/动效/设备与儿童观察等总审查剩余项继续处理。
+
+## 2026-10-03 | 兔子短庆祝动效与角色动画范围 | By: Codex
+
+- Great/Praise 图片加载后播放一次 700ms 短跳跃、轻微缩放及六颗扩散淡出星星；结束停止请求帧，关闭动效立即恢复原位。其余状态保留原有浮动。
+- 新增动画时钟与真实 MascotView Robolectric 回归，验证完成、重播、关闭动效及稳定尺寸。完整 Gradle test assembleDebug assembleDebugAndroidTest lintDebug --offline 成功；Debug 172 / Release 150 项无失败或错误，lint 0 errors、13 warnings、2 information。
+- 用户确认下一步优先兔子眨眼、挥手、开口和庆祝。目前仅六张完整 PNG，无角色图层或动作帧，本次短跳跃不等于角色动画。新增 docs/42 记录实施范围、素材方案和验收边界。
+- 内置图片生成工具不可用，已询问是否选用需要本机 API Key 的 imagegen API/CLI 备用方式，未发起生成调用。未安装或发布 APK，真机视觉和角色动作仍待完成，总目标未完成。
