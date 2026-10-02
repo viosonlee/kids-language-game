@@ -88,3 +88,5 @@ GitHub Actions 在 main 推送或 PR 时执行 lint、单元测试、应用构�
 新增八项真实页面导航测试，覆盖三语言入口、两种玩法辅助通过与重玩、权限拒绝、模型恢复、退出后的迟到回调、自动完成和家长门禁。最新 Debug 156 项、Release 136 项测试全部通过，应用/仪器测试包构建与 lint 通过；受控测试范围及设备验收限制见 [页面流程回归](docs/38_App_Navigation_Journeys.md)。
 
 进度库现为 schema v2，旧累计一次性迁入 Room，重置事务同时清空当前与历史计数，防止中断后旧累计复活；跟读麦克风只在可录音/停止时启用。最新 Debug 165 项、Release 144 项测试全部通过，构建与 lint 通过；迁移边界及已测出的反馈语音时长缺口见 [原子清空与录音就绪](docs/39_Atomic_Progress_Reset_and_Recording_Readiness.md)。
+
+内容版本 1.0.2 对 126 条示范语音完成基本响度归一化，全部通过 -20 LUFS ±1 LU 和真峰值门限；CI 加入只读音频检查。工具命令、逐文件报告及听感验收边界见 [示范语音响度](docs/40_Bundled_Speech_Loudness.md)。

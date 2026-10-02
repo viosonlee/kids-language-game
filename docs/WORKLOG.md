@@ -623,3 +623,11 @@
 - 全量回归另暴露录音按钮在加载时可点却被忽略的问题，补禁用状态、静态灰色外观与一条延迟模型加载导航测试；测试等待就绪后点击，并等待 LaunchedEffect 导航到完成页后操作，保留记录/语音/重玩断言。
 - 最终 test assembleDebug assembleDebugAndroidTest lintDebug --offline 成功。实际 XML：Debug 165 项、Release 144 项，无失败/错误/跳过；lint 0 errors、13 warnings、2 information。原 schema v1 与规范未改，新增 docs/39、schema v2 并同步 README。
 - ffprobe 实测逐题表扬文件为 2.064/4.152/5.400 秒，加现有 0.8 秒等待超过短反馈要求；响度与短反馈仍待处理。SDK 缺 platform-tools，未做真机强杀/覆盖安装、未安装或发布 APK；设备、图片/动效与儿童观察等剩余验收继续保留，总目标未完成。
+
+## 2026-10-03 | 内置示范语音响度归一化 | By: Codex
+
+- 实测内容引用的 126 条语音，原始整体 -24.18～-15.15 LUFS，跨 9.03 LU；94 条超出选定 -20 LUFS ±1 LU 门限。按逐文件固定增益调整 121 条，5 条保留原件，最终范围 -20.48～-19.83 LUFS、最高真峰值 -3.23 dBTP，时长无变化。内容版本升为 1.0.2。
+- 新增 check_audio_quality.py：默认只读，显式 --normalize 才处理；验证目录、测量结果、峰值余量、输出响度/时长/采样率/声道后逐文件替换。已合格文件不再有损编码。新增五项安全与幂等性测试，全部 Python 测试 23 项通过。
+- 独立只读复测 126/126 通过，APK 内逐文件 SHA-256 与报告一致；再次 --normalize 未改变任何文件。Gradle test assembleDebug assembleDebugAndroidTest lintDebug --offline 通过，Debug 165 / Release 144 项零失败/错误/跳过，lint 0 errors、13 warnings、2 information。
+- CI 新增 FFmpeg 与只读审核并保存报告；未宣称远端运行已验证。新增 docs/40 与带作者/日期的逐文件测量 JSON，README 同步，历史规范和日志保持不变。
+- 本批不处理泡泡反馈/音效/背景音乐，短反馈时长和真实设备听感仍未验收；没有调 ASR、安装或发布 APK。图片/动效/设备性能、升级和儿童观察等剩余审查继续保留，总目标未完成。
