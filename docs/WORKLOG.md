@@ -573,3 +573,11 @@
 - 定向 RepeatRecoveryDialogTest + DebounceClickTest 六项全部通过，随后 test assembleDebug lintDebug --offline 成功。实际 XML 核对 Debug 107 项、Release 101 项，均 0 failures、0 errors、0 skipped。包括位图格式校验、真实内容包、模型重试和两种点击防抖分支。
 - lint 0 errors、28 warnings、2 information。相比 docs/32 增加的两条为新加本地 Compose 测试使用的 JUnit/Espresso 依赖升级建议；其他分类保持一致。未通过 suppression/baseline 隐藏检查结果。
 - 已生成本地 Debug APK，未安装或替换公开 Release。git diff --check 通过，旧规范未改，WORKLOG 旧内容前缀一致。按已授权流程将此批代码、测试和文档提交推送；全产品审查、真实设备/儿童验收和其余 docs/33 缺口仍未宣称完成。
+
+## 2026-10-02 | 离线识别失败处理与资源生命周期 | By: Codex
+
+- 对照 FR-PRIV-002 和 docs/11，移除生产代码中自动系统 ASR 回退及未调用的 Mock 实现；模型不可用返回失败并进入已实现的图形恢复，避免未告知地把录音交给可能联网的系统服务。Manifest 查询改为当前示范播放使用的 TTS_SERVICE。
+- 将 Vosk 模型/识别器/麦克风资源所有权单独封装，初始化和录音边界处理普通异常及 LinkageError，保留协程取消。取消先作废回调，独立清理后续资源；cancel/stop 同时失败时保留正在使用的原生句柄并阻止模型替换，后续可重试停止。
+- 新增 15 项识别器控制层回归。首次 14 项通过，1 项因错误要求跨协程异常对象引用相等失败；按真实合同改为类型/消息校验后 15 项通过。测试覆盖并发加载、取消时 pending model 释放、权限/构造/启动/停止失败、清理错误、过期回调、PCM 清理等，不加载真实 Android Vosk 驱动。
+- 最终 test assembleDebug assembleDebugAndroidTest lintDebug --offline 成功；实际 XML：Debug 122 项、Release 116 项，均零失败/错误/跳过。lint 0 errors、13 warnings、2 information；本次离线结果未包含此前 15 条依赖升级建议，并未通过修改依赖或 suppression 消除警告。
+- 新增 docs/35，明确替代 docs/11 中与默认不上传语音冲突的回退图，保留历史规范；同步 README。采样率、时限、模型、评分不改，超时 final 问题仍按用户先调查要求保留。未安装或替换公开 APK，真机验收与总审查剩余项继续保留。
