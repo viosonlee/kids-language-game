@@ -22,6 +22,13 @@ data class MathGate(
     val answer: Int
 )
 
+sealed interface ProgressResetState {
+    data object Idle : ProgressResetState
+    data object Running : ProgressResetState
+    data object Complete : ProgressResetState
+    data class Failed(val message: String) : ProgressResetState
+}
+
 class ParentViewModel(
     private val settingsRepository: SettingsRepository,
     private val progressRepository: ProgressRepository
@@ -30,10 +37,10 @@ class ParentViewModel(
     val today = progressRepository.today.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProgressTotals())
     val languages = progressRepository.languages.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
     val progressError = progressRepository.error
-    private val _resetError = MutableStateFlow<String?>(null)
-    val resetError = _resetError.asStateFlow()
-    private val _resetting = MutableStateFlow(false)
-    val resetting = _resetting.asStateFlow()
+    private val _resetState = MutableStateFlow<ProgressResetState>(ProgressResetState.Idle)
+    val resetState = _resetState.asStateFlow()
+    private val _settingsError = MutableStateFlow<String?>(null)
+    val settingsError = _settingsError.asStateFlow()
 
     val settings: StateFlow<UserSettings> = settingsRepository.settingsFlow.stateIn(
         scope = viewModelScope,
@@ -60,63 +67,79 @@ class ParentViewModel(
     }
 
     fun setLanguage(language: LanguageCode) {
-        viewModelScope.launch { settingsRepository.setLanguage(language) }
+        saveSettings { settingsRepository.setLanguage(language) }
     }
 
     fun setShowText(show: Boolean) {
-        viewModelScope.launch { settingsRepository.setShowText(show) }
+        saveSettings { settingsRepository.setShowText(show) }
     }
 
     fun setTextDisplayMode(mode: com.kidslanguage.companion.core.persistence.TextDisplayMode) {
-        viewModelScope.launch { settingsRepository.setTextDisplayMode(mode) }
+        saveSettings { settingsRepository.setTextDisplayMode(mode) }
     }
 
-    fun setChoiceCount(count: Int) { viewModelScope.launch { settingsRepository.setChoiceCount(count) } }
+    fun setChoiceCount(count: Int) { saveSettings { settingsRepository.setChoiceCount(count) } }
 
-    fun setShuffleItems(enabled: Boolean) { viewModelScope.launch { settingsRepository.setShuffleItems(enabled) } }
+    fun setShuffleItems(enabled: Boolean) { saveSettings { settingsRepository.setShuffleItems(enabled) } }
 
     fun setAutoNext(autoNext: Boolean) {
-        viewModelScope.launch { settingsRepository.setAutoNext(autoNext) }
+        saveSettings { settingsRepository.setAutoNext(autoNext) }
     }
 
     fun setAutoPlayPrompt(enabled: Boolean) {
-        viewModelScope.launch { settingsRepository.setAutoPlayPrompt(enabled) }
+        saveSettings { settingsRepository.setAutoPlayPrompt(enabled) }
     }
 
     fun setAutoStartRecording(enabled: Boolean) {
-        viewModelScope.launch { settingsRepository.setAutoStartRecording(enabled) }
+        saveSettings { settingsRepository.setAutoStartRecording(enabled) }
     }
 
     fun setSessionLength(length: Int) {
-        viewModelScope.launch { settingsRepository.setSessionLength(length) }
+        saveSettings { settingsRepository.setSessionLength(length) }
     }
 
     fun setSoundVolume(volume: Float) {
-        viewModelScope.launch { settingsRepository.setSoundVolume(volume) }
+        saveSettings { settingsRepository.setSoundVolume(volume) }
     }
 
     fun setMusicEnabled(enabled: Boolean) {
-        viewModelScope.launch { settingsRepository.setMusicEnabled(enabled) }
+        saveSettings { settingsRepository.setMusicEnabled(enabled) }
     }
 
     fun setAnimationEnabled(enabled: Boolean) {
-        viewModelScope.launch { settingsRepository.setAnimationEnabled(enabled) }
+        saveSettings { settingsRepository.setAnimationEnabled(enabled) }
+    }
+
+    private fun saveSettings(save: suspend () -> Unit) {
+        viewModelScope.launch {
+            try {
+                save()
+                _settingsError.value = null
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: Exception) {
+                _settingsError.value = "设置未能保存，请检查设备存储空间后重试。"
+            }
+        }
     }
 
     fun resetProgress() {
-        if (_resetting.value) return
-        _resetting.value = true
+        if (_resetState.value == ProgressResetState.Running) return
+        _resetState.value = ProgressResetState.Running
         viewModelScope.launch {
+            var recordsCleared = false
             try {
                 progressRepository.clear()
+                recordsCleared = true
                 settingsRepository.resetProgress()
-                _resetError.value = null
+                _resetState.value = ProgressResetState.Complete
             } catch (e: CancellationException) {
+                _resetState.value = ProgressResetState.Idle
                 throw e
-            } catch (e: Exception) {
-                _resetError.value = "清空记录未完成，请重试。"
-            } finally {
-                _resetting.value = false
+            } catch (_: Exception) {
+                _resetState.value = ProgressResetState.Failed(if (recordsCleared)
+                    "练习明细已清空，但旧版本累计数未能清空，请重试。"
+                else "清空记录未完成，请重试。")
             }
         }
     }

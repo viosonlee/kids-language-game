@@ -16,6 +16,26 @@ import java.util.UUID
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, sdk = [29])
 class RoomProgressDatabaseTest {
+    @Test fun failedClearRollsBackBothTables() = runBlocking {
+        val context: Context = RuntimeEnvironment.getApplication()
+        val db = Room.inMemoryDatabaseBuilder(context, ProgressDatabase::class.java).build()
+        try {
+            val dao = db.progressDao()
+            dao.record(PracticeAttemptEntity("r:1", "r", "en-US", "hello", 100, normalPasses = 1, completed = 1))
+            val before = dao.totals(0, 400).first()
+            // Fail the second DELETE inside the real Room transaction.
+            db.openHelper.writableDatabase.execSQL("""CREATE TRIGGER reject_item_delete
+                BEFORE DELETE ON item_progress BEGIN SELECT RAISE(ABORT, 'simulated storage failure'); END""")
+            try { dao.clear(); fail("Expected transaction failure") } catch (_: android.database.sqlite.SQLiteException) { }
+            assertEquals(before, dao.totals(0, 400).first())
+            assertEquals(1, dao.getItem("en-US", "hello")!!.totalAttempts)
+            db.openHelper.writableDatabase.execSQL("DROP TRIGGER reject_item_delete")
+            dao.clear()
+            assertNull(dao.getItem("en-US", "hello"))
+            assertEquals(ProgressTotals(), dao.totals(0, 400).first())
+        } finally { db.close() }
+    }
+
     @Test fun realDatabaseDeduplicatesAndSurvivesReopen() = runBlocking {
         val context: Context = RuntimeEnvironment.getApplication()
         val name = "progress-${UUID.randomUUID()}.db"

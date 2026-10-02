@@ -581,3 +581,19 @@
 - 新增 15 项识别器控制层回归。首次 14 项通过，1 项因错误要求跨协程异常对象引用相等失败；按真实合同改为类型/消息校验后 15 项通过。测试覆盖并发加载、取消时 pending model 释放、权限/构造/启动/停止失败、清理错误、过期回调、PCM 清理等，不加载真实 Android Vosk 驱动。
 - 最终 test assembleDebug assembleDebugAndroidTest lintDebug --offline 成功；实际 XML：Debug 122 项、Release 116 项，均零失败/错误/跳过。lint 0 errors、13 warnings、2 information；本次离线结果未包含此前 15 条依赖升级建议，并未通过修改依赖或 suppression 消除警告。
 - 新增 docs/35，明确替代 docs/11 中与默认不上传语音冲突的回退图，保留历史规范；同步 README。采样率、时限、模型、评分不改，超时 final 问题仍按用户先调查要求保留。未安装或替换公开 APK，真机验收与总审查剩余项继续保留。
+
+## 2026-10-02 | 家长设置与清空记录修复待验证 | By: Codex
+
+- 家长设置保存增加异常提示并保留协程取消；清空记录改为互斥状态，显示运行/完成/失败，并区分数据库已清空但旧版累计写入失败。保留清空前二次确认和学习偏好，不自动重试。
+- 新增 ParentViewModelTest、ProgressRepositoryTest、ParentControlsTest，扩展真实 Room 数据库测试，以 SQL 触发器模拟第二张表删除失败，意图验证回滚。涵盖排队写入/清空、取消、错误反馈、家长门禁和清空确认；这些新测试尚未运行。
+- 定向 Gradle 请求再次被自动审批服务故障阻止：HTTP 404，配置的 gpt-5.6-luna 不受支持；命令未执行，并非测试失败。未绕过审批。git diff --check 通过，不能替代编译/逻辑验证；提交推送待工具恢复及验证通过。
+- 新增 docs/36，记录非原子跨存储边界、验证计划和剩余缺口。原规范与历史日志保留，没有运行用户数据库清空、安装或更新公开 APK；总审查仍继续。
+
+## 2026-10-02 | 家长设置与进度清空最终回归 | By: Codex
+
+- 工具权限恢复后，定向 ParentViewModelTest、ProgressRepositoryTest、RoomProgressDatabaseTest、ParentControlsTest 共 13 项通过。docs/36 与上一条待验证日志保留为中途快照，最终状态以本条为准。
+- 首轮 Debug 全量 134 项中，清空完成状态的 Compose 测试发生 AppNotIdleException。固定测试根容器后曾通过一次，但重复执行仍复现；进一步将模拟异步完成的状态更新放入 Snapshot.withMutableSnapshot，明确提交快照后再等待重组。保留确认、取消、运行中禁用、完成提示和再次可用的全部断言，没有延长超时或跳过测试。
+- 最新 Debug 全量连续两次实际执行成功，各 134 项；Release 125 项成功，均 0 failures、0 errors、0 skipped。test assembleDebug lintDebug --offline 已通过；测试同步调整后的最终 testDebugUnitTest --rerun testReleaseUnitTest assembleDebug lintDebug --offline 也通过，未变化的 Release/APK 任务复用已验证输出。
+- lint 0 errors、13 warnings、2 information；包括现有图标、Modifier 参数、状态装箱、横屏与存储空间 API 建议，未新增 suppression/baseline。实际 Room 两表删除失败回滚、清空与后续写入顺序、取消、设置保存失败及家长门禁均在本批覆盖范围内。
+- README 更新最终结果，原有规范未修改，WORKLOG 历史前缀保留。生成本地 Debug APK；本轮未安装到设备或更新公开 Release，SDK 仍未配置 platform-tools。
+- 继续审查发现 Settings Flow、Room 统计 Flow 及首页语言保存仍缺少完整异常恢复；完整 Compose 导航、跨存储进程中断、音频/布局真机和儿童观察也未完成。原始总目标继续保留，不以本批测试通过宣称整体验收。

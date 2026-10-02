@@ -145,27 +145,14 @@ fun ParentSettingsScreen(
     val today by viewModel.today.collectAsState()
     val languages by viewModel.languages.collectAsState()
     val progressError by viewModel.progressError.collectAsState()
-    val resetError by viewModel.resetError.collectAsState()
-    val resetting by viewModel.resetting.collectAsState()
-    var confirmReset by remember { mutableStateOf(false) }
+    val resetState by viewModel.resetState.collectAsState()
+    val settingsError by viewModel.settingsError.collectAsState()
     val context = LocalContext.current
     var microphoneGranted by remember { mutableStateOf(false) }
     var permissionSettingsError by remember { mutableStateOf<String?>(null) }
     LifecycleResumeEffect(context) {
         microphoneGranted = ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
         onPauseOrDispose { }
-    }
-
-    if (confirmReset) {
-        AlertDialog(
-            onDismissRequest = { confirmReset = false },
-            title = { Text("清空练习记录？") },
-            text = { Text("将清空所有语言的练习记录和历史累计数，学习设置会保留。此操作无法撤销。") },
-            confirmButton = {
-                TextButton(onClick = { confirmReset = false; viewModel.resetProgress() }) { Text("清空记录") }
-            },
-            dismissButton = { TextButton(onClick = { confirmReset = false }) { Text("取消") } }
-        )
     }
 
     Box(
@@ -215,6 +202,7 @@ fun ParentSettingsScreen(
             ) {
                 Column(modifier = Modifier.padding(AppSpacing.xl)) {
                     Text(text = "学习设置", style = AppTypography.titleMedium, color = Primary600)
+                    settingsError?.let { Text(it, color = Neutral900) }
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
 
                     Text(if (microphoneGranted) "麦克风权限：已允许" else "麦克风权限：未允许", style = AppTypography.bodyMedium)
@@ -385,17 +373,9 @@ fun ParentSettingsScreen(
                         Text("含旧版本历史累计 ${settings.completedCount} 题；历史记录没有日期和语言明细。", color = Neutral700)
                     }
                     Text("同一题反复尝试计为一道练习；重新开始练习会再次计数。统计只供家长观察。", color = Neutral700)
-                    (resetError ?: progressError)?.let { Text(it, color = Neutral900) }
+                    progressError?.let { Text(it, color = Neutral900) }
                     Spacer(modifier = Modifier.height(AppSpacing.lg))
-                    Button(
-                        onClick = { confirmReset = true },
-                        enabled = !resetting,
-                        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                            containerColor = androidx.compose.ui.graphics.Color(0xFFE53935)
-                        )
-                    ) {
-                        Text("清空练习记录")
-                    }
+                    ProgressResetControl(resetState, viewModel::resetProgress)
                 }
             }
 
