@@ -135,7 +135,9 @@ class AppNavigationJourneyTest {
     // Compose effects and ViewModel coroutines use different virtual clocks in Robolectric.
     private fun advance(milliseconds: Long) {
         compose.mainClock.advanceTimeBy(milliseconds)
-        compose.runOnUiThread { shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(milliseconds)) }
+        // Finish Compose's pending measure/layout before draining Android frame callbacks.
+        // runOnUiThread alone does not synchronize with Compose's layout work.
+        compose.runOnIdle { shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(milliseconds)) }
         compose.waitForIdle()
     }
 
@@ -478,6 +480,11 @@ class AppNavigationJourneyTest {
         }
         listOf("🇯🇵", "🇨🇳", "🇺🇸", "开始练习").forEach {
             fullyVisible(compose.onNodeWithText(it))
+        }
+        // Bitmap decoding runs on Dispatchers.IO, outside Compose's idling tracking.
+        // Wait for the image to be laid out, then retain the full viewport assertion.
+        compose.waitUntil(timeoutMillis = 5_000) {
+            compose.onNodeWithContentDescription("Mascot Idle").isDisplayed()
         }
         fullyVisible(compose.onNodeWithContentDescription("Mascot Idle"))
         saveNativePreview("phone-home")

@@ -816,3 +816,9 @@
 - 启动页新增两项测试本地强制重跑通过；为 Android 单元测试启用完整失败异常日志，配置验证通过（测试任务缓存命中）。
 - 新增 docs/63_CI_Test_Failure_Diagnostics.md，未将远端 CI 标记为修复或通过。
 
+
+## 2026-10-03 | CI 导航测试同步调整 | By: Codex
+
+- 从用户提供的 unit-test-reports.zip 定位到重试流程布局重入异常与首页兔子未显示，两项启动页测试远端均通过。
+- 测试时钟推进前同步 Compose 空闲；等待异步兔子图片显示后保留完整边界断言。
+- 本地 gradlew.bat test --offline 通过，Debug 重新执行，Release 缓存命中；远端结果待确认。详见 docs/64_CI_Journey_Test_Synchronization.md。
