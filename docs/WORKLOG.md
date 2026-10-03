@@ -692,3 +692,13 @@
 - 取消前仅下载并校验官方 commandlinetools-win-16111833_latest.zip（154,957,218 字节），解压到本次新增的 SDK/cmdline-tools/latest；模拟器程序、系统镜像、platform-tools 和 AVD 均未安装/创建。
 - 批量强制递归删除被自动策略拦截，命令未执行。随后逐项删除明确的下载文件，核验绝对路径后以不带 Force 的单目录删除清理新增工具，再删除两个空父目录。复核 build/android-tools 与 SDK/cmdline-tools 均不存在，SDK 原有 build-tools、licenses、platforms、.knownPackages 保留。
 - 本批只做用户授权的环境清理与日志追加，没有产品代码改动，不重复运行 Gradle。真机验证等待手机连接；后续需要 ADB 时仅准备真机调试工具，不恢复模拟器方案。原始审查目标仍未完成。
+
+
+## 2026-10-03 | 横屏手机紧凑布局与真机连接记录 | By: Codex
+
+- 根据 PJE110 实际截图与约 794×361dp 横屏尺寸修复首页、场景、玩法、跟读、选图、反馈及完成页。高度小于 480dp 的横屏使用紧凑尺寸，保持录音和下一题操作空间。
+- 发音诊断详情区支持滚动，录音与尝试次数控件可分行，结果面板不会被剩余高度挤没。
+- 新增三项手机尺寸 Native 图形回归及页面预览；真实内置四场景同屏可见。修复旧异步识别测试重组等待竞态，保留禁用状态断言。
+- `test assembleDebug lintDebug --offline` 通过；Debug 178、Release 150，共 328 测试通过；Lint 0 错误、13 警告、2 提示。已生成 debug APK，尚未安装本次修复包。
+- 此前仅安装 platform-tools 37.0.1 并成功覆盖升级手机 debug 1.0.0/code 1 至 1.0.2/code 3，未清数据。升级前 preferences 备份保存在 build/device-review，升级后数据逐项核验尚未完成。本次用户断开手机并要求依据现有信息处理，没有继续操作真机，也未安装或使用模拟器。
+- 增量文档：`docs/48_Compact_Landscape_Phone_Layout.md`，证据：`docs/assets/48_Phone_Layout/`。本次不调整 ASR 参数，不发布公开版本，不宣称新增兔子角色动画或完成真机验收。
