@@ -1,0 +1,1581 @@
+{
+  "author": "Codex",
+  "date": "2026-10-03",
+  "source_commit": "536e53f94df38fdff8d42af35cfd0e4441d5f6ac",
+  "gradle_test_results": [
+    {
+      "variant": "testDebugUnitTest",
+      "tests": 200,
+      "cases": [
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "missingPreparationCallbackTimesOutAndReleasesPlayer"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "preparationDoesNotBlockCallerAndAudioStartsOnlyAfterReady"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "deniedFocusDoesNotCreatePlayerAndReportsInterruption"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "preparationErrorReleasesOptionalVoiceAndDoesNotHang"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "focusLossDuringPreparationReleasesAndNeverStartsLateAudio"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "cancellingOwningScreenDuringPreparationReleasesPlayer"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "stopDuringPreparationCancelsWaiterAndRejectsLateReadyCallback"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "focusLossWhileWaitingForTtsDoesNotWaitForInitializationTimeout"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "replacementIgnoresOldReadyAndErrorCallbacks"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "oldFocusLossDoesNotInterruptReplacementButCurrentLossDoes"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "repeatLongCjkAtLargeFontCanScrollWithoutCoveringMicrophone"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "chooseAutoNextCompletesOnceAndDoesNotReturnAfterGoingHome"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "repeatRetriesThenAssistsAndReplayStartsWithANewRecordingState"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "repeatAutoNextCompletesOnceAndDoesNotReturnAfterGoingHome"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "landscapePhoneDiagnosticRecordingAndResultsRemainReachable"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "landscapePhoneKeepsHomeAndPracticeControlsInsideViewport"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "landscapePhoneBundledCategoriesFit"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "allLanguageChoicesReachTheMatchingCategoryAndReturnHome"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "chooseAssistedCompletionCanReplayAndFinishANewRoundWithoutDuplicateRecords"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "categoryAndModesAtDoubleFontRemainReadableAndEnterPractice"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "homeLargeFontKeepsLanguageLabelsWholeAndStartReachable"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "microphoneIsDisabledUntilModelReadyAndDuringPassedFeedback"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "deniedMicrophonePermissionOffersAPlayableChooseJourney"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "parentGateIsRequiredBeforeSettingsAndBackReturnsHome"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppNavigationJourneyTest",
+          "name": "modelRecoveryCanSwitchModesAndLateRecordingCallbacksCannotReviveTheExitedPage"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "apkMustMatchVersionPackageSdkAndCurrentSigner"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "manifestDecodesFutureOptionalFields"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "downloadVerifiesBytesAndReportsProgress"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "downloadRejectsTruncationOversizeAndTampering"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "manifestRejectsWrongPackageAndInvalidFields"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "urlsRejectDowngradeCredentialsAndInvalidOrigins"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "cancelledDownloadStopsBeforeReadingMoreBytes"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "manifestReadIsBoundedAndAcceptsUtf8"
+        },
+        {
+          "class": "com.kidslanguage.companion.BundledModelsTest",
+          "name": "everySupportedLanguageShipsACompleteOfflineModel"
+        },
+        {
+          "class": "com.kidslanguage.companion.BundledModelsTest",
+          "name": "modelManifestMatchesPackagedBytesAndLanguages"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "manualNextPreferenceIsHonored"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "interruptedSuccessExposesManualNextWithoutRepeatingAttempt"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "mutedFeedbackStillReplaysWrongAnswerPromptAndAdvancesSuccess"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "completionIsConsumedOnceAndReplayStartsFresh"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "repeatedMistakesReplayThenHintThenAssist"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "leavingDuringPraiseStopsPlayback"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "disabledAutoplayAppliesToEachQuestionButManualReplayWorks"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "interruptedPromptCanBeReplayedWithoutBlockingChoices"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "interruptedRetryStopsAutomaticPlaybackButAcceptsAnotherChoice"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "backgroundResumeKeepsCurrentQuestion"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "duplicateTapScoresOnceAndNextPromptWaitsForPraise"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "leavingCancelsPendingAudioAndNavigation"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "fourChoicesAndSmallTextPersistAcrossQuestionsAndResume"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentIntegrityTest",
+          "name": "duplicateIdsAcrossLanguagesFailTheBuildContract"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentIntegrityTest",
+          "name": "anExistingNonBitmapAssetCannotBeUsedAsAPracticeImage"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentIntegrityTest",
+          "name": "bundledItemsHaveUniqueIdsValidCategoriesModesAndAssets"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentIntegrityTest",
+          "name": "invalidReferencesAndUnsupportedModesCannotPassAsCompleteContent"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "categoriesFollowLanguageAndPlayableItemsRegardlessOfCallOrder"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "bundledContentRemainsPlayableInAllLanguages"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "cancellationIsNotConvertedToEmptyContent"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "implicitSameCategoryChoicesSurviveRepositoryAndReachLessonPlanner"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "malformedSiblingDoesNotDiscardValidItems"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "unavailableAlternativesCannotKeepAnUnplayableChoiceMode"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "missingRequiredAssetsAndUnknownCategoriesAreSkippedWithoutLosingValidSibling"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "missingCuratedImagesCanUseOnlyValidSameCategorySibling"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "missingCategoryDefinitionsCanRecoverWithoutCachingEmptyItems"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "invalidResourcesLanguageAndDuplicateChoicesAreIsolated"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "transientReadFailureCanRecover"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate categories count and schema"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate English items count reaches PRD threshold of at least 30"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate Japanese items count reaches PRD threshold of at least 60"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate all practice items have corresponding audio asset file"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate paopao companion voice clips exist and are non-empty"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate sound effect assets exist and are non-empty"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate total items across three languages exceeds 120"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate Chinese items count reaches PRD threshold of at least 30"
+        },
+        {
+          "class": "com.kidslanguage.companion.DebounceClickTest",
+          "name": "customInteractionClickableAcceptsFirstTapThenDebounces"
+        },
+        {
+          "class": "com.kidslanguage.companion.DebounceClickTest",
+          "name": "defaultClickableAcceptsFirstTapThenDebounces"
+        },
+        {
+          "class": "com.kidslanguage.companion.HomeViewModelTest",
+          "name": "musicFollowsSettingGreetingAndForegroundWithoutLateRestart"
+        },
+        {
+          "class": "com.kidslanguage.companion.HomeViewModelTest",
+          "name": "failedLanguageSelectionKeepsSavedLanguageAndRetrySavesTheRequestedLanguage"
+        },
+        {
+          "class": "com.kidslanguage.companion.HomeViewModelTest",
+          "name": "olderSaveFailureCannotReplaceTheLatestSuccessfulSelection"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "rawLegacyReadRejectsFallback"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "staleImporterCannotUndoReset"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "upgradesV1AndImportsOnce"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "cancelImportThenReset"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "resetBeforeImportSurvivesReopen"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "resetRollsBackAllTables"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "failedImportSurvivesReopen"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "failedLegacyReadCanRetry"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "repositoryIsolatesInvalidLessonConfigAndFiltersUnavailableMode"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "invalidChoiceQuestionsAreSkippedBeforeApplyingSessionLimit"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "explicitOrderModeAndCountAreRespectedWithinParentLimit"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "choicesUseTwoToFourDistinctImagesWithoutInventingFallbackPictures"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "removedOrUnavailableItemsCannotLeakIntoConfiguredMode"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "everyBundledLessonReferencesRealItemsInItsLanguageAndCategory"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "randomOrderIsReproducibleAndKeepsExactlyTheEligibleItems"
+        },
+        {
+          "class": "com.kidslanguage.companion.MascotMotionTest",
+          "name": "realMascotBouncesOnceAndDisabledMotionRestoresItsBounds"
+        },
+        {
+          "class": "com.kidslanguage.companion.MotionTest",
+          "name": "celebrationEndsAndPreferenceCancelsItWithoutLeavingFrameRequests"
+        },
+        {
+          "class": "com.kidslanguage.companion.MotionTest",
+          "name": "preferenceStopsRunningMotionAndRestoresItWithoutRemountingContent"
+        },
+        {
+          "class": "com.kidslanguage.companion.OfflineModelArchiveTest",
+          "name": "traversalIsRejectedWithoutWritingOutsideStaging"
+        },
+        {
+          "class": "com.kidslanguage.companion.OfflineModelArchiveTest",
+          "name": "truncatedArchiveIsRejected"
+        },
+        {
+          "class": "com.kidslanguage.companion.OfflineModelArchiveTest",
+          "name": "incompleteDirectoryIsNotAUsableModel"
+        },
+        {
+          "class": "com.kidslanguage.companion.OfflineModelArchiveTest",
+          "name": "completeVersionedArchiveIsAccepted"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentControlsTest",
+          "name": "resettingRequiresConfirmationAndCancelKeepsRecords"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentControlsTest",
+          "name": "parentGateRejectsWrongAnswerThenAcceptsCurrentAnswer"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentControlsTest",
+          "name": "failedResetShowsErrorAndRetryStillRequiresConfirmation"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentReadStateTest",
+          "name": "eachStatisticsReadCanFailAndRetryWithoutClearingRecordsOrWriteWarnings"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentReadStateTest",
+          "name": "explicitResetAlsoRestartsFailedStatisticsReads"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentViewModelTest",
+          "name": "cancellingResetDoesNotReportSuccessOrClearLegacyCount"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentViewModelTest",
+          "name": "settingsWriteFailureIsVisibleAndLaterSuccessfulWriteClearsIt"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentViewModelTest",
+          "name": "resetNoLongerDependsOnWritingTheSettingsStore"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentViewModelTest",
+          "name": "failedDatabaseClearDoesNotClearLegacyCountAndCanRetry"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentViewModelTest",
+          "name": "confirmedResetRunsOnceAndPreservesAllLearningPreferences"
+        },
+        {
+          "class": "com.kidslanguage.companion.PlaybackGateTest",
+          "name": "replacingPlaybackCancelsOldWaiterAndRejectsItsLateCallback"
+        },
+        {
+          "class": "com.kidslanguage.companion.PlaybackGateTest",
+          "name": "duplicateCompletionAndNullIdsAreHarmless"
+        },
+        {
+          "class": "com.kidslanguage.companion.PlaybackGateTest",
+          "name": "stoppedPlaybackCannotCompleteOrReleaseReplacement"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRecordTest",
+          "name": "assistedChooseCompletionDoesNotFalsifyCorrectAnswer"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRecordTest",
+          "name": "repeatedItemKeepsIdentityAndDistinguishesAssistedPass"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRecordTest",
+          "name": "invalidSpeechDoesNotBecomeAnAttempt"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "todayRecomputesTimezoneAndNewSubscriptionWithoutWaitingForPoll"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "todayRefreshesAcrossMidnightAndCancelsOldQuery"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "failedWriteWarningSurvivesFailedClearAndClearsOnlyAfterSuccessfulReset"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "todayUsesCalendarBoundariesOnShortAndLongDaylightSavingDays"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "cancelledClearDoesNotDeleteRecordsLaterOrCancelApplicationWrites"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "clearWaitsForEarlierWritesAndKeepsSubsequentPractice"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatRecoveryDialogTest",
+          "name": "permissionProblemOffersPicturePracticeAndParentHelpWithoutSystemSettingsLink"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatRecoveryDialogTest",
+          "name": "emptyContentOffersBrowseWithoutDeadRetryOrChoiceActions"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatRecoveryDialogTest",
+          "name": "modelProblemKeepsReplayAndRetryAvailable"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatRecoveryDialogTest",
+          "name": "localImageReferenceRendersAnImageInsteadOfTheFilePath"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "resumeKeepsPositionAndRetryAttempts"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "disabledAutomaticPromptKeepsManualSpeakerAvailable"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "thrownModelFailureOffersRecoveryInsteadOfEscapingViewModel"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "leavingDuringAutomaticRecordingDelayCancelsStart"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "speakerCannotEnableRecordingBeforeModelIsLoaded"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "manualNextWaitsForUserAndCannotSkipDuringPraise"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "completionIsConsumedOnceAndReplayStartsFresh"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "interruptedPromptDoesNotAutoRecordAndCanBeReplayed"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "automaticRecordingCannotStartWithoutPermission"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "synchronousFinalOnStopDoesNotOverwritePassedState"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "recoveryDoesNotOfferAnEmptyChoiceLesson"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "failedModelCannotRecordAfterReplayAndExplicitRetryRecovers"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "mutedSuccessAdvancesAndKeepsSmallTextAfterResume"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "interruptedRetryDoesNotLoopAndRecordingRemainsAvailable"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "leavingCancelsDelayedPraiseAndIgnoresLateResults"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "failureAndSilenceNeverCountAsAttempts"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "duplicateAndOldCallbacksCannotScoreOrAdvanceAgain"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "modelLoadFailureRemainsVisible"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "leavingDuringPraiseStopsPlaybackAndAdvance"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "automaticRecordingWaitsForPromptAndStopsRetryingAfterSilence"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "interruptedSuccessKeepsEarnedResultAndAllowsManualNext"
+        },
+        {
+          "class": "com.kidslanguage.companion.RoomProgressDatabaseTest",
+          "name": "realDatabaseDeduplicatesAndSurvivesReopen"
+        },
+        {
+          "class": "com.kidslanguage.companion.RoomProgressDatabaseTest",
+          "name": "failedClearRollsBackBothTables"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsPromptPlayerTest",
+          "name": "nextClipUsesLatestVolumeWithoutRestartingPlayer"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsPromptPlayerTest",
+          "name": "muteSuppressesAllCharacterFeedbackButKeepsLessonPrompt"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "leavingDuringFirstReadCancelsTheSourceWithoutEmittingFallback"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "wrongPreferenceTypeIsReportedAndOnlyAnExplicitWriteRepairsIt"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "successfulWriteWakesReadersWaitingToRetry"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "manualRetryInterruptsBackoffAndDoesNotPretendAnotherReaderRecovered"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "activeReaderKeepsItsLastSettingsAndAutomaticallyRecovers"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "firstReadFailureUsesQuietTemporaryValuesWithoutWritingOrDeletingPreferences"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "cancellationIsNotTurnedIntoDefaultsOrRetried"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsRepositoryTest",
+          "name": "animationPreferenceSurvivesRepositoryRecreation"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsRepositoryTest",
+          "name": "textModesPreserveLegacyHiddenPreferenceAndPersistAcrossRepositories"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsRepositoryTest",
+          "name": "readingLegacyMigrationInputPreservesParentPreferences"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsRepositoryTest",
+          "name": "lessonPreferencesAreBoundedAndPersisted"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsRepositoryTest",
+          "name": "legacyInvalidValuesCannotReachAudioOrSession"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "empty aliases and tiny alias fragments cannot grant a pass"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "alias match passes"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "empty input returns NoSpeech"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "invalid target reports error instead of granting a pass"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "latest spec retains second attempt assistance and third attempt protection"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "english alias must be a whole word"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "exact match passes with high score"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "english phrases ignore casing and punctuation"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "unicode width and kana voicing normalize consistently"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "attempt count 3 or more passes gently as long as child spoke"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "repeated attempt with partial similarity soft passes for preschooler"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "katakana to hiragana normalizes and passes"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "punctuation and emoji do not count as speech on any attempt"
+        },
+        {
+          "class": "com.kidslanguage.companion.StorageRecoveryControlsTest",
+          "name": "initialLoadingDoesNotLookLikeAnEmptyDatabase"
+        },
+        {
+          "class": "com.kidslanguage.companion.StorageRecoveryControlsTest",
+          "name": "migratedLegacyCountIsIncludedOnlyInAllTimeTotal"
+        },
+        {
+          "class": "com.kidslanguage.companion.StorageRecoveryControlsTest",
+          "name": "failedStatisticsOfferRetryWithoutShowingFalseZeroCounts"
+        },
+        {
+          "class": "com.kidslanguage.companion.SuccessFeedbackTest",
+          "name": "fullChimeAndVoiceFinishWithinBudget"
+        },
+        {
+          "class": "com.kidslanguage.companion.SuccessFeedbackTest",
+          "name": "leavingDuringSpeechCancelsRemainingFeedback"
+        },
+        {
+          "class": "com.kidslanguage.companion.SuccessFeedbackTest",
+          "name": "mutedFeedbackStillHasMinimumVisualDuration"
+        },
+        {
+          "class": "com.kidslanguage.companion.SuccessFeedbackTest",
+          "name": "leavingDuringChimeStopsItWithoutStartingSpeech"
+        },
+        {
+          "class": "com.kidslanguage.companion.SuccessFeedbackTest",
+          "name": "slowPlaybackIsNeverCutOffToMeetTheNominalBudget"
+        },
+        {
+          "class": "com.kidslanguage.companion.UiContrastTest",
+          "name": "lightAndDisabledButtonsKeepDarkLabelsReadable"
+        },
+        {
+          "class": "com.kidslanguage.companion.UiContrastTest",
+          "name": "typographyDoesNotOverrideComponentContentColors"
+        },
+        {
+          "class": "com.kidslanguage.companion.UiContrastTest",
+          "name": "filledButtonGradientKeepsWhiteLabelsReadable"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "ordinaryInitializationFailureDoesNotLeaveALoadedLanguage"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "cancelledLoadClosesModelCreatedBeforeReturningFromIo"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "failedStartAndRecognizerLinkErrorsDeliverOnlyOneError"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "synchronousFinalOnStopIsNotLostOrRepeatedByCleanup"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "concurrentLanguageLoadsAreSerialized"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "successIsDeliveredOnceAndOldListenersCannotCompleteANewRecording"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "missingModelAndNativeLinkFailureReturnErrorsAndCanRetry"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "pcmDecodeClosesTemporaryRecognizerOnSuccessAndNativeFailure"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "throwingStartReleasesMicrophoneAndIgnoresItsLateCallbacks"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "failedCancelRetriesStopButNeverClosesANativeWorkerStillInUse"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "stopFailureAndShutdownFailureStillEndSessionAndCloseRecognizer"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "cancellingStartPropagatesCancellationAfterResourceCleanup"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "microphoneConstructionFailureClosesTheRecognizerAndAllowsRetry"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "timeoutAndMalformedFinalKeepExistingEmptyResultSemantics"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "languageSwitchClosesOldModelBeforeOpeningNextAndReusesSameLanguage"
+        }
+      ]
+    },
+    {
+      "variant": "testReleaseUnitTest",
+      "tests": 172,
+      "cases": [
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "missingPreparationCallbackTimesOutAndReleasesPlayer"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "preparationDoesNotBlockCallerAndAudioStartsOnlyAfterReady"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "deniedFocusDoesNotCreatePlayerAndReportsInterruption"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "preparationErrorReleasesOptionalVoiceAndDoesNotHang"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "focusLossDuringPreparationReleasesAndNeverStartsLateAudio"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "cancellingOwningScreenDuringPreparationReleasesPlayer"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "stopDuringPreparationCancelsWaiterAndRejectsLateReadyCallback"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "focusLossWhileWaitingForTtsDoesNotWaitForInitializationTimeout"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "replacementIgnoresOldReadyAndErrorCallbacks"
+        },
+        {
+          "class": "com.kidslanguage.companion.AndroidPromptPlayerTest",
+          "name": "oldFocusLossDoesNotInterruptReplacementButCurrentLossDoes"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "apkMustMatchVersionPackageSdkAndCurrentSigner"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "manifestDecodesFutureOptionalFields"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "downloadVerifiesBytesAndReportsProgress"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "downloadRejectsTruncationOversizeAndTampering"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "manifestRejectsWrongPackageAndInvalidFields"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "urlsRejectDowngradeCredentialsAndInvalidOrigins"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "cancelledDownloadStopsBeforeReadingMoreBytes"
+        },
+        {
+          "class": "com.kidslanguage.companion.AppUpdateTest",
+          "name": "manifestReadIsBoundedAndAcceptsUtf8"
+        },
+        {
+          "class": "com.kidslanguage.companion.BundledModelsTest",
+          "name": "everySupportedLanguageShipsACompleteOfflineModel"
+        },
+        {
+          "class": "com.kidslanguage.companion.BundledModelsTest",
+          "name": "modelManifestMatchesPackagedBytesAndLanguages"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "manualNextPreferenceIsHonored"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "interruptedSuccessExposesManualNextWithoutRepeatingAttempt"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "mutedFeedbackStillReplaysWrongAnswerPromptAndAdvancesSuccess"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "completionIsConsumedOnceAndReplayStartsFresh"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "repeatedMistakesReplayThenHintThenAssist"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "leavingDuringPraiseStopsPlayback"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "disabledAutoplayAppliesToEachQuestionButManualReplayWorks"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "interruptedPromptCanBeReplayedWithoutBlockingChoices"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "interruptedRetryStopsAutomaticPlaybackButAcceptsAnotherChoice"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "backgroundResumeKeepsCurrentQuestion"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "duplicateTapScoresOnceAndNextPromptWaitsForPraise"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "leavingCancelsPendingAudioAndNavigation"
+        },
+        {
+          "class": "com.kidslanguage.companion.ChooseViewModelTest",
+          "name": "fourChoicesAndSmallTextPersistAcrossQuestionsAndResume"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentIntegrityTest",
+          "name": "duplicateIdsAcrossLanguagesFailTheBuildContract"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentIntegrityTest",
+          "name": "anExistingNonBitmapAssetCannotBeUsedAsAPracticeImage"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentIntegrityTest",
+          "name": "bundledItemsHaveUniqueIdsValidCategoriesModesAndAssets"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentIntegrityTest",
+          "name": "invalidReferencesAndUnsupportedModesCannotPassAsCompleteContent"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "categoriesFollowLanguageAndPlayableItemsRegardlessOfCallOrder"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "bundledContentRemainsPlayableInAllLanguages"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "cancellationIsNotConvertedToEmptyContent"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "implicitSameCategoryChoicesSurviveRepositoryAndReachLessonPlanner"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "malformedSiblingDoesNotDiscardValidItems"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "unavailableAlternativesCannotKeepAnUnplayableChoiceMode"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "missingRequiredAssetsAndUnknownCategoriesAreSkippedWithoutLosingValidSibling"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "missingCuratedImagesCanUseOnlyValidSameCategorySibling"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "missingCategoryDefinitionsCanRecoverWithoutCachingEmptyItems"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "invalidResourcesLanguageAndDuplicateChoicesAreIsolated"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentRepositoryTest",
+          "name": "transientReadFailureCanRecover"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate categories count and schema"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate English items count reaches PRD threshold of at least 30"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate Japanese items count reaches PRD threshold of at least 60"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate all practice items have corresponding audio asset file"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate paopao companion voice clips exist and are non-empty"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate sound effect assets exist and are non-empty"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate total items across three languages exceeds 120"
+        },
+        {
+          "class": "com.kidslanguage.companion.ContentValidationTest",
+          "name": "validate Chinese items count reaches PRD threshold of at least 30"
+        },
+        {
+          "class": "com.kidslanguage.companion.HomeViewModelTest",
+          "name": "musicFollowsSettingGreetingAndForegroundWithoutLateRestart"
+        },
+        {
+          "class": "com.kidslanguage.companion.HomeViewModelTest",
+          "name": "failedLanguageSelectionKeepsSavedLanguageAndRetrySavesTheRequestedLanguage"
+        },
+        {
+          "class": "com.kidslanguage.companion.HomeViewModelTest",
+          "name": "olderSaveFailureCannotReplaceTheLatestSuccessfulSelection"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "rawLegacyReadRejectsFallback"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "staleImporterCannotUndoReset"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "upgradesV1AndImportsOnce"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "cancelImportThenReset"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "resetBeforeImportSurvivesReopen"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "resetRollsBackAllTables"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "failedImportSurvivesReopen"
+        },
+        {
+          "class": "com.kidslanguage.companion.LegacyProgressMigrationTest",
+          "name": "failedLegacyReadCanRetry"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "repositoryIsolatesInvalidLessonConfigAndFiltersUnavailableMode"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "invalidChoiceQuestionsAreSkippedBeforeApplyingSessionLimit"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "explicitOrderModeAndCountAreRespectedWithinParentLimit"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "choicesUseTwoToFourDistinctImagesWithoutInventingFallbackPictures"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "removedOrUnavailableItemsCannotLeakIntoConfiguredMode"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "everyBundledLessonReferencesRealItemsInItsLanguageAndCategory"
+        },
+        {
+          "class": "com.kidslanguage.companion.LessonPlanTest",
+          "name": "randomOrderIsReproducibleAndKeepsExactlyTheEligibleItems"
+        },
+        {
+          "class": "com.kidslanguage.companion.MotionTest",
+          "name": "celebrationEndsAndPreferenceCancelsItWithoutLeavingFrameRequests"
+        },
+        {
+          "class": "com.kidslanguage.companion.MotionTest",
+          "name": "preferenceStopsRunningMotionAndRestoresItWithoutRemountingContent"
+        },
+        {
+          "class": "com.kidslanguage.companion.OfflineModelArchiveTest",
+          "name": "traversalIsRejectedWithoutWritingOutsideStaging"
+        },
+        {
+          "class": "com.kidslanguage.companion.OfflineModelArchiveTest",
+          "name": "truncatedArchiveIsRejected"
+        },
+        {
+          "class": "com.kidslanguage.companion.OfflineModelArchiveTest",
+          "name": "incompleteDirectoryIsNotAUsableModel"
+        },
+        {
+          "class": "com.kidslanguage.companion.OfflineModelArchiveTest",
+          "name": "completeVersionedArchiveIsAccepted"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentReadStateTest",
+          "name": "eachStatisticsReadCanFailAndRetryWithoutClearingRecordsOrWriteWarnings"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentReadStateTest",
+          "name": "explicitResetAlsoRestartsFailedStatisticsReads"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentViewModelTest",
+          "name": "cancellingResetDoesNotReportSuccessOrClearLegacyCount"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentViewModelTest",
+          "name": "settingsWriteFailureIsVisibleAndLaterSuccessfulWriteClearsIt"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentViewModelTest",
+          "name": "resetNoLongerDependsOnWritingTheSettingsStore"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentViewModelTest",
+          "name": "failedDatabaseClearDoesNotClearLegacyCountAndCanRetry"
+        },
+        {
+          "class": "com.kidslanguage.companion.ParentViewModelTest",
+          "name": "confirmedResetRunsOnceAndPreservesAllLearningPreferences"
+        },
+        {
+          "class": "com.kidslanguage.companion.PlaybackGateTest",
+          "name": "replacingPlaybackCancelsOldWaiterAndRejectsItsLateCallback"
+        },
+        {
+          "class": "com.kidslanguage.companion.PlaybackGateTest",
+          "name": "duplicateCompletionAndNullIdsAreHarmless"
+        },
+        {
+          "class": "com.kidslanguage.companion.PlaybackGateTest",
+          "name": "stoppedPlaybackCannotCompleteOrReleaseReplacement"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRecordTest",
+          "name": "assistedChooseCompletionDoesNotFalsifyCorrectAnswer"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRecordTest",
+          "name": "repeatedItemKeepsIdentityAndDistinguishesAssistedPass"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRecordTest",
+          "name": "invalidSpeechDoesNotBecomeAnAttempt"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "todayRecomputesTimezoneAndNewSubscriptionWithoutWaitingForPoll"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "todayRefreshesAcrossMidnightAndCancelsOldQuery"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "failedWriteWarningSurvivesFailedClearAndClearsOnlyAfterSuccessfulReset"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "todayUsesCalendarBoundariesOnShortAndLongDaylightSavingDays"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "cancelledClearDoesNotDeleteRecordsLaterOrCancelApplicationWrites"
+        },
+        {
+          "class": "com.kidslanguage.companion.ProgressRepositoryTest",
+          "name": "clearWaitsForEarlierWritesAndKeepsSubsequentPractice"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "resumeKeepsPositionAndRetryAttempts"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "disabledAutomaticPromptKeepsManualSpeakerAvailable"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "thrownModelFailureOffersRecoveryInsteadOfEscapingViewModel"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "leavingDuringAutomaticRecordingDelayCancelsStart"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "speakerCannotEnableRecordingBeforeModelIsLoaded"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "manualNextWaitsForUserAndCannotSkipDuringPraise"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "completionIsConsumedOnceAndReplayStartsFresh"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "interruptedPromptDoesNotAutoRecordAndCanBeReplayed"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "automaticRecordingCannotStartWithoutPermission"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "synchronousFinalOnStopDoesNotOverwritePassedState"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "recoveryDoesNotOfferAnEmptyChoiceLesson"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "failedModelCannotRecordAfterReplayAndExplicitRetryRecovers"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "mutedSuccessAdvancesAndKeepsSmallTextAfterResume"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "interruptedRetryDoesNotLoopAndRecordingRemainsAvailable"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "leavingCancelsDelayedPraiseAndIgnoresLateResults"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "failureAndSilenceNeverCountAsAttempts"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "duplicateAndOldCallbacksCannotScoreOrAdvanceAgain"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "modelLoadFailureRemainsVisible"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "leavingDuringPraiseStopsPlaybackAndAdvance"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "automaticRecordingWaitsForPromptAndStopsRetryingAfterSilence"
+        },
+        {
+          "class": "com.kidslanguage.companion.RepeatViewModelTest",
+          "name": "interruptedSuccessKeepsEarnedResultAndAllowsManualNext"
+        },
+        {
+          "class": "com.kidslanguage.companion.RoomProgressDatabaseTest",
+          "name": "realDatabaseDeduplicatesAndSurvivesReopen"
+        },
+        {
+          "class": "com.kidslanguage.companion.RoomProgressDatabaseTest",
+          "name": "failedClearRollsBackBothTables"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsPromptPlayerTest",
+          "name": "nextClipUsesLatestVolumeWithoutRestartingPlayer"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsPromptPlayerTest",
+          "name": "muteSuppressesAllCharacterFeedbackButKeepsLessonPrompt"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "leavingDuringFirstReadCancelsTheSourceWithoutEmittingFallback"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "wrongPreferenceTypeIsReportedAndOnlyAnExplicitWriteRepairsIt"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "successfulWriteWakesReadersWaitingToRetry"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "manualRetryInterruptsBackoffAndDoesNotPretendAnotherReaderRecovered"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "activeReaderKeepsItsLastSettingsAndAutomaticallyRecovers"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "firstReadFailureUsesQuietTemporaryValuesWithoutWritingOrDeletingPreferences"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsReadRecoveryTest",
+          "name": "cancellationIsNotTurnedIntoDefaultsOrRetried"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsRepositoryTest",
+          "name": "animationPreferenceSurvivesRepositoryRecreation"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsRepositoryTest",
+          "name": "textModesPreserveLegacyHiddenPreferenceAndPersistAcrossRepositories"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsRepositoryTest",
+          "name": "readingLegacyMigrationInputPreservesParentPreferences"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsRepositoryTest",
+          "name": "lessonPreferencesAreBoundedAndPersisted"
+        },
+        {
+          "class": "com.kidslanguage.companion.SettingsRepositoryTest",
+          "name": "legacyInvalidValuesCannotReachAudioOrSession"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "empty aliases and tiny alias fragments cannot grant a pass"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "alias match passes"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "empty input returns NoSpeech"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "invalid target reports error instead of granting a pass"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "latest spec retains second attempt assistance and third attempt protection"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "english alias must be a whole word"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "exact match passes with high score"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "english phrases ignore casing and punctuation"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "unicode width and kana voicing normalize consistently"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "attempt count 3 or more passes gently as long as child spoke"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "repeated attempt with partial similarity soft passes for preschooler"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "katakana to hiragana normalizes and passes"
+        },
+        {
+          "class": "com.kidslanguage.companion.SpeechEvaluationServiceTest",
+          "name": "punctuation and emoji do not count as speech on any attempt"
+        },
+        {
+          "class": "com.kidslanguage.companion.SuccessFeedbackTest",
+          "name": "fullChimeAndVoiceFinishWithinBudget"
+        },
+        {
+          "class": "com.kidslanguage.companion.SuccessFeedbackTest",
+          "name": "leavingDuringSpeechCancelsRemainingFeedback"
+        },
+        {
+          "class": "com.kidslanguage.companion.SuccessFeedbackTest",
+          "name": "mutedFeedbackStillHasMinimumVisualDuration"
+        },
+        {
+          "class": "com.kidslanguage.companion.SuccessFeedbackTest",
+          "name": "leavingDuringChimeStopsItWithoutStartingSpeech"
+        },
+        {
+          "class": "com.kidslanguage.companion.SuccessFeedbackTest",
+          "name": "slowPlaybackIsNeverCutOffToMeetTheNominalBudget"
+        },
+        {
+          "class": "com.kidslanguage.companion.UiContrastTest",
+          "name": "lightAndDisabledButtonsKeepDarkLabelsReadable"
+        },
+        {
+          "class": "com.kidslanguage.companion.UiContrastTest",
+          "name": "typographyDoesNotOverrideComponentContentColors"
+        },
+        {
+          "class": "com.kidslanguage.companion.UiContrastTest",
+          "name": "filledButtonGradientKeepsWhiteLabelsReadable"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "ordinaryInitializationFailureDoesNotLeaveALoadedLanguage"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "cancelledLoadClosesModelCreatedBeforeReturningFromIo"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "failedStartAndRecognizerLinkErrorsDeliverOnlyOneError"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "synchronousFinalOnStopIsNotLostOrRepeatedByCleanup"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "concurrentLanguageLoadsAreSerialized"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "successIsDeliveredOnceAndOldListenersCannotCompleteANewRecording"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "missingModelAndNativeLinkFailureReturnErrorsAndCanRetry"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "pcmDecodeClosesTemporaryRecognizerOnSuccessAndNativeFailure"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "throwingStartReleasesMicrophoneAndIgnoresItsLateCallbacks"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "failedCancelRetriesStopButNeverClosesANativeWorkerStillInUse"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "stopFailureAndShutdownFailureStillEndSessionAndCloseRecognizer"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "cancellingStartPropagatesCancellationAfterResourceCleanup"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "microphoneConstructionFailureClosesTheRecognizerAndAllowsRetry"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "timeoutAndMalformedFinalKeepExistingEmptyResultSemantics"
+        },
+        {
+          "class": "com.kidslanguage.companion.VoskSpeechRecognizerEngineTest",
+          "name": "languageSwitchClosesOldModelBeforeOpeningNextAndReusesSameLanguage"
+        }
+      ]
+    }
+  ],
+  "python_tests": {
+    "command": "python -m unittest discover -s scripts -p 'test_*.py'",
+    "tests": 26,
+    "result": "passed"
+  },
+  "audio_report_hashes_and_apk_match": 129,
+  "apk": {
+    "path": "app/build/outputs/apk/debug/app-debug.apk",
+    "sha256": "e0e4dd8b4b2692f47241e1b5aa3ca3a4a1b399437f5be1f421ac64c7862964bd"
+  },
+  "source_hashes": {
+    "app/build.gradle.kts": "421d32bd1fd1f0ff5be53385e958211f30c737e15c1552053dffcb98142f175a",
+    "app/src/main/AndroidManifest.xml": "19182a2c1c5eb95dda157c3bc4b6e6deed0cc3edb363425c9a13d0ab71cc97e8",
+    "app/src/main/java/com/kidslanguage/companion/app/AppContainer.kt": "8630b2c9cae6391f41f3aca5da5c5f8b28ed7f4e9d51afe215bfe95fc8e0b24d",
+    "app/src/main/java/com/kidslanguage/companion/app/AppDependencies.kt": "9c1008d6696d1ef3a85faa526cdcd0da2c3f474695b12b6f2474455d5a9bea05",
+    "app/src/main/java/com/kidslanguage/companion/core/asr/ModelManager.kt": "58ddc3a228c1760e880faec2de496366226052418a9e5b845f55a939da054026",
+    "app/src/main/java/com/kidslanguage/companion/core/asr/OfflineModelArchive.kt": "de9dde45f384b22661cfa6cbc6b9a0adf29537341d9d5a8c335eb6f5eb1e337d",
+    "app/src/main/java/com/kidslanguage/companion/core/asr/OfflineSpeechResources.kt": "457275b1fa05599b7718eab6c4f3744e3799073919c299e427c23eec7f55731f",
+    "app/src/main/java/com/kidslanguage/companion/core/asr/SpeechRecognizerEngine.kt": "cacacce9af64cf49fc21be640d3385f9956cdd0b1eb79025cde0b6e637c608be",
+    "app/src/main/java/com/kidslanguage/companion/core/asr/VoskSpeechRecognizerEngine.kt": "ab191997bc90029576606869fbfe8b0e93abe91dd2747c6677ba55acc1def7d6",
+    "app/src/main/java/com/kidslanguage/companion/core/audio/BackgroundMusicPlayer.kt": "8fd04a180ffacdcc7eb7a433ad4c4a1e37afc92fc884e2de014d2f00391afd83",
+    "app/src/main/java/com/kidslanguage/companion/core/audio/PlaybackGate.kt": "6ddb714ae41a25d63894e72416bb530c4d6e408516f8b2098c29731ad1e7cf3a",
+    "app/src/main/java/com/kidslanguage/companion/core/audio/PromptPlayer.kt": "3772b1571dce3c41f55103ba47c28cfe024df0bc62f43e6450adeb432972470e",
+    "app/src/main/java/com/kidslanguage/companion/core/audio/SettingsPromptPlayer.kt": "6a366642a29cb04dffc2c577c2e1362bfc373aa90eb27dbba6d15961560af289",
+    "app/src/main/java/com/kidslanguage/companion/core/audio/SoundEffectManager.kt": "614604a4d20244a7cee5c160f4322da7533201b5eb98c1b8ca4939a8a3f1a139",
+    "app/src/main/java/com/kidslanguage/companion/core/audio/SuccessFeedback.kt": "cef0c614a8f70bc85aad5fbc7a494d040ee9a5418e06e94b4205c2009483fc34",
+    "app/src/main/java/com/kidslanguage/companion/core/content/ContentIntegrity.kt": "22e603b915ac4a5948516130cb09e85942aa088d73a7466a5093fdd6a509cffb",
+    "app/src/main/java/com/kidslanguage/companion/core/content/ContentRepository.kt": "effdada28b7fca92b17938ab7e90346fe356bac777f55d2b5ca39abac59a5e62",
+    "app/src/main/java/com/kidslanguage/companion/core/content/LessonPlan.kt": "7aa6cd154b6ddac6af2720736d8e23fd44269cf3767c755372397c5138ad3784",
+    "app/src/main/java/com/kidslanguage/companion/core/model/Models.kt": "99e3a376355fb2e165adb3d3855f9d13ea52ecca7c40fcb52699ce2222aa6476",
+    "app/src/main/java/com/kidslanguage/companion/core/persistence/ProgressDatabase.kt": "3bd3cac5cab07373bf5f06363607ad8d46265af578a4e5564c2783db36e7c3f3",
+    "app/src/main/java/com/kidslanguage/companion/core/persistence/ProgressRepository.kt": "a91e7c47250c8b4b393827f15636733964910720614e6d8d5b168da543d61d4b",
+    "app/src/main/java/com/kidslanguage/companion/core/persistence/SettingsRepository.kt": "f2d27a3cd9fb4df1dd603a8ca81c0efec3b7011b449a7f440c39935b9dd817ce",
+    "app/src/main/java/com/kidslanguage/companion/core/scoring/SpeechEvaluationService.kt": "a323a045a971b140528bd81a34c8d00984f678a1b5db785276c1df57b90f89db",
+    "app/src/main/java/com/kidslanguage/companion/feature/category/CategoryScreen.kt": "616abd47869c19d30969cd1a903e4ef777fbdd746d8cb518986868f16466e5a7",
+    "app/src/main/java/com/kidslanguage/companion/feature/choose/ChooseScreen.kt": "19b70900fc8487af7d61c81fdfd21d1b6099c058df799a445fd58a6b39f4e588",
+    "app/src/main/java/com/kidslanguage/companion/feature/choose/ChooseViewModel.kt": "f7992d9ad8b10f302f6eb4d2ff562c88b60514a7f293009817c294670f52e94b",
+    "app/src/main/java/com/kidslanguage/companion/feature/home/HomeScreen.kt": "121f79414af67903bf461d920d9f0ca15b4eb9096775a7e2d2fe9d8d5fd80811",
+    "app/src/main/java/com/kidslanguage/companion/feature/home/HomeViewModel.kt": "9c73467a75c20f98bc1a9eb8bf868a23b368c4310cac7705c27880111993d74c",
+    "app/src/main/java/com/kidslanguage/companion/feature/mode/ModeSelectScreen.kt": "351ca59fce449b56d761925b02e3eb4538a4283d980d616ec1d94694aa2c48b4",
+    "app/src/main/java/com/kidslanguage/companion/feature/parent/AppVersionInfo.kt": "86dff810262f9374fbbce3f43fd6b6c2fefdef68cae9e9f9a1c6d2dcabce03d5",
+    "app/src/main/java/com/kidslanguage/companion/feature/parent/DevAudioDiagnosticScreen.kt": "4e6607b157d2bf083ae5979620636c8930b2984f34a044551f44933b18a66350",
+    "app/src/main/java/com/kidslanguage/companion/feature/parent/ParentScreens.kt": "2715bcca1ce8539108a82b9467f57363012d218c56c06a5525c8ab0f4cb1ad76",
+    "app/src/main/java/com/kidslanguage/companion/feature/parent/ParentViewModel.kt": "ba12a591f340fb830fb2e32313211fcff18132b2308fc2ce0a2133e99b3d82a3",
+    "app/src/main/java/com/kidslanguage/companion/feature/parent/ProgressResetControl.kt": "857fac87a608766c8b418b8c3fbc40aa3c3a92f2b350bd948ed6023e251039c6",
+    "app/src/main/java/com/kidslanguage/companion/feature/parent/ProgressSummary.kt": "2597e12776b3c2fb17a300df1afe0385b01d96ac89bd7778ce3405ad59e349d0",
+    "app/src/main/java/com/kidslanguage/companion/feature/repeat/RepeatProblem.kt": "4a6866cff0465ce5dcad230b514dab62137b79044e96a6c41c34fac2b0419c07",
+    "app/src/main/java/com/kidslanguage/companion/feature/repeat/RepeatRecoveryDialog.kt": "38bf853cfdb063de541540c03856f3931babb28d3e36ebfe3308395e977a3e36",
+    "app/src/main/java/com/kidslanguage/companion/feature/repeat/RepeatScreen.kt": "f6b9517fe43135546a5ef6190541193867a06018951ec09bc5b0465b314291a0",
+    "app/src/main/java/com/kidslanguage/companion/feature/repeat/RepeatViewModel.kt": "154e78cb35a1a97c2907230ebcd86db13907dd5dffd04d9a772d2335ea20faa0",
+    "app/src/main/java/com/kidslanguage/companion/feature/result/SessionCompleteScreen.kt": "5c0a363e26c1bce35945601fc45aa66dc709bc32bb5e81ffe91ab016f65d6593",
+    "app/src/main/java/com/kidslanguage/companion/feature/splash/SplashScreen.kt": "e84531a734dd3a1ad24943fa5bf1c5a79becd4efcece4509e5a692e81fc305ba",
+    "app/src/main/java/com/kidslanguage/companion/feature/update/AppUpdateCard.kt": "68773a5571ed9418e8cc1aab098f8526a38dc8c3e1db6405ad9e2322b04b3ea8",
+    "app/src/main/java/com/kidslanguage/companion/feature/update/AppUpdateRepository.kt": "c3cf98ffbbd18e0b59907cd903e5b9623842ffaf9d08db75e205be1f82a21b96",
+    "app/src/main/java/com/kidslanguage/companion/feature/update/AppUpdateViewModel.kt": "6c29bb9f77f64608290974a283be214269d9b57ddd806a6844a36be6284feb61",
+    "app/src/main/java/com/kidslanguage/companion/feature/update/UpdateManifest.kt": "68e8a8b815f1b9c226e32b356d8b730656261842e5b5aea191f90c07d617cb04",
+    "app/src/main/java/com/kidslanguage/companion/feature/update/UpdateTransfer.kt": "f78f9783f1890b65cbfa8c2b77ed2b912efde337b0d2237fa41bc4687c06cf80",
+    "app/src/main/java/com/kidslanguage/companion/KidsLanguageApp.kt": "f9b15a6953cddee8139bd5ee8f9fe3cc0b47b3f8aa8d48b7407dd2b54fc55f3c",
+    "app/src/main/java/com/kidslanguage/companion/MainActivity.kt": "aace25eb7f5c508acb07ab8120467c0ecded5801b5b5b982bef2aed4b6eef8dc",
+    "app/src/main/java/com/kidslanguage/companion/ui/components/ChildButtons.kt": "9fc173d284b7c0f0a37b4391b71766f1c6147aeb6c611dbd4a97336e23d36d5f",
+    "app/src/main/java/com/kidslanguage/companion/ui/components/ChildCards.kt": "1afca9f8465947387b7eea7201b0278aee3ce33df35a9d00076d1fcf6b91998e",
+    "app/src/main/java/com/kidslanguage/companion/ui/components/DebounceClick.kt": "07d2158c5c29dc581bec60d8f0fa9dff971ea53211b07b0445420d8fc2e94bcc",
+    "app/src/main/java/com/kidslanguage/companion/ui/components/MascotView.kt": "1fa4b96a9533129286b022c7fd05321de73fc83ce9eed9e2c4924390987766c0",
+    "app/src/main/java/com/kidslanguage/companion/ui/components/PracticeIllustration.kt": "98f3c858cd4af823f2f1321a42cac286ca214c13c00e807be75c51d3b050671f",
+    "app/src/main/java/com/kidslanguage/companion/ui/components/StorageNotice.kt": "c834695bfe68839b1d4bc0573f18bade3f9905131027b4cf1c1ba3ed16befef4",
+    "app/src/main/java/com/kidslanguage/companion/ui/components/SuccessStars.kt": "06d1d0d5ab349ba6b30f143e6cb3030f74c4bb739bf3e731e60cec1d4e6d673a",
+    "app/src/main/java/com/kidslanguage/companion/ui/navigation/AppNavigation.kt": "e878b688bbb4bc83516dc086fb964134dc40f7ac04d64bb6f6752a8e9043f2e6",
+    "app/src/main/java/com/kidslanguage/companion/ui/theme/Color.kt": "75d2749dc6677b8a71c635c61b01d537be29b81241339f454e88a826c5eb23f0",
+    "app/src/main/java/com/kidslanguage/companion/ui/theme/CompactLayout.kt": "79852ea910f9ee911f110ee31c2acedaf1dbea64057c96888b717b6d00037cc2",
+    "app/src/main/java/com/kidslanguage/companion/ui/theme/Motion.kt": "593c99d80316cca61c9c767eeeecf195f17808d14d7bbc959fd623d2338b9d7c",
+    "app/src/main/java/com/kidslanguage/companion/ui/theme/Spacing.kt": "c831715a69e650fa7d2ace5ce6c64d5b53101fa04dc54700f53b99729d5ea56b",
+    "app/src/main/java/com/kidslanguage/companion/ui/theme/Theme.kt": "6e331d4e6841342464b16abd18f0efedd1d57b24eb05b7dfc1b3d87e4d25f5cb",
+    "app/src/main/java/com/kidslanguage/companion/ui/theme/Type.kt": "3c3e28aed8af019cd8098af01d00409a20cb054b81e86c66341cbd3f32e36cec"
+  }
+}
