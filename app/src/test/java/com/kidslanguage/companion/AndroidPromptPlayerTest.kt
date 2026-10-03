@@ -270,11 +270,83 @@ class AndroidPromptPlayerTest {
     }
 
     @Test fun missingPreparationCallbackTimesOutAndReleasesPlayer() = scenario { player, created ->
-        val playback = launch { player.playVoiceAsset(PaoPaoVoices.GREETING) }
+        var interrupted = false
+        val playback = launch {
+            try { player.playVoiceAsset(PaoPaoVoices.GREETING) }
+            catch (_: AudioPlaybackInterruptedException) { interrupted = true }
+        }
         runCurrent()
         advanceTimeBy(30_001)
         runCurrent()
         assertTrue(playback.isCompleted)
+        assertTrue(interrupted)
         assertEquals(ShadowMediaPlayer.State.END, created.single().second.state)
+    }
+
+    @Test fun runtimeAssetErrorFallsBackWithoutAcceptingLateAssetCompletion() = scenario { player, created ->
+        ShadowTextToSpeech.addVoice(voice("local-en", "en-US"))
+        val tts = initializeTts()
+        var completedNormally = false
+        val playback = launch {
+            player.playPrompt("hello", LanguageCode.EN_US, PaoPaoVoices.GREETING)
+            completedNormally = true
+        }
+        runCurrent()
+        val (native, media) = created.single()
+        val lateCompletion = media.onCompletionListener
+        media.invokePreparedListener()
+        runCurrent()
+        assertTrue(media.isReallyPlaying)
+        media.invokeErrorListener(1, 0)
+        runCurrent()
+        assertEquals("hello", tts.lastSpokenText)
+        assertEquals(ShadowMediaPlayer.State.END, media.state)
+        lateCompletion.onCompletion(native)
+        runCurrent()
+        assertFalse(completedNormally)
+        assertTrue(playback.isActive)
+        playback.cancelAndJoin()
+    }
+
+    @Test fun runtimeAssetErrorWithoutLocalVoiceDoesNotCompletePrompt() = scenario { player, created ->
+        initializeTts()
+        var unavailable = false
+        var completedNormally = false
+        launch {
+            try {
+                player.playPrompt("hello", LanguageCode.EN_US, PaoPaoVoices.GREETING)
+                completedNormally = true
+            } catch (_: OfflinePromptUnavailableException) { unavailable = true }
+        }
+        runCurrent()
+        val media = created.single().second
+        media.invokePreparedListener()
+        runCurrent()
+        media.invokeErrorListener(1, 0)
+        runCurrent()
+        assertTrue(unavailable)
+        assertFalse(completedNormally)
+        assertEquals(ShadowMediaPlayer.State.END, media.state)
+    }
+
+    @Test fun missingPlaybackCompletionDoesNotAdvanceCallerAfterTimeout() = scenario { player, created ->
+        var interrupted = false
+        var completedNormally = false
+        launch {
+            try {
+                player.playPrompt("hello", LanguageCode.EN_US, PaoPaoVoices.GREETING)
+                completedNormally = true
+            } catch (_: AudioPlaybackInterruptedException) { interrupted = true }
+        }
+        runCurrent()
+        val media = created.single().second
+        media.invokePreparedListener()
+        runCurrent()
+        advanceTimeBy(30_001)
+        runCurrent()
+        assertTrue(interrupted)
+        assertFalse(completedNormally)
+        assertEquals(ShadowMediaPlayer.State.END, media.state)
+        assertNotNull(audio().lastAbandonedAudioFocusRequest)
     }
 }

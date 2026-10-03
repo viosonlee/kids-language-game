@@ -108,7 +108,8 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
         val ticket = gate.begin()
         try {
             requestAudioFocus(ticket)
-            kotlinx.coroutines.withTimeoutOrNull(30_000) { block(ticket) }
+            val completed = kotlinx.coroutines.withTimeoutOrNull(30_000) { block(ticket); true } ?: false
+            if (!completed) throw AudioPlaybackInterruptedException("Audio playback timed out")
             Unit
         } finally {
             // A cancelled older coroutine must never stop its replacement.
@@ -117,6 +118,8 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
     }
 
     private suspend fun playAsset(path: String, ticket: PlaybackGate.Ticket, volume: Float = 1f) {
+        // An asset failure must leave the ticket usable for the local TTS fallback.
+        val finished = CompletableDeferred<Unit>()
         context.assets.openFd(path).use { descriptor ->
             val player = MediaPlayer()
             mediaPlayer = player
@@ -127,12 +130,14 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
             player.setOnPreparedListener {
                 if (mediaPlayer === player && gate.isActive(ticket)) prepared.complete(Unit)
             }
-            player.setOnCompletionListener { gate.complete(ticket.id) }
+            player.setOnCompletionListener {
+                if (mediaPlayer === player && gate.isActive(ticket)) finished.complete(Unit)
+            }
             player.setOnErrorListener { _, what, extra ->
                 if (mediaPlayer === player && gate.isActive(ticket)) {
                     if (!prepared.isCompleted) {
                         prepared.completeExceptionally(IOException("Audio preparation failed: $what/$extra"))
-                    } else gate.complete(ticket.id)
+                    } else finished.completeExceptionally(IOException("Audio playback failed: $what/$extra"))
                 }
                 true
             }
@@ -145,7 +150,10 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
             if (!gate.isActive(ticket) || mediaPlayer !== player) return
             player.start()
         }
-        ticket.completion.await()
+        select<Unit> {
+            finished.onAwait { }
+            ticket.completion.onAwait { }
+        }
     }
 
     override suspend fun playVoiceAsset(audioAssetPath: String, volume: Float) {

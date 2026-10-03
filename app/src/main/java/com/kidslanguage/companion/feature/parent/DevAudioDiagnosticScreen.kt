@@ -278,7 +278,7 @@ fun DevAudioDiagnosticScreen(
                                             statusMessage = "预录发音不可用，且没有已安装的对应离线语音"
                                         } catch (_: com.kidslanguage.companion.core.audio.AudioPlaybackInterruptedException) {
                                             currentCoroutineContext().ensureActive()
-                                            statusMessage = "播放被其他音频打断，请点击重播"
+                                            statusMessage = "播放中断或超时，请点击重播"
                                         }
                                     }
                                 },
