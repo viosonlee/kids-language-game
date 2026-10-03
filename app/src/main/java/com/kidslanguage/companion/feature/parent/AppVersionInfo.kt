@@ -6,7 +6,37 @@ import androidx.compose.ui.platform.LocalContext
 import com.kidslanguage.companion.ui.theme.Neutral700
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.json.*
+
+private inline fun <T> readVersionOrNull(read: () -> T): T? = try {
+    read()
+} catch (cancelled: CancellationException) {
+    throw cancelled
+} catch (_: Exception) {
+    null
+}
+
+private fun JsonElement?.versionLabel(): String? = (this as? JsonPrimitive)
+    ?.takeIf { it.isString }?.content?.trim()?.takeIf { it.isNotEmpty() }
+
+internal fun readVersionInfo(readAppVersion: () -> String?, readAsset: (String) -> String): List<String> {
+    val appVersion = readVersionOrNull { readAppVersion()?.trim()?.takeIf { it.isNotEmpty() } } ?: "未知"
+    val contentVersion = readVersionOrNull {
+        Json.parseToJsonElement(readAsset("content/manifest.json")).jsonObject["contentVersion"].versionLabel()
+    } ?: "未知"
+    val models = readVersionOrNull {
+        val entries = Json.parseToJsonElement(readAsset("models/manifest.json")).jsonObject.getValue("models").jsonArray
+        require(entries.isNotEmpty())
+        entries.map {
+            val model = it.jsonObject
+            val language = requireNotNull(model["language"].versionLabel())
+            val version = requireNotNull(model["version"].versionLabel())
+            "$language：Vosk small $version"
+        }
+    } ?: listOf("语音模型版本：未知")
+    return listOf("应用版本：$appVersion", "内容版本：$contentVersion") + models
+}
 
 @Composable
 fun AppVersionInfo() {
@@ -14,21 +44,10 @@ fun AppVersionInfo() {
     var lines by remember { mutableStateOf(listOf("正在读取版本信息…")) }
     LaunchedEffect(context) {
         lines = withContext(Dispatchers.IO) {
-            val appVersion = runCatching {
-                context.packageManager.getPackageInfo(context.packageName, 0).versionName
-            }.getOrNull() ?: "未知"
-            val contentVersion = runCatching {
-                val source = context.assets.open("content/manifest.json").bufferedReader().use { it.readText() }
-                Json.parseToJsonElement(source).jsonObject["contentVersion"]?.jsonPrimitive?.content
-            }.getOrNull() ?: "未知"
-            val models = runCatching {
-                val source = context.assets.open("models/manifest.json").bufferedReader().use { it.readText() }
-                Json.parseToJsonElement(source).jsonObject.getValue("models").jsonArray.map {
-                    val model = it.jsonObject
-                    "${model.getValue("language").jsonPrimitive.content}：Vosk small ${model.getValue("version").jsonPrimitive.content}"
-                }
-            }.getOrElse { listOf("语音模型版本：未知") }
-            listOf("应用版本：$appVersion", "内容版本：$contentVersion") + models
+            readVersionInfo(
+                readAppVersion = { context.packageManager.getPackageInfo(context.packageName, 0).versionName },
+                readAsset = { path -> context.assets.open(path).bufferedReader().use { it.readText() } }
+            )
         }
     }
     lines.forEach { Text(it, color = Neutral700) }
