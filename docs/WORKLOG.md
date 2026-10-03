@@ -685,3 +685,10 @@
 - 全部源图片完整解码，查看 99 图联系表；对照 Git 自动确认 126 条题目只更换图片引用，文字/音频/别名/玩法不变，干扰符号可完全还原。APK 内 99 个 PNG 哈希、许可/NOTICE/清单及内容版本均匹配。
 - Python 26 项通过；Gradle test assembleDebug lintDebug --offline 成功，Debug 175 / Release 150，无失败/错误，lint 0 errors、13 warnings、2 information。
 - 新增 docs/47 与全部 126 项语义审查 JSON、同步 README，历史文档保持不变、工作日志仅追加。彩虹代表明天见、男孩代表轮到我等仍需真正场景插画和儿童理解度验证，未把位图打包视为语义验收。首页/分类装饰 Emoji 不属于本批范围，兔子角色动作未实装；未安装或发布 APK，总目标继续。
+
+## 2026-10-03 | 取消模拟器准备并清理新增文件 | By: Codex
+
+- 用户先要求采用模拟器，随后明确取消并要求删除残留，改为提供真实手机。已停止模拟器方案，不继续安装模拟器、系统镜像或创建 AVD。
+- 取消前仅下载并校验官方 commandlinetools-win-16111833_latest.zip（154,957,218 字节），解压到本次新增的 SDK/cmdline-tools/latest；模拟器程序、系统镜像、platform-tools 和 AVD 均未安装/创建。
+- 批量强制递归删除被自动策略拦截，命令未执行。随后逐项删除明确的下载文件，核验绝对路径后以不带 Force 的单目录删除清理新增工具，再删除两个空父目录。复核 build/android-tools 与 SDK/cmdline-tools 均不存在，SDK 原有 build-tools、licenses、platforms、.knownPackages 保留。
+- 本批只做用户授权的环境清理与日志追加，没有产品代码改动，不重复运行 Gradle。真机验证等待手机连接；后续需要 ADB 时仅准备真机调试工具，不恢复模拟器方案。原始审查目标仍未完成。
