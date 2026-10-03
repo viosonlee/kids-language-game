@@ -556,6 +556,41 @@ class AppNavigationJourneyTest {
         saveNativePreview("phone-diagnostic-results")
     }
 
+    @Test
+    @Config(qualifiers = "w794dp-h361dp-land-mdpi")
+    @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE)
+    fun landscapePhoneSplashKeepsTitleAndTaglineVisible() {
+        checkSplashLayout(1f, "phone-splash")
+    }
+
+    @Test
+    @Config(qualifiers = "w794dp-h361dp-land-mdpi")
+    @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE)
+    fun landscapePhoneSplashKeepsDoubleFontTextVisible() {
+        checkSplashLayout(2f, "phone-splash-double-font")
+    }
+
+    private fun checkSplashLayout(scale: Float, preview: String) {
+        compose.setContent {
+            KidsLanguageTheme {
+                CompositionLocalProvider(
+                    LocalAnimationsEnabled provides false,
+                    LocalDensity provides Density(LocalDensity.current.density, scale),
+                ) {
+                    com.kidslanguage.companion.feature.splash.SplashScreen({})
+                }
+            }
+        }
+        compose.waitUntil(5_000) {
+            compose.onAllNodesWithContentDescription("Mascot Idle").fetchSemanticsNodes().isNotEmpty()
+        }
+        saveNativePreview(preview)
+        assertWholeText("Kids Language Companion")
+        assertWholeText("听懂 · 开口 · 快乐学语言")
+        val mascot = compose.onNodeWithContentDescription("Mascot Idle").fetchSemanticsNode().boundsInRoot
+        assertTrue("Mascot lost its square layout: $mascot", kotlin.math.abs(mascot.width - mascot.height) < 2f)
+    }
+
     private fun assertWholeText(text: String) {
         val node = compose.onNodeWithText(text, useUnmergedTree = true).assertIsDisplayed()
         val layouts = mutableListOf<TextLayoutResult>()
