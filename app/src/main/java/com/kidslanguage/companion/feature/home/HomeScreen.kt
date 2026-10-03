@@ -1,5 +1,6 @@
 package com.kidslanguage.companion.feature.home
 
+import com.kidslanguage.companion.ui.theme.isCompactLandscape
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -67,6 +68,7 @@ fun HomeScreen(
     onOpenParentMode: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val compact = isCompactLandscape()
     val snapshot by viewModel.settings.collectAsState()
     val settings = snapshot?.value ?: UserSettings(soundVolume = 0f, animationEnabled = false)
     val saveError by viewModel.languageSaveError.collectAsState()
@@ -89,14 +91,14 @@ fun HomeScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Neutral50)
-            .padding(AppSpacing.xl)
+            .padding(if (compact) 12.dp else AppSpacing.xl)
     ) {
         // Parent Gate Icon in Top Right
         IconButton(
             onClick = onOpenParentMode,
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .size(64.dp)
+                .size(if (compact) 48.dp else 64.dp)
                 .clip(CircleShape)
                 .background(Primary100)
         ) {
@@ -112,7 +114,7 @@ fun HomeScreen(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 80.dp),
+                .padding(top = if (compact) 52.dp else 80.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
@@ -124,7 +126,7 @@ fun HomeScreen(
             ) {
                 MascotView(
                     state = MascotState.Idle,
-                    size = 340.dp,
+                    size = if (compact) 160.dp else 340.dp,
                     modifier = Modifier
                         .scale(if (motionEnabled) tapScale.value else 1f)
                         .clickable(
@@ -146,12 +148,12 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(AppSpacing.md))
                 Text(
                     text = "Momo Bunny 🐰",
-                    style = AppTypography.titleLarge,
+                    style = if (compact) AppTypography.titleMedium else AppTypography.titleLarge,
                     color = Primary800
                 )
                 Text(
                     text = "点我听兔兔跟泡泡打招呼哦~",
-                    style = AppTypography.bodyMedium,
+                    style = if (compact) AppTypography.labelMedium else AppTypography.bodyMedium,
                     color = Neutral700
                 )
             }
@@ -169,14 +171,14 @@ fun HomeScreen(
                 ) {
                     Text(
                         text = "选择要练习的语言",
-                        style = AppTypography.titleLarge,
+                        style = if (compact) AppTypography.titleMedium else AppTypography.titleLarge,
                         color = Neutral900
                     )
-                    Spacer(modifier = Modifier.height(AppSpacing.xl))
+                    Spacer(modifier = Modifier.height(if (compact) 12.dp else AppSpacing.xl))
 
                     BoxWithConstraints(Modifier.fillMaxWidth()) {
                         val gap = 8.dp
-                        val minimumCardWidth = 160.dp * LocalDensity.current.fontScale.coerceAtLeast(1f)
+                        val minimumCardWidth = (if (compact) 108.dp else 160.dp) * LocalDensity.current.fontScale.coerceAtLeast(1f)
                         val columns = ((maxWidth + gap) / (minimumCardWidth + gap)).toInt().coerceIn(1, 3)
                         val cardWidth = (maxWidth - gap * (columns - 1)) / columns
                         Column(verticalArrangement = Arrangement.spacedBy(gap)) {
@@ -207,6 +209,7 @@ fun HomeScreen(
 
                 PrimaryLargeButton(
                     text = "开始练习",
+                    height = if (compact) 56.dp else 80.dp,
                     icon = Icons.Default.PlayArrow,
                     onClick = { onStartPractice(selectedLanguage) },
                     modifier = Modifier.fillMaxWidth(0.75f)

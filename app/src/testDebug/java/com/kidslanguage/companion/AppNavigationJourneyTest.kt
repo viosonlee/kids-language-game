@@ -355,6 +355,10 @@ class AppNavigationJourneyTest {
         }
         startRecording()
         compose.runOnIdle { dependencies.speechRecognizerEngine.result("hello") }
+        // Recognition callbacks update the StateFlow asynchronously; await recomposition first.
+        compose.waitUntil(5_000) {
+            compose.onAllNodesWithContentDescription("Tap to Speak").fetchSemanticsNodes().size == 1
+        }
         compose.onNodeWithContentDescription("Tap to Speak").assertIsNotEnabled()
         advance(600)
         compose.onNodeWithContentDescription("Tap to Speak").assertIsNotEnabled()
@@ -458,6 +462,98 @@ class AppNavigationJourneyTest {
         compose.onNodeWithContentDescription("下一题").assertIsDisplayed().performClick()
         waitForCompletionPage()
         compose.runOnIdle { assertEquals(1, dependencies.progressRepository.attempts.size) }
+    }
+
+    @Test
+    @Config(qualifiers = "w794dp-h361dp-land-mdpi")
+    @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE)
+    fun landscapePhoneKeepsHomeAndPracticeControlsInsideViewport() {
+        launchApp()
+        fun fullyVisible(node: SemanticsNodeInteraction) {
+            node.assertIsDisplayed()
+            val bounds = node.fetchSemanticsNode().boundsInRoot
+            val root = compose.onRoot().fetchSemanticsNode().boundsInRoot
+            assertTrue("Clipped node: $bounds / $root", bounds.top >= root.top &&
+                bounds.left >= root.left && bounds.bottom <= root.bottom && bounds.right <= root.right)
+        }
+        listOf("🇯🇵", "🇨🇳", "🇺🇸", "开始练习").forEach {
+            fullyVisible(compose.onNodeWithText(it))
+        }
+        fullyVisible(compose.onNodeWithContentDescription("Mascot Idle"))
+        saveNativePreview("phone-home")
+        openCategory(LanguageCode.EN_US)
+        saveNativePreview("phone-category")
+        compose.onNodeWithText("打招呼").performClick()
+        PracticeMode.entries.forEach { fullyVisible(compose.onNodeWithText(it.title)) }
+        saveNativePreview("phone-modes")
+        compose.onNodeWithText(PracticeMode.REPEAT.title).performClick()
+        readyMicrophone()
+        fullyVisible(compose.onNodeWithContentDescription("Tap to Speak"))
+        fullyVisible(compose.onNodeWithContentDescription("Speaker"))
+        assertWholeText("hello")
+        val text = compose.onNodeWithText("hello").fetchSemanticsNode().boundsInRoot
+        val mic = compose.onNodeWithContentDescription("Tap to Speak").fetchSemanticsNode().boundsInRoot
+        assertTrue("Prompt overlaps microphone", text.bottom <= mic.top)
+        saveNativePreview("phone-repeat")
+        startRecording()
+        compose.runOnIdle { dependencies.speechRecognizerEngine.result("hello") }
+        advance(900)
+        fullyVisible(compose.onNodeWithText("下一题"))
+        saveNativePreview("phone-feedback")
+        compose.onNodeWithText("下一题").performClick()
+        waitForCompletionPage()
+        fullyVisible(compose.onNodeWithText("回主页"))
+        fullyVisible(compose.onNodeWithText("再玩一次"))
+        saveNativePreview("phone-complete")
+        compose.onNodeWithText("回主页").performClick()
+        advance(600)
+        enterPractice(PracticeMode.CHOOSE)
+        listOf("👋", "🐱", "🐶").forEach { fullyVisible(compose.onNodeWithText(it)) }
+        saveNativePreview("phone-choose")
+        compose.onNodeWithText("👋").performClick()
+        advance(900)
+        fullyVisible(compose.onNodeWithContentDescription("下一题"))
+        saveNativePreview("phone-choose-next")
+        compose.onNodeWithContentDescription("下一题").performClick()
+        waitForCompletionPage()
+    }
+
+    @Test
+    @Config(qualifiers = "w794dp-h361dp-land-mdpi")
+    @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE)
+    fun landscapePhoneBundledCategoriesFit() {
+        compose.setContent {
+            KidsLanguageTheme {
+                CompositionLocalProvider(LocalAnimationsEnabled provides false) {
+                    com.kidslanguage.companion.feature.category.CategoryScreen(
+                        language = LanguageCode.ZH_CN,
+                        contentRepository = com.kidslanguage.companion.core.content.AssetContentRepository(compose.activity),
+                        onCategorySelected = {}, onBack = {},
+                    )
+                }
+            }
+        }
+        compose.waitUntil(5_000) { compose.onAllNodesWithText("问候与礼貌").fetchSemanticsNodes().isNotEmpty() }
+        listOf("问候与礼貌", "一起玩耍", "日常习惯", "求助与表达").forEach { assertWholeText(it) }
+        saveNativePreview("phone-bundled-categories")
+    }
+
+    @Test
+    @Config(qualifiers = "w794dp-h361dp-land-mdpi")
+    @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE)
+    fun landscapePhoneDiagnosticRecordingAndResultsRemainReachable() {
+        compose.setContent {
+            KidsLanguageTheme {
+                com.kidslanguage.companion.feature.parent.DevAudioDiagnosticScreen(dependencies, {})
+            }
+        }
+        compose.waitUntil(5_000) { compose.onAllNodesWithText("こんにちは").fetchSemanticsNodes().isNotEmpty() }
+        compose.onAllNodesWithText("こんにちは")[0].performClick()
+        compose.onNodeWithText("🎙️ 开始录音测试").performScrollTo().assertIsDisplayed()
+        assertWholeText("🎙️ 开始录音测试")
+        saveNativePreview("phone-diagnostic-record")
+        compose.onNodeWithText("📊 实时诊断数据 (Live Diagnostic Output):").performScrollTo().assertIsDisplayed()
+        saveNativePreview("phone-diagnostic-results")
     }
 
     private fun assertWholeText(text: String) {

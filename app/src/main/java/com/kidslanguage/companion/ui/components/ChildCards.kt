@@ -1,5 +1,6 @@
 package com.kidslanguage.companion.ui.components
 
+import com.kidslanguage.companion.ui.theme.isCompactLandscape
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -75,6 +76,7 @@ fun LanguageCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val compact = isCompactLandscape()
     val borderColor = if (isSelected) Primary500 else Neutral300
     val borderWidth = if (isSelected) 4.dp else 2.dp
     val bgColor = if (isSelected) Primary100 else Neutral0
@@ -86,7 +88,7 @@ fun LanguageCard(
             .background(bgColor)
             .border(borderWidth, borderColor, RoundedCornerShape(AppRadius.card))
             .debouncedClickable(onClick = onClick)
-            .padding(vertical = AppSpacing.lg, horizontal = AppSpacing.xl),
+            .padding(vertical = if (compact) 8.dp else AppSpacing.lg, horizontal = if (compact) 8.dp else AppSpacing.xl),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -99,16 +101,16 @@ fun LanguageCard(
                 LanguageCode.ZH_CN -> "\uD83C\uDDE8\uD83C\uDDF3"
                 LanguageCode.EN_US -> "\uD83C\uDDFA\uD83C\uDDF8"
             }
-            Text(text = flagEmoji, fontSize = 48.sp)
+            Text(text = flagEmoji, fontSize = if (compact) 28.sp else 48.sp)
             Spacer(modifier = Modifier.height(AppSpacing.sm))
             Text(
                 text = language.displayName,
-                style = AppTypography.titleMedium,
+                style = if (compact) AppTypography.labelLarge else AppTypography.titleMedium,
                 color = if (isSelected) Primary800 else Neutral900
             )
             Text(
                 text = language.englishName,
-                style = AppTypography.bodyMedium,
+                style = if (compact) AppTypography.labelMedium else AppTypography.bodyMedium,
                 color = Neutral700
             )
         }
@@ -123,6 +125,7 @@ fun CategoryCard(
     modifier: Modifier = Modifier,
     backgroundColor: Color = Neutral0
 ) {
+    val compact = isCompactLandscape()
     Box(
         modifier = modifier
             .shadow(6.dp, RoundedCornerShape(AppRadius.card))
@@ -130,18 +133,19 @@ fun CategoryCard(
             .background(backgroundColor)
             .border(2.dp, Neutral300, RoundedCornerShape(AppRadius.card))
             .debouncedClickable(onClick = onClick)
-            .padding(AppSpacing.lg),
+            .padding(if (compact) 8.dp else AppSpacing.lg),
         contentAlignment = Alignment.Center
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = iconEmoji, fontSize = 56.sp)
-            Spacer(modifier = Modifier.height(AppSpacing.md))
+            Text(text = iconEmoji, fontSize = if (compact) 32.sp else 56.sp)
+            Spacer(modifier = Modifier.height(if (compact) 4.dp else AppSpacing.md))
             Text(
                 text = title,
-                style = AppTypography.titleMedium,
+                modifier = Modifier.fillMaxWidth(),
+                style = if (compact) AppTypography.labelLarge else AppTypography.titleMedium,
                 textAlign = TextAlign.Center,
                 color = Neutral900
             )
@@ -160,6 +164,7 @@ fun ImageOptionCard(
     smallText: Boolean = false,
     highlighted: Boolean = false,
 ) {
+    val compact = isCompactLandscape()
     val borderColor = when (isCorrect) {
         true -> AccentGreen
         false -> AccentPurple
@@ -186,7 +191,7 @@ fun ImageOptionCard(
             if (title.isNotBlank()) {
                 Spacer(modifier = Modifier.height(AppSpacing.sm))
                 Text(text = title,
-                    style = if (smallText) AppTypography.labelMedium else AppTypography.bodyLarge,
+                    style = if (smallText || compact) AppTypography.labelMedium else AppTypography.bodyLarge,
                     textAlign = TextAlign.Center, color = Neutral900)
             }
         }
@@ -234,6 +239,7 @@ fun FeedbackOverlay(
     modifier: Modifier = Modifier,
     onNext: (() -> Unit)? = null
 ) {
+    val compact = isCompactLandscape()
     AnimatedVisibility(
         visible = visible,
         enter = if (LocalAnimationsEnabled.current) fadeIn() else EnterTransition.None,
@@ -261,28 +267,28 @@ fun FeedbackOverlay(
                     .clip(RoundedCornerShape(AppRadius.dialog))
                     .background(bgColor)
                     .border(4.dp, if (isSuccess) AccentYellow else AccentPurple, RoundedCornerShape(AppRadius.dialog))
-                    .padding(AppSpacing.xl),
+                    .padding(if (compact) 12.dp else AppSpacing.xl),
                 contentAlignment = Alignment.Center
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    MascotView(state = mascotState, size = 180.dp)
-                    Spacer(modifier = Modifier.height(AppSpacing.md))
+                    MascotView(state = mascotState, size = if (compact) 88.dp else 180.dp)
+                    Spacer(modifier = Modifier.height(if (compact) 4.dp else AppSpacing.md))
                     Text(
                         text = if (isSuccess) "太棒啦！\uD83C\uDF1F" else "再试试看哦！\uD83D\uDC30",
-                        style = AppTypography.displayLarge,
+                        style = if (compact) AppTypography.titleMedium else AppTypography.displayLarge,
                         color = Neutral900
                     )
                     Spacer(modifier = Modifier.height(AppSpacing.xs))
                     Text(
                         text = if (isSuccess) "泡泡说得非常好！" else "不要着急，泡泡，跟着兔子再听一次吧",
-                        style = AppTypography.bodyMedium,
+                        style = if (compact) AppTypography.labelMedium else AppTypography.bodyMedium,
                         color = Neutral700
                     )
                     if (onNext != null) {
-                        Spacer(modifier = Modifier.height(AppSpacing.md))
+                        Spacer(modifier = Modifier.height(if (compact) 4.dp else AppSpacing.md))
                         PrimaryLargeButton(
                             text = "下一题", onClick = onNext,
                             icon = Icons.AutoMirrored.Filled.ArrowForward,

@@ -1,5 +1,6 @@
 package com.kidslanguage.companion.feature.repeat
 
+import com.kidslanguage.companion.ui.theme.isCompactLandscape
 import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -74,6 +75,7 @@ fun RepeatScreen(
     onParent: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val compact = isCompactLandscape()
     val state by viewModel.uiState.collectAsState()
 
     LifecycleResumeEffect(viewModel, language, categoryId) {
@@ -106,7 +108,7 @@ fun RepeatScreen(
             .fillMaxSize()
             .background(Neutral50)
     ) {
-        Column(Modifier.fillMaxSize().padding(AppSpacing.xl)) {
+        Column(Modifier.fillMaxSize().padding(if (compact) 12.dp else AppSpacing.xl)) {
             // Top Bar
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -116,7 +118,7 @@ fun RepeatScreen(
                 IconButton(
                     onClick = onBack,
                     modifier = Modifier
-                        .size(64.dp)
+                        .size(if (compact) 48.dp else 64.dp)
                         .clip(CircleShape)
                         .background(Primary100)
                 ) {
@@ -139,7 +141,7 @@ fun RepeatScreen(
                 SpeakerButton(
                     onClick = { viewModel.playCurrentPrompt() },
                     isPlaying = state.sessionState == SessionStepState.PromptPlaying,
-                    size = 76.dp
+                    size = if (compact) 48.dp else 76.dp
                 )
             }
 
@@ -149,7 +151,7 @@ fun RepeatScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
-                        .padding(vertical = AppSpacing.md),
+                        .padding(vertical = if (compact) 4.dp else AppSpacing.md),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     // Scene Card
@@ -161,20 +163,21 @@ fun RepeatScreen(
                             .background(Neutral0)
                             .border(2.dp, Neutral300, RoundedCornerShape(AppRadius.card))
                             .verticalScroll(rememberScrollState())
-                            .padding(AppSpacing.xl),
+                            .padding(if (compact) 12.dp else AppSpacing.xl),
                         contentAlignment = Alignment.Center
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            PracticeIllustration(currentItem.image.orEmpty(), size = 110.dp)
-                            Spacer(modifier = Modifier.height(AppSpacing.md))
+                            PracticeIllustration(currentItem.image.orEmpty(), size = if (compact) 48.dp else 110.dp)
+                            Spacer(modifier = Modifier.height(if (compact) 4.dp else AppSpacing.md))
 
                             if (state.showText) {
                                 Text(
                                     text = currentItem.text,
-                                    style = if (state.smallText) AppTypography.bodyMedium else AppTypography.displayLarge,
+                                    modifier = Modifier.fillMaxWidth(),
+                                    style = if (state.smallText) AppTypography.bodyMedium else if (compact) AppTypography.titleMedium else AppTypography.displayLarge,
                                     textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                                     color = Neutral900
                                 )
@@ -182,6 +185,7 @@ fun RepeatScreen(
                                     Spacer(modifier = Modifier.height(AppSpacing.xs))
                                     Text(
                                         text = currentItem.reading,
+                                        modifier = Modifier.fillMaxWidth(),
                                         style = if (state.smallText) AppTypography.labelMedium else AppTypography.bodyMedium,
                                         textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                                         color = Neutral700
@@ -201,7 +205,7 @@ fun RepeatScreen(
                     ) {
                         MascotView(
                             state = state.mascotState,
-                            size = 280.dp
+                            size = if (compact) 136.dp else 280.dp
                         )
                     }
                 }
@@ -236,7 +240,7 @@ fun RepeatScreen(
                                 viewModel.toggleRecording()
                             }
                         },
-                        size = 130.dp
+                        size = if (compact) 80.dp else 130.dp
                     )
 
                 }
@@ -246,11 +250,11 @@ fun RepeatScreen(
 
         if (state.sessionState == SessionStepState.Loading) {
             Column(
-                modifier = Modifier.align(Alignment.Center).background(Neutral50).padding(AppSpacing.xl),
+                modifier = Modifier.align(Alignment.Center).background(Neutral50).padding(if (compact) 12.dp else AppSpacing.xl),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 CircularProgressIndicator()
-                Spacer(modifier = Modifier.height(AppSpacing.md))
+                Spacer(modifier = Modifier.height(if (compact) 4.dp else AppSpacing.md))
                 Text("正在准备语音，首次使用请稍等…")
             }
         }

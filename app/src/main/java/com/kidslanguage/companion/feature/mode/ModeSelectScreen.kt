@@ -1,5 +1,6 @@
 package com.kidslanguage.companion.feature.mode
 
+import com.kidslanguage.companion.ui.theme.isCompactLandscape
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -44,18 +45,19 @@ fun ModeSelectScreen(
     modifier: Modifier = Modifier,
     availableModes: List<PracticeMode>? = PracticeMode.entries,
 ) {
+    val compact = isCompactLandscape()
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(Neutral50)
-            .padding(AppSpacing.xl)
+            .padding(if (compact) 12.dp else AppSpacing.xl)
     ) {
         // Top Back Button
         IconButton(
             onClick = onBack,
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .size(64.dp)
+                .size(if (compact) 48.dp else 64.dp)
                 .clip(CircleShape)
                 .background(Primary100)
         ) {
@@ -71,7 +73,7 @@ fun ModeSelectScreen(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = AppSpacing.xxl),
+                .padding(start = if (compact) 52.dp else AppSpacing.xxl, end = if (compact) 12.dp else AppSpacing.xxl),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
@@ -83,10 +85,10 @@ fun ModeSelectScreen(
             ) {
                 Text(
                     text = "选择练习玩法",
-                    style = AppTypography.displayLarge,
+                    style = if (compact) AppTypography.titleMedium else AppTypography.displayLarge,
                     color = Neutral900
                 )
-                Spacer(modifier = Modifier.height(AppSpacing.xxl))
+                Spacer(modifier = Modifier.height(if (compact) 16.dp else AppSpacing.xxl))
 
                 if (availableModes == null) {
                     androidx.compose.material3.CircularProgressIndicator()
@@ -98,17 +100,17 @@ fun ModeSelectScreen(
                     icon = Icons.Default.Mic,
                     onClick = { onModeSelected(PracticeMode.REPEAT) },
                     modifier = Modifier.fillMaxWidth(0.9f),
-                    height = 96.dp
+                    height = if (compact) 64.dp else 96.dp
                 )
 
-                Spacer(modifier = Modifier.height(AppSpacing.xl))
+                Spacer(modifier = Modifier.height(if (compact) 12.dp else AppSpacing.xl))
 
                 if (availableModes?.contains(PracticeMode.CHOOSE) == true) SecondaryLargeButton(
                     text = "听一听，选图片",
                     icon = Icons.Default.TouchApp,
                     onClick = { onModeSelected(PracticeMode.CHOOSE) },
                     modifier = Modifier.fillMaxWidth(0.9f),
-                    height = 96.dp
+                    height = if (compact) 64.dp else 96.dp
                 )
             }
 
@@ -120,7 +122,7 @@ fun ModeSelectScreen(
             ) {
                 MascotView(
                     state = MascotState.Praise,
-                    size = 320.dp
+                    size = if (compact) 180.dp else 320.dp
                 )
             }
         }

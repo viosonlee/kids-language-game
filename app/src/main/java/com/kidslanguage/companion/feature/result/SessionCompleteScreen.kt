@@ -1,5 +1,6 @@
 package com.kidslanguage.companion.feature.result
 
+import com.kidslanguage.companion.ui.theme.isCompactLandscape
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -47,6 +48,7 @@ fun SessionCompleteScreen(
     onBackHome: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val compact = isCompactLandscape()
     val scope = rememberCoroutineScope()
     LifecycleResumeEffect(promptPlayer) {
         val playback = scope.launch { promptPlayer?.playVoiceAsset(PaoPaoVoices.CELEBRATE) }
@@ -61,10 +63,10 @@ fun SessionCompleteScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Neutral50)
-            .padding(AppSpacing.xl),
+            .padding(if (compact) 12.dp else AppSpacing.xl),
         contentAlignment = Alignment.Center
     ) {
-        val mascotSize = (maxHeight * 0.38f).coerceAtMost(240.dp)
+        val mascotSize = if (compact) 88.dp else (maxHeight * 0.38f).coerceAtMost(240.dp)
         Column(
             modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -74,22 +76,22 @@ fun SessionCompleteScreen(
                 state = MascotState.Great,
                 size = mascotSize
             )
-            Spacer(modifier = Modifier.height(AppSpacing.md))
+            Spacer(modifier = Modifier.height(if (compact) 4.dp else AppSpacing.md))
             Text(
                 text = "🎉 泡泡太棒啦！练习完成！ 🎉",
-                style = AppTypography.displayLarge,
+                style = if (compact) AppTypography.titleMedium else AppTypography.displayLarge,
                 textAlign = TextAlign.Center,
                 color = Primary800
             )
             Spacer(modifier = Modifier.height(AppSpacing.xs))
             Text(
                 text = "泡泡今天表现超级棒，小兔子为你骄傲！",
-                style = AppTypography.titleMedium,
+                style = if (compact) AppTypography.labelMedium else AppTypography.titleMedium,
                 textAlign = TextAlign.Center,
                 color = Neutral700
             )
 
-            Spacer(modifier = Modifier.height(AppSpacing.lg))
+            Spacer(modifier = Modifier.height(if (compact) 8.dp else AppSpacing.lg))
 
             Row(
                 modifier = Modifier.widthIn(max = 560.dp).fillMaxWidth(),
@@ -97,6 +99,7 @@ fun SessionCompleteScreen(
             ) {
                 PrimaryLargeButton(
                     text = "再玩一次",
+                    height = if (compact) 56.dp else 80.dp,
                     icon = Icons.Default.Refresh,
                     onClick = onPlayAgain,
                     modifier = Modifier.weight(1f)
@@ -104,6 +107,7 @@ fun SessionCompleteScreen(
 
                 SecondaryLargeButton(
                     text = "回主页",
+                    height = if (compact) 56.dp else 72.dp,
                     icon = Icons.Default.Home,
                     onClick = onBackHome,
                     modifier = Modifier.weight(1f)

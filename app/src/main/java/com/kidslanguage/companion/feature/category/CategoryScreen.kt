@@ -1,5 +1,6 @@
 package com.kidslanguage.companion.feature.category
 
+import com.kidslanguage.companion.ui.theme.isCompactLandscape
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -55,6 +56,7 @@ fun CategoryScreen(
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val compact = isCompactLandscape()
     var categories by remember(language) { mutableStateOf<List<Category>>(emptyList()) }
     var loading by remember(language) { mutableStateOf(true) }
 
@@ -67,7 +69,7 @@ fun CategoryScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Neutral50)
-            .padding(AppSpacing.xl)
+            .padding(if (compact) 12.dp else AppSpacing.xl)
     ) {
         // Top Bar
         Row(
@@ -77,7 +79,7 @@ fun CategoryScreen(
             IconButton(
                 onClick = onBack,
                 modifier = Modifier
-                    .size(64.dp)
+                    .size(if (compact) 48.dp else 64.dp)
                     .clip(CircleShape)
                     .background(Primary100)
             ) {
@@ -91,7 +93,7 @@ fun CategoryScreen(
             Spacer(modifier = Modifier.width(AppSpacing.xl))
             Text(
                 text = "${language.displayName} · 选择场景",
-                style = AppTypography.titleLarge,
+                style = if (compact) AppTypography.titleMedium else AppTypography.titleLarge,
                 color = Neutral900
             )
         }
@@ -105,7 +107,7 @@ fun CategoryScreen(
         } else Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 90.dp),
+                .padding(top = if (compact) 56.dp else 90.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             LazyVerticalGrid(
@@ -113,8 +115,8 @@ fun CategoryScreen(
                 modifier = Modifier
                     .weight(0.72f)
                     .padding(end = AppSpacing.xl),
-                horizontalArrangement = Arrangement.spacedBy(AppSpacing.lg),
-                verticalArrangement = Arrangement.spacedBy(AppSpacing.lg),
+                horizontalArrangement = Arrangement.spacedBy(if (compact) 8.dp else AppSpacing.lg),
+                verticalArrangement = Arrangement.spacedBy(if (compact) 8.dp else AppSpacing.lg),
                 contentPadding = PaddingValues(8.dp)
             ) {
                 items(categories) { category ->
@@ -122,7 +124,7 @@ fun CategoryScreen(
                         title = category.title,
                         iconEmoji = category.icon,
                         onClick = { onCategorySelected(category.id) },
-                        modifier = Modifier.heightIn(min = 176.dp)
+                        modifier = Modifier.heightIn(min = if (compact) 112.dp else 176.dp)
                     )
                 }
             }
@@ -135,7 +137,7 @@ fun CategoryScreen(
             ) {
                 MascotView(
                     state = MascotState.Idle,
-                    size = 260.dp
+                    size = if (compact) 160.dp else 260.dp
                 )
             }
         }

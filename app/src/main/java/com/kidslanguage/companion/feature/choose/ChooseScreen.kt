@@ -1,5 +1,6 @@
 package com.kidslanguage.companion.feature.choose
 
+import com.kidslanguage.companion.ui.theme.isCompactLandscape
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -61,6 +62,7 @@ fun ChooseScreen(
     onSessionComplete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val compact = isCompactLandscape()
     val state by viewModel.uiState.collectAsState()
 
     LifecycleResumeEffect(viewModel, language, categoryId) {
@@ -89,7 +91,7 @@ fun ChooseScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Neutral50)
-            .padding(AppSpacing.xl)
+            .padding(if (compact) 12.dp else AppSpacing.xl)
     ) {
         // Top Bar
         Row(
@@ -100,7 +102,7 @@ fun ChooseScreen(
             IconButton(
                 onClick = onBack,
                 modifier = Modifier
-                    .size(64.dp)
+                    .size(if (compact) 48.dp else 64.dp)
                     .clip(CircleShape)
                     .background(Primary100)
             ) {
@@ -123,7 +125,7 @@ fun ChooseScreen(
             SpeakerButton(
                 onClick = { viewModel.playPrompt() },
                 isPlaying = state.sessionState == SessionStepState.PromptPlaying,
-                size = 76.dp
+                size = if (compact) 48.dp else 76.dp
             )
         }
 
@@ -131,7 +133,7 @@ fun ChooseScreen(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 80.dp, bottom = if (showNext) 104.dp else 0.dp),
+                .padding(top = if (compact) 56.dp else 80.dp, bottom = if (showNext) (if (compact) 64.dp else 104.dp) else 0.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(
@@ -142,7 +144,7 @@ fun ChooseScreen(
                 if (currentItem != null && state.showText) {
                     Text(
                         text = currentItem.text,
-                        style = if (state.smallText) AppTypography.bodyMedium else AppTypography.titleLarge,
+                        style = if (state.smallText) AppTypography.bodyMedium else if (compact) AppTypography.titleMedium else AppTypography.titleLarge,
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                         color = Primary800
                     )
@@ -155,19 +157,19 @@ fun ChooseScreen(
                             color = Neutral700
                         )
                     }
-                    Spacer(modifier = Modifier.height(AppSpacing.xl))
+                    Spacer(modifier = Modifier.height(if (compact) 8.dp else AppSpacing.xl))
                 } else {
                     Text(
                         text = "听声音，选出正确的图片吧！",
                         style = AppTypography.titleMedium,
                         color = Neutral900
                     )
-                    Spacer(modifier = Modifier.height(AppSpacing.xl))
+                    Spacer(modifier = Modifier.height(if (compact) 8.dp else AppSpacing.xl))
                 }
 
                 // Keep image cards readable when four choices or larger system fonts need more rows.
                 BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-                    val minCardWidth = 160.dp * LocalDensity.current.fontScale.coerceAtLeast(1f)
+                    val minCardWidth = (if (compact) 112.dp else 160.dp) * LocalDensity.current.fontScale.coerceAtLeast(1f)
                     val columns = ((maxWidth + AppSpacing.lg) / (minCardWidth + AppSpacing.lg))
                         .toInt().coerceIn(1, state.currentOptions.size.coerceAtLeast(1))
                     Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.lg)) {
@@ -186,7 +188,7 @@ fun ChooseScreen(
                                         isSelected = isSelected || (state.showAnswerHint && option.isCorrect),
                                         isCorrect = isCorrect,
                                         onClick = { viewModel.onOptionSelected(option) },
-                                        modifier = Modifier.weight(1f).heightIn(min = 220.dp)
+                                        modifier = Modifier.weight(1f).heightIn(min = if (compact) 112.dp else 220.dp)
                                     )
                                 }
                                 repeat(columns - rowOptions.size) { Spacer(Modifier.weight(1f)) }
@@ -206,14 +208,14 @@ fun ChooseScreen(
             ) {
                 MascotView(
                     state = state.mascotState,
-                    size = 240.dp
+                    size = if (compact) 144.dp else 240.dp
                 )
             }
         }
         if (showNext) {
             FilledIconButton(
                 onClick = viewModel::nextQuestion,
-                modifier = Modifier.align(Alignment.BottomCenter).size(88.dp),
+                modifier = Modifier.align(Alignment.BottomCenter).size(if (compact) 56.dp else 88.dp),
             ) {
                 Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "下一题", modifier = Modifier.size(48.dp))
             }

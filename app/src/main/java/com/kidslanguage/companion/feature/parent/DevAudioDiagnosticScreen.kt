@@ -1,5 +1,7 @@
 package com.kidslanguage.companion.feature.parent
 
+import androidx.compose.foundation.verticalScroll
+import com.kidslanguage.companion.ui.theme.isCompactLandscape
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -38,11 +40,13 @@ import androidx.core.content.ContextCompat
 import android.Manifest
 import android.content.pm.PackageManager
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun DevAudioDiagnosticScreen(
     container: AppDependencies,
     onBack: () -> Unit
 ) {
+    val compact = isCompactLandscape()
     val coroutineScope = rememberCoroutineScope()
     var selectedLanguage by remember { mutableStateOf(LanguageCode.JA_JP) }
     var items by remember { mutableStateOf<List<PracticeItem>>(emptyList()) }
@@ -88,7 +92,7 @@ fun DevAudioDiagnosticScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF8FAFC))
-            .padding(24.dp)
+            .padding(if (compact) 12.dp else 24.dp)
     ) {
         // Top Header
         Column(
@@ -132,7 +136,7 @@ fun DevAudioDiagnosticScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(if (compact) 8.dp else 16.dp))
 
         // Language Selector Tabs
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -158,7 +162,7 @@ fun DevAudioDiagnosticScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(if (compact) 8.dp else 16.dp))
 
         // Two-column layout: Left Item List, Right Diagnostic Testing Console
         Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -230,7 +234,8 @@ fun DevAudioDiagnosticScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(20.dp)
+                            .verticalScroll(rememberScrollState())
+                            .padding(if (compact) 12.dp else 20.dp)
                     ) {
                         // Current Item Details
                         Row(
@@ -281,17 +286,17 @@ fun DevAudioDiagnosticScreen(
                             color = Color.Gray
                         )
 
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(if (compact) 8.dp else 16.dp))
                         HorizontalDivider(color = Color(0xFFE2E8F0))
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(if (compact) 8.dp else 16.dp))
 
                         // Mic Recording Test Section
                         Text("🎙️ 现场录音与 ASR 算法评测", fontWeight = FontWeight.Bold, fontSize = 18.sp)
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        Row(
+                        FlowRow(
                             horizontalArrangement = Arrangement.spacedBy(16.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             Button(
                                 enabled = modelReady,
@@ -341,12 +346,12 @@ fun DevAudioDiagnosticScreen(
                                     containerColor = if (isRecording) Color(0xFFB91C1C) else Color(0xFF047857)
                                 ),
                                 shape = RoundedCornerShape(16.dp),
-                                modifier = Modifier.height(48.dp)
+                                modifier = Modifier.heightIn(min = 48.dp)
                             ) {
                                 Text(
                                     text = if (isRecording) "⏹ 停止录音" else "🎙️ 开始录音测试",
                                     fontWeight = FontWeight.Bold,
-                                    fontSize = 16.sp
+                                    fontSize = 16.sp, maxLines = 1, softWrap = false
                                 )
                             }
 
@@ -361,13 +366,13 @@ fun DevAudioDiagnosticScreen(
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(statusMessage, fontSize = 13.sp, color = if (isRecording) Color.Red else Color.DarkGray)
 
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(if (compact) 8.dp else 16.dp))
 
                         // Results Console Box
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .weight(1f)
+                                .heightIn(min = 140.dp)
                                 .clip(RoundedCornerShape(16.dp))
                                 .background(Color(0xFFF1F5F9))
                                 .padding(16.dp)
