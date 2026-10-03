@@ -711,3 +711,12 @@
 - 新增六项 AndroidPromptPlayer 的 API 29 Robolectric 测试，覆盖异步就绪、准备中 stop/协程取消、替代播放与旧回调、准备错误、无回调超时释放。
 - `test assembleDebug lintDebug --offline` 通过，Debug 184 + Release 156 = 340 测试无失败/错误/跳过。本地 APK 已生成，没有连接手机、使用模拟器或发布。
 - 增量文档：`docs/49_Cancellable_Async_Prompt_Preparation.md`。真机时延和焦点行为仍待验证，整体需求审查未完成。
+
+
+## 2026-10-03 | 音频焦点中断与练习恢复 | By: Codex
+
+- 发现系统拒绝焦点的返回值被忽略，以及丢失焦点被当成正常完成，可能提前触发跟读录音或自动下一题。
+- 播放器只在焦点授权后播放；中断使用专门取消信号，等待 TTS 也立即响应取消，旧焦点回调不影响新音频。
+- 两种练习提示中断后支持主动重播；跟读不自动录音；成功反馈中断保留结果并显示手动下一题，恢复应用仍等待主动操作；下一题重新读取原偏好，不修改设置。重试中断停止自动播放链。诊断页显示中断状态。
+- 新增 4 项真实 AndroidPromptPlayer shadow 事件测试与 6 项练习状态机测试；`test assembleDebug lintDebug --offline` 全量通过，Debug 194 + Release 166 = 360 项，零失败/错误/跳过。
+- 文档增量：`docs/50_Audio_Focus_Interruption_Recovery.md`。手机仍断开，无模拟器、无真机安装或公开发布；实际 OEM 来电/焦点/听感验收及整体需求审查仍未完成。

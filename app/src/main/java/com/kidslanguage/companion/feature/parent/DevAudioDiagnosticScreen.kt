@@ -32,6 +32,8 @@ import com.kidslanguage.companion.ui.theme.Neutral700
 import com.kidslanguage.companion.ui.theme.Primary100
 import com.kidslanguage.companion.ui.theme.Primary500
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.CancellationException
 import androidx.lifecycle.compose.LifecycleResumeEffect
@@ -264,12 +266,17 @@ fun DevAudioDiagnosticScreen(
                                     isRecording = false
                                     coroutineScope.launch {
                                         statusMessage = "正在播放卡通发音..."
-                                        container.promptPlayer.playPrompt(
-                                            text = current.reading ?: current.text,
-                                            language = selectedLanguage,
-                                            audioAssetPath = current.audio
-                                        )
-                                        statusMessage = "播放完毕"
+                                        try {
+                                            container.promptPlayer.playPrompt(
+                                                text = current.reading ?: current.text,
+                                                language = selectedLanguage,
+                                                audioAssetPath = current.audio
+                                            )
+                                            statusMessage = "播放完毕"
+                                        } catch (_: com.kidslanguage.companion.core.audio.AudioPlaybackInterruptedException) {
+                                            currentCoroutineContext().ensureActive()
+                                            statusMessage = "播放被其他音频打断，请点击重播"
+                                        }
                                     }
                                 },
                                 colors = ButtonDefaults.buttonColors(containerColor = com.kidslanguage.companion.ui.theme.Primary700),

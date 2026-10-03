@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import com.kidslanguage.companion.core.asr.*
+import com.kidslanguage.companion.core.audio.AudioPlaybackInterruptedException
 import com.kidslanguage.companion.core.audio.PromptPlayer
 import com.kidslanguage.companion.core.audio.SettingsPromptPlayer
 import com.kidslanguage.companion.core.content.ContentRepository
@@ -54,15 +55,19 @@ class RepeatViewModelTest {
 
     private class Player : PromptPlayer {
         var prompts = 0
+        var interruptPrompt = false
+        var interruptVoice = false
         var promptDelay = 0L
         var voices = 0
         var playing = false
         override suspend fun playPrompt(text: String, language: LanguageCode, audioAssetPath: String?) {
             prompts++
+            if (interruptPrompt) throw AudioPlaybackInterruptedException()
             delay(promptDelay)
         }
         override suspend fun playVoiceAsset(audioAssetPath: String, volume: Float) {
             voices++
+            if (interruptVoice) throw AudioPlaybackInterruptedException()
             playing = true
             delay(1000)
             playing = false
@@ -104,6 +109,55 @@ class RepeatViewModelTest {
             vm.stopSession()
             Dispatchers.resetMain()
         }
+    }
+
+    @Test fun interruptedPromptDoesNotAutoRecordAndCanBeReplayed() =
+        scenario(autoRecord = true, permission = true, promptDelay = 1000) { vm, recorder, player ->
+            player.interruptPrompt = true
+            vm.playCurrentPrompt()
+            advanceUntilIdle()
+            assertEquals(SessionStepState.ReadyToSpeak, vm.uiState.value.sessionState)
+            assertTrue(recorder.callbacks.isEmpty())
+            player.interruptPrompt = false
+            vm.playCurrentPrompt()
+            advanceUntilIdle()
+            assertTrue(recorder.recording)
+        }
+
+    @Test fun interruptedSuccessKeepsEarnedResultAndAllowsManualNext() = scenario { vm, recorder, player ->
+        player.interruptVoice = true
+        vm.toggleRecording()
+        runCurrent()
+        recorder.callbacks.last()(RecognitionResult("hello"))
+        advanceUntilIdle()
+        assertEquals(0, vm.uiState.value.currentIndex)
+        assertEquals(SessionStepState.Passed, vm.uiState.value.sessionState)
+        assertFalse(vm.uiState.value.feedbackPlaying)
+        assertFalse(vm.uiState.value.autoNext)
+        assertTrue(vm.uiState.value.showFeedbackOverlay)
+        vm.stopSession()
+        vm.loadSession(LanguageCode.EN_US, null)
+        advanceUntilIdle()
+        assertEquals(0, vm.uiState.value.currentIndex)
+        assertFalse(vm.uiState.value.autoNext)
+        vm.nextItem()
+        advanceUntilIdle()
+        assertEquals(1, vm.uiState.value.currentIndex)
+        assertTrue(vm.uiState.value.autoNext)
+    }
+
+    @Test fun interruptedRetryDoesNotLoopAndRecordingRemainsAvailable() = scenario { vm, recorder, player ->
+        player.interruptVoice = true
+        vm.toggleRecording()
+        runCurrent()
+        recorder.callbacks.last()(RecognitionResult("banana"))
+        advanceUntilIdle()
+        assertEquals(1, vm.uiState.value.attemptCount)
+        assertFalse(vm.uiState.value.feedbackPlaying)
+        assertEquals(1, player.prompts)
+        vm.toggleRecording()
+        runCurrent()
+        assertTrue(recorder.recording)
     }
 
     @Test fun mutedSuccessAdvancesAndKeepsSmallTextAfterResume() =

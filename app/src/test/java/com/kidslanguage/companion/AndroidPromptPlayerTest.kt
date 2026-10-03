@@ -2,6 +2,11 @@ package com.kidslanguage.companion
 
 import android.app.Application
 import android.media.MediaPlayer
+import android.media.AudioManager
+import android.content.Context
+import org.robolectric.Shadows.shadowOf
+import com.kidslanguage.companion.core.audio.AudioPlaybackInterruptedException
+import com.kidslanguage.companion.core.model.LanguageCode
 import com.kidslanguage.companion.core.audio.AndroidPromptPlayer
 import com.kidslanguage.companion.core.audio.PaoPaoVoices
 import kotlinx.coroutines.*
@@ -32,6 +37,78 @@ class AndroidPromptPlayerTest {
             runCurrent()
             Dispatchers.resetMain()
         }
+    }
+
+    private fun audio() = shadowOf(RuntimeEnvironment.getApplication()
+        .getSystemService(Context.AUDIO_SERVICE) as AudioManager)
+
+    @Test fun deniedFocusDoesNotCreatePlayerAndReportsInterruption() = scenario { player, created ->
+        audio().setNextFocusRequestResponse(AudioManager.AUDIOFOCUS_REQUEST_FAILED)
+        var interrupted = false
+        launch {
+            try { player.playVoiceAsset(PaoPaoVoices.GREETING) }
+            catch (_: AudioPlaybackInterruptedException) { interrupted = true }
+        }
+        runCurrent()
+        assertTrue(interrupted)
+        assertTrue(created.isEmpty())
+        assertNotNull(audio().lastAbandonedAudioFocusRequest)
+    }
+
+    @Test fun focusLossDuringPreparationReleasesAndNeverStartsLateAudio() = scenario { player, created ->
+        var interrupted = false
+        launch {
+            try { player.playVoiceAsset(PaoPaoVoices.GREETING) }
+            catch (_: AudioPlaybackInterruptedException) { interrupted = true }
+        }
+        runCurrent()
+        val (native, media) = created.single()
+        val ready = media.onPreparedListener
+        audio().lastAudioFocusRequest.listener.onAudioFocusChange(AudioManager.AUDIOFOCUS_LOSS_TRANSIENT)
+        runCurrent()
+        assertTrue(interrupted)
+        assertEquals(ShadowMediaPlayer.State.END, media.state)
+        ready.onPrepared(native)
+        runCurrent()
+        assertFalse(media.isReallyPlaying)
+    }
+
+    @Test fun oldFocusLossDoesNotInterruptReplacementButCurrentLossDoes() = scenario { player, created ->
+        launch { player.playVoiceAsset(PaoPaoVoices.GREETING) }
+        runCurrent()
+        val oldFocus = audio().lastAudioFocusRequest.listener
+        var interrupted = false
+        val replacement = launch {
+            try { player.playVoiceAsset(PaoPaoVoices.PRAISE_1) }
+            catch (_: AudioPlaybackInterruptedException) { interrupted = true }
+        }
+        runCurrent()
+        val media = created.last().second
+        media.invokePreparedListener()
+        runCurrent()
+        oldFocus.onAudioFocusChange(AudioManager.AUDIOFOCUS_LOSS)
+        runCurrent()
+        assertTrue(media.isReallyPlaying)
+        assertTrue(replacement.isActive)
+        audio().lastAudioFocusRequest.listener.onAudioFocusChange(AudioManager.AUDIOFOCUS_LOSS)
+        runCurrent()
+        assertTrue(interrupted)
+        assertEquals(ShadowMediaPlayer.State.END, media.state)
+    }
+
+    @Test fun focusLossWhileWaitingForTtsDoesNotWaitForInitializationTimeout() = scenario { player, created ->
+        var interrupted = false
+        launch {
+            try { player.playPrompt("hello", LanguageCode.EN_US) }
+            catch (_: AudioPlaybackInterruptedException) { interrupted = true }
+        }
+        runCurrent()
+        audio().lastAudioFocusRequest.listener.onAudioFocusChange(AudioManager.AUDIOFOCUS_LOSS)
+        runCurrent()
+        assertTrue(interrupted)
+        assertTrue(created.isEmpty())
+        assertNotNull(audio().lastAbandonedAudioFocusRequest)
+        assertEquals(0L, testScheduler.currentTime)
     }
 
     @Test fun preparationDoesNotBlockCallerAndAudioStartsOnlyAfterReady() = scenario { player, created ->

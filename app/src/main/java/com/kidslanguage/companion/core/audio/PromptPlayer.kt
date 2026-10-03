@@ -33,6 +33,9 @@ interface PromptPlayer {
     fun release()
 }
 
+/** System interruption, distinct from completing a prompt or leaving a screen. */
+class AudioPlaybackInterruptedException : CancellationException("Audio focus unavailable")
+
 /** Each playback owns its completion and releases resources on completion or cancellation. */
 class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as? AudioManager
@@ -70,11 +73,13 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
         val request = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
             .setAudioAttributes(audioAttributes)
             .setOnAudioFocusChangeListener({ change ->
-                if (change < 0) gate.complete(ticket.id)
+                if (change < 0) gate.interrupt(ticket)
             }, mainHandler)
             .build()
         focusRequest = request
-        audioManager?.requestAudioFocus(request)
+        if (audioManager?.requestAudioFocus(request) != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            throw AudioPlaybackInterruptedException()
+        }
     }
 
     private fun releaseResources() {
@@ -158,9 +163,14 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
                     mediaPlayer = null
                 }
             }
-            val ready = kotlinx.coroutines.withTimeoutOrNull(5_000) { ttsReady.await() } == true
+            val ready = kotlinx.coroutines.withTimeoutOrNull(5_000) {
+                select<Boolean> {
+                    ttsReady.onAwait { it }
+                    ticket.completion.onAwait { false }
+                }
+            } == true
             val engine = tts
-            if (ready && engine != null) {
+            if (ready && engine != null && gate.isActive(ticket)) {
                 val locale = when (language) {
                     LanguageCode.JA_JP -> Locale.JAPANESE
                     LanguageCode.ZH_CN -> Locale.CHINESE

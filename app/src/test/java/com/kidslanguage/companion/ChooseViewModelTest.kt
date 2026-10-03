@@ -3,6 +3,7 @@ package com.kidslanguage.companion
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
+import com.kidslanguage.companion.core.audio.AudioPlaybackInterruptedException
 import com.kidslanguage.companion.core.audio.PromptPlayer
 import com.kidslanguage.companion.core.audio.SettingsPromptPlayer
 import com.kidslanguage.companion.core.content.ContentRepository
@@ -27,15 +28,19 @@ class ChooseViewModelTest {
     private class Player : PromptPlayer {
         var voices = 0
         var prompts = 0
+        var interruptPrompt = false
+        var interruptVoice = false
         var playing = false
         override suspend fun playPrompt(text: String, language: LanguageCode, audioAssetPath: String?) {
             prompts++
+            if (interruptPrompt) throw AudioPlaybackInterruptedException()
             playing = true
             delay(100)
             playing = false
         }
         override suspend fun playVoiceAsset(audioAssetPath: String, volume: Float) {
             voices++
+            if (interruptVoice) throw AudioPlaybackInterruptedException()
             playing = true
             delay(3000)
             playing = false
@@ -73,6 +78,47 @@ class ChooseViewModelTest {
             vm.stopSession()
             Dispatchers.resetMain()
         }
+    }
+
+    @Test fun interruptedPromptCanBeReplayedWithoutBlockingChoices() = scenario { vm, player ->
+        player.interruptPrompt = true
+        vm.playPrompt()
+        advanceUntilIdle()
+        assertEquals(SessionStepState.ReadyToSpeak, vm.uiState.value.sessionState)
+        player.interruptPrompt = false
+        vm.playPrompt()
+        advanceUntilIdle()
+        assertEquals(SessionStepState.ReadyToSpeak, vm.uiState.value.sessionState)
+        vm.onOptionSelected(vm.uiState.value.currentOptions.first { it.isCorrect })
+        advanceUntilIdle()
+        assertEquals(1, vm.uiState.value.currentIndex)
+    }
+
+    @Test fun interruptedSuccessExposesManualNextWithoutRepeatingAttempt() = scenario { vm, player ->
+        player.interruptVoice = true
+        vm.onOptionSelected(vm.uiState.value.currentOptions.first { it.isCorrect })
+        advanceUntilIdle()
+        assertEquals(0, vm.uiState.value.currentIndex)
+        assertTrue(vm.uiState.value.isAnswerCorrect == true)
+        assertEquals(1, vm.uiState.value.attemptCount)
+        assertFalse(vm.uiState.value.feedbackPlaying)
+        assertFalse(vm.uiState.value.autoNext)
+        vm.nextQuestion()
+        advanceUntilIdle()
+        assertEquals(1, vm.uiState.value.currentIndex)
+        assertTrue(vm.uiState.value.autoNext)
+    }
+
+    @Test fun interruptedRetryStopsAutomaticPlaybackButAcceptsAnotherChoice() = scenario { vm, player ->
+        player.interruptVoice = true
+        vm.onOptionSelected(vm.uiState.value.currentOptions.first { !it.isCorrect })
+        advanceUntilIdle()
+        assertFalse(vm.uiState.value.feedbackPlaying)
+        assertEquals(1, player.prompts)
+        assertEquals(1, vm.uiState.value.attemptCount)
+        vm.onOptionSelected(vm.uiState.value.currentOptions.first { it.isCorrect })
+        advanceUntilIdle()
+        assertTrue(vm.uiState.value.isAnswerCorrect == true)
     }
 
     @Test fun mutedFeedbackStillReplaysWrongAnswerPromptAndAdvancesSuccess() = scenario(soundVolume = 0f) { vm, player ->

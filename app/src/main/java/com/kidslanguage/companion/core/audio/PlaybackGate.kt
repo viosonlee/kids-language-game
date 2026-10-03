@@ -19,6 +19,10 @@ internal class PlaybackGate {
 
     fun isActive(ticket: Ticket): Boolean = active === ticket && !ticket.completion.isCompleted
 
+    fun interrupt(ticket: Ticket) {
+        if (isActive(ticket)) ticket.completion.cancel(AudioPlaybackInterruptedException())
+    }
+
     fun finish(ticket: Ticket): Boolean {
         if (active !== ticket) return false
         active = null

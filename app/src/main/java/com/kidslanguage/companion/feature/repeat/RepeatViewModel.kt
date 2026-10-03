@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kidslanguage.companion.core.asr.RecognitionResult
 import com.kidslanguage.companion.core.asr.SpeechRecognizerEngine
+import com.kidslanguage.companion.core.audio.AudioPlaybackInterruptedException
 import com.kidslanguage.companion.core.audio.PromptPlayer
 import com.kidslanguage.companion.core.audio.SoundEffectManager
 import com.kidslanguage.companion.core.content.ContentRepository
@@ -29,6 +30,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.currentCoroutineContext
 import com.kidslanguage.companion.core.audio.PaoPaoVoices
 import com.kidslanguage.companion.core.audio.playSuccessFeedback
 import kotlin.random.Random
@@ -128,9 +131,10 @@ class RepeatViewModel(
             if (resume && previous.sessionState == SessionStepState.Passed) {
                 _uiState.value = _uiState.value.copy(
                     sessionState = SessionStepState.Passed, showFeedbackOverlay = true,
-                    mascotState = MascotState.Great
+                    mascotState = MascotState.Great,
+                    autoNext = previous.autoNext && settings.autoNext
                 )
-                if (settings.autoNext) nextItem()
+                if (_uiState.value.autoNext) nextItem()
                 return@launch
             }
             _uiState.value = _uiState.value.copy(sessionState = SessionStepState.PromptPlaying)
@@ -164,11 +168,21 @@ class RepeatViewModel(
                 autoNext = settings.autoNext
             )
             if (!automatic || settings.autoPlayPrompt) {
-                promptPlayer.playPrompt(
-                    text = item.text,
-                    language = LanguageCode.fromCode(item.language),
-                    audioAssetPath = item.audio
-                )
+                try {
+                    promptPlayer.playPrompt(
+                        text = item.text,
+                        language = LanguageCode.fromCode(item.language),
+                        audioAssetPath = item.audio
+                    )
+                } catch (_: AudioPlaybackInterruptedException) {
+                    currentCoroutineContext().ensureActive()
+                    _uiState.value = _uiState.value.copy(
+                        sessionState = SessionStepState.ReadyToSpeak,
+                        mascotState = MascotState.Speak
+                    )
+                    // The child has not heard a full prompt: wait for a deliberate action.
+                    return@launch
+                }
             }
             _uiState.value = _uiState.value.copy(
                 sessionState = SessionStepState.ReadyToSpeak,
@@ -296,7 +310,14 @@ class RepeatViewModel(
                 val voice = if (eval.status == EvaluationStatus.SoftPass && currentAttempts >= 3)
                     PaoPaoVoices.PRAISE_EFFORT
                 else if (Random.nextBoolean()) PaoPaoVoices.PRAISE_1 else PaoPaoVoices.PRAISE_2
-                promptPlayer.playSuccessFeedback(voice, soundEffectManager)
+                try {
+                    promptPlayer.playSuccessFeedback(voice, soundEffectManager)
+                } catch (_: AudioPlaybackInterruptedException) {
+                    currentCoroutineContext().ensureActive()
+                    // Keep the earned result; expose manual next instead of advancing silently.
+                    _uiState.value = _uiState.value.copy(feedbackPlaying = false, autoNext = false)
+                    return@launch
+                }
                 _uiState.value = _uiState.value.copy(feedbackPlaying = false)
                 if (_uiState.value.autoNext) nextItem()
             }
@@ -305,7 +326,13 @@ class RepeatViewModel(
             autoAdvanceJob?.cancel()
             autoAdvanceJob = viewModelScope.launch {
                 delay(300)
-                promptPlayer.playVoiceAsset(PaoPaoVoices.TRY_AGAIN)
+                try {
+                    promptPlayer.playVoiceAsset(PaoPaoVoices.TRY_AGAIN)
+                } catch (_: AudioPlaybackInterruptedException) {
+                    currentCoroutineContext().ensureActive()
+                    _uiState.value = _uiState.value.copy(feedbackPlaying = false)
+                    return@launch
+                }
                 _uiState.value = _uiState.value.copy(feedbackPlaying = false)
                 playCurrentPrompt()
             }
