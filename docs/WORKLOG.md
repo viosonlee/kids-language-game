@@ -702,3 +702,12 @@
 - `test assembleDebug lintDebug --offline` 通过；Debug 178、Release 150，共 328 测试通过；Lint 0 错误、13 警告、2 提示。已生成 debug APK，尚未安装本次修复包。
 - 此前仅安装 platform-tools 37.0.1 并成功覆盖升级手机 debug 1.0.0/code 1 至 1.0.2/code 3，未清数据。升级前 preferences 备份保存在 build/device-review，升级后数据逐项核验尚未完成。本次用户断开手机并要求依据现有信息处理，没有继续操作真机，也未安装或使用模拟器。
 - 增量文档：`docs/48_Compact_Landscape_Phone_Layout.md`，证据：`docs/assets/48_Phone_Layout/`。本次不调整 ASR 参数，不发布公开版本，不宣称新增兔子角色动画或完成真机验收。
+
+
+## 2026-10-03 | 提示音频异步准备与取消隔离 | By: Codex
+
+- 对照 PRD NFR-PERF-001/004、FR-AUDIO-004，发现 AndroidPromptPlayer 在 Main 中同步 prepare，音频准备期间可能阻塞返回和生命周期处理。
+- 改为 prepareAsync + 可取消等待，校验播放票据和播放器身份；退出、协程取消、快速切换后，迟到的 prepared/error 回调不会启动旧声音或干扰新播放。准备失败保留原有容错及提示音 TTS 回退，未改 ASR 参数。
+- 新增六项 AndroidPromptPlayer 的 API 29 Robolectric 测试，覆盖异步就绪、准备中 stop/协程取消、替代播放与旧回调、准备错误、无回调超时释放。
+- `test assembleDebug lintDebug --offline` 通过，Debug 184 + Release 156 = 340 测试无失败/错误/跳过。本地 APK 已生成，没有连接手机、使用模拟器或发布。
+- 增量文档：`docs/49_Cancellable_Async_Prompt_Preparation.md`。真机时延和焦点行为仍待验证，整体需求审查未完成。

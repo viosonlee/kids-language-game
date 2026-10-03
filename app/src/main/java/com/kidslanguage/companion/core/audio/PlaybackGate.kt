@@ -17,6 +17,8 @@ internal class PlaybackGate {
         active?.takeIf { it.id == id }?.completion?.complete(Unit)
     }
 
+    fun isActive(ticket: Ticket): Boolean = active === ticket && !ticket.completion.isCompleted
+
     fun finish(ticket: Ticket): Boolean {
         if (active !== ticket) return false
         active = null

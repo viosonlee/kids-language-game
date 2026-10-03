@@ -12,6 +12,8 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.selects.select
+import java.io.IOException
 import java.util.Locale
 
 object PaoPaoVoices {
@@ -105,12 +107,26 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
             player.setAudioAttributes(audioAttributes)
             player.setVolume(volume, volume)
             player.setDataSource(descriptor.fileDescriptor, descriptor.startOffset, descriptor.length)
+            val prepared = CompletableDeferred<Unit>()
+            player.setOnPreparedListener {
+                if (mediaPlayer === player && gate.isActive(ticket)) prepared.complete(Unit)
+            }
             player.setOnCompletionListener { gate.complete(ticket.id) }
-            player.setOnErrorListener { _, _, _ ->
-                gate.complete(ticket.id)
+            player.setOnErrorListener { _, what, extra ->
+                if (mediaPlayer === player && gate.isActive(ticket)) {
+                    if (!prepared.isCompleted) {
+                        prepared.completeExceptionally(IOException("Audio preparation failed: $what/$extra"))
+                    } else gate.complete(ticket.id)
+                }
                 true
             }
-            player.prepare()
+            player.prepareAsync()
+            // A stop/replacement must interrupt preparation too, even if Android never calls back.
+            select<Unit> {
+                prepared.onAwait { }
+                ticket.completion.onAwait { }
+            }
+            if (!gate.isActive(ticket) || mediaPlayer !== player) return
             player.start()
         }
         ticket.completion.await()
