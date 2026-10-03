@@ -331,7 +331,11 @@ fun DevAudioDiagnosticScreen(
                                                 if (request != generation) return@startListening
                                                 recognizedText = res.text
                                                 isRecording = false
-                                                statusMessage = if (res.isSuccess) "识别完成" else "识别出错: ${res.error}"
+                                                statusMessage = when {
+                                                    !res.isSuccess -> "识别出错: ${res.error}"
+                                                    res.text.isBlank() -> "未识别到文字，请靠近麦克风再试一次"
+                                                    else -> "识别完成"
+                                                }
                                                 
                                                 // Run evaluation algorithm
                                                 val evaluationAttempt = attemptCount
@@ -419,7 +423,7 @@ fun DevAudioDiagnosticScreen(
                                             EvaluationStatus.Pass -> Color(0xFF047857) to "Pass (通过 100%)"
                                             EvaluationStatus.SoftPass -> Color(0xFF92400E) to "SoftPass (幼儿温和辅助通过)"
                                             EvaluationStatus.Retry -> Color(0xFFB91C1C) to "Retry (建议重试)"
-                                            EvaluationStatus.NoSpeech -> Color(0xFF6B7280) to "NoSpeech (未检出有效语音)"
+                                            EvaluationStatus.NoSpeech -> Color(0xFF6B7280) to "NoSpeech (未识别到有效文字)"
                                             EvaluationStatus.Error -> Color(0xFFDC2626) to "Error (发生异常)"
                                         }
                                         Box(

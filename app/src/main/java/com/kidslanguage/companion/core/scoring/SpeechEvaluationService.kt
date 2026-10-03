@@ -48,7 +48,7 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
                 score = 0f,
                 recognizedText = "",
                 targetText = targetItem.text,
-                message = "没有听到声音哦，再试一次吧"
+                message = "还没听清，再说一次吧"
             )
         }
 
