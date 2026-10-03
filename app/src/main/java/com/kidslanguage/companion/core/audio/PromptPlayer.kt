@@ -6,6 +6,7 @@ import android.media.AudioFocusRequest
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.speech.tts.TextToSpeech
+import android.speech.tts.Voice
 import android.speech.tts.UtteranceProgressListener
 import com.kidslanguage.companion.core.model.LanguageCode
 import kotlinx.coroutines.CompletableDeferred
@@ -34,7 +35,17 @@ interface PromptPlayer {
 }
 
 /** System interruption, distinct from completing a prompt or leaving a screen. */
-class AudioPlaybackInterruptedException : CancellationException("Audio focus unavailable")
+open class AudioPlaybackInterruptedException(message: String = "Audio focus unavailable") : CancellationException(message)
+
+class OfflinePromptUnavailableException : AudioPlaybackInterruptedException("Offline prompt voice unavailable")
+
+internal fun selectOfflineVoice(voices: Set<Voice>?, language: LanguageCode): Voice? {
+    val target = Locale.forLanguageTag(language.code)
+    return voices.orEmpty().filter {
+        !it.isNetworkConnectionRequired && TextToSpeech.Engine.KEY_FEATURE_NOT_INSTALLED !in it.features.orEmpty() &&
+            it.locale.language == target.language && (it.locale.country == target.country || it.locale.country.isBlank())
+    }.sortedWith(compareBy<Voice> { it.locale.country != target.country }.thenBy { it.name }).firstOrNull()
+}
 
 /** Each playback owns its completion and releases resources on completion or cancellation. */
 class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
@@ -64,7 +75,7 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
             }
             @Deprecated("Deprecated in Java")
             override fun onError(utteranceId: String?) {
-                mainHandler.post { gate.complete(utteranceId) }
+                mainHandler.post { gate.interrupt(utteranceId, OfflinePromptUnavailableException()) }
             }
         })
     }
@@ -170,15 +181,20 @@ class AndroidPromptPlayer(private val context: Context) : PromptPlayer {
                 }
             } == true
             val engine = tts
-            if (ready && engine != null && gate.isActive(ticket)) {
-                val locale = when (language) {
-                    LanguageCode.JA_JP -> Locale.JAPANESE
-                    LanguageCode.ZH_CN -> Locale.CHINESE
-                    LanguageCode.EN_US -> Locale.ENGLISH
-                }
-                if (engine.setLanguage(locale) < 0) return@play
-                if (engine.speak(text, TextToSpeech.QUEUE_FLUSH, null, ticket.id) == TextToSpeech.SUCCESS) {
+            if (!ready || engine == null) throw OfflinePromptUnavailableException()
+            if (gate.isActive(ticket)) {
+                try {
+                    // setLanguage can choose a network default. Explicitly select an installed local voice.
+                    val voice = selectOfflineVoice(engine.voices, language) ?: throw OfflinePromptUnavailableException()
+                    if (engine.setVoice(voice) != TextToSpeech.SUCCESS ||
+                        engine.speak(text, TextToSpeech.QUEUE_FLUSH, null, ticket.id) != TextToSpeech.SUCCESS) {
+                        throw OfflinePromptUnavailableException()
+                    }
                     ticket.completion.await()
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (_: Exception) {
+                    throw OfflinePromptUnavailableException()
                 }
             }
         }

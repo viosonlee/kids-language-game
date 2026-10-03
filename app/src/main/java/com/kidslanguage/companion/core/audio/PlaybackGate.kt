@@ -1,6 +1,7 @@
 package com.kidslanguage.companion.core.audio
 
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CancellationException
 
 /** Serialized on the main thread by the Android player. */
 internal class PlaybackGate {
@@ -21,6 +22,10 @@ internal class PlaybackGate {
 
     fun interrupt(ticket: Ticket) {
         if (isActive(ticket)) ticket.completion.cancel(AudioPlaybackInterruptedException())
+    }
+
+    fun interrupt(id: String?, cause: CancellationException) {
+        active?.takeIf { it.id == id }?.completion?.cancel(cause)
     }
 
     fun finish(ticket: Ticket): Boolean {

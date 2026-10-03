@@ -30,6 +30,17 @@ class PlaybackGateTest {
         assertTrue(gate.finish(replacement))
     }
 
+    @Test fun synthesisFailureIsCancellationAndOldErrorsCannotCancelNewPrompt() {
+        val gate = PlaybackGate()
+        val old = gate.begin()
+        val current = gate.begin()
+        gate.interrupt(old.id, com.kidslanguage.companion.core.audio.OfflinePromptUnavailableException())
+        assertFalse(current.completion.isCompleted)
+        gate.interrupt(current.id, com.kidslanguage.companion.core.audio.OfflinePromptUnavailableException())
+        assertTrue(current.completion.isCancelled)
+        assertTrue(gate.finish(current))
+    }
+
     @Test fun duplicateCompletionAndNullIdsAreHarmless() {
         val gate = PlaybackGate()
         val ticket = gate.begin()

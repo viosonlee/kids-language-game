@@ -3,6 +3,13 @@ package com.kidslanguage.companion
 import android.app.Application
 import android.media.MediaPlayer
 import android.media.AudioManager
+import android.speech.tts.TextToSpeech
+import android.speech.tts.Voice
+import android.os.Looper
+import java.util.Locale
+import org.robolectric.shadows.ShadowTextToSpeech
+import com.kidslanguage.companion.core.audio.OfflinePromptUnavailableException
+import com.kidslanguage.companion.core.audio.selectOfflineVoice
 import android.content.Context
 import org.robolectric.Shadows.shadowOf
 import com.kidslanguage.companion.core.audio.AudioPlaybackInterruptedException
@@ -41,6 +48,74 @@ class AndroidPromptPlayerTest {
 
     private fun audio() = shadowOf(RuntimeEnvironment.getApplication()
         .getSystemService(Context.AUDIO_SERVICE) as AudioManager)
+
+    private fun voice(name: String, tag: String, network: Boolean = false, features: Set<String> = emptySet()) =
+        Voice(name, Locale.forLanguageTag(tag), Voice.QUALITY_NORMAL, Voice.LATENCY_NORMAL, network, features)
+
+    private fun initializeTts(): org.robolectric.shadows.ShadowTextToSpeech {
+        val shadow = shadowOf(ShadowTextToSpeech.getLastTextToSpeechInstance())
+        shadow.onInitListener.onInit(TextToSpeech.SUCCESS)
+        shadowOf(Looper.getMainLooper()).idle()
+        return shadow
+    }
+
+    @Test fun fallbackSelectsInstalledLocalVoiceInsteadOfNetworkDefault() = scenario { player, _ ->
+        val local = voice("local-en", "en-US")
+        ShadowTextToSpeech.addVoice(voice("cloud-en", "en-US", network = true))
+        ShadowTextToSpeech.addVoice(local)
+        val tts = initializeTts()
+        val playback = launch { player.playPrompt("hello", LanguageCode.EN_US, "audio/missing.mp3") }
+        runCurrent()
+        assertEquals(local, tts.currentVoice)
+        assertEquals("hello", tts.lastSpokenText)
+        playback.cancelAndJoin()
+    }
+
+    @Test fun networkOnlyOrUninstalledVoicesDoNotReceivePromptText() = scenario { player, _ ->
+        ShadowTextToSpeech.addVoice(voice("cloud-en", "en-US", network = true))
+        ShadowTextToSpeech.addVoice(voice("download-en", "en-US",
+            features = setOf(TextToSpeech.Engine.KEY_FEATURE_NOT_INSTALLED)))
+        ShadowTextToSpeech.addVoice(voice("local-ja", "ja-JP"))
+        val tts = initializeTts()
+        var unavailable = false
+        launch {
+            try { player.playPrompt("hello", LanguageCode.EN_US) }
+            catch (_: OfflinePromptUnavailableException) { unavailable = true }
+        }
+        runCurrent()
+        assertTrue(unavailable)
+        assertNull(tts.lastSpokenText)
+        assertNotNull(audio().lastAbandonedAudioFocusRequest)
+    }
+
+    @Test fun localVoiceSelectionRespectsLanguageRegionAndMissingMetadata() {
+        assertNull(selectOfflineVoice(null, LanguageCode.EN_US))
+        val generic = voice("generic", "en")
+        val exact = voice("exact", "en-US")
+        val foreignRegion = voice("other-region", "en-GB")
+        assertEquals(exact, selectOfflineVoice(setOf(generic, foreignRegion, exact), LanguageCode.EN_US))
+        assertEquals(generic, selectOfflineVoice(setOf(foreignRegion, generic), LanguageCode.EN_US))
+        assertNull(selectOfflineVoice(setOf(foreignRegion), LanguageCode.EN_US))
+        assertNull(selectOfflineVoice(setOf(exact), LanguageCode.JA_JP))
+        for (language in LanguageCode.entries) {
+            val matching = voice(language.code, language.code)
+            assertEquals(matching, selectOfflineVoice(setOf(matching), language))
+        }
+    }
+
+    @Test fun ttsInitializationFailureReportsUnavailableInsteadOfCompletingPrompt() = scenario { player, _ ->
+        val tts = shadowOf(ShadowTextToSpeech.getLastTextToSpeechInstance())
+        tts.onInitListener.onInit(TextToSpeech.ERROR)
+        shadowOf(Looper.getMainLooper()).idle()
+        var unavailable = false
+        launch {
+            try { player.playPrompt("hello", LanguageCode.EN_US) }
+            catch (_: OfflinePromptUnavailableException) { unavailable = true }
+        }
+        runCurrent()
+        assertTrue(unavailable)
+        assertNull(tts.lastSpokenText)
+    }
 
     @Test fun deniedFocusDoesNotCreatePlayerAndReportsInterruption() = scenario { player, created ->
         audio().setNextFocusRequestResponse(AudioManager.AUDIOFOCUS_REQUEST_FAILED)
