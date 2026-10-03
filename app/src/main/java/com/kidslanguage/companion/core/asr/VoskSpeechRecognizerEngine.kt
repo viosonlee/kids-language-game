@@ -96,7 +96,7 @@ class VoskSpeechRecognizerEngine internal constructor(
                         override fun onFinalResult(hypothesis: String?) =
                             finish(request, RecognitionResult(parseVoskJson(hypothesis)))
                         override fun onError(exception: Exception?) = finish(request, failure(exception?.message))
-                        override fun onTimeout() = finish(request, RecognitionResult("", error = "Timeout"))
+                        override fun onTimeout() = finishTimeout(request)
                     }, RECORDING_TIMEOUT_MILLIS)
                     if (!started) finish(request, failure("Microphone did not start"))
                 }.exceptionOrNull()?.let { finish(request, failure(it.message)) }
@@ -124,7 +124,20 @@ class VoskSpeechRecognizerEngine internal constructor(
         callback(if (cleanupError == null) result else failure(cleanupError.message))
     }
 
-    private fun disposeRecording(): Throwable? {
+    private fun finishTimeout(request: Int) {
+        if (request != generation) return
+        val callback = activeCallback ?: return
+        var result = RecognitionResult("", error = "Timeout")
+        // SpeechService sends only onTimeout at its deadline, not onFinalResult.
+        // Join its worker and invalidate queued callbacks before touching the decoder.
+        val error = disposeRecording {
+            val text = parseVoskJson(currentRecognizer?.finalResult())
+            if (text.isNotBlank()) result = RecognitionResult(text)
+        }
+        callback(if (error == null) result else failure(error.message))
+    }
+
+    private fun disposeRecording(beforeRecognizerClose: (() -> Unit)? = null): Throwable? {
         // Invalidate before any native call, which may synchronously deliver a final callback.
         generation++
         activeCallback = null
@@ -138,10 +151,11 @@ class VoskSpeechRecognizerEngine internal constructor(
             return cancelled
         }
         microphone = null
+        val finalError = cleanup { beforeRecognizerClose?.invoke() }
         val recognizer = currentRecognizer
         currentRecognizer = null
         val closeError = cleanup { recognizer?.close() }
-        return shutdownError ?: closeError
+        return shutdownError ?: finalError ?: closeError
     }
 
     private suspend fun releaseCurrentModel(): Throwable? {

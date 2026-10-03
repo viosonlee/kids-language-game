@@ -48,6 +48,9 @@ class VoskSpeechRecognizerEngineTest {
         var decodeError: Throwable? = null
         var closed = 0
         var accepted = byteArrayOf()
+        var finalJson = "{\"text\":\"hello\"}"
+        var finalError: Throwable? = null
+        var finalReads = 0
         override fun microphone(sampleRate: Float): OfflineSpeechMicrophone {
             assertEquals(16_000f, sampleRate)
             micError?.let { throw it }
@@ -57,7 +60,12 @@ class VoskSpeechRecognizerEngineTest {
             accepted = pcm
             decodeError?.let { throw it }
         }
-        override fun finalResult() = "{\"text\":\"hello\"}"
+        override fun finalResult(): String {
+            assertEquals(0, closed)
+            finalReads++
+            finalError?.let { throw it }
+            return finalJson
+        }
         override fun close() { closed++ }
     }
 
@@ -308,6 +316,7 @@ class VoskSpeechRecognizerEngineTest {
 
     @Test fun timeoutAndMalformedFinalKeepExistingEmptyResultSemantics() = scenario { f ->
         val model = f.load()
+        model.configureDecoder = { it.finalJson = "{\"text\":\"\"}" }
         f.start()
         model.decoders.last().mic.listener.onTimeout()
         assertTrue(f.results.single().isSuccess)
@@ -317,5 +326,46 @@ class VoskSpeechRecognizerEngineTest {
         model.decoders.last().mic.listener.onFinalResult("not JSON")
         assertEquals("", f.results.last().text)
         assertTrue(f.results.last().isSuccess)
+    }
+
+    @Test fun timeoutFlushesFinalTextOnceAndIgnoresOldTimeouts() = scenario { f ->
+        val model = f.load()
+        f.start()
+        val decoder = model.decoders.single()
+        decoder.mic.listener.onTimeout()
+        assertEquals("hello", f.results.single().text)
+        assertNull(f.results.single().error)
+        assertEquals(1, decoder.mic.cancelled)
+        assertEquals(1, decoder.finalReads)
+        assertEquals(1, decoder.closed)
+        f.start()
+        decoder.mic.listener.onTimeout()
+        decoder.mic.listener.onFinalResult("{\"text\":\"late\"}")
+        assertEquals(1, f.results.size)
+        assertEquals(0, model.decoders.last().finalReads)
+    }
+
+    @Test fun timeoutDoesNotReadDecoderWhenWorkerCannotStop() = scenario { f ->
+        val model = f.load()
+        f.start()
+        val decoder = model.decoders.single()
+        decoder.mic.cancelError = IllegalStateException("cancel failed")
+        decoder.mic.stopError = IllegalStateException("stop failed")
+        decoder.mic.listener.onTimeout()
+        assertFalse(f.results.single().isSuccess)
+        assertEquals(0, decoder.finalReads)
+        assertEquals(0, decoder.closed)
+        decoder.mic.cancelError = null
+    }
+
+    @Test fun timeoutDecoderFailureClosesResourcesAndReportsError() = scenario { f ->
+        val model = f.load()
+        f.start()
+        val decoder = model.decoders.single()
+        decoder.finalError = UnsatisfiedLinkError("final decode failed")
+        decoder.mic.listener.onTimeout()
+        assertFalse(f.results.single().isSuccess)
+        assertEquals(1, decoder.closed)
+        assertEquals(1, decoder.mic.shutdowns)
     }
 }

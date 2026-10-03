@@ -334,12 +334,24 @@ fun DevAudioDiagnosticScreen(
                                                 statusMessage = if (res.isSuccess) "识别完成" else "识别出错: ${res.error}"
                                                 
                                                 // Run evaluation algorithm
-                                                val eval = if (res.isSuccess && res.text.isNotBlank()) container.speechEvaluationService.evaluate(
-                                                    spokenText = res.text,
-                                                    targetItem = current,
-                                                    attemptCount = attemptCount
-                                                ) else null
-                                                evaluationResult = eval
+                                                val evaluationAttempt = attemptCount
+                                                coroutineScope.launch {
+                                                    try {
+                                                        val eval = if (res.isSuccess && res.text.isNotBlank()) container.speechEvaluationService.evaluateAsync(
+                                                            spokenText = res.text,
+                                                            targetItem = current,
+                                                            attemptCount = evaluationAttempt
+                                                        ) else null
+                                                        if (request == generation) evaluationResult = eval
+                                                    } catch (e: CancellationException) {
+                                                        throw e
+                                                    } catch (_: Exception) {
+                                                        if (request == generation) {
+                                                            evaluationResult = null
+                                                            statusMessage = "评分暂时不可用，请重试"
+                                                        }
+                                                    }
+                                                }
                                             }
                                             } catch (e: CancellationException) {
                                                 throw e

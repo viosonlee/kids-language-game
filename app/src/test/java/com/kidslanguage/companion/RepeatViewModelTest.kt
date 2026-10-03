@@ -22,6 +22,31 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class RepeatViewModelTest {
+    @Test fun leavingDuringJapaneseEvaluationDoesNotStartFeedback() {
+        val gate = CompletableDeferred<Unit>()
+        val evaluator = object : com.kidslanguage.companion.core.scoring.SpeechEvaluationService {
+            override fun evaluate(spokenText: String, targetItem: PracticeItem, attemptCount: Int): EvaluationResult =
+                error("Japanese evaluation must use the asynchronous path")
+            override suspend fun evaluateAsync(spokenText: String, targetItem: PracticeItem, attemptCount: Int): EvaluationResult {
+                gate.await()
+                return EvaluationResult(EvaluationStatus.Pass, 1f, spokenText, targetItem.text)
+            }
+        }
+        scenario(language = LanguageCode.JA_JP, evaluator = evaluator) { vm, recorder, player ->
+            vm.toggleRecording()
+            runCurrent()
+            recorder.callbacks.last()(RecognitionResult("hello"))
+            runCurrent()
+            assertEquals(SessionStepState.Evaluating, vm.uiState.value.sessionState)
+            assertFalse(vm.uiState.value.isRecording)
+            vm.stopSession()
+            gate.complete(Unit)
+            advanceUntilIdle()
+            assertEquals(0, player.voices)
+            assertFalse(vm.uiState.value.showFeedbackOverlay)
+        }
+    }
+
     private class Store : DataStore<Preferences> {
         override val data = MutableStateFlow(emptyPreferences())
         override suspend fun updateData(transform: suspend (Preferences) -> Preferences): Preferences {
@@ -80,6 +105,8 @@ class RepeatViewModelTest {
                          permission: Boolean = false, promptDelay: Long = 0,
                          soundVolume: Float = 1f, textMode: TextDisplayMode = TextDisplayMode.NORMAL,
                          choiceContent: Boolean = true,
+                         language: LanguageCode = LanguageCode.EN_US,
+                         evaluator: com.kidslanguage.companion.core.scoring.SpeechEvaluationService = ChildSpeechEvaluationService(),
                          block: suspend TestScope.(RepeatViewModel, Recorder, Player) -> Unit) = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
         val recorder = Recorder()
@@ -88,8 +115,8 @@ class RepeatViewModelTest {
         val content = object : ContentRepository {
             override suspend fun getCategories(language: LanguageCode) = emptyList<Category>()
             override suspend fun getItems(language: LanguageCode, categoryId: String?) = listOf(
-                PracticeItem("1", "en-US", "greetings", text = "hello", image = if (choiceContent) "👋" else null),
-                PracticeItem("2", "en-US", "greetings", text = "goodbye", image = if (choiceContent) "🏠" else null)
+                PracticeItem("1", language.code, "greetings", text = "hello", image = if (choiceContent) "👋" else null),
+                PracticeItem("2", language.code, "greetings", text = "goodbye", image = if (choiceContent) "🏠" else null)
             )
             override suspend fun getItemById(id: String): PracticeItem? = null
         }
@@ -99,10 +126,10 @@ class RepeatViewModelTest {
         settings.setAutoStartRecording(autoRecord)
         settings.setSoundVolume(soundVolume)
         settings.setTextDisplayMode(textMode)
-        val vm = RepeatViewModel(content, SettingsPromptPlayer(player, settings.settingsFlow), recorder, ChildSpeechEvaluationService(), settings,
+        val vm = RepeatViewModel(content, SettingsPromptPlayer(player, settings.settingsFlow), recorder, evaluator, settings,
             canRecord = { permission })
         try {
-            vm.loadSession(LanguageCode.EN_US, null)
+            vm.loadSession(language, null)
             runCurrent()
             block(vm, recorder, player)
         } finally {

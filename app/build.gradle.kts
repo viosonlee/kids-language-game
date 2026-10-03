@@ -77,6 +77,7 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges += "/META-INF/*.md"
         }
     }
 }
@@ -112,6 +113,7 @@ dependencies {
     // Offline ASR - Vosk
     implementation("com.alphacephei:vosk-android:0.3.47@aar")
     implementation("net.java.dev.jna:jna:5.13.0@aar")
+    implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.14.1")

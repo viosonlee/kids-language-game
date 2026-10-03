@@ -7,8 +7,13 @@ import java.text.Normalizer
 import java.util.Locale
 import kotlin.math.max
 import kotlin.math.min
+import com.atilika.kuromoji.ipadic.Tokenizer
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 interface SpeechEvaluationService {
+    suspend fun evaluateAsync(spokenText: String, targetItem: PracticeItem, attemptCount: Int): EvaluationResult =
+        evaluate(spokenText, targetItem, attemptCount)
     fun evaluate(
         spokenText: String,
         targetItem: PracticeItem,
@@ -17,6 +22,19 @@ interface SpeechEvaluationService {
 }
 
 class ChildSpeechEvaluationService : SpeechEvaluationService {
+    override suspend fun evaluateAsync(spokenText: String, targetItem: PracticeItem, attemptCount: Int) =
+        withContext(Dispatchers.Default) { evaluate(spokenText, targetItem, attemptCount) }
+
+    private companion object {
+        val japaneseTokenizer by lazy { Tokenizer() }
+    }
+
+    internal fun japaneseReading(text: String): String = japaneseTokenizer.tokenize(
+        Normalizer.normalize(text, Normalizer.Form.NFKC)
+    ).joinToString("") { token ->
+        // Unknown tokens retain their surface; never discard unrecognized words.
+        token.reading.takeUnless { it.isNullOrEmpty() || it == "*" } ?: token.surface
+    }.let { normalizeText(it, "ja-JP", preserveLongVowels = true) }
 
     override fun evaluate(
         spokenText: String,
@@ -54,6 +72,12 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
                 targetText = targetItem.text,
                 message = "发音很棒！"
             )
+        }
+
+        // Add only full-reading equality; keep the existing fuzzy-scoring thresholds.
+        if (targetItem.language.startsWith("ja") &&
+            japaneseReading(spokenText) == japaneseReading(targetItem.text)) {
+            return EvaluationResult(EvaluationStatus.Pass, 1f, spokenText, targetItem.text, "发音很棒！")
         }
 
         // 2. Check aliases
@@ -126,11 +150,11 @@ class ChildSpeechEvaluationService : SpeechEvaluationService {
         }
     }
 
-    private fun normalizeText(text: String, language: String): String {
+    private fun normalizeText(text: String, language: String, preserveLongVowels: Boolean = false): String {
         val english = language.startsWith("en")
         var result = Normalizer.normalize(text, Normalizer.Form.NFKC).lowercase(Locale.ROOT)
             .replace(Regex("[’']"), "")
-            .replace("ー", "")
+            .let { if (preserveLongVowels) it else it.replace("ー", "") }
             .replace(Regex("[^\\p{L}\\p{N}\\p{M}]+"), if (english) " " else "")
             .trim()
         if (result.none { it.isLetterOrDigit() }) return ""

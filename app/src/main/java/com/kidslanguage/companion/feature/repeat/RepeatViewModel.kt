@@ -272,12 +272,34 @@ class RepeatViewModel(
         val item = _uiState.value.currentItem ?: return
         val currentAttempts = _uiState.value.attemptCount + 1
 
+        if (item.language.startsWith("ja")) {
+            val request = recordingGeneration
+            _uiState.value = _uiState.value.copy(isRecording = false, sessionState = SessionStepState.Evaluating)
+            viewModelScope.launch {
+                val eval = try {
+                    evaluationService.evaluateAsync(result.text, item, currentAttempts)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (_: Exception) {
+                    if (request == recordingGeneration && sessionActive) {
+                        _uiState.value = _uiState.value.copy(sessionState = SessionStepState.ReadyToSpeak,
+                            recordingProblem = RepeatProblem.CONTENT)
+                    }
+                    return@launch
+                }
+                if (request == recordingGeneration && sessionActive) applyEvaluation(item, currentAttempts, eval)
+            }
+            return
+        }
         val eval = evaluationService.evaluate(
             spokenText = result.text,
             targetItem = item,
             attemptCount = currentAttempts
         )
+        applyEvaluation(item, currentAttempts, eval)
+    }
 
+    private fun applyEvaluation(item: PracticeItem, currentAttempts: Int, eval: EvaluationResult) {
         if (eval.status == EvaluationStatus.NoSpeech || eval.status == EvaluationStatus.Error) {
             _uiState.value = _uiState.value.copy(
                 isRecording = false,

@@ -12,6 +12,27 @@ class SpeechEvaluationServiceTest {
 
     private lateinit var service: ChildSpeechEvaluationService
 
+    @Test fun `kanji and kana with identical complete readings pass`() {
+        listOf("順番" to "じゅんばん", "眠い" to "ねむい", "明日" to "あした",
+            "一緒に遊ぼう" to "いっしょにあそぼう", "図書館" to "としょかん").forEach { (spoken, target) ->
+            val item = PracticeItem("reading", "ja-JP", "daily", text = target)
+            val result = service.evaluate(spoken, item, 1)
+            assertEquals("$spoken / $target", EvaluationStatus.Pass, result.status)
+            assertEquals(1f, result.score, 0f)
+            assertEquals(spoken, result.recognizedText)
+        }
+    }
+
+    @Test fun `reading equality preserves word order unknown words and long vowels`() {
+        listOf("猫と犬" to "犬と猫", "眠い" to "寒い", "順番xyz" to "順番",
+            "コート" to "コト").forEach { (left, right) ->
+            org.junit.Assert.assertNotEquals("$left / $right", service.japaneseReading(left), service.japaneseReading(right))
+        }
+        val item = PracticeItem("reading", "ja-JP", "daily", text = "じゅんばん")
+        assertEquals(EvaluationStatus.Retry, service.evaluate("飛行機", item, 1).status)
+        assertEquals(EvaluationStatus.NoSpeech, service.evaluate("...", item, 1).status)
+    }
+
     @Before
     fun setUp() {
         service = ChildSpeechEvaluationService()
