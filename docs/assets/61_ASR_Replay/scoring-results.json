@@ -1,0 +1,2697 @@
+{
+  "author": "Codex",
+  "date": "2026-10-03",
+  "source_commit": "bdcf5f85fbe8db39f6354642e30b5442234281cd",
+  "scorer_sha256": "a323a045a971b140528bd81a34c8d00984f678a1b5db785276c1df57b90f89db",
+  "scope": "same host-decoded transcript replayed through compiled production scorer at attempts 1, 2, 3; not new microphone attempts",
+  "summary": {
+    "zh-CN": {
+      "1": {
+        "Pass": 32
+      },
+      "2": {
+        "Pass": 32
+      },
+      "3": {
+        "Pass": 32
+      }
+    },
+    "en-US": {
+      "1": {
+        "Pass": 31,
+        "Retry": 1
+      },
+      "2": {
+        "Pass": 31,
+        "SoftPass": 1
+      },
+      "3": {
+        "Pass": 31,
+        "SoftPass": 1
+      }
+    },
+    "ja-JP": {
+      "1": {
+        "Pass": 36,
+        "Retry": 26
+      },
+      "2": {
+        "Pass": 36,
+        "Retry": 7,
+        "SoftPass": 19
+      },
+      "3": {
+        "Pass": 36,
+        "SoftPass": 26
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "zh_greet_001",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_001",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_001",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_002",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_002",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_002",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_003",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.9
+    },
+    {
+      "id": "zh_greet_003",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.9
+    },
+    {
+      "id": "zh_greet_003",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.9
+    },
+    {
+      "id": "zh_greet_004",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_004",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_004",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_005",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_005",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_005",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_006",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_006",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_006",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_007",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_007",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_007",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_008",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_008",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_greet_008",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_001",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_001",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_001",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_002",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_002",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_002",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_003",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.8
+    },
+    {
+      "id": "zh_play_003",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.8
+    },
+    {
+      "id": "zh_play_003",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.8
+    },
+    {
+      "id": "zh_play_004",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.75
+    },
+    {
+      "id": "zh_play_004",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.75
+    },
+    {
+      "id": "zh_play_004",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.75
+    },
+    {
+      "id": "zh_play_005",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_005",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_005",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_006",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_006",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_006",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_007",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_007",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_007",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_008",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_008",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_play_008",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_001",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_001",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_001",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_002",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "zh_daily_002",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "zh_daily_002",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "zh_daily_003",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_003",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_003",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_004",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_004",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_004",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_005",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_005",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_005",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_006",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_006",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_006",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_007",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_007",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_007",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_008",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_008",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_daily_008",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_001",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_001",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_001",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_002",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_002",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_002",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_003",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_003",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_003",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_004",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_004",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_004",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_005",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_005",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_005",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_006",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_006",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_006",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_007",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_007",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_007",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_008",
+      "language": "zh-CN",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_008",
+      "language": "zh-CN",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "zh_help_008",
+      "language": "zh-CN",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_001",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_001",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_001",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_002",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_002",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_002",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_003",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_003",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_003",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_004",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_004",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_004",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_005",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_005",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_005",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_006",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_006",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_006",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_007",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_007",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_007",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_008",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_008",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_greet_008",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_001",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_001",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_001",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_002",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_002",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_002",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_003",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_003",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_003",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_004",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_004",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_004",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_005",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_005",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_005",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_006",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_006",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_006",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_007",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_007",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_007",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_008",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_008",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_play_008",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_001",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.6153846
+    },
+    {
+      "id": "en_daily_001",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.6153846
+    },
+    {
+      "id": "en_daily_001",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.6153846
+    },
+    {
+      "id": "en_daily_002",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_002",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_002",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_003",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_003",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_003",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_004",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.6153846
+    },
+    {
+      "id": "en_daily_004",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.6153846
+    },
+    {
+      "id": "en_daily_004",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.6153846
+    },
+    {
+      "id": "en_daily_005",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_005",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_005",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_006",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.7777778
+    },
+    {
+      "id": "en_daily_006",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.7777778
+    },
+    {
+      "id": "en_daily_006",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.7777778
+    },
+    {
+      "id": "en_daily_007",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.36363637
+    },
+    {
+      "id": "en_daily_007",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.36363637
+    },
+    {
+      "id": "en_daily_007",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "en_daily_008",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_008",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_daily_008",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_001",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_001",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_001",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_002",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_002",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_002",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_003",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_003",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_003",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_004",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_004",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_004",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_005",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_005",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_005",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_006",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.9090909
+    },
+    {
+      "id": "en_help_006",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.9090909
+    },
+    {
+      "id": "en_help_006",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.9090909
+    },
+    {
+      "id": "en_help_007",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_007",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_007",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "en_help_008",
+      "language": "en-US",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.72727275
+    },
+    {
+      "id": "en_help_008",
+      "language": "en-US",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.72727275
+    },
+    {
+      "id": "en_help_008",
+      "language": "en-US",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.72727275
+    },
+    {
+      "id": "ja_greet_001",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_001",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_001",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_002",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_002",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_002",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_003",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_003",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_003",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_004",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_004",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_004",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_005",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.19999999
+    },
+    {
+      "id": "ja_greet_005",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Retry",
+      "score": 0.19999999
+    },
+    {
+      "id": "ja_greet_005",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_greet_006",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_006",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_006",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_007",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.0
+    },
+    {
+      "id": "ja_greet_007",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Retry",
+      "score": 0.0
+    },
+    {
+      "id": "ja_greet_007",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_greet_008",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_008",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_008",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_009",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_009",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_009",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_010",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_010",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_010",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_011",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_greet_011",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_greet_011",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_greet_012",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_012",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_012",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_013",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_013",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_013",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_014",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_014",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_014",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_greet_015",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.5
+    },
+    {
+      "id": "ja_greet_015",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_greet_015",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_play_001",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_play_001",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_play_001",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_play_002",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_play_002",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_play_002",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_play_003",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_play_003",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_play_003",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_play_004",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_play_004",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_play_004",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_play_005",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_play_005",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_play_005",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_play_006",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.0
+    },
+    {
+      "id": "ja_play_006",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Retry",
+      "score": 0.0
+    },
+    {
+      "id": "ja_play_006",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_play_007",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.0
+    },
+    {
+      "id": "ja_play_007",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Retry",
+      "score": 0.0
+    },
+    {
+      "id": "ja_play_007",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_play_008",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_play_008",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_play_008",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_play_009",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.75
+    },
+    {
+      "id": "ja_play_009",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.75
+    },
+    {
+      "id": "ja_play_009",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.75
+    },
+    {
+      "id": "ja_play_010",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_play_010",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_play_010",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_play_011",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.19999999
+    },
+    {
+      "id": "ja_play_011",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Retry",
+      "score": 0.19999999
+    },
+    {
+      "id": "ja_play_011",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_play_012",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.85714287
+    },
+    {
+      "id": "ja_play_012",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.85714287
+    },
+    {
+      "id": "ja_play_012",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.85714287
+    },
+    {
+      "id": "ja_play_013",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.125
+    },
+    {
+      "id": "ja_play_013",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Retry",
+      "score": 0.125
+    },
+    {
+      "id": "ja_play_013",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_play_014",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.5
+    },
+    {
+      "id": "ja_play_014",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_play_014",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_play_015",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.25
+    },
+    {
+      "id": "ja_play_015",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.25
+    },
+    {
+      "id": "ja_play_015",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_001",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.71428573
+    },
+    {
+      "id": "ja_daily_001",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.71428573
+    },
+    {
+      "id": "ja_daily_001",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.71428573
+    },
+    {
+      "id": "ja_daily_002",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_002",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_002",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_003",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_003",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_003",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_004",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.6
+    },
+    {
+      "id": "ja_daily_004",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.6
+    },
+    {
+      "id": "ja_daily_004",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.6
+    },
+    {
+      "id": "ja_daily_005",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_005",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_005",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_006",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.39999998
+    },
+    {
+      "id": "ja_daily_006",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.39999998
+    },
+    {
+      "id": "ja_daily_006",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_007",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_007",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_007",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_008",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_008",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_008",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_009",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.625
+    },
+    {
+      "id": "ja_daily_009",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.625
+    },
+    {
+      "id": "ja_daily_009",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.625
+    },
+    {
+      "id": "ja_daily_010",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_010",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_010",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_011",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_011",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_011",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_012",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_012",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_012",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_013",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_013",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_013",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_daily_014",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_daily_014",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_daily_014",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_daily_015",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_015",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_015",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_daily_016",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_daily_016",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_daily_016",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_help_001",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_help_001",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_help_001",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_help_002",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_help_002",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_help_002",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_help_003",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_help_003",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_help_003",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_help_004",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.8
+    },
+    {
+      "id": "ja_help_004",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.8
+    },
+    {
+      "id": "ja_help_004",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.8
+    },
+    {
+      "id": "ja_help_005",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.5
+    },
+    {
+      "id": "ja_help_005",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_help_005",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_help_006",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_help_006",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_help_006",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_help_007",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.16666669
+    },
+    {
+      "id": "ja_help_007",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Retry",
+      "score": 0.16666669
+    },
+    {
+      "id": "ja_help_007",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_help_008",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_help_008",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_help_008",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_help_009",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_help_009",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_help_009",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_help_010",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.39999998
+    },
+    {
+      "id": "ja_help_010",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.39999998
+    },
+    {
+      "id": "ja_help_010",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_help_011",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Retry",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_help_011",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "SoftPass",
+      "score": 0.3333333
+    },
+    {
+      "id": "ja_help_011",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "SoftPass",
+      "score": 0.5
+    },
+    {
+      "id": "ja_help_012",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_help_012",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_help_012",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_help_013",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_help_013",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_help_013",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.6666666
+    },
+    {
+      "id": "ja_help_014",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_help_014",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_help_014",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_help_015",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_help_015",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_help_015",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 1.0
+    },
+    {
+      "id": "ja_help_016",
+      "language": "ja-JP",
+      "attempt": 1,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_help_016",
+      "language": "ja-JP",
+      "attempt": 2,
+      "status": "Pass",
+      "score": 0.95
+    },
+    {
+      "id": "ja_help_016",
+      "language": "ja-JP",
+      "attempt": 3,
+      "status": "Pass",
+      "score": 0.95
+    }
+  ]
+}

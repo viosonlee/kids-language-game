@@ -1,0 +1,1096 @@
+{
+  "scope": "bundled synthetic reference audio; host decoder; no microphone; not application scoring",
+  "vosk_version": "0.3.45",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "sample_rate": 16000,
+  "chunk_ms": 100,
+  "added_silence_seconds": 0,
+  "ffmpeg": "ffmpeg version 8.1.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+  "languages": [
+    {
+      "language": "ja-JP",
+      "model_version": "0.22",
+      "model_sha256": "efa092d280153a77615e9e0c7d7283e93e600de3d19d3bec686c57ef19d52eac",
+      "count": 62,
+      "empty_count": 0,
+      "reference_match_count": 16,
+      "items": [
+        {
+          "id": "ja_greet_001",
+          "target": "おはよう",
+          "aliases": [
+            "おはよー",
+            "おはようございます"
+          ],
+          "audio": "audio/ja/ja_greet_001.mp3",
+          "sha256": "afed635971bef0299128335f7f6c0481a1e2db32b80e6881c1eabaa036f11336",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.6484952999962843,
+          "endpoint_texts": [],
+          "final_text": "おはよう",
+          "transcript": "おはよう",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_greet_002",
+          "target": "ありがとう",
+          "aliases": [
+            "ありがと",
+            "ありがとうございます"
+          ],
+          "audio": "audio/ja/ja_greet_002.mp3",
+          "sha256": "13fcf0231fa90e4b0cbffa81c3037c631ed071cdcd4129142d1c1f3c78e5a0be",
+          "audio_seconds": 1.944,
+          "decode_seconds": 0.9718709000007948,
+          "endpoint_texts": [],
+          "final_text": "ありがとう",
+          "transcript": "ありがとう",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_greet_003",
+          "target": "ごめんね",
+          "aliases": [
+            "ごめんなさい",
+            "ごめん"
+          ],
+          "audio": "audio/ja/ja_greet_003.mp3",
+          "sha256": "d96a49153f3a079c0c00ba4f28d1c5dbe4b3e5850eb4a764ee744ffa66290290",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.1468072999996366,
+          "endpoint_texts": [
+            "ごめん ね"
+          ],
+          "final_text": "",
+          "transcript": "ごめん ね",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_greet_004",
+          "target": "どうぞ",
+          "aliases": [
+            "どーぞ"
+          ],
+          "audio": "audio/ja/ja_greet_004.mp3",
+          "sha256": "40995bab412e90d4b96f0f39ce9c4ee6b8f2de8aa8a1f0146bef7d7783203314",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.1217403999980888,
+          "endpoint_texts": [
+            "どうぞ"
+          ],
+          "final_text": "",
+          "transcript": "どうぞ",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_greet_005",
+          "target": "こんにちは",
+          "aliases": [
+            "こんにちわ"
+          ],
+          "audio": "audio/ja/ja_greet_005.mp3",
+          "sha256": "eb2f37d4704f2b47711027867d52450c0574e5143ee9ff0875e1c340ded36e15",
+          "audio_seconds": 1.896,
+          "decode_seconds": 0.9985250000027008,
+          "endpoint_texts": [],
+          "final_text": "今日 は",
+          "transcript": "今日 は",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_greet_006",
+          "target": "さようなら",
+          "aliases": [
+            "さよなら",
+            "バイバイ"
+          ],
+          "audio": "audio/ja/ja_greet_006.mp3",
+          "sha256": "4d93a36284ef79c7a0aef9a0aedf8d8a395b8f2d3bd7703e4ee66f0687022b6c",
+          "audio_seconds": 2.016,
+          "decode_seconds": 0.9346709000019473,
+          "endpoint_texts": [],
+          "final_text": "さようなら",
+          "transcript": "さようなら",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_greet_007",
+          "target": "バイバイ",
+          "aliases": [
+            "ばいばいー"
+          ],
+          "audio": "audio/ja/ja_greet_007.mp3",
+          "sha256": "6b297f6fbccedc4175a20f2bd3aef977a34e502b8ff097499395a6995e6743e6",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.0593459000010625,
+          "endpoint_texts": [],
+          "final_text": "売買",
+          "transcript": "売買",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_greet_008",
+          "target": "いただきます",
+          "aliases": [
+            "いただきまーす"
+          ],
+          "audio": "audio/ja/ja_greet_008.mp3",
+          "sha256": "f59fcfe78b31880a2f0e7cdf0b321c8228c33266a241134b346b854e1641a0ad",
+          "audio_seconds": 2.088,
+          "decode_seconds": 1.0818226999981562,
+          "endpoint_texts": [
+            "いただき ます"
+          ],
+          "final_text": "",
+          "transcript": "いただき ます",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_greet_009",
+          "target": "ごちそうさま",
+          "aliases": [
+            "ごちそうさまでした",
+            "ごちそーさま"
+          ],
+          "audio": "audio/ja/ja_greet_009.mp3",
+          "sha256": "27275975307f547155635cd653d5672d5596f429e292d1f8876ef958dc2f6a40",
+          "audio_seconds": 2.136,
+          "decode_seconds": 1.4478042999980971,
+          "endpoint_texts": [],
+          "final_text": "ごちそうさま",
+          "transcript": "ごちそうさま",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_greet_010",
+          "target": "よろしくね",
+          "aliases": [
+            "よろしく",
+            "よろしくおねがいします"
+          ],
+          "audio": "audio/ja/ja_greet_010.mp3",
+          "sha256": "cf56b5428ad911488119165ea88b430e64c27fb8475d404ab3c55fc8d32c02a5",
+          "audio_seconds": 2.016,
+          "decode_seconds": 1.479110899999796,
+          "endpoint_texts": [
+            "よろしく ね"
+          ],
+          "final_text": "",
+          "transcript": "よろしく ね",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_greet_011",
+          "target": "またあした",
+          "aliases": [
+            "また明日",
+            "またね"
+          ],
+          "audio": "audio/ja/ja_greet_011.mp3",
+          "sha256": "da802cadfeff19b835bb3a67f582217a4c8efd1d314abd8ff8c9e88910e41e18",
+          "audio_seconds": 2.064,
+          "decode_seconds": 1.1281836999987718,
+          "endpoint_texts": [],
+          "final_text": "また 明日",
+          "transcript": "また 明日",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_greet_012",
+          "target": "いいよ",
+          "aliases": [
+            "いーよ",
+            "いいですよ"
+          ],
+          "audio": "audio/ja/ja_greet_012.mp3",
+          "sha256": "b8c6f1a4665671c8949100646344ad4634d85bf36a0eaf8c3f6c0f8159b878d6",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.134262999999919,
+          "endpoint_texts": [
+            "いい よ"
+          ],
+          "final_text": "",
+          "transcript": "いい よ",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_greet_013",
+          "target": "だめ",
+          "aliases": [
+            "だめだよ",
+            "いけません"
+          ],
+          "audio": "audio/ja/ja_greet_013.mp3",
+          "sha256": "9f7d05fa17fac6c315c742883702fe491178e4db35a86cee7d5444e68ea934ad",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.523266700001841,
+          "endpoint_texts": [
+            "ダメ"
+          ],
+          "final_text": "",
+          "transcript": "ダメ",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_greet_014",
+          "target": "はい",
+          "aliases": [
+            "はーい"
+          ],
+          "audio": "audio/ja/ja_greet_014.mp3",
+          "sha256": "e310de0e9efb82af65c7cec93cfa4da7fb2b4cd5aef882ac0fd025f6b169d0cf",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.0187022000027355,
+          "endpoint_texts": [
+            "はい"
+          ],
+          "final_text": "",
+          "transcript": "はい",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_greet_015",
+          "target": "おねがい",
+          "aliases": [
+            "おねがいします",
+            "たのむね"
+          ],
+          "audio": "audio/ja/ja_greet_015.mp3",
+          "sha256": "cc2466e44c38fff5b7e60709bab9d3329e82fb054779f89cd4b2478971600a35",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.044515900000988,
+          "endpoint_texts": [],
+          "final_text": "お 願い",
+          "transcript": "お 願い",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_001",
+          "target": "いっしょにあそぼう",
+          "aliases": [
+            "いっしょにあそぼ",
+            "あそぼう"
+          ],
+          "audio": "audio/ja/ja_play_001.mp3",
+          "sha256": "7b04fd5df642152b803e153fa089658be219d5e81b04ac487d172624d49879fe",
+          "audio_seconds": 2.328,
+          "decode_seconds": 1.127884699999413,
+          "endpoint_texts": [],
+          "final_text": "一緒 に あそぼう",
+          "transcript": "一緒 に あそぼう",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_002",
+          "target": "いれて",
+          "aliases": [
+            "いれてー",
+            "いれてください"
+          ],
+          "audio": "audio/ja/ja_play_002.mp3",
+          "sha256": "5aa2cbf38edc1b809b51a5aeedfa1e2aabdddd6f330a903fc54b59b0d7014f9f",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.5465604999990319,
+          "endpoint_texts": [],
+          "final_text": "入れ て",
+          "transcript": "入れ て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_003",
+          "target": "かして",
+          "aliases": [
+            "かしてー",
+            "かしてください"
+          ],
+          "audio": "audio/ja/ja_play_003.mp3",
+          "sha256": "2ed6ee207f5ec521db6925294705d7f8803f14c4b2a5bd312f787bf0d524425f",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.7557210000013583,
+          "endpoint_texts": [],
+          "final_text": "かつて",
+          "transcript": "かつて",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_004",
+          "target": "まって",
+          "aliases": [
+            "まってー",
+            "ちょっとまって"
+          ],
+          "audio": "audio/ja/ja_play_004.mp3",
+          "sha256": "378c08c0aac94c60a53c77ad56f489e7991600f0e43a36bebd85f21c8435761f",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.6536145999998553,
+          "endpoint_texts": [],
+          "final_text": "待っ て",
+          "transcript": "待っ て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_005",
+          "target": "もういっかい",
+          "aliases": [
+            "もう１回",
+            "もういちど"
+          ],
+          "audio": "audio/ja/ja_play_005.mp3",
+          "sha256": "17b5d3daf878b10c7eeeeb182585de5e0dc411d8cbbef0306a790494c80947d6",
+          "audio_seconds": 2.088,
+          "decode_seconds": 1.0408050999976695,
+          "endpoint_texts": [],
+          "final_text": "もう 一 回",
+          "transcript": "もう 一 回",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_006",
+          "target": "つぎぼく",
+          "aliases": [
+            "つぎわたし",
+            "つぎじぶん"
+          ],
+          "audio": "audio/ja/ja_play_006.mp3",
+          "sha256": "aa3317e802e569db1fe9f855a7045e4498afdc0868a9a1ea7ab6a295916421a9",
+          "audio_seconds": 1.92,
+          "decode_seconds": 0.9895041999989189,
+          "endpoint_texts": [],
+          "final_text": "次 木",
+          "transcript": "次 木",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_007",
+          "target": "じゅんばん",
+          "aliases": [
+            "じゅんばんだよ",
+            "ならんで"
+          ],
+          "audio": "audio/ja/ja_play_007.mp3",
+          "sha256": "2d2397bb95de2da6f4f669006e8f7f52e0626a0547a542f798cf0e58e699cf96",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.008338100000401,
+          "endpoint_texts": [],
+          "final_text": "順番",
+          "transcript": "順番",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_008",
+          "target": "かわりばんこ",
+          "aliases": [
+            "こうたい",
+            "じゅんばんこ"
+          ],
+          "audio": "audio/ja/ja_play_008.mp3",
+          "sha256": "ebac71b99c5f6ee2b3746c6ea82d788fb207a148b2a57c9c4aaf873fe59a7896",
+          "audio_seconds": 2.136,
+          "decode_seconds": 0.8278830999988713,
+          "endpoint_texts": [],
+          "final_text": "変わり 万 個",
+          "transcript": "変わり 万 個",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_009",
+          "target": "これみて",
+          "aliases": [
+            "みてみて",
+            "ほらみて"
+          ],
+          "audio": "audio/ja/ja_play_009.mp3",
+          "sha256": "1b083b8336d9c2902a76ec0c363ddc3c5a2bc75601f3c907f3ca56042ead6b9c",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.7398329999996349,
+          "endpoint_texts": [],
+          "final_text": "これ 見 て",
+          "transcript": "これ 見 て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_010",
+          "target": "すごいね",
+          "aliases": [
+            "すごーい",
+            "かっこいい"
+          ],
+          "audio": "audio/ja/ja_play_010.mp3",
+          "sha256": "3073b0c9ed7e65598682208882df0b6ff50f690ee902648f82d3a28805f6f638",
+          "audio_seconds": 1.944,
+          "decode_seconds": 1.1378877000024659,
+          "endpoint_texts": [
+            "すごい ね"
+          ],
+          "final_text": "",
+          "transcript": "すごい ね",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_play_011",
+          "target": "おもしろい",
+          "aliases": [
+            "たのしい",
+            "おもしろーい"
+          ],
+          "audio": "audio/ja/ja_play_011.mp3",
+          "sha256": "d0609e412107602975be36474fce55e230c5b833fdfedaf0eda3833ec9aa9d59",
+          "audio_seconds": 1.896,
+          "decode_seconds": 0.7735134999966249,
+          "endpoint_texts": [],
+          "final_text": "面白い",
+          "transcript": "面白い",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_012",
+          "target": "おもちゃかして",
+          "aliases": [
+            "くるまかして",
+            "かして"
+          ],
+          "audio": "audio/ja/ja_play_012.mp3",
+          "sha256": "26a7faa4d2eb7942adead2ae0ba99876df68c8259f8ec6174a7bdee447be79a5",
+          "audio_seconds": 2.112,
+          "decode_seconds": 1.5306412999998429,
+          "endpoint_texts": [],
+          "final_text": "おもちゃ 化 し て",
+          "transcript": "おもちゃ 化 し て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_013",
+          "target": "いっしょにいこう",
+          "aliases": [
+            "いこー",
+            "いっしょにいこ"
+          ],
+          "audio": "audio/ja/ja_play_013.mp3",
+          "sha256": "f061d2b8c410014782f442f09fc5545ed2ed09493764ff8420c3796929179be8",
+          "audio_seconds": 2.208,
+          "decode_seconds": 0.9490705999996862,
+          "endpoint_texts": [],
+          "final_text": "一緒 に 移行",
+          "transcript": "一緒 に 移行",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_014",
+          "target": "おにごっこしよう",
+          "aliases": [
+            "おにごっこ",
+            "あそぼう"
+          ],
+          "audio": "audio/ja/ja_play_014.mp3",
+          "sha256": "a62239dfdedeb8e09ecaa7ae9686003f69cf58a432ddc329a92154753d17ca0c",
+          "audio_seconds": 2.328,
+          "decode_seconds": 1.4022138000000268,
+          "endpoint_texts": [],
+          "final_text": "鬼ごっこ し を",
+          "transcript": "鬼ごっこ し を",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_play_015",
+          "target": "すなばであそぼう",
+          "aliases": [
+            "すなあそび",
+            "すなばいこう"
+          ],
+          "audio": "audio/ja/ja_play_015.mp3",
+          "sha256": "78c1cb53c3542ad9a5c893cdcb2b22a29d33539943b5a33bb4c4f567b86b7508",
+          "audio_seconds": 2.4,
+          "decode_seconds": 1.0662059000023874,
+          "endpoint_texts": [],
+          "final_text": "砂場 で 遊ぼ",
+          "transcript": "砂場 で 遊ぼ",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_001",
+          "target": "おみずください",
+          "aliases": [
+            "おみず",
+            "みずください"
+          ],
+          "audio": "audio/ja/ja_daily_001.mp3",
+          "sha256": "5054a3f1661e16b28e320157c33a9806ab5b000bbdfb572aa37dcee93178f461",
+          "audio_seconds": 2.232,
+          "decode_seconds": 1.4061543999996502,
+          "endpoint_texts": [
+            "お 水 ください"
+          ],
+          "final_text": "",
+          "transcript": "お 水 ください",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_002",
+          "target": "てをあらって",
+          "aliases": [
+            "てをあらう",
+            "てあらい"
+          ],
+          "audio": "audio/ja/ja_daily_002.mp3",
+          "sha256": "6e0111347c7074412c29a3c7e0f1b9013887fec1ca43146611bf1a6c7556895c",
+          "audio_seconds": 2.136,
+          "decode_seconds": 1.2654072000004817,
+          "endpoint_texts": [],
+          "final_text": "手 を 洗っ て",
+          "transcript": "手 を 洗っ て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_003",
+          "target": "すわって",
+          "aliases": [
+            "すわる",
+            "おすわり"
+          ],
+          "audio": "audio/ja/ja_daily_003.mp3",
+          "sha256": "cc13295e0c4d98c4d2c42ea73174049ae32f87e631b1e2a43ff515c252393498",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.070977800001856,
+          "endpoint_texts": [],
+          "final_text": "座っ て",
+          "transcript": "座っ て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_004",
+          "target": "あつまって",
+          "aliases": [
+            "あつまる",
+            "しゅうごう"
+          ],
+          "audio": "audio/ja/ja_daily_004.mp3",
+          "sha256": "47b03eb4331697bc85f453230a84c925eb9481955665c3c5f89471eca7fb212b",
+          "audio_seconds": 1.944,
+          "decode_seconds": 0.9120490999994217,
+          "endpoint_texts": [],
+          "final_text": "集まっ て",
+          "transcript": "集まっ て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_005",
+          "target": "ならんで",
+          "aliases": [
+            "ならぶ",
+            "れつにならぶ"
+          ],
+          "audio": "audio/ja/ja_daily_005.mp3",
+          "sha256": "ea7195a46d2eb4c08cb062d1a576efbe0fd83bbb6d174bce617d3b8291492e01",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.9033597000016016,
+          "endpoint_texts": [],
+          "final_text": "並ん で",
+          "transcript": "並ん で",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_006",
+          "target": "かたづけて",
+          "aliases": [
+            "おかたづけ",
+            "かたづけ"
+          ],
+          "audio": "audio/ja/ja_daily_006.mp3",
+          "sha256": "cc89adaadd8fca4f6faa314a6020f2c7943ba85511bf300cedbfb3f293d23ed5",
+          "audio_seconds": 2.04,
+          "decode_seconds": 1.0095099999962258,
+          "endpoint_texts": [],
+          "final_text": "片付け て",
+          "transcript": "片付け て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_007",
+          "target": "おきがえして",
+          "aliases": [
+            "きがえて",
+            "おきがえ"
+          ],
+          "audio": "audio/ja/ja_daily_007.mp3",
+          "sha256": "af112f4ebbe810160f4d90ac81c991fc0811ee2682428f0aabd0bc3390e49ae8",
+          "audio_seconds": 2.064,
+          "decode_seconds": 0.9763865999993868,
+          "endpoint_texts": [],
+          "final_text": "お 着替え し て",
+          "transcript": "お 着替え し て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_008",
+          "target": "くつをはいて",
+          "aliases": [
+            "くつはく",
+            "くつはいて"
+          ],
+          "audio": "audio/ja/ja_daily_008.mp3",
+          "sha256": "1ccb9dbcf69bbca17ec4a9f6f6043c147e8edd2bd743cb4693ff01186531d54c",
+          "audio_seconds": 2.136,
+          "decode_seconds": 1.0209927999967476,
+          "endpoint_texts": [],
+          "final_text": "靴 を 履い て",
+          "transcript": "靴 を 履い て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_009",
+          "target": "ぼうしをかぶって",
+          "aliases": [
+            "ぼうしかぶる",
+            "ぼうし"
+          ],
+          "audio": "audio/ja/ja_daily_009.mp3",
+          "sha256": "a1126bcbd320c940f084f24ccaa7354b6cf5936e2cee69e9f70a9c9d8293f499",
+          "audio_seconds": 2.424,
+          "decode_seconds": 1.2271375000054832,
+          "endpoint_texts": [],
+          "final_text": "帽子 を かぶっ て",
+          "transcript": "帽子 を かぶっ て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_010",
+          "target": "きいて",
+          "aliases": [
+            "おはなしきいて",
+            "よくきいて"
+          ],
+          "audio": "audio/ja/ja_daily_010.mp3",
+          "sha256": "77b12a0033dff4fa21731c9b3034f270fc41c78509282534209bf37054d3741b",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.0126368999990518,
+          "endpoint_texts": [],
+          "final_text": "聞い て",
+          "transcript": "聞い て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_011",
+          "target": "しずかに",
+          "aliases": [
+            "しずかにしてね",
+            "シー"
+          ],
+          "audio": "audio/ja/ja_daily_011.mp3",
+          "sha256": "e268a7a76ad6d6da22a34bdd4aa0d7252316320c7cce27d03f8a9ba1da20baf2",
+          "audio_seconds": 1.92,
+          "decode_seconds": 1.0664223999992828,
+          "endpoint_texts": [],
+          "final_text": "静か に",
+          "transcript": "静か に",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_012",
+          "target": "たって",
+          "aliases": [
+            "たつ",
+            "おきて"
+          ],
+          "audio": "audio/ja/ja_daily_012.mp3",
+          "sha256": "2754d93d44a9c4a5947d529f19ac1f97ca53a107bc21ae706f04d8b40de6952e",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.9344372999985353,
+          "endpoint_texts": [],
+          "final_text": "立っ て",
+          "transcript": "立っ て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_013",
+          "target": "あるいて",
+          "aliases": [
+            "あるく",
+            "はしらない"
+          ],
+          "audio": "audio/ja/ja_daily_013.mp3",
+          "sha256": "441e237624db89f66c83a60c475451d0941466b465b3c3a30a1f888f42ac6dfe",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.5763044000050286,
+          "endpoint_texts": [],
+          "final_text": "歩い て",
+          "transcript": "歩い て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_014",
+          "target": "おいしい",
+          "aliases": [
+            "おいしー",
+            "うまーい"
+          ],
+          "audio": "audio/ja/ja_daily_014.mp3",
+          "sha256": "23afe0720785be14897981c0bab8a19bcc6ed48fa4f3afa94c8212dc5c24cf29",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.5824863999951049,
+          "endpoint_texts": [],
+          "final_text": "おいしい",
+          "transcript": "おいしい",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_daily_015",
+          "target": "おなかすいた",
+          "aliases": [
+            "おなかすいたー",
+            "ごはんまだ"
+          ],
+          "audio": "audio/ja/ja_daily_015.mp3",
+          "sha256": "be5aec87dafe5bff437907f451db1b835d540eb59fd82d93c20a2a9e28bcbbde",
+          "audio_seconds": 2.16,
+          "decode_seconds": 1.3250760000009905,
+          "endpoint_texts": [
+            "お腹 すい た"
+          ],
+          "final_text": "",
+          "transcript": "お腹 すい た",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_daily_016",
+          "target": "おかわり",
+          "aliases": [
+            "おかわりください",
+            "もっとたべたい"
+          ],
+          "audio": "audio/ja/ja_daily_016.mp3",
+          "sha256": "827b9255638eb9a28701c1bc4ba46b591ab55926bb430cdf627d0267c00be8f0",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.1694590999977663,
+          "endpoint_texts": [],
+          "final_text": "お かわり",
+          "transcript": "お かわり",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_help_001",
+          "target": "トイレにいきたい",
+          "aliases": [
+            "といれ",
+            "おてあらい",
+            "トイレ"
+          ],
+          "audio": "audio/ja/ja_help_001.mp3",
+          "sha256": "30ef842690620a5fc689275ab83528cf02c6b1df4943853639b7d9de29127d54",
+          "audio_seconds": 2.304,
+          "decode_seconds": 0.9650137999997241,
+          "endpoint_texts": [],
+          "final_text": "トイレ に 行き たい",
+          "transcript": "トイレ に 行き たい",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_002",
+          "target": "いたい",
+          "aliases": [
+            "いたいよ",
+            "ここいたい"
+          ],
+          "audio": "audio/ja/ja_help_002.mp3",
+          "sha256": "38ddd3e4e44c3c432479a4f04e6aba016c47bd208b392323afcb5ff81096a266",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.6377710000015213,
+          "endpoint_texts": [],
+          "final_text": "痛い",
+          "transcript": "痛い",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_003",
+          "target": "せんせい",
+          "aliases": [
+            "せんせー",
+            "先生"
+          ],
+          "audio": "audio/ja/ja_help_003.mp3",
+          "sha256": "1ed622766317a193c53db1d2df982d5a04294301373d558b644f7781b22d7303",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.6277425000007497,
+          "endpoint_texts": [],
+          "final_text": "先生",
+          "transcript": "先生",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_help_004",
+          "target": "わからない",
+          "aliases": [
+            "わかんない",
+            "わかりません"
+          ],
+          "audio": "audio/ja/ja_help_004.mp3",
+          "sha256": "f58c2742468a74022530bf6f86702c5eeeb85d8af0f1e9967cbd48da61f52bf6",
+          "audio_seconds": 1.992,
+          "decode_seconds": 0.9072272000048542,
+          "endpoint_texts": [],
+          "final_text": "分から ない",
+          "transcript": "分から ない",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_005",
+          "target": "たすけて",
+          "aliases": [
+            "てつだって",
+            "たすけてー"
+          ],
+          "audio": "audio/ja/ja_help_005.mp3",
+          "sha256": "93cced3dfc3f3b682b4e63e6f67dc67771815fcfeadbee85a2436572fa031d16",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.7283565000034287,
+          "endpoint_texts": [],
+          "final_text": "助け て",
+          "transcript": "助け て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_006",
+          "target": "おなかいたい",
+          "aliases": [
+            "おなかいたいよ",
+            "ぽんぽんいたい"
+          ],
+          "audio": "audio/ja/ja_help_006.mp3",
+          "sha256": "647209b16cc5dd0269ecce5d23b750ac56434f93f185e478d31bbe6be6a8eacf",
+          "audio_seconds": 2.088,
+          "decode_seconds": 0.7664494000055129,
+          "endpoint_texts": [],
+          "final_text": "お腹 痛い",
+          "transcript": "お腹 痛い",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_007",
+          "target": "あたまいたい",
+          "aliases": [
+            "あたまいたいよ"
+          ],
+          "audio": "audio/ja/ja_help_007.mp3",
+          "sha256": "9bdb6f11b2310027e82726306e3c4463789c0c9de5a3c8577411892b6cbd2bed",
+          "audio_seconds": 2.064,
+          "decode_seconds": 1.0187787000031676,
+          "endpoint_texts": [],
+          "final_text": "頭 痛い",
+          "transcript": "頭 痛い",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_008",
+          "target": "きもちわるい",
+          "aliases": [
+            "はきそう",
+            "気分わるい"
+          ],
+          "audio": "audio/ja/ja_help_008.mp3",
+          "sha256": "136c564bb0320aa783accbf81f12997a02710e00c7e7a0fba3dfb582e94cbd02",
+          "audio_seconds": 2.064,
+          "decode_seconds": 1.073729200004891,
+          "endpoint_texts": [],
+          "final_text": "気持ち 悪い",
+          "transcript": "気持ち 悪い",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_009",
+          "target": "ねむい",
+          "aliases": [
+            "ねむたい",
+            "ねむいよ"
+          ],
+          "audio": "audio/ja/ja_help_009.mp3",
+          "sha256": "ada2669476b783638d78f27c013290ca263ad3eb3ba3472e641b509a5d18c47b",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.6351525999998557,
+          "endpoint_texts": [],
+          "final_text": "眠い",
+          "transcript": "眠い",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_010",
+          "target": "てつだって",
+          "aliases": [
+            "てつだってください",
+            "おねがい"
+          ],
+          "audio": "audio/ja/ja_help_010.mp3",
+          "sha256": "132725905bebf615c522a67ddcf923a47098b2b4c4405bccd94c2b3bcddd6846",
+          "audio_seconds": 1.968,
+          "decode_seconds": 1.0657027999986894,
+          "endpoint_texts": [],
+          "final_text": "手伝っ て",
+          "transcript": "手伝っ て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_011",
+          "target": "せんせいきて",
+          "aliases": [
+            "せんせいー",
+            "こっちきて"
+          ],
+          "audio": "audio/ja/ja_help_011.mp3",
+          "sha256": "79027db5ae0cc2df064e640eaf453f763ffa9ecb33e4d1ebd940188c917a8537",
+          "audio_seconds": 2.208,
+          "decode_seconds": 1.1834285000004456,
+          "endpoint_texts": [],
+          "final_text": "先生 き て",
+          "transcript": "先生 き て",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_012",
+          "target": "おしっこでる",
+          "aliases": [
+            "おしっこ",
+            "といれいきたい"
+          ],
+          "audio": "audio/ja/ja_help_012.mp3",
+          "sha256": "7521646d6e3915b35272bfb775099a465390fa18208282993629aa008a86792e",
+          "audio_seconds": 2.112,
+          "decode_seconds": 1.132735799998045,
+          "endpoint_texts": [],
+          "final_text": "おしっこ 出る",
+          "transcript": "おしっこ 出る",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_013",
+          "target": "かえる",
+          "aliases": [
+            "おうちかえる",
+            "かえりたい"
+          ],
+          "audio": "audio/ja/ja_help_013.mp3",
+          "sha256": "e5e02d4c926094f545e6aa53c5ad290450c94fe997d640f3cf6e4b67c31e545d",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.9201892999990378,
+          "endpoint_texts": [],
+          "final_text": "変える",
+          "transcript": "変える",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_014",
+          "target": "ママきた",
+          "aliases": [
+            "おかあさんきた",
+            "ママ"
+          ],
+          "audio": "audio/ja/ja_help_014.mp3",
+          "sha256": "19e449184581bec63cf58c6b6c706b5f5539ef69174ebf18c4e0a3597e16eb26",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.5396287999974447,
+          "endpoint_texts": [
+            "まま き た"
+          ],
+          "final_text": "",
+          "transcript": "まま き た",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "ja_help_015",
+          "target": "パパきた",
+          "aliases": [
+            "おとうさんきた",
+            "パパ"
+          ],
+          "audio": "audio/ja/ja_help_015.mp3",
+          "sha256": "56608a312fea5d9ad37c65ea0266461e51e60d5c5f099953657fd2faf848bb72",
+          "audio_seconds": 1.872,
+          "decode_seconds": 1.3955466999977943,
+          "endpoint_texts": [
+            "パパ き た"
+          ],
+          "final_text": "",
+          "transcript": "パパ き た",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "ja_help_016",
+          "target": "おみずこぼれた",
+          "aliases": [
+            "こぼれた",
+            "ぬれちゃった"
+          ],
+          "audio": "audio/ja/ja_help_016.mp3",
+          "sha256": "392f14a1543ea8fbe67571aabeb90601560c1540cd736e457e7f3c2f4094c70f",
+          "audio_seconds": 2.256,
+          "decode_seconds": 1.41330089999974,
+          "endpoint_texts": [
+            "お 水 こぼれ た"
+          ],
+          "final_text": "",
+          "transcript": "お 水 こぼれ た",
+          "empty": false,
+          "reference_text_match": false
+        }
+      ]
+    }
+  ]
+}
