@@ -809,3 +809,10 @@
 - 不再轮询已断开的平板。提前保存 build/device-ready/1dd1a58/app-debug.apk 独立副本，apksigner 验证通过，证书与原显式 debug.keystore 一致，复制哈希一致。
 - 新增 docs/62 与 APK 来源/签名证据；下次先测已安装版本，集中完成诊断、中英文录音、后台停止和结果弹窗，有余裕且需验证修复时再升级。
 - 本轮只准备文件和检查顺序，未安装、未操作设备、未发布 APK；不将准备工作写成已完成实机验收。整体审查未完成。
+
+## 2026-10-03 | CI 单元测试失败诊断日志 | By: Codex
+
+- 用户日志仅确认 testDebugUnitTest 失败，真实失败用例仍待该次 Actions 的 XML 报告。
+- 启动页新增两项测试本地强制重跑通过；为 Android 单元测试启用完整失败异常日志，配置验证通过（测试任务缓存命中）。
+- 新增 docs/63_CI_Test_Failure_Diagnostics.md，未将远端 CI 标记为修复或通过。
+
