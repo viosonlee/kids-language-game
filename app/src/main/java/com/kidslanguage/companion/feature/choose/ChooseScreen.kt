@@ -74,6 +74,7 @@ fun ChooseScreen(
         }
     }
 
+    val showNext = state.isAnswerCorrect == true && !state.autoNext && !state.feedbackPlaying
     val currentItem = state.currentItem
 
     if (state.contentError != null) {
@@ -127,49 +128,45 @@ fun ChooseScreen(
         }
 
         // Center Content
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 80.dp)
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .padding(top = 80.dp, bottom = if (showNext) 104.dp else 0.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            // Prompt Title / Prompt Text
-            if (currentItem != null && state.showText) {
-                Text(
-                    text = currentItem.text,
-                    style = if (state.smallText) AppTypography.bodyMedium else AppTypography.titleLarge,
-                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                    color = Primary800
-                )
-                if (!currentItem.reading.isNullOrBlank() && currentItem.reading != currentItem.text) {
-                    Spacer(modifier = Modifier.height(AppSpacing.xs))
-                    Text(
-                        text = currentItem.reading,
-                        style = if (state.smallText) AppTypography.labelMedium else AppTypography.bodyMedium,
-                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                        color = Neutral700
-                    )
-                }
-                Spacer(modifier = Modifier.height(AppSpacing.xl))
-            } else {
-                Text(
-                    text = "听声音，选出正确的图片吧！",
-                    style = AppTypography.titleMedium,
-                    color = Neutral900
-                )
-                Spacer(modifier = Modifier.height(AppSpacing.xl))
-            }
-
-            // Options Row + Mascot
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
+            Column(
+                modifier = Modifier.weight(0.72f).verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
+                // Prompt Title / Prompt Text
+                if (currentItem != null && state.showText) {
+                    Text(
+                        text = currentItem.text,
+                        style = if (state.smallText) AppTypography.bodyMedium else AppTypography.titleLarge,
+                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                        color = Primary800
+                    )
+                    if (!currentItem.reading.isNullOrBlank() && currentItem.reading != currentItem.text) {
+                        Spacer(modifier = Modifier.height(AppSpacing.xs))
+                        Text(
+                            text = currentItem.reading,
+                            style = if (state.smallText) AppTypography.labelMedium else AppTypography.bodyMedium,
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                            color = Neutral700
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(AppSpacing.xl))
+                } else {
+                    Text(
+                        text = "听声音，选出正确的图片吧！",
+                        style = AppTypography.titleMedium,
+                        color = Neutral900
+                    )
+                    Spacer(modifier = Modifier.height(AppSpacing.xl))
+                }
+
                 // Keep image cards readable when four choices or larger system fonts need more rows.
-                BoxWithConstraints(modifier = Modifier.weight(0.72f)) {
+                BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
                     val minCardWidth = 160.dp * LocalDensity.current.fontScale.coerceAtLeast(1f)
                     val columns = ((maxWidth + AppSpacing.lg) / (minCardWidth + AppSpacing.lg))
                         .toInt().coerceIn(1, state.currentOptions.size.coerceAtLeast(1))
@@ -198,26 +195,27 @@ fun ChooseScreen(
                     }
                 }
 
-                // Mascot Reaction
-                Column(
-                    modifier = Modifier
-                        .weight(0.28f)
-                        .padding(start = AppSpacing.lg),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    MascotView(
-                        state = state.mascotState,
-                        size = 240.dp
-                    )
-                }
             }
-
-            if (state.isAnswerCorrect == true && !state.autoNext && !state.feedbackPlaying) {
-                Spacer(modifier = Modifier.height(AppSpacing.md))
-                FilledIconButton(onClick = viewModel::nextQuestion, modifier = Modifier.size(88.dp)) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "下一题", modifier = Modifier.size(48.dp))
-                }
+            // Mascot Reaction
+            Column(
+                modifier = Modifier
+                    .weight(0.28f)
+                    .padding(start = AppSpacing.lg),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                MascotView(
+                    state = state.mascotState,
+                    size = 240.dp
+                )
+            }
+        }
+        if (showNext) {
+            FilledIconButton(
+                onClick = viewModel::nextQuestion,
+                modifier = Modifier.align(Alignment.BottomCenter).size(88.dp),
+            ) {
+                Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "下一题", modifier = Modifier.size(48.dp))
             }
         }
     }

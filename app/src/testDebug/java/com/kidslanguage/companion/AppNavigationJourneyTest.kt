@@ -423,6 +423,57 @@ class AppNavigationJourneyTest {
         compose.onNodeWithText("打招呼").assertIsDisplayed()
     }
 
+    @Test
+    @Config(qualifiers = "w960dp-h600dp-land-mdpi")
+    @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE)
+    fun categoryAndModesAtDoubleFontRemainReadableAndEnterPractice() {
+        launchApp()
+        openCategory(LanguageCode.EN_US)
+        compose.runOnIdle { fontScale.value = 2f }
+        saveNativePreview("category-double-font")
+        assertWholeText("English · 选择场景")
+        compose.onNodeWithText("打招呼").assertIsDisplayed().performClick()
+        saveNativePreview("modes-double-font")
+        assertWholeText("选择练习玩法")
+        PracticeMode.entries.forEach { assertWholeText(it.title) }
+        val back = compose.onNodeWithContentDescription("Back").fetchSemanticsNode().boundsInRoot
+        val title = compose.onNodeWithText("选择练习玩法").fetchSemanticsNode().boundsInRoot
+        assertFalse("Mode heading covers back control", back.overlaps(title))
+        compose.onNodeWithText(PracticeMode.CHOOSE.title).assertIsDisplayed().performClick()
+        compose.onNodeWithContentDescription("Speaker").assertIsDisplayed()
+        compose.onNodeWithText("👋").performScrollTo().assertIsDisplayed().performClick()
+        advance(900)
+        compose.onNode(hasScrollAction()).performSemanticsAction(
+            androidx.compose.ui.semantics.SemanticsActions.ScrollBy
+        ) { it(0f, -10_000f) }
+        compose.waitUntil(timeoutMillis = 5_000) {
+            compose.onAllNodesWithContentDescription("Mascot Great").fetchSemanticsNodes().size == 1
+        }
+        val rabbit = compose.onNodeWithContentDescription("Mascot Great").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+        val next = compose.onNodeWithContentDescription("下一题").fetchSemanticsNode().boundsInRoot
+        assertTrue("Rabbit feedback is cut off by footer", rabbit.bottom <= next.top)
+        val speaker = compose.onNodeWithContentDescription("Speaker").fetchSemanticsNode().boundsInRoot
+        assertTrue("Rabbit feedback is cut off by header", rabbit.top >= speaker.bottom)
+        saveNativePreview("choose-manual-next-double-font")
+        compose.onNodeWithContentDescription("下一题").assertIsDisplayed().performClick()
+        waitForCompletionPage()
+        compose.runOnIdle { assertEquals(1, dependencies.progressRepository.attempts.size) }
+    }
+
+    private fun assertWholeText(text: String) {
+        val node = compose.onNodeWithText(text, useUnmergedTree = true).assertIsDisplayed()
+        val layouts = mutableListOf<TextLayoutResult>()
+        node.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(layouts) }
+        val layout = layouts.single()
+        assertEquals("Missing characters: $text", text.length, layout.getLineEnd(layout.lineCount - 1))
+        for (line in 0 until layout.lineCount) {
+            assertFalse("Ellipsized: $text", layout.isLineEllipsized(line))
+            assertTrue("Right edge clipped: $text", layout.getLineRight(line) <= layout.size.width + 1f)
+            assertTrue("Left edge clipped: $text", layout.getLineLeft(line) >= -1f)
+            assertTrue("Bottom clipped: $text", layout.getLineBottom(line) <= layout.size.height + 1f)
+        }
+    }
+
     private fun saveNativePreview(name: String) {
         val screenshot = java.io.File("build/reports/ui/$name.png")
         checkNotNull(screenshot.parentFile).mkdirs()
