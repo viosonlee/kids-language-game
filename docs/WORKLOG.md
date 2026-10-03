@@ -767,3 +767,10 @@
 - 修复外层 30 秒等待超时正常返回：现在明确中断，沿用现有防自动录音/自动下一题分支；诊断文案同步。
 - 定向及完整 test assembleDebug lintDebug --offline 通过；Debug 208 + Release 180 = 388 项零失败/错误/跳过。新增 docs/56。
 - Actions 调查：本机 Python、音频及仪器测试 APK 构建通过；私有源码仓库失败日志仍待提供，未声称修复 CI。未修改 ASR，未公开发布，整体审查未完成。
+
+## 2026-10-03 | GitHub Actions 音频时长兼容修复 | By: Codex
+
+- 用户日志确认失败为 paopao_praise_effort.mp3：FFmpeg 6 容器时长 0.960 秒超过 0.950 秒上限，同哈希音频本机实际解码为 0.911375 秒。
+- scripts/check_audio_quality.py 改用 PCM 采样长度计算时长并保留容器时长；不放宽质量门禁、不修改音频素材。失败日志直接列文件和指标，仍以非零状态退出。
+- 新增容器版本差异、超长拒绝、CLI 日志/退出/报告测试；Python 29 项通过，全量音频 129/129 通过，assembleDebug --offline 通过。
+- 新增 docs/57；远端 Ubuntu 重跑尚未确认，不以本机通过代替 Actions 最终结果。整体审查未完成。

@@ -60,7 +60,16 @@ def measure(path):
     stream = streams[0]
     result = parse_loudness(run("ffmpeg", "-nostdin", "-hide_banner", "-i", str(path),
         "-af", "loudnorm=I=-20:TP=-1.5:LRA=7:print_format=json", "-f", "null", "-").stderr)
-    result.update(duration_seconds=float(probe["format"]["duration"]),
+    # Older ffprobe versions include MP3 encoder delay/padding in format.duration.
+    # Measure decoded samples so the playback limit has the same meaning across versions.
+    with tempfile.TemporaryDirectory(prefix="audio-duration-") as temp:
+        decoded = Path(temp) / "decoded.wav"
+        run("ffmpeg", "-nostdin", "-hide_banner", "-loglevel", "error", "-i", str(path),
+            "-map", "0:a:0", "-codec:a", "pcm_s16le", str(decoded))
+        with wave.open(str(decoded), "rb") as audio:
+            duration = audio.getnframes() / audio.getframerate()
+    result.update(duration_seconds=duration,
+                  container_duration_seconds=float(probe["format"]["duration"]),
                   sample_rate=int(stream["sample_rate"]), channels=int(stream["channels"]),
                   sha256=hashlib.sha256(path.read_bytes()).hexdigest())
     if not math.isfinite(result["duration_seconds"]) or result["duration_seconds"] <= 0:
@@ -70,6 +79,17 @@ def measure(path):
 
 def compliant(values):
     return abs(values["lufs"] - TARGET_LUFS) <= TOLERANCE_LU and values["true_peak_dbtp"] <= MAX_TRUE_PEAK
+
+
+def quality_failures(path, values):
+    failures = []
+    if abs(values["lufs"] - TARGET_LUFS) > TOLERANCE_LU:
+        failures.append(f"loudness {values['lufs']:.2f} LUFS outside {TARGET_LUFS:.1f} +/- {TOLERANCE_LU:.1f}")
+    if values["true_peak_dbtp"] > MAX_TRUE_PEAK:
+        failures.append(f"true peak {values['true_peak_dbtp']:.2f} dBTP exceeds {MAX_TRUE_PEAK:.1f}")
+    if path.name in SHORT_FEEDBACK_FILES and values["duration_seconds"] > MAX_VOICE_SECONDS:
+        failures.append(f"decoded duration {values['duration_seconds']:.6f}s exceeds {MAX_VOICE_SECONDS:.3f}s")
+    return failures
 
 
 def gain_for(values):
@@ -113,8 +133,8 @@ def main():
         try:
             row["before"] = measure(path)
             row["after"] = normalize(path, row["before"]) if args.normalize else row["before"]
-            short_enough = path.name not in SHORT_FEEDBACK_FILES or row["after"]["duration_seconds"] <= MAX_VOICE_SECONDS
-            row["passed"] = compliant(row["after"]) and short_enough
+            row["failures"] = quality_failures(path, row["after"])
+            row["passed"] = not row["failures"]
         except (ValueError, KeyError, OSError, subprocess.SubprocessError) as error:
             row.update(passed=False, error=str(error))
         return row
@@ -131,6 +151,11 @@ def main():
               "passed": passed, "files": rows}
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    for row in rows:
+        if not row["passed"]:
+            print(f"FAIL {row['path']}: " + "; ".join(row.get("failures") or [row.get("error", "unknown measurement error")]))
+    if not 0 < chime_seconds <= 0.55:
+        print(f"FAIL audio/sfx/success.wav: decoded duration {chime_seconds:.6f}s outside (0, 0.550s]")
     print(f"{sum(row['passed'] for row in rows)}/{len(rows)} assets passed; chime {chime_seconds:.3f}s (limit 0.550s); report: {args.report}")
     return 0 if passed else 1
 
