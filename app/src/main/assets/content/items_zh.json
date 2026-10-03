@@ -11,14 +11,14 @@
     "reading": "zǎo shang hǎo",
     "pinyin": "zaoshanghao",
     "translation": "Good morning",
-    "image": "🌅",
+    "image": "images/practice/emoji_u1f305.png",
     "aliases": [
       "早安",
       "早"
     ],
     "distractors": [
-      "🌙",
-      "👋"
+      "images/practice/emoji_u1f319.png",
+      "images/practice/emoji_u1f44b.png"
     ],
     "audio": "audio/zh/zh_greet_001.mp3"
   },
@@ -34,14 +34,14 @@
     "reading": "xiè xie",
     "pinyin": "xiexie",
     "translation": "Thank you",
-    "image": "🎁",
+    "image": "images/practice/emoji_u1f381.png",
     "aliases": [
       "谢谢你",
       "多谢"
     ],
     "distractors": [
-      "🙅",
-      "🏃"
+      "images/practice/emoji_u1f645.png",
+      "images/practice/emoji_u1f3c3.png"
     ],
     "audio": "audio/zh/zh_greet_002.mp3"
   },
@@ -57,14 +57,14 @@
     "reading": "duì bu qǐ",
     "pinyin": "duibuqi",
     "translation": "Sorry",
-    "image": "🙇",
+    "image": "images/practice/emoji_u1f647.png",
     "aliases": [
       "不好意思",
       "对不住"
     ],
     "distractors": [
-      "😄",
-      "🎉"
+      "images/practice/emoji_u1f604.png",
+      "images/practice/emoji_u1f389.png"
     ],
     "audio": "audio/zh/zh_greet_003.mp3"
   },
@@ -80,14 +80,14 @@
     "reading": "méi guān xi",
     "pinyin": "meiguanxi",
     "translation": "No problem",
-    "image": "👌",
+    "image": "images/practice/emoji_u1f44c.png",
     "aliases": [
       "没事",
       "不要紧"
     ],
     "distractors": [
-      "😭",
-      "💥"
+      "images/practice/emoji_u1f62d.png",
+      "images/practice/emoji_u1f4a5.png"
     ],
     "audio": "audio/zh/zh_greet_004.mp3"
   },
@@ -103,13 +103,13 @@
     "reading": "nǐ hǎo",
     "pinyin": "nihao",
     "translation": "Hello",
-    "image": "👋",
+    "image": "images/practice/emoji_u1f44b.png",
     "aliases": [
       "您好"
     ],
     "distractors": [
-      "💤",
-      "🌧️"
+      "images/practice/emoji_u1f4a4.png",
+      "images/practice/emoji_u1f327.png"
     ],
     "audio": "audio/zh/zh_greet_005.mp3"
   },
@@ -125,14 +125,14 @@
     "reading": "zài jiàn",
     "pinyin": "zaijian",
     "translation": "Goodbye",
-    "image": "🙋",
+    "image": "images/practice/emoji_u1f64b.png",
     "aliases": [
       "拜拜",
       "明天见"
     ],
     "distractors": [
-      "🍲",
-      "🪑"
+      "images/practice/emoji_u1f372.png",
+      "images/practice/emoji_u1fa91.png"
     ],
     "audio": "audio/zh/zh_greet_006.mp3"
   },
@@ -148,14 +148,14 @@
     "reading": "qǐng gěi wǒ",
     "pinyin": "qinggeiwo",
     "translation": "Please give me",
-    "image": "🤲",
+    "image": "images/practice/emoji_u1f932.png",
     "aliases": [
       "给我",
       "给我吧"
     ],
     "distractors": [
-      "🏃",
-      "🚪"
+      "images/practice/emoji_u1f3c3.png",
+      "images/practice/emoji_u1f6aa.png"
     ],
     "audio": "audio/zh/zh_greet_007.mp3"
   },
@@ -171,14 +171,14 @@
     "reading": "wǒ kāi dòng le",
     "pinyin": "wokaidongle",
     "translation": "Let's eat",
-    "image": "🙏",
+    "image": "images/practice/emoji_u1f64f.png",
     "aliases": [
       "吃饭啦",
       "开饭了"
     ],
     "distractors": [
-      "⚽",
-      "🛌"
+      "images/practice/emoji_u26bd.png",
+      "images/practice/emoji_u1f6cc.png"
     ],
     "audio": "audio/zh/zh_greet_008.mp3"
   },
@@ -194,14 +194,14 @@
     "reading": "yì qǐ wán ba",
     "pinyin": "yiqiwanba",
     "translation": "Let's play together",
-    "image": "🛝",
+    "image": "images/practice/emoji_u1f6dd.png",
     "aliases": [
       "我们一起玩",
       "一起玩"
     ],
     "distractors": [
-      "💤",
-      "🌧️"
+      "images/practice/emoji_u1f4a4.png",
+      "images/practice/emoji_u1f327.png"
     ],
     "audio": "audio/zh/zh_play_001.mp3"
   },
@@ -217,14 +217,14 @@
     "reading": "ràng wǒ jiā rù ba",
     "pinyin": "rangwojiaruba",
     "translation": "Can I join?",
-    "image": "⚽",
+    "image": "images/practice/emoji_u26bd.png",
     "aliases": [
       "我也要玩",
       "加我一个"
     ],
     "distractors": [
-      "🚪",
-      "🤫"
+      "images/practice/emoji_u1f6aa.png",
+      "images/practice/emoji_u1f92b.png"
     ],
     "audio": "audio/zh/zh_play_002.mp3"
   },
@@ -240,14 +240,14 @@
     "reading": "jiè wǒ wán yí xià",
     "pinyin": "jiewowanyixia",
     "translation": "Can I borrow it?",
-    "image": "🧸",
+    "image": "images/practice/emoji_u1f9f8.png",
     "aliases": [
       "借给我",
       "给我玩玩"
     ],
     "distractors": [
-      "💥",
-      "🚶"
+      "images/practice/emoji_u1f4a5.png",
+      "images/practice/emoji_u1f6b6.png"
     ],
     "audio": "audio/zh/zh_play_003.mp3"
   },
@@ -263,14 +263,14 @@
     "reading": "qǐng děng yi děng",
     "pinyin": "qingdengyideng",
     "translation": "Wait for me",
-    "image": "✋",
+    "image": "images/practice/emoji_u270b.png",
     "aliases": [
       "等一下",
       "等等我"
     ],
     "distractors": [
-      "🏃",
-      "🚀"
+      "images/practice/emoji_u1f3c3.png",
+      "images/practice/emoji_u1f680.png"
     ],
     "audio": "audio/zh/zh_play_004.mp3"
   },
@@ -286,14 +286,14 @@
     "reading": "zài lái yí cì",
     "pinyin": "zailaiyici",
     "translation": "One more time",
-    "image": "🔁",
+    "image": "images/practice/emoji_u1f501.png",
     "aliases": [
       "还要一次",
       "再玩一次"
     ],
     "distractors": [
-      "⏹️",
-      "❌"
+      "images/practice/emoji_u23f9.png",
+      "images/practice/emoji_u274c.png"
     ],
     "audio": "audio/zh/zh_play_005.mp3"
   },
@@ -309,14 +309,14 @@
     "reading": "lún dào wǒ le",
     "pinyin": "lundaowole",
     "translation": "My turn",
-    "image": "👦",
+    "image": "images/practice/emoji_u1f466.png",
     "aliases": [
       "该我了",
       "到我了"
     ],
     "distractors": [
-      "💤",
-      "👟"
+      "images/practice/emoji_u1f4a4.png",
+      "images/practice/emoji_u1f45f.png"
     ],
     "audio": "audio/zh/zh_play_006.mp3"
   },
@@ -332,14 +332,14 @@
     "reading": "pái duì lún liú wán",
     "pinyin": "paiduilunliuwan",
     "translation": "Take turns",
-    "image": "🔢",
+    "image": "images/practice/emoji_u1f522.png",
     "aliases": [
       "排好队",
       "轮流"
     ],
     "distractors": [
-      "💥",
-      "🍕"
+      "images/practice/emoji_u1f4a5.png",
+      "images/practice/emoji_u1f355.png"
     ],
     "audio": "audio/zh/zh_play_007.mp3"
   },
@@ -355,14 +355,14 @@
     "reading": "kàn zhè ge",
     "pinyin": "kanzhege",
     "translation": "Look at this",
-    "image": "👀",
+    "image": "images/practice/emoji_u1f440.png",
     "aliases": [
       "看这里",
       "快看"
     ],
     "distractors": [
-      "👂",
-      "🙈"
+      "images/practice/emoji_u1f442.png",
+      "images/practice/emoji_u1f648.png"
     ],
     "audio": "audio/zh/zh_play_008.mp3"
   },
@@ -378,14 +378,14 @@
     "reading": "wǒ xiǎng hē shuǐ",
     "pinyin": "woxiangheshui",
     "translation": "Water please",
-    "image": "🥤",
+    "image": "images/practice/emoji_u1f964.png",
     "aliases": [
       "喝水",
       "给我水"
     ],
     "distractors": [
-      "🧼",
-      "🧦"
+      "images/practice/emoji_u1f9fc.png",
+      "images/practice/emoji_u1f9e6.png"
     ],
     "audio": "audio/zh/zh_daily_001.mp3"
   },
@@ -401,14 +401,14 @@
     "reading": "xǐ shǒu shou",
     "pinyin": "xishoushou",
     "translation": "Wash hands",
-    "image": "🫧",
+    "image": "images/practice/emoji_u1fae7.png",
     "aliases": [
       "去洗手",
       "洗手"
     ],
     "distractors": [
-      "⚽",
-      "📖"
+      "images/practice/emoji_u26bd.png",
+      "images/practice/emoji_u1f4d6.png"
     ],
     "audio": "audio/zh/zh_daily_002.mp3"
   },
@@ -424,14 +424,14 @@
     "reading": "qǐng zuò xià",
     "pinyin": "qingzuoxia",
     "translation": "Sit down",
-    "image": "🪑",
+    "image": "images/practice/emoji_u1fa91.png",
     "aliases": [
       "坐好",
       "坐下"
     ],
     "distractors": [
-      "🏃",
-      "🧍"
+      "images/practice/emoji_u1f3c3.png",
+      "images/practice/emoji_u1f9cd.png"
     ],
     "audio": "audio/zh/zh_daily_003.mp3"
   },
@@ -447,14 +447,14 @@
     "reading": "dà jiā jí hé",
     "pinyin": "dajiajihe",
     "translation": "Gather together",
-    "image": "🧑‍🤝‍🧑",
+    "image": "images/practice/emoji_u1f9d1_200d_1f91d_200d_1f9d1.png",
     "aliases": [
       "过来集合",
       "快来"
     ],
     "distractors": [
-      "🏃💨",
-      "🛌"
+      "images/practice/emoji_u1f3c3_1f4a8.png",
+      "images/practice/emoji_u1f6cc.png"
     ],
     "audio": "audio/zh/zh_daily_004.mp3"
   },
@@ -470,14 +470,14 @@
     "reading": "pái hǎo duì wǔ",
     "pinyin": "paihaoduiwu",
     "translation": "Line up",
-    "image": "🚶🚶",
+    "image": "images/practice/emoji_u1f6b6_1f6b6.png",
     "aliases": [
       "排队",
       "站好"
     ],
     "distractors": [
-      "🤼",
-      "🪑"
+      "images/practice/emoji_u1f93c.png",
+      "images/practice/emoji_u1fa91.png"
     ],
     "audio": "audio/zh/zh_daily_005.mp3"
   },
@@ -493,14 +493,14 @@
     "reading": "shōu shi wán jù",
     "pinyin": "shoushiwanju",
     "translation": "Clean up toys",
-    "image": "📦",
+    "image": "images/practice/emoji_u1f4e6.png",
     "aliases": [
       "把玩具收起来",
       "整理好"
     ],
     "distractors": [
-      "🎨",
-      "🍕"
+      "images/practice/emoji_u1f3a8.png",
+      "images/practice/emoji_u1f355.png"
     ],
     "audio": "audio/zh/zh_daily_006.mp3"
   },
@@ -516,14 +516,14 @@
     "reading": "chuān hǎo yī fu",
     "pinyin": "chuanhaoyifu",
     "translation": "Put on clothes",
-    "image": "👕",
+    "image": "images/practice/emoji_u1f455.png",
     "aliases": [
       "穿衣服",
       "换衣服"
     ],
     "distractors": [
-      "🥄",
-      "🧼"
+      "images/practice/emoji_u1f944.png",
+      "images/practice/emoji_u1f9fc.png"
     ],
     "audio": "audio/zh/zh_daily_007.mp3"
   },
@@ -539,14 +539,14 @@
     "reading": "chuān xié zi",
     "pinyin": "chuanxiezi",
     "translation": "Put on shoes",
-    "image": "👟",
+    "image": "images/practice/emoji_u1f45f.png",
     "aliases": [
       "穿好鞋",
       "鞋子"
     ],
     "distractors": [
-      "🧢",
-      "🧤"
+      "images/practice/emoji_u1f9e2.png",
+      "images/practice/emoji_u1f9e4.png"
     ],
     "audio": "audio/zh/zh_daily_008.mp3"
   },
@@ -562,15 +562,15 @@
     "reading": "wǒ yào shàng cè suǒ",
     "pinyin": "woyaoshangcesuo",
     "translation": "Bathroom please",
-    "image": "🚽",
+    "image": "images/practice/emoji_u1f6bd.png",
     "aliases": [
       "去厕所",
       "尿尿",
       "上厕所"
     ],
     "distractors": [
-      "🎒",
-      "🍎"
+      "images/practice/emoji_u1f392.png",
+      "images/practice/emoji_u1f34e.png"
     ],
     "audio": "audio/zh/zh_help_001.mp3"
   },
@@ -586,14 +586,14 @@
     "reading": "zhè lǐ tòng",
     "pinyin": "zhelitong",
     "translation": "It hurts here",
-    "image": "🩹",
+    "image": "images/practice/emoji_u1fa79.png",
     "aliases": [
       "好痛",
       "痛痛"
     ],
     "distractors": [
-      "🎈",
-      "🍨"
+      "images/practice/emoji_u1f388.png",
+      "images/practice/emoji_u1f368.png"
     ],
     "audio": "audio/zh/zh_help_002.mp3"
   },
@@ -609,14 +609,14 @@
     "reading": "lǎo shī",
     "pinyin": "laoshi",
     "translation": "Teacher",
-    "image": "👩‍🏫",
+    "image": "images/practice/emoji_u1f469_200d_1f3eb.png",
     "aliases": [
       "老师好",
       "找老师"
     ],
     "distractors": [
-      "🐶",
-      "🚗"
+      "images/practice/emoji_u1f436.png",
+      "images/practice/emoji_u1f697.png"
     ],
     "audio": "audio/zh/zh_help_003.mp3"
   },
@@ -632,14 +632,14 @@
     "reading": "wǒ bù zhī dào",
     "pinyin": "wobuzhidao",
     "translation": "I don't know",
-    "image": "❓",
+    "image": "images/practice/emoji_u2753.png",
     "aliases": [
       "不知道",
       "我不明白"
     ],
     "distractors": [
-      "💡",
-      "👍"
+      "images/practice/emoji_u1f4a1.png",
+      "images/practice/emoji_u1f44d.png"
     ],
     "audio": "audio/zh/zh_help_004.mp3"
   },
@@ -655,14 +655,14 @@
     "reading": "bāng bang wǒ",
     "pinyin": "bangbangwo",
     "translation": "Help me",
-    "image": "🆘",
+    "image": "images/practice/emoji_u1f198.png",
     "aliases": [
       "请帮我",
       "帮我一下"
     ],
     "distractors": [
-      "🎉",
-      "💤"
+      "images/practice/emoji_u1f389.png",
+      "images/practice/emoji_u1f4a4.png"
     ],
     "audio": "audio/zh/zh_help_005.mp3"
   },
@@ -678,14 +678,14 @@
     "reading": "wǒ dù zi tòng",
     "pinyin": "woduzitong",
     "translation": "My tummy hurts",
-    "image": "😣",
+    "image": "images/practice/emoji_u1f623.png",
     "aliases": [
       "肚子好痛",
       "肚子疼"
     ],
     "distractors": [
-      "⚽",
-      "🍎"
+      "images/practice/emoji_u26bd.png",
+      "images/practice/emoji_u1f34e.png"
     ],
     "audio": "audio/zh/zh_help_006.mp3"
   },
@@ -701,14 +701,14 @@
     "reading": "mā ma lái le",
     "pinyin": "mamalaile",
     "translation": "Mom is here",
-    "image": "👩‍👧",
+    "image": "images/practice/emoji_u1f469_200d_1f467.png",
     "aliases": [
       "我妈妈来了",
       "回家啦"
     ],
     "distractors": [
-      "🌧️",
-      "💤"
+      "images/practice/emoji_u1f327.png",
+      "images/practice/emoji_u1f4a4.png"
     ],
     "audio": "audio/zh/zh_help_007.mp3"
   },
@@ -724,14 +724,14 @@
     "reading": "bà ba lái le",
     "pinyin": "babalaile",
     "translation": "Dad is here",
-    "image": "👨‍👦",
+    "image": "images/practice/emoji_u1f468_200d_1f466.png",
     "aliases": [
       "我爸爸来了",
       "接我了"
     ],
     "distractors": [
-      "🌧️",
-      "💤"
+      "images/practice/emoji_u1f327.png",
+      "images/practice/emoji_u1f4a4.png"
     ],
     "audio": "audio/zh/zh_help_008.mp3"
   }

@@ -92,3 +92,7 @@ GitHub Actions 在 main 推送或 PR 时执行 lint、单元测试、应用构�
 内容版本 1.0.2 对 126 条示范语音完成基本响度归一化，全部通过 -20 LUFS ±1 LU 和真峰值门限；CI 加入只读音频检查。工具命令、逐文件报告及听感验收边界见 [示范语音响度](docs/40_Bundled_Speech_Loudness.md)。
 
 内容版本 1.0.3 将逐题表扬改为完整短句，成功音效后依次播放，名义总时长约 1.23～1.46 秒；静音仍保留至少 0.8 秒视觉反馈。工具检查扩至 129 条语音及反馈时长，Debug 170 / Release 149 项测试通过，详见 [短成功反馈](docs/41_Short_Success_Feedback.md)。
+
+内容版本 1.0.4 将 126 道题及干扰项使用的 99 个符号打包为本地 PNG，避免练习图依赖系统 Emoji 字体；图片来源、许可和哈希随 APK 保存。详见 [离线练习图片与语义审查](docs/47_Offline_Practice_Pictograms.md)。符号转成位图不代表场景语义已通过儿童验收。
+
+最近的页面审查补充了 [跟读大字号与滚动](docs/44_Repeat_Layout_And_Large_Font.md)、[首页语言卡片布局](docs/45_Home_Language_Layout.md) 和 [选图反馈与手动继续可见性](docs/46_Choose_Visible_Feedback_And_Continuation.md)。本地构建未自动安装或替换公开 Release。

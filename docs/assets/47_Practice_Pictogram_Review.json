@@ -1,0 +1,1016 @@
+{
+  "author": "Codex",
+  "date": "2026-10-03",
+  "scope": "126 target pictograms; code review observations, not child validation",
+  "upstreamRevision": "22e564626297b4df0a40570ad81d6c05cc7c38bd",
+  "items": [
+    {
+      "id": "en_greet_001",
+      "text": "Good morning",
+      "symbol": "🌅",
+      "asset": "images/practice/emoji_u1f305.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_greet_002",
+      "text": "Thank you",
+      "symbol": "🎁",
+      "asset": "images/practice/emoji_u1f381.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "礼物只表达物品，缺少给予后说谢谢的互动。"
+    },
+    {
+      "id": "en_greet_003",
+      "text": "Excuse me",
+      "symbol": "🙇",
+      "asset": "images/practice/emoji_u1f647.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_greet_004",
+      "text": "You're welcome",
+      "symbol": "👌",
+      "asset": "images/practice/emoji_u1f44c.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_greet_005",
+      "text": "Hello",
+      "symbol": "👋",
+      "asset": "images/practice/emoji_u1f44b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_greet_006",
+      "text": "Goodbye",
+      "symbol": "🙋",
+      "asset": "images/practice/emoji_u1f64b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_greet_007",
+      "text": "See you tomorrow",
+      "symbol": "🌈",
+      "asset": "images/practice/emoji_u1f308.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "彩虹没有表达次日再见的时间与告别场景。"
+    },
+    {
+      "id": "en_greet_008",
+      "text": "Please",
+      "symbol": "🙏",
+      "asset": "images/practice/emoji_u1f64f.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_play_001",
+      "text": "Let's play together",
+      "symbol": "🛝",
+      "asset": "images/practice/emoji_u1f6dd.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_play_002",
+      "text": "Can I join?",
+      "symbol": "⚽",
+      "asset": "images/practice/emoji_u26bd.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "足球没有表达请求加入已有游戏。"
+    },
+    {
+      "id": "en_play_003",
+      "text": "Share please",
+      "symbol": "🧸",
+      "asset": "images/practice/emoji_u1f9f8.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "玩具没有表达借用或分享的互动。"
+    },
+    {
+      "id": "en_play_004",
+      "text": "Wait for me",
+      "symbol": "✋",
+      "asset": "images/practice/emoji_u270b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_play_005",
+      "text": "One more time",
+      "symbol": "🔁",
+      "asset": "images/practice/emoji_u1f501.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_play_006",
+      "text": "My turn",
+      "symbol": "👦",
+      "asset": "images/practice/emoji_u1f466.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "男孩头像没有表达轮到自己。"
+    },
+    {
+      "id": "en_play_007",
+      "text": "Take turns",
+      "symbol": "🔢",
+      "asset": "images/practice/emoji_u1f522.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "数字没有表达排队轮流的先后关系。"
+    },
+    {
+      "id": "en_play_008",
+      "text": "Look at this",
+      "symbol": "👀",
+      "asset": "images/practice/emoji_u1f440.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_daily_001",
+      "text": "Water please",
+      "symbol": "🥤",
+      "asset": "images/practice/emoji_u1f964.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_daily_002",
+      "text": "Wash hands",
+      "symbol": "🫧",
+      "asset": "images/practice/emoji_u1fae7.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "泡泡表达清洁联想，但没有展示双手清洗动作。"
+    },
+    {
+      "id": "en_daily_003",
+      "text": "Sit down please",
+      "symbol": "🪑",
+      "asset": "images/practice/emoji_u1fa91.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_daily_004",
+      "text": "Gather around",
+      "symbol": "🧑‍🤝‍🧑",
+      "asset": "images/practice/emoji_u1f9d1_200d_1f91d_200d_1f9d1.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_daily_005",
+      "text": "Line up please",
+      "symbol": "🚶🚶",
+      "asset": "images/practice/emoji_u1f6b6_1f6b6.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_daily_006",
+      "text": "Clean up",
+      "symbol": "📦",
+      "asset": "images/practice/emoji_u1f4e6.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "箱子没有明确展示把玩具收进箱中的动作。"
+    },
+    {
+      "id": "en_daily_007",
+      "text": "Put on coat",
+      "symbol": "👕",
+      "asset": "images/practice/emoji_u1f455.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "上衣图标没有展示穿衣动作；英语目标是coat，图中是短袖。"
+    },
+    {
+      "id": "en_daily_008",
+      "text": "Put on shoes",
+      "symbol": "👟",
+      "asset": "images/practice/emoji_u1f45f.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_help_001",
+      "text": "Bathroom please",
+      "symbol": "🚽",
+      "asset": "images/practice/emoji_u1f6bd.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_help_002",
+      "text": "It hurts here",
+      "symbol": "🩹",
+      "asset": "images/practice/emoji_u1fa79.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_help_003",
+      "text": "Teacher",
+      "symbol": "👩‍🏫",
+      "asset": "images/practice/emoji_u1f469_200d_1f3eb.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_help_004",
+      "text": "I don't know",
+      "symbol": "❓",
+      "asset": "images/practice/emoji_u2753.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_help_005",
+      "text": "Help me please",
+      "symbol": "🆘",
+      "asset": "images/practice/emoji_u1f198.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "SOS含拉丁文字，不能假定幼儿理解为求助。"
+    },
+    {
+      "id": "en_help_006",
+      "text": "Tummy hurts",
+      "symbol": "😣",
+      "asset": "images/practice/emoji_u1f623.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "痛苦表情没有指明肚子部位。"
+    },
+    {
+      "id": "en_help_007",
+      "text": "Mom is here",
+      "symbol": "👩‍👧",
+      "asset": "images/practice/emoji_u1f469_200d_1f467.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "en_help_008",
+      "text": "Dad is here",
+      "symbol": "👨‍👦",
+      "asset": "images/practice/emoji_u1f468_200d_1f466.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_001",
+      "text": "おはよう",
+      "symbol": "🌅",
+      "asset": "images/practice/emoji_u1f305.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_002",
+      "text": "ありがとう",
+      "symbol": "🎁",
+      "asset": "images/practice/emoji_u1f381.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "礼物只表达物品，缺少给予后说谢谢的互动。"
+    },
+    {
+      "id": "ja_greet_003",
+      "text": "ごめんね",
+      "symbol": "🙇",
+      "asset": "images/practice/emoji_u1f647.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_004",
+      "text": "どうぞ",
+      "symbol": "🤲",
+      "asset": "images/practice/emoji_u1f932.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "双手姿势缺少给予或请求的对象与情境。"
+    },
+    {
+      "id": "ja_greet_005",
+      "text": "こんにちは",
+      "symbol": "☀️",
+      "asset": "images/practice/emoji_u2600.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_006",
+      "text": "さようなら",
+      "symbol": "👋",
+      "asset": "images/practice/emoji_u1f44b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_007",
+      "text": "バイバイ",
+      "symbol": "🙋",
+      "asset": "images/practice/emoji_u1f64b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_008",
+      "text": "いただきます",
+      "symbol": "🙏",
+      "asset": "images/practice/emoji_u1f64f.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_009",
+      "text": "ごちそうさま",
+      "symbol": "🍽️",
+      "asset": "images/practice/emoji_u1f37d.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_010",
+      "text": "よろしくね",
+      "symbol": "🤝",
+      "asset": "images/practice/emoji_u1f91d.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_011",
+      "text": "またあした",
+      "symbol": "🌈",
+      "asset": "images/practice/emoji_u1f308.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "彩虹没有表达次日再见的时间与告别场景。"
+    },
+    {
+      "id": "ja_greet_012",
+      "text": "いいよ",
+      "symbol": "👌",
+      "asset": "images/practice/emoji_u1f44c.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_013",
+      "text": "だめ",
+      "symbol": "🙅",
+      "asset": "images/practice/emoji_u1f645.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_014",
+      "text": "はい",
+      "symbol": "✋",
+      "asset": "images/practice/emoji_u270b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_greet_015",
+      "text": "おねがい",
+      "symbol": "🥺",
+      "asset": "images/practice/emoji_u1f97a.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_play_001",
+      "text": "いっしょにあそぼう",
+      "symbol": "🛝",
+      "asset": "images/practice/emoji_u1f6dd.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_play_002",
+      "text": "いれて",
+      "symbol": "⚽",
+      "asset": "images/practice/emoji_u26bd.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "足球没有表达请求加入已有游戏。"
+    },
+    {
+      "id": "ja_play_003",
+      "text": "かして",
+      "symbol": "🧸",
+      "asset": "images/practice/emoji_u1f9f8.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "玩具没有表达借用或分享的互动。"
+    },
+    {
+      "id": "ja_play_004",
+      "text": "まって",
+      "symbol": "✋",
+      "asset": "images/practice/emoji_u270b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_play_005",
+      "text": "もういっかい",
+      "symbol": "🔁",
+      "asset": "images/practice/emoji_u1f501.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_play_006",
+      "text": "つぎぼく",
+      "symbol": "👦",
+      "asset": "images/practice/emoji_u1f466.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "男孩头像没有表达轮到自己。"
+    },
+    {
+      "id": "ja_play_007",
+      "text": "じゅんばん",
+      "symbol": "🔢",
+      "asset": "images/practice/emoji_u1f522.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "数字没有表达排队轮流的先后关系。"
+    },
+    {
+      "id": "ja_play_008",
+      "text": "かわりばんこ",
+      "symbol": "🔄",
+      "asset": "images/practice/emoji_u1f504.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "循环箭头需要符号理解，缺少两人轮流的场景。"
+    },
+    {
+      "id": "ja_play_009",
+      "text": "これみて",
+      "symbol": "👀",
+      "asset": "images/practice/emoji_u1f440.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_play_010",
+      "text": "すごいね",
+      "symbol": "🌟",
+      "asset": "images/practice/emoji_u1f31f.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_play_011",
+      "text": "おもしろい",
+      "symbol": "😆",
+      "asset": "images/practice/emoji_u1f606.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_play_012",
+      "text": "おもちゃかして",
+      "symbol": "🚗",
+      "asset": "images/practice/emoji_u1f697.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_play_013",
+      "text": "いっしょにいこう",
+      "symbol": "🏃‍♂️🏃‍♀️",
+      "asset": "images/practice/emoji_u1f3c3_200d_2642_1f3c3_200d_2640.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_play_014",
+      "text": "おにごっこしよう",
+      "symbol": "🏃",
+      "asset": "images/practice/emoji_u1f3c3.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_play_015",
+      "text": "すなばであそぼう",
+      "symbol": "🏖️",
+      "asset": "images/practice/emoji_u1f3d6.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_001",
+      "text": "おみずください",
+      "symbol": "🥤",
+      "asset": "images/practice/emoji_u1f964.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_002",
+      "text": "てをあらって",
+      "symbol": "🫧",
+      "asset": "images/practice/emoji_u1fae7.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "泡泡表达清洁联想，但没有展示双手清洗动作。"
+    },
+    {
+      "id": "ja_daily_003",
+      "text": "すわって",
+      "symbol": "🪑",
+      "asset": "images/practice/emoji_u1fa91.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_004",
+      "text": "あつまって",
+      "symbol": "🧑‍🤝‍🧑",
+      "asset": "images/practice/emoji_u1f9d1_200d_1f91d_200d_1f9d1.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_005",
+      "text": "ならんで",
+      "symbol": "🚶🚶",
+      "asset": "images/practice/emoji_u1f6b6_1f6b6.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_006",
+      "text": "かたづけて",
+      "symbol": "📦",
+      "asset": "images/practice/emoji_u1f4e6.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "箱子没有明确展示把玩具收进箱中的动作。"
+    },
+    {
+      "id": "ja_daily_007",
+      "text": "おきがえして",
+      "symbol": "👕",
+      "asset": "images/practice/emoji_u1f455.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "上衣图标没有展示穿衣动作；英语目标是coat，图中是短袖。"
+    },
+    {
+      "id": "ja_daily_008",
+      "text": "くつをはいて",
+      "symbol": "👟",
+      "asset": "images/practice/emoji_u1f45f.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_009",
+      "text": "ぼうしをかぶって",
+      "symbol": "🧢",
+      "asset": "images/practice/emoji_u1f9e2.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_010",
+      "text": "きいて",
+      "symbol": "👂",
+      "asset": "images/practice/emoji_u1f442.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_011",
+      "text": "しずかに",
+      "symbol": "🤫",
+      "asset": "images/practice/emoji_u1f92b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_012",
+      "text": "たって",
+      "symbol": "🧍",
+      "asset": "images/practice/emoji_u1f9cd.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_013",
+      "text": "あるいて",
+      "symbol": "🚶",
+      "asset": "images/practice/emoji_u1f6b6.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_014",
+      "text": "おいしい",
+      "symbol": "😋",
+      "asset": "images/practice/emoji_u1f60b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_015",
+      "text": "おなかすいた",
+      "symbol": "🤤",
+      "asset": "images/practice/emoji_u1f924.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_daily_016",
+      "text": "おかわり",
+      "symbol": "🥣",
+      "asset": "images/practice/emoji_u1f963.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_001",
+      "text": "トイレにいきたい",
+      "symbol": "🚽",
+      "asset": "images/practice/emoji_u1f6bd.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_002",
+      "text": "いたい",
+      "symbol": "🩹",
+      "asset": "images/practice/emoji_u1fa79.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_003",
+      "text": "せんせい",
+      "symbol": "👩‍🏫",
+      "asset": "images/practice/emoji_u1f469_200d_1f3eb.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_004",
+      "text": "わからない",
+      "symbol": "❓",
+      "asset": "images/practice/emoji_u2753.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_005",
+      "text": "たすけて",
+      "symbol": "🆘",
+      "asset": "images/practice/emoji_u1f198.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "SOS含拉丁文字，不能假定幼儿理解为求助。"
+    },
+    {
+      "id": "ja_help_006",
+      "text": "おなかいたい",
+      "symbol": "😣",
+      "asset": "images/practice/emoji_u1f623.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "痛苦表情没有指明肚子部位。"
+    },
+    {
+      "id": "ja_help_007",
+      "text": "あたまいたい",
+      "symbol": "🤕",
+      "asset": "images/practice/emoji_u1f915.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_008",
+      "text": "きもちわるい",
+      "symbol": "🤢",
+      "asset": "images/practice/emoji_u1f922.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_009",
+      "text": "ねむい",
+      "symbol": "🥱",
+      "asset": "images/practice/emoji_u1f971.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_010",
+      "text": "てつだって",
+      "symbol": "🤝",
+      "asset": "images/practice/emoji_u1f91d.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_011",
+      "text": "せんせいきて",
+      "symbol": "👩‍🏫",
+      "asset": "images/practice/emoji_u1f469_200d_1f3eb.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_012",
+      "text": "おしっこでる",
+      "symbol": "🚽",
+      "asset": "images/practice/emoji_u1f6bd.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_013",
+      "text": "かえる",
+      "symbol": "🏠",
+      "asset": "images/practice/emoji_u1f3e0.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_014",
+      "text": "ママきた",
+      "symbol": "👩‍👧",
+      "asset": "images/practice/emoji_u1f469_200d_1f467.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_015",
+      "text": "パパきた",
+      "symbol": "👨‍👦",
+      "asset": "images/practice/emoji_u1f468_200d_1f466.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "ja_help_016",
+      "text": "おみずこぼれた",
+      "symbol": "💧",
+      "asset": "images/practice/emoji_u1f4a7.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_greet_001",
+      "text": "早上好",
+      "symbol": "🌅",
+      "asset": "images/practice/emoji_u1f305.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_greet_002",
+      "text": "谢谢",
+      "symbol": "🎁",
+      "asset": "images/practice/emoji_u1f381.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "礼物只表达物品，缺少给予后说谢谢的互动。"
+    },
+    {
+      "id": "zh_greet_003",
+      "text": "对不起",
+      "symbol": "🙇",
+      "asset": "images/practice/emoji_u1f647.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_greet_004",
+      "text": "没关系",
+      "symbol": "👌",
+      "asset": "images/practice/emoji_u1f44c.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_greet_005",
+      "text": "你好",
+      "symbol": "👋",
+      "asset": "images/practice/emoji_u1f44b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_greet_006",
+      "text": "再见",
+      "symbol": "🙋",
+      "asset": "images/practice/emoji_u1f64b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_greet_007",
+      "text": "请给我",
+      "symbol": "🤲",
+      "asset": "images/practice/emoji_u1f932.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "双手姿势缺少给予或请求的对象与情境。"
+    },
+    {
+      "id": "zh_greet_008",
+      "text": "我开动了",
+      "symbol": "🙏",
+      "asset": "images/practice/emoji_u1f64f.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_play_001",
+      "text": "一起玩吧",
+      "symbol": "🛝",
+      "asset": "images/practice/emoji_u1f6dd.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_play_002",
+      "text": "让我加入吧",
+      "symbol": "⚽",
+      "asset": "images/practice/emoji_u26bd.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "足球没有表达请求加入已有游戏。"
+    },
+    {
+      "id": "zh_play_003",
+      "text": "借我玩一下",
+      "symbol": "🧸",
+      "asset": "images/practice/emoji_u1f9f8.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "玩具没有表达借用或分享的互动。"
+    },
+    {
+      "id": "zh_play_004",
+      "text": "请等一等",
+      "symbol": "✋",
+      "asset": "images/practice/emoji_u270b.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_play_005",
+      "text": "再来一次",
+      "symbol": "🔁",
+      "asset": "images/practice/emoji_u1f501.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_play_006",
+      "text": "轮到我了",
+      "symbol": "👦",
+      "asset": "images/practice/emoji_u1f466.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "男孩头像没有表达轮到自己。"
+    },
+    {
+      "id": "zh_play_007",
+      "text": "排队轮流玩",
+      "symbol": "🔢",
+      "asset": "images/practice/emoji_u1f522.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "数字没有表达排队轮流的先后关系。"
+    },
+    {
+      "id": "zh_play_008",
+      "text": "看这个",
+      "symbol": "👀",
+      "asset": "images/practice/emoji_u1f440.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_daily_001",
+      "text": "我想喝水",
+      "symbol": "🥤",
+      "asset": "images/practice/emoji_u1f964.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_daily_002",
+      "text": "洗手手",
+      "symbol": "🫧",
+      "asset": "images/practice/emoji_u1fae7.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "泡泡表达清洁联想，但没有展示双手清洗动作。"
+    },
+    {
+      "id": "zh_daily_003",
+      "text": "请坐下",
+      "symbol": "🪑",
+      "asset": "images/practice/emoji_u1fa91.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_daily_004",
+      "text": "大家集合",
+      "symbol": "🧑‍🤝‍🧑",
+      "asset": "images/practice/emoji_u1f9d1_200d_1f91d_200d_1f9d1.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_daily_005",
+      "text": "排好队伍",
+      "symbol": "🚶🚶",
+      "asset": "images/practice/emoji_u1f6b6_1f6b6.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_daily_006",
+      "text": "收拾玩具",
+      "symbol": "📦",
+      "asset": "images/practice/emoji_u1f4e6.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "箱子没有明确展示把玩具收进箱中的动作。"
+    },
+    {
+      "id": "zh_daily_007",
+      "text": "穿好衣服",
+      "symbol": "👕",
+      "asset": "images/practice/emoji_u1f455.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "上衣图标没有展示穿衣动作；英语目标是coat，图中是短袖。"
+    },
+    {
+      "id": "zh_daily_008",
+      "text": "穿鞋子",
+      "symbol": "👟",
+      "asset": "images/practice/emoji_u1f45f.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_help_001",
+      "text": "我要上厕所",
+      "symbol": "🚽",
+      "asset": "images/practice/emoji_u1f6bd.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_help_002",
+      "text": "这里痛",
+      "symbol": "🩹",
+      "asset": "images/practice/emoji_u1fa79.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_help_003",
+      "text": "老师",
+      "symbol": "👩‍🏫",
+      "asset": "images/practice/emoji_u1f469_200d_1f3eb.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_help_004",
+      "text": "我不知道",
+      "symbol": "❓",
+      "asset": "images/practice/emoji_u2753.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_help_005",
+      "text": "帮帮我",
+      "symbol": "🆘",
+      "asset": "images/practice/emoji_u1f198.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "SOS含拉丁文字，不能假定幼儿理解为求助。"
+    },
+    {
+      "id": "zh_help_006",
+      "text": "我肚子痛",
+      "symbol": "😣",
+      "asset": "images/practice/emoji_u1f623.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "痛苦表情没有指明肚子部位。"
+    },
+    {
+      "id": "zh_help_007",
+      "text": "妈妈来了",
+      "symbol": "👩‍👧",
+      "asset": "images/practice/emoji_u1f469_200d_1f467.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    },
+    {
+      "id": "zh_help_008",
+      "text": "爸爸来了",
+      "symbol": "👨‍👦",
+      "asset": "images/practice/emoji_u1f468_200d_1f466.png",
+      "semanticAcceptance": "notValidated",
+      "reviewConcern": "需要真实场景/儿童理解度验收；符号存在不证明语义明确。"
+    }
+  ]
+}

@@ -10,14 +10,14 @@
     "text": "Good morning",
     "reading": "Good morning",
     "translation": "早上好",
-    "image": "🌅",
+    "image": "images/practice/emoji_u1f305.png",
     "aliases": [
       "morning",
       "good morning teacher"
     ],
     "distractors": [
-      "🌙",
-      "👋"
+      "images/practice/emoji_u1f319.png",
+      "images/practice/emoji_u1f44b.png"
     ],
     "audio": "audio/en/en_greet_001.mp3"
   },
@@ -32,14 +32,14 @@
     "text": "Thank you",
     "reading": "Thank you",
     "translation": "谢谢",
-    "image": "🎁",
+    "image": "images/practice/emoji_u1f381.png",
     "aliases": [
       "thanks",
       "thank you very much"
     ],
     "distractors": [
-      "🙅",
-      "🏃"
+      "images/practice/emoji_u1f645.png",
+      "images/practice/emoji_u1f3c3.png"
     ],
     "audio": "audio/en/en_greet_002.mp3"
   },
@@ -54,14 +54,14 @@
     "text": "Excuse me",
     "reading": "Excuse me",
     "translation": "对不起 / 打扰一下",
-    "image": "🙇",
+    "image": "images/practice/emoji_u1f647.png",
     "aliases": [
       "sorry",
       "pardon"
     ],
     "distractors": [
-      "😄",
-      "🎉"
+      "images/practice/emoji_u1f604.png",
+      "images/practice/emoji_u1f389.png"
     ],
     "audio": "audio/en/en_greet_003.mp3"
   },
@@ -76,14 +76,14 @@
     "text": "You're welcome",
     "reading": "You're welcome",
     "translation": "不用谢 / 不客气",
-    "image": "👌",
+    "image": "images/practice/emoji_u1f44c.png",
     "aliases": [
       "welcome",
       "no problem"
     ],
     "distractors": [
-      "💥",
-      "🚪"
+      "images/practice/emoji_u1f4a5.png",
+      "images/practice/emoji_u1f6aa.png"
     ],
     "audio": "audio/en/en_greet_004.mp3"
   },
@@ -98,14 +98,14 @@
     "text": "Hello",
     "reading": "Hello",
     "translation": "你好",
-    "image": "👋",
+    "image": "images/practice/emoji_u1f44b.png",
     "aliases": [
       "hi",
       "hey"
     ],
     "distractors": [
-      "💤",
-      "🌧️"
+      "images/practice/emoji_u1f4a4.png",
+      "images/practice/emoji_u1f327.png"
     ],
     "audio": "audio/en/en_greet_005.mp3"
   },
@@ -120,14 +120,14 @@
     "text": "Goodbye",
     "reading": "Goodbye",
     "translation": "再见",
-    "image": "🙋",
+    "image": "images/practice/emoji_u1f64b.png",
     "aliases": [
       "bye",
       "bye bye"
     ],
     "distractors": [
-      "🍲",
-      "🪑"
+      "images/practice/emoji_u1f372.png",
+      "images/practice/emoji_u1fa91.png"
     ],
     "audio": "audio/en/en_greet_006.mp3"
   },
@@ -142,14 +142,14 @@
     "text": "See you tomorrow",
     "reading": "See you tomorrow",
     "translation": "明天见",
-    "image": "🌈",
+    "image": "images/practice/emoji_u1f308.png",
     "aliases": [
       "see you",
       "see you later"
     ],
     "distractors": [
-      "⏰",
-      "🥄"
+      "images/practice/emoji_u23f0.png",
+      "images/practice/emoji_u1f944.png"
     ],
     "audio": "audio/en/en_greet_007.mp3"
   },
@@ -164,14 +164,14 @@
     "text": "Please",
     "reading": "Please",
     "translation": "请 / 拜托",
-    "image": "🙏",
+    "image": "images/practice/emoji_u1f64f.png",
     "aliases": [
       "please help",
       "yes please"
     ],
     "distractors": [
-      "⚽",
-      "🛌"
+      "images/practice/emoji_u26bd.png",
+      "images/practice/emoji_u1f6cc.png"
     ],
     "audio": "audio/en/en_greet_008.mp3"
   },
@@ -186,14 +186,14 @@
     "text": "Let's play together",
     "reading": "Let's play together",
     "translation": "一起玩吧",
-    "image": "🛝",
+    "image": "images/practice/emoji_u1f6dd.png",
     "aliases": [
       "let's play",
       "play together"
     ],
     "distractors": [
-      "💤",
-      "🌧️"
+      "images/practice/emoji_u1f4a4.png",
+      "images/practice/emoji_u1f327.png"
     ],
     "audio": "audio/en/en_play_001.mp3"
   },
@@ -208,14 +208,14 @@
     "text": "Can I join?",
     "reading": "Can I join?",
     "translation": "让我加入吧",
-    "image": "⚽",
+    "image": "images/practice/emoji_u26bd.png",
     "aliases": [
       "can I play",
       "let me join"
     ],
     "distractors": [
-      "🚪",
-      "🤫"
+      "images/practice/emoji_u1f6aa.png",
+      "images/practice/emoji_u1f92b.png"
     ],
     "audio": "audio/en/en_play_002.mp3"
   },
@@ -230,14 +230,14 @@
     "text": "Share please",
     "reading": "Share please",
     "translation": "借我玩一下 / 一起分享",
-    "image": "🧸",
+    "image": "images/practice/emoji_u1f9f8.png",
     "aliases": [
       "can I have this",
       "share"
     ],
     "distractors": [
-      "💥",
-      "🚶"
+      "images/practice/emoji_u1f4a5.png",
+      "images/practice/emoji_u1f6b6.png"
     ],
     "audio": "audio/en/en_play_003.mp3"
   },
@@ -252,14 +252,14 @@
     "text": "Wait for me",
     "reading": "Wait for me",
     "translation": "等等我",
-    "image": "✋",
+    "image": "images/practice/emoji_u270b.png",
     "aliases": [
       "wait please",
       "wait"
     ],
     "distractors": [
-      "🏃",
-      "🚀"
+      "images/practice/emoji_u1f3c3.png",
+      "images/practice/emoji_u1f680.png"
     ],
     "audio": "audio/en/en_play_004.mp3"
   },
@@ -274,14 +274,14 @@
     "text": "One more time",
     "reading": "One more time",
     "translation": "再来一次",
-    "image": "🔁",
+    "image": "images/practice/emoji_u1f501.png",
     "aliases": [
       "again",
       "once more"
     ],
     "distractors": [
-      "⏹️",
-      "❌"
+      "images/practice/emoji_u23f9.png",
+      "images/practice/emoji_u274c.png"
     ],
     "audio": "audio/en/en_play_005.mp3"
   },
@@ -296,14 +296,14 @@
     "text": "My turn",
     "reading": "My turn",
     "translation": "轮到我了",
-    "image": "👦",
+    "image": "images/practice/emoji_u1f466.png",
     "aliases": [
       "it's my turn",
       "me next"
     ],
     "distractors": [
-      "💤",
-      "👟"
+      "images/practice/emoji_u1f4a4.png",
+      "images/practice/emoji_u1f45f.png"
     ],
     "audio": "audio/en/en_play_006.mp3"
   },
@@ -318,14 +318,14 @@
     "text": "Take turns",
     "reading": "Take turns",
     "translation": "排队轮流玩",
-    "image": "🔢",
+    "image": "images/practice/emoji_u1f522.png",
     "aliases": [
       "your turn",
       "turn by turn"
     ],
     "distractors": [
-      "💥",
-      "🍕"
+      "images/practice/emoji_u1f4a5.png",
+      "images/practice/emoji_u1f355.png"
     ],
     "audio": "audio/en/en_play_007.mp3"
   },
@@ -340,14 +340,14 @@
     "text": "Look at this",
     "reading": "Look at this",
     "translation": "看这个！",
-    "image": "👀",
+    "image": "images/practice/emoji_u1f440.png",
     "aliases": [
       "look",
       "look here"
     ],
     "distractors": [
-      "👂",
-      "🙈"
+      "images/practice/emoji_u1f442.png",
+      "images/practice/emoji_u1f648.png"
     ],
     "audio": "audio/en/en_play_008.mp3"
   },
@@ -362,14 +362,14 @@
     "text": "Water please",
     "reading": "Water please",
     "translation": "请给我水",
-    "image": "🥤",
+    "image": "images/practice/emoji_u1f964.png",
     "aliases": [
       "water",
       "can I have water"
     ],
     "distractors": [
-      "🧼",
-      "🧦"
+      "images/practice/emoji_u1f9fc.png",
+      "images/practice/emoji_u1f9e6.png"
     ],
     "audio": "audio/en/en_daily_001.mp3"
   },
@@ -384,14 +384,14 @@
     "text": "Wash hands",
     "reading": "Wash hands",
     "translation": "去洗手吧",
-    "image": "🫧",
+    "image": "images/practice/emoji_u1fae7.png",
     "aliases": [
       "wash your hands",
       "clean hands"
     ],
     "distractors": [
-      "⚽",
-      "📖"
+      "images/practice/emoji_u26bd.png",
+      "images/practice/emoji_u1f4d6.png"
     ],
     "audio": "audio/en/en_daily_002.mp3"
   },
@@ -406,14 +406,14 @@
     "text": "Sit down please",
     "reading": "Sit down please",
     "translation": "请坐下",
-    "image": "🪑",
+    "image": "images/practice/emoji_u1fa91.png",
     "aliases": [
       "sit down",
       "have a seat"
     ],
     "distractors": [
-      "🏃",
-      "🧍"
+      "images/practice/emoji_u1f3c3.png",
+      "images/practice/emoji_u1f9cd.png"
     ],
     "audio": "audio/en/en_daily_003.mp3"
   },
@@ -428,14 +428,14 @@
     "text": "Gather around",
     "reading": "Gather around",
     "translation": "大家集合",
-    "image": "🧑‍🤝‍🧑",
+    "image": "images/practice/emoji_u1f9d1_200d_1f91d_200d_1f9d1.png",
     "aliases": [
       "come here",
       "circle time"
     ],
     "distractors": [
-      "🏃💨",
-      "🛌"
+      "images/practice/emoji_u1f3c3_1f4a8.png",
+      "images/practice/emoji_u1f6cc.png"
     ],
     "audio": "audio/en/en_daily_004.mp3"
   },
@@ -450,14 +450,14 @@
     "text": "Line up please",
     "reading": "Line up please",
     "translation": "排好队伍",
-    "image": "🚶🚶",
+    "image": "images/practice/emoji_u1f6b6_1f6b6.png",
     "aliases": [
       "line up",
       "make a line"
     ],
     "distractors": [
-      "🤼",
-      "🪑"
+      "images/practice/emoji_u1f93c.png",
+      "images/practice/emoji_u1fa91.png"
     ],
     "audio": "audio/en/en_daily_005.mp3"
   },
@@ -472,14 +472,14 @@
     "text": "Clean up",
     "reading": "Clean up",
     "translation": "收拾玩具",
-    "image": "📦",
+    "image": "images/practice/emoji_u1f4e6.png",
     "aliases": [
       "clean up toys",
       "tidy up"
     ],
     "distractors": [
-      "🎨",
-      "🍕"
+      "images/practice/emoji_u1f3a8.png",
+      "images/practice/emoji_u1f355.png"
     ],
     "audio": "audio/en/en_daily_006.mp3"
   },
@@ -494,14 +494,14 @@
     "text": "Put on coat",
     "reading": "Put on coat",
     "translation": "穿好外套",
-    "image": "👕",
+    "image": "images/practice/emoji_u1f455.png",
     "aliases": [
       "jacket on",
       "get dressed"
     ],
     "distractors": [
-      "🥄",
-      "🧼"
+      "images/practice/emoji_u1f944.png",
+      "images/practice/emoji_u1f9fc.png"
     ],
     "audio": "audio/en/en_daily_007.mp3"
   },
@@ -516,14 +516,14 @@
     "text": "Put on shoes",
     "reading": "Put on shoes",
     "translation": "穿好鞋子",
-    "image": "👟",
+    "image": "images/practice/emoji_u1f45f.png",
     "aliases": [
       "shoes on",
       "wear shoes"
     ],
     "distractors": [
-      "🧢",
-      "🧤"
+      "images/practice/emoji_u1f9e2.png",
+      "images/practice/emoji_u1f9e4.png"
     ],
     "audio": "audio/en/en_daily_008.mp3"
   },
@@ -538,15 +538,15 @@
     "text": "Bathroom please",
     "reading": "Bathroom please",
     "translation": "我想去洗手间",
-    "image": "🚽",
+    "image": "images/practice/emoji_u1f6bd.png",
     "aliases": [
       "restroom",
       "toilet please",
       "potty"
     ],
     "distractors": [
-      "🎒",
-      "🍎"
+      "images/practice/emoji_u1f392.png",
+      "images/practice/emoji_u1f34e.png"
     ],
     "audio": "audio/en/en_help_001.mp3"
   },
@@ -561,14 +561,14 @@
     "text": "It hurts here",
     "reading": "It hurts here",
     "translation": "这里痛",
-    "image": "🩹",
+    "image": "images/practice/emoji_u1fa79.png",
     "aliases": [
       "ouch",
       "it hurts"
     ],
     "distractors": [
-      "🎈",
-      "🍨"
+      "images/practice/emoji_u1f388.png",
+      "images/practice/emoji_u1f368.png"
     ],
     "audio": "audio/en/en_help_002.mp3"
   },
@@ -583,14 +583,14 @@
     "text": "Teacher",
     "reading": "Teacher",
     "translation": "老师！",
-    "image": "👩‍🏫",
+    "image": "images/practice/emoji_u1f469_200d_1f3eb.png",
     "aliases": [
       "teacher help",
       "hello teacher"
     ],
     "distractors": [
-      "🐶",
-      "🚗"
+      "images/practice/emoji_u1f436.png",
+      "images/practice/emoji_u1f697.png"
     ],
     "audio": "audio/en/en_help_003.mp3"
   },
@@ -605,14 +605,14 @@
     "text": "I don't know",
     "reading": "I don't know",
     "translation": "我不知道",
-    "image": "❓",
+    "image": "images/practice/emoji_u2753.png",
     "aliases": [
       "don't know",
       "not sure"
     ],
     "distractors": [
-      "💡",
-      "👍"
+      "images/practice/emoji_u1f4a1.png",
+      "images/practice/emoji_u1f44d.png"
     ],
     "audio": "audio/en/en_help_004.mp3"
   },
@@ -627,14 +627,14 @@
     "text": "Help me please",
     "reading": "Help me please",
     "translation": "请帮帮我",
-    "image": "🆘",
+    "image": "images/practice/emoji_u1f198.png",
     "aliases": [
       "help me",
       "help"
     ],
     "distractors": [
-      "🎉",
-      "💤"
+      "images/practice/emoji_u1f389.png",
+      "images/practice/emoji_u1f4a4.png"
     ],
     "audio": "audio/en/en_help_005.mp3"
   },
@@ -649,14 +649,14 @@
     "text": "Tummy hurts",
     "reading": "Tummy hurts",
     "translation": "肚子痛",
-    "image": "😣",
+    "image": "images/practice/emoji_u1f623.png",
     "aliases": [
       "stomach ache",
       "belly hurts"
     ],
     "distractors": [
-      "⚽",
-      "🍎"
+      "images/practice/emoji_u26bd.png",
+      "images/practice/emoji_u1f34e.png"
     ],
     "audio": "audio/en/en_help_006.mp3"
   },
@@ -671,14 +671,14 @@
     "text": "Mom is here",
     "reading": "Mom is here",
     "translation": "妈妈来接我了",
-    "image": "👩‍👧",
+    "image": "images/practice/emoji_u1f469_200d_1f467.png",
     "aliases": [
       "my mom",
       "mommy"
     ],
     "distractors": [
-      "🌧️",
-      "💤"
+      "images/practice/emoji_u1f327.png",
+      "images/practice/emoji_u1f4a4.png"
     ],
     "audio": "audio/en/en_help_007.mp3"
   },
@@ -693,14 +693,14 @@
     "text": "Dad is here",
     "reading": "Dad is here",
     "translation": "爸爸来接我了",
-    "image": "👨‍👦",
+    "image": "images/practice/emoji_u1f468_200d_1f466.png",
     "aliases": [
       "my dad",
       "daddy"
     ],
     "distractors": [
-      "🌧️",
-      "💤"
+      "images/practice/emoji_u1f327.png",
+      "images/practice/emoji_u1f4a4.png"
     ],
     "audio": "audio/en/en_help_008.mp3"
   }

@@ -10,14 +10,14 @@
     "text": "おはよう",
     "reading": "おはよう",
     "translation": "早上好",
-    "image": "🌅",
+    "image": "images/practice/emoji_u1f305.png",
     "aliases": [
       "おはよー",
       "おはようございます"
     ],
     "distractors": [
-      "🌙",
-      "👋"
+      "images/practice/emoji_u1f319.png",
+      "images/practice/emoji_u1f44b.png"
     ],
     "audio": "audio/ja/ja_greet_001.mp3"
   },
@@ -32,14 +32,14 @@
     "text": "ありがとう",
     "reading": "ありがとう",
     "translation": "谢谢",
-    "image": "🎁",
+    "image": "images/practice/emoji_u1f381.png",
     "aliases": [
       "ありがと",
       "ありがとうございます"
     ],
     "distractors": [
-      "🙅",
-      "🏃"
+      "images/practice/emoji_u1f645.png",
+      "images/practice/emoji_u1f3c3.png"
     ],
     "audio": "audio/ja/ja_greet_002.mp3"
   },
@@ -54,14 +54,14 @@
     "text": "ごめんね",
     "reading": "ごめんね",
     "translation": "对不起",
-    "image": "🙇",
+    "image": "images/practice/emoji_u1f647.png",
     "aliases": [
       "ごめんなさい",
       "ごめん"
     ],
     "distractors": [
-      "😄",
-      "🎉"
+      "images/practice/emoji_u1f604.png",
+      "images/practice/emoji_u1f389.png"
     ],
     "audio": "audio/ja/ja_greet_003.mp3"
   },
@@ -76,13 +76,13 @@
     "text": "どうぞ",
     "reading": "どうぞ",
     "translation": "请 / 给你",
-    "image": "🤲",
+    "image": "images/practice/emoji_u1f932.png",
     "aliases": [
       "どーぞ"
     ],
     "distractors": [
-      "🚫",
-      "🙈"
+      "images/practice/emoji_u1f6ab.png",
+      "images/practice/emoji_u1f648.png"
     ],
     "audio": "audio/ja/ja_greet_004.mp3"
   },
@@ -97,13 +97,13 @@
     "text": "こんにちは",
     "reading": "こんにちは",
     "translation": "你好",
-    "image": "☀️",
+    "image": "images/practice/emoji_u2600.png",
     "aliases": [
       "こんにちわ"
     ],
     "distractors": [
-      "🌙",
-      "💤"
+      "images/practice/emoji_u1f319.png",
+      "images/practice/emoji_u1f4a4.png"
     ],
     "audio": "audio/ja/ja_greet_005.mp3"
   },
@@ -118,14 +118,14 @@
     "text": "さようなら",
     "reading": "さようなら",
     "translation": "再见",
-    "image": "👋",
+    "image": "images/practice/emoji_u1f44b.png",
     "aliases": [
       "さよなら",
       "バイバイ"
     ],
     "distractors": [
-      "🤝",
-      "🍲"
+      "images/practice/emoji_u1f91d.png",
+      "images/practice/emoji_u1f372.png"
     ],
     "audio": "audio/ja/ja_greet_006.mp3"
   },
@@ -140,13 +140,13 @@
     "text": "バイバイ",
     "reading": "ばいばい",
     "translation": "拜拜",
-    "image": "🙋",
+    "image": "images/practice/emoji_u1f64b.png",
     "aliases": [
       "ばいばいー"
     ],
     "distractors": [
-      "🪑",
-      "🚽"
+      "images/practice/emoji_u1fa91.png",
+      "images/practice/emoji_u1f6bd.png"
     ],
     "audio": "audio/ja/ja_greet_007.mp3"
   },
@@ -161,13 +161,13 @@
     "text": "いただきます",
     "reading": "いただきます",
     "translation": "我开动了 (饭前)",
-    "image": "🙏",
+    "image": "images/practice/emoji_u1f64f.png",
     "aliases": [
       "いただきまーす"
     ],
     "distractors": [
-      "🏃",
-      "⚽"
+      "images/practice/emoji_u1f3c3.png",
+      "images/practice/emoji_u26bd.png"
     ],
     "audio": "audio/ja/ja_greet_008.mp3"
   },
@@ -182,14 +182,14 @@
     "text": "ごちそうさま",
     "reading": "ごちそうさま",
     "translation": "多谢款待 (饭后)",
-    "image": "🍽️",
+    "image": "images/practice/emoji_u1f37d.png",
     "aliases": [
       "ごちそうさまでした",
       "ごちそーさま"
     ],
     "distractors": [
-      "🛝",
-      "🌧️"
+      "images/practice/emoji_u1f6dd.png",
+      "images/practice/emoji_u1f327.png"
     ],
     "audio": "audio/ja/ja_greet_009.mp3"
   },
@@ -204,14 +204,14 @@
     "text": "よろしくね",
     "reading": "よろしくね",
     "translation": "请多关照",
-    "image": "🤝",
+    "image": "images/practice/emoji_u1f91d.png",
     "aliases": [
       "よろしく",
       "よろしくおねがいします"
     ],
     "distractors": [
-      "🚪",
-      "📦"
+      "images/practice/emoji_u1f6aa.png",
+      "images/practice/emoji_u1f4e6.png"
     ],
     "audio": "audio/ja/ja_greet_010.mp3"
   },
@@ -226,14 +226,14 @@
     "text": "またあした",
     "reading": "またあした",
     "translation": "明天见",
-    "image": "🌈",
+    "image": "images/practice/emoji_u1f308.png",
     "aliases": [
       "また明日",
       "またね"
     ],
     "distractors": [
-      "⏰",
-      "🥄"
+      "images/practice/emoji_u23f0.png",
+      "images/practice/emoji_u1f944.png"
     ],
     "audio": "audio/ja/ja_greet_011.mp3"
   },
@@ -248,14 +248,14 @@
     "text": "いいよ",
     "reading": "いいよ",
     "translation": "好呀 / 可以",
-    "image": "👌",
+    "image": "images/practice/emoji_u1f44c.png",
     "aliases": [
       "いーよ",
       "いいですよ"
     ],
     "distractors": [
-      "🙅",
-      "🚫"
+      "images/practice/emoji_u1f645.png",
+      "images/practice/emoji_u1f6ab.png"
     ],
     "audio": "audio/ja/ja_greet_012.mp3"
   },
@@ -270,14 +270,14 @@
     "text": "だめ",
     "reading": "だめ",
     "translation": "不行哦",
-    "image": "🙅",
+    "image": "images/practice/emoji_u1f645.png",
     "aliases": [
       "だめだよ",
       "いけません"
     ],
     "distractors": [
-      "👍",
-      "🎉"
+      "images/practice/emoji_u1f44d.png",
+      "images/practice/emoji_u1f389.png"
     ],
     "audio": "audio/ja/ja_greet_013.mp3"
   },
@@ -292,13 +292,13 @@
     "text": "はい",
     "reading": "はい",
     "translation": "到！/ 是的",
-    "image": "✋",
+    "image": "images/practice/emoji_u270b.png",
     "aliases": [
       "はーい"
     ],
     "distractors": [
-      "💤",
-      "🚶"
+      "images/practice/emoji_u1f4a4.png",
+      "images/practice/emoji_u1f6b6.png"
     ],
     "audio": "audio/ja/ja_greet_014.mp3"
   },
@@ -313,14 +313,14 @@
     "text": "おねがい",
     "reading": "おねがい",
     "translation": "拜托了",
-    "image": "🥺",
+    "image": "images/practice/emoji_u1f97a.png",
     "aliases": [
       "おねがいします",
       "たのむね"
     ],
     "distractors": [
-      "⚽",
-      "🪑"
+      "images/practice/emoji_u26bd.png",
+      "images/practice/emoji_u1fa91.png"
     ],
     "audio": "audio/ja/ja_greet_015.mp3"
   },
@@ -335,14 +335,14 @@
     "text": "いっしょにあそぼう",
     "reading": "いっしょにあそぼう",
     "translation": "一起玩吧",
-    "image": "🛝",
+    "image": "images/practice/emoji_u1f6dd.png",
     "aliases": [
       "いっしょにあそぼ",
       "あそぼう"
     ],
     "distractors": [
-      "💤",
-      "🌧️"
+      "images/practice/emoji_u1f4a4.png",
+      "images/practice/emoji_u1f327.png"
     ],
     "audio": "audio/ja/ja_play_001.mp3"
   },
@@ -357,14 +357,14 @@
     "text": "いれて",
     "reading": "いれて",
     "translation": "让我加入吧",
-    "image": "⚽",
+    "image": "images/practice/emoji_u26bd.png",
     "aliases": [
       "いれてー",
       "いれてください"
     ],
     "distractors": [
-      "🚪",
-      "🤫"
+      "images/practice/emoji_u1f6aa.png",
+      "images/practice/emoji_u1f92b.png"
     ],
     "audio": "audio/ja/ja_play_002.mp3"
   },
@@ -379,14 +379,14 @@
     "text": "かして",
     "reading": "かして",
     "translation": "借我玩一下",
-    "image": "🧸",
+    "image": "images/practice/emoji_u1f9f8.png",
     "aliases": [
       "かしてー",
       "かしてください"
     ],
     "distractors": [
-      "💥",
-      "🚶"
+      "images/practice/emoji_u1f4a5.png",
+      "images/practice/emoji_u1f6b6.png"
     ],
     "audio": "audio/ja/ja_play_003.mp3"
   },
@@ -401,14 +401,14 @@
     "text": "まって",
     "reading": "まって",
     "translation": "等等我",
-    "image": "✋",
+    "image": "images/practice/emoji_u270b.png",
     "aliases": [
       "まってー",
       "ちょっとまって"
     ],
     "distractors": [
-      "🏃",
-      "🚀"
+      "images/practice/emoji_u1f3c3.png",
+      "images/practice/emoji_u1f680.png"
     ],
     "audio": "audio/ja/ja_play_004.mp3"
   },
@@ -423,14 +423,14 @@
     "text": "もういっかい",
     "reading": "もういっかい",
     "translation": "再来一次",
-    "image": "🔁",
+    "image": "images/practice/emoji_u1f501.png",
     "aliases": [
       "もう１回",
       "もういちど"
     ],
     "distractors": [
-      "⏹️",
-      "❌"
+      "images/practice/emoji_u23f9.png",
+      "images/practice/emoji_u274c.png"
     ],
     "audio": "audio/ja/ja_play_005.mp3"
   },
@@ -445,14 +445,14 @@
     "text": "つぎぼく",
     "reading": "つぎぼく",
     "translation": "下一个轮到我",
-    "image": "👦",
+    "image": "images/practice/emoji_u1f466.png",
     "aliases": [
       "つぎわたし",
       "つぎじぶん"
     ],
     "distractors": [
-      "💤",
-      "👟"
+      "images/practice/emoji_u1f4a4.png",
+      "images/practice/emoji_u1f45f.png"
     ],
     "audio": "audio/ja/ja_play_006.mp3"
   },
@@ -467,14 +467,14 @@
     "text": "じゅんばん",
     "reading": "じゅんばん",
     "translation": "按顺序轮流",
-    "image": "🔢",
+    "image": "images/practice/emoji_u1f522.png",
     "aliases": [
       "じゅんばんだよ",
       "ならんで"
     ],
     "distractors": [
-      "💥",
-      "🍕"
+      "images/practice/emoji_u1f4a5.png",
+      "images/practice/emoji_u1f355.png"
     ],
     "audio": "audio/ja/ja_play_007.mp3"
   },
@@ -489,14 +489,14 @@
     "text": "かわりばんこ",
     "reading": "かわりばんこ",
     "translation": "交换轮流玩",
-    "image": "🔄",
+    "image": "images/practice/emoji_u1f504.png",
     "aliases": [
       "こうたい",
       "じゅんばんこ"
     ],
     "distractors": [
-      "🪑",
-      "🧼"
+      "images/practice/emoji_u1fa91.png",
+      "images/practice/emoji_u1f9fc.png"
     ],
     "audio": "audio/ja/ja_play_008.mp3"
   },
@@ -511,14 +511,14 @@
     "text": "これみて",
     "reading": "これみて",
     "translation": "看这个！",
-    "image": "👀",
+    "image": "images/practice/emoji_u1f440.png",
     "aliases": [
       "みてみて",
       "ほらみて"
     ],
     "distractors": [
-      "👂",
-      "🙈"
+      "images/practice/emoji_u1f442.png",
+      "images/practice/emoji_u1f648.png"
     ],
     "audio": "audio/ja/ja_play_009.mp3"
   },
@@ -533,14 +533,14 @@
     "text": "すごいね",
     "reading": "すごいね",
     "translation": "好厉害啊",
-    "image": "🌟",
+    "image": "images/practice/emoji_u1f31f.png",
     "aliases": [
       "すごーい",
       "かっこいい"
     ],
     "distractors": [
-      "🌧️",
-      "😴"
+      "images/practice/emoji_u1f327.png",
+      "images/practice/emoji_u1f634.png"
     ],
     "audio": "audio/ja/ja_play_010.mp3"
   },
@@ -555,14 +555,14 @@
     "text": "おもしろい",
     "reading": "おもしろい",
     "translation": "真好玩",
-    "image": "😆",
+    "image": "images/practice/emoji_u1f606.png",
     "aliases": [
       "たのしい",
       "おもしろーい"
     ],
     "distractors": [
-      "😭",
-      "🩹"
+      "images/practice/emoji_u1f62d.png",
+      "images/practice/emoji_u1fa79.png"
     ],
     "audio": "audio/ja/ja_play_011.mp3"
   },
@@ -577,14 +577,14 @@
     "text": "おもちゃかして",
     "reading": "おもちゃかして",
     "translation": "借我玩具玩",
-    "image": "🚗",
+    "image": "images/practice/emoji_u1f697.png",
     "aliases": [
       "くるまかして",
       "かして"
     ],
     "distractors": [
-      "🥣",
-      "🧦"
+      "images/practice/emoji_u1f963.png",
+      "images/practice/emoji_u1f9e6.png"
     ],
     "audio": "audio/ja/ja_play_012.mp3"
   },
@@ -599,14 +599,14 @@
     "text": "いっしょにいこう",
     "reading": "いっしょにいこう",
     "translation": "一起走吧",
-    "image": "🏃‍♂️🏃‍♀️",
+    "image": "images/practice/emoji_u1f3c3_200d_2642_1f3c3_200d_2640.png",
     "aliases": [
       "いこー",
       "いっしょにいこ"
     ],
     "distractors": [
-      "🛌",
-      "🛑"
+      "images/practice/emoji_u1f6cc.png",
+      "images/practice/emoji_u1f6d1.png"
     ],
     "audio": "audio/ja/ja_play_013.mp3"
   },
@@ -621,14 +621,14 @@
     "text": "おにごっこしよう",
     "reading": "おにごっこしよう",
     "translation": "来捉迷藏/抓人吧",
-    "image": "🏃",
+    "image": "images/practice/emoji_u1f3c3.png",
     "aliases": [
       "おにごっこ",
       "あそぼう"
     ],
     "distractors": [
-      "📖",
-      "🥣"
+      "images/practice/emoji_u1f4d6.png",
+      "images/practice/emoji_u1f963.png"
     ],
     "audio": "audio/ja/ja_play_014.mp3"
   },
@@ -643,14 +643,14 @@
     "text": "すなばであそぼう",
     "reading": "すなばであそぼう",
     "translation": "去沙坑玩吧",
-    "image": "🏖️",
+    "image": "images/practice/emoji_u1f3d6.png",
     "aliases": [
       "すなあそび",
       "すなばいこう"
     ],
     "distractors": [
-      "🚽",
-      "🪑"
+      "images/practice/emoji_u1f6bd.png",
+      "images/practice/emoji_u1fa91.png"
     ],
     "audio": "audio/ja/ja_play_015.mp3"
   },
@@ -665,14 +665,14 @@
     "text": "おみずください",
     "reading": "おみずください",
     "translation": "请给我水",
-    "image": "🥤",
+    "image": "images/practice/emoji_u1f964.png",
     "aliases": [
       "おみず",
       "みずください"
     ],
     "distractors": [
-      "🧼",
-      "🧦"
+      "images/practice/emoji_u1f9fc.png",
+      "images/practice/emoji_u1f9e6.png"
     ],
     "audio": "audio/ja/ja_daily_001.mp3"
   },
@@ -687,14 +687,14 @@
     "text": "てをあらって",
     "reading": "てをあらって",
     "translation": "去洗手吧",
-    "image": "🫧",
+    "image": "images/practice/emoji_u1fae7.png",
     "aliases": [
       "てをあらう",
       "てあらい"
     ],
     "distractors": [
-      "⚽",
-      "📖"
+      "images/practice/emoji_u26bd.png",
+      "images/practice/emoji_u1f4d6.png"
     ],
     "audio": "audio/ja/ja_daily_002.mp3"
   },
@@ -709,14 +709,14 @@
     "text": "すわって",
     "reading": "すわって",
     "translation": "坐下",
-    "image": "🪑",
+    "image": "images/practice/emoji_u1fa91.png",
     "aliases": [
       "すわる",
       "おすわり"
     ],
     "distractors": [
-      "🏃",
-      "🧍"
+      "images/practice/emoji_u1f3c3.png",
+      "images/practice/emoji_u1f9cd.png"
     ],
     "audio": "audio/ja/ja_daily_003.mp3"
   },
@@ -731,14 +731,14 @@
     "text": "あつまって",
     "reading": "あつまって",
     "translation": "集合啦",
-    "image": "🧑‍🤝‍🧑",
+    "image": "images/practice/emoji_u1f9d1_200d_1f91d_200d_1f9d1.png",
     "aliases": [
       "あつまる",
       "しゅうごう"
     ],
     "distractors": [
-      "🏃💨",
-      "🛌"
+      "images/practice/emoji_u1f3c3_1f4a8.png",
+      "images/practice/emoji_u1f6cc.png"
     ],
     "audio": "audio/ja/ja_daily_004.mp3"
   },
@@ -753,14 +753,14 @@
     "text": "ならんで",
     "reading": "ならんで",
     "translation": "排队排好",
-    "image": "🚶🚶",
+    "image": "images/practice/emoji_u1f6b6_1f6b6.png",
     "aliases": [
       "ならぶ",
       "れつにならぶ"
     ],
     "distractors": [
-      "🤼",
-      "🪑"
+      "images/practice/emoji_u1f93c.png",
+      "images/practice/emoji_u1fa91.png"
     ],
     "audio": "audio/ja/ja_daily_005.mp3"
   },
@@ -775,14 +775,14 @@
     "text": "かたづけて",
     "reading": "かたづけて",
     "translation": "收拾玩具",
-    "image": "📦",
+    "image": "images/practice/emoji_u1f4e6.png",
     "aliases": [
       "おかたづけ",
       "かたづけ"
     ],
     "distractors": [
-      "🎨",
-      "🍕"
+      "images/practice/emoji_u1f3a8.png",
+      "images/practice/emoji_u1f355.png"
     ],
     "audio": "audio/ja/ja_daily_006.mp3"
   },
@@ -797,14 +797,14 @@
     "text": "おきがえして",
     "reading": "おきがえして",
     "translation": "换衣服",
-    "image": "👕",
+    "image": "images/practice/emoji_u1f455.png",
     "aliases": [
       "きがえて",
       "おきがえ"
     ],
     "distractors": [
-      "🥄",
-      "🧼"
+      "images/practice/emoji_u1f944.png",
+      "images/practice/emoji_u1f9fc.png"
     ],
     "audio": "audio/ja/ja_daily_007.mp3"
   },
@@ -819,14 +819,14 @@
     "text": "くつをはいて",
     "reading": "くつをはいて",
     "translation": "穿好鞋子",
-    "image": "👟",
+    "image": "images/practice/emoji_u1f45f.png",
     "aliases": [
       "くつはく",
       "くつはいて"
     ],
     "distractors": [
-      "🧢",
-      "🧤"
+      "images/practice/emoji_u1f9e2.png",
+      "images/practice/emoji_u1f9e4.png"
     ],
     "audio": "audio/ja/ja_daily_008.mp3"
   },
@@ -841,14 +841,14 @@
     "text": "ぼうしをかぶって",
     "reading": "ぼうしをかぶって",
     "translation": "戴上帽子",
-    "image": "🧢",
+    "image": "images/practice/emoji_u1f9e2.png",
     "aliases": [
       "ぼうしかぶる",
       "ぼうし"
     ],
     "distractors": [
-      "👟",
-      "🎒"
+      "images/practice/emoji_u1f45f.png",
+      "images/practice/emoji_u1f392.png"
     ],
     "audio": "audio/ja/ja_daily_009.mp3"
   },
@@ -863,14 +863,14 @@
     "text": "きいて",
     "reading": "きいて",
     "translation": "仔细听老师说",
-    "image": "👂",
+    "image": "images/practice/emoji_u1f442.png",
     "aliases": [
       "おはなしきいて",
       "よくきいて"
     ],
     "distractors": [
-      "👟",
-      "⚽"
+      "images/practice/emoji_u1f45f.png",
+      "images/practice/emoji_u26bd.png"
     ],
     "audio": "audio/ja/ja_daily_010.mp3"
   },
@@ -885,14 +885,14 @@
     "text": "しずかに",
     "reading": "しずかに",
     "translation": "请保持安静",
-    "image": "🤫",
+    "image": "images/practice/emoji_u1f92b.png",
     "aliases": [
       "しずかにしてね",
       "シー"
     ],
     "distractors": [
-      "📢",
-      "🎉"
+      "images/practice/emoji_u1f4e2.png",
+      "images/practice/emoji_u1f389.png"
     ],
     "audio": "audio/ja/ja_daily_011.mp3"
   },
@@ -907,14 +907,14 @@
     "text": "たって",
     "reading": "たって",
     "translation": "站起来",
-    "image": "🧍",
+    "image": "images/practice/emoji_u1f9cd.png",
     "aliases": [
       "たつ",
       "おきて"
     ],
     "distractors": [
-      "🪑",
-      "🛌"
+      "images/practice/emoji_u1fa91.png",
+      "images/practice/emoji_u1f6cc.png"
     ],
     "audio": "audio/ja/ja_daily_012.mp3"
   },
@@ -929,14 +929,14 @@
     "text": "あるいて",
     "reading": "あるいて",
     "translation": "慢慢走，不要跑",
-    "image": "🚶",
+    "image": "images/practice/emoji_u1f6b6.png",
     "aliases": [
       "あるく",
       "はしらない"
     ],
     "distractors": [
-      "🏎️",
-      "✈️"
+      "images/practice/emoji_u1f3ce.png",
+      "images/practice/emoji_u2708.png"
     ],
     "audio": "audio/ja/ja_daily_013.mp3"
   },
@@ -951,14 +951,14 @@
     "text": "おいしい",
     "reading": "おいしい",
     "translation": "真好吃",
-    "image": "😋",
+    "image": "images/practice/emoji_u1f60b.png",
     "aliases": [
       "おいしー",
       "うまーい"
     ],
     "distractors": [
-      "🌧️",
-      "🩹"
+      "images/practice/emoji_u1f327.png",
+      "images/practice/emoji_u1fa79.png"
     ],
     "audio": "audio/ja/ja_daily_014.mp3"
   },
@@ -973,14 +973,14 @@
     "text": "おなかすいた",
     "reading": "おなかすいた",
     "translation": "肚子饿了",
-    "image": "🤤",
+    "image": "images/practice/emoji_u1f924.png",
     "aliases": [
       "おなかすいたー",
       "ごはんまだ"
     ],
     "distractors": [
-      "💤",
-      "⚽"
+      "images/practice/emoji_u1f4a4.png",
+      "images/practice/emoji_u26bd.png"
     ],
     "audio": "audio/ja/ja_daily_015.mp3"
   },
@@ -995,14 +995,14 @@
     "text": "おかわり",
     "reading": "おかわり",
     "translation": "我还想要一份",
-    "image": "🥣",
+    "image": "images/practice/emoji_u1f963.png",
     "aliases": [
       "おかわりください",
       "もっとたべたい"
     ],
     "distractors": [
-      "🗑️",
-      "🚪"
+      "images/practice/emoji_u1f5d1.png",
+      "images/practice/emoji_u1f6aa.png"
     ],
     "audio": "audio/ja/ja_daily_016.mp3"
   },
@@ -1017,15 +1017,15 @@
     "text": "トイレにいきたい",
     "reading": "といれにいきたい",
     "translation": "我想上厕所",
-    "image": "🚽",
+    "image": "images/practice/emoji_u1f6bd.png",
     "aliases": [
       "といれ",
       "おてあらい",
       "トイレ"
     ],
     "distractors": [
-      "🎒",
-      "🍎"
+      "images/practice/emoji_u1f392.png",
+      "images/practice/emoji_u1f34e.png"
     ],
     "audio": "audio/ja/ja_help_001.mp3"
   },
@@ -1040,14 +1040,14 @@
     "text": "いたい",
     "reading": "いたい",
     "translation": "痛 / 不舒服",
-    "image": "🩹",
+    "image": "images/practice/emoji_u1fa79.png",
     "aliases": [
       "いたいよ",
       "ここいたい"
     ],
     "distractors": [
-      "🎈",
-      "🍨"
+      "images/practice/emoji_u1f388.png",
+      "images/practice/emoji_u1f368.png"
     ],
     "audio": "audio/ja/ja_help_002.mp3"
   },
@@ -1062,14 +1062,14 @@
     "text": "せんせい",
     "reading": "せんせい",
     "translation": "老师！",
-    "image": "👩‍🏫",
+    "image": "images/practice/emoji_u1f469_200d_1f3eb.png",
     "aliases": [
       "せんせー",
       "先生"
     ],
     "distractors": [
-      "🐶",
-      "🚗"
+      "images/practice/emoji_u1f436.png",
+      "images/practice/emoji_u1f697.png"
     ],
     "audio": "audio/ja/ja_help_003.mp3"
   },
@@ -1084,14 +1084,14 @@
     "text": "わからない",
     "reading": "わからない",
     "translation": "听不懂 / 不知道",
-    "image": "❓",
+    "image": "images/practice/emoji_u2753.png",
     "aliases": [
       "わかんない",
       "わかりません"
     ],
     "distractors": [
-      "💡",
-      "👍"
+      "images/practice/emoji_u1f4a1.png",
+      "images/practice/emoji_u1f44d.png"
     ],
     "audio": "audio/ja/ja_help_004.mp3"
   },
@@ -1106,14 +1106,14 @@
     "text": "たすけて",
     "reading": "たすけて",
     "translation": "救命 / 帮帮我",
-    "image": "🆘",
+    "image": "images/practice/emoji_u1f198.png",
     "aliases": [
       "てつだって",
       "たすけてー"
     ],
     "distractors": [
-      "🎉",
-      "💤"
+      "images/practice/emoji_u1f389.png",
+      "images/practice/emoji_u1f4a4.png"
     ],
     "audio": "audio/ja/ja_help_005.mp3"
   },
@@ -1128,14 +1128,14 @@
     "text": "おなかいたい",
     "reading": "おなかいたい",
     "translation": "肚子痛",
-    "image": "😣",
+    "image": "images/practice/emoji_u1f623.png",
     "aliases": [
       "おなかいたいよ",
       "ぽんぽんいたい"
     ],
     "distractors": [
-      "⚽",
-      "🍎"
+      "images/practice/emoji_u26bd.png",
+      "images/practice/emoji_u1f34e.png"
     ],
     "audio": "audio/ja/ja_help_006.mp3"
   },
@@ -1150,13 +1150,13 @@
     "text": "あたまいたい",
     "reading": "あたまいたい",
     "translation": "头痛",
-    "image": "🤕",
+    "image": "images/practice/emoji_u1f915.png",
     "aliases": [
       "あたまいたいよ"
     ],
     "distractors": [
-      "👟",
-      "🛝"
+      "images/practice/emoji_u1f45f.png",
+      "images/practice/emoji_u1f6dd.png"
     ],
     "audio": "audio/ja/ja_help_007.mp3"
   },
@@ -1171,14 +1171,14 @@
     "text": "きもちわるい",
     "reading": "きもちわるい",
     "translation": "想吐 / 难受",
-    "image": "🤢",
+    "image": "images/practice/emoji_u1f922.png",
     "aliases": [
       "はきそう",
       "気分わるい"
     ],
     "distractors": [
-      "😄",
-      "🍰"
+      "images/practice/emoji_u1f604.png",
+      "images/practice/emoji_u1f370.png"
     ],
     "audio": "audio/ja/ja_help_008.mp3"
   },
@@ -1193,14 +1193,14 @@
     "text": "ねむい",
     "reading": "ねむい",
     "translation": "困了 / 想睡觉",
-    "image": "🥱",
+    "image": "images/practice/emoji_u1f971.png",
     "aliases": [
       "ねむたい",
       "ねむいよ"
     ],
     "distractors": [
-      "🏃",
-      "📢"
+      "images/practice/emoji_u1f3c3.png",
+      "images/practice/emoji_u1f4e2.png"
     ],
     "audio": "audio/ja/ja_help_009.mp3"
   },
@@ -1215,14 +1215,14 @@
     "text": "てつだって",
     "reading": "てつだって",
     "translation": "帮帮我",
-    "image": "🤝",
+    "image": "images/practice/emoji_u1f91d.png",
     "aliases": [
       "てつだってください",
       "おねがい"
     ],
     "distractors": [
-      "🚫",
-      "🪑"
+      "images/practice/emoji_u1f6ab.png",
+      "images/practice/emoji_u1fa91.png"
     ],
     "audio": "audio/ja/ja_help_010.mp3"
   },
@@ -1237,14 +1237,14 @@
     "text": "せんせいきて",
     "reading": "せんせいきて",
     "translation": "老师快来",
-    "image": "👩‍🏫",
+    "image": "images/practice/emoji_u1f469_200d_1f3eb.png",
     "aliases": [
       "せんせいー",
       "こっちきて"
     ],
     "distractors": [
-      "💤",
-      "⚽"
+      "images/practice/emoji_u1f4a4.png",
+      "images/practice/emoji_u26bd.png"
     ],
     "audio": "audio/ja/ja_help_011.mp3"
   },
@@ -1259,14 +1259,14 @@
     "text": "おしっこでる",
     "reading": "おしっこでる",
     "translation": "要尿尿了！",
-    "image": "🚽",
+    "image": "images/practice/emoji_u1f6bd.png",
     "aliases": [
       "おしっこ",
       "といれいきたい"
     ],
     "distractors": [
-      "🍔",
-      "🎨"
+      "images/practice/emoji_u1f354.png",
+      "images/practice/emoji_u1f3a8.png"
     ],
     "audio": "audio/ja/ja_help_012.mp3"
   },
@@ -1281,14 +1281,14 @@
     "text": "かえる",
     "reading": "かえる",
     "translation": "要回家了",
-    "image": "🏠",
+    "image": "images/practice/emoji_u1f3e0.png",
     "aliases": [
       "おうちかえる",
       "かえりたい"
     ],
     "distractors": [
-      "🛝",
-      "⚽"
+      "images/practice/emoji_u1f6dd.png",
+      "images/practice/emoji_u26bd.png"
     ],
     "audio": "audio/ja/ja_help_013.mp3"
   },
@@ -1303,14 +1303,14 @@
     "text": "ママきた",
     "reading": "ままきた",
     "translation": "妈妈来接我啦",
-    "image": "👩‍👧",
+    "image": "images/practice/emoji_u1f469_200d_1f467.png",
     "aliases": [
       "おかあさんきた",
       "ママ"
     ],
     "distractors": [
-      "🌧️",
-      "💤"
+      "images/practice/emoji_u1f327.png",
+      "images/practice/emoji_u1f4a4.png"
     ],
     "audio": "audio/ja/ja_help_014.mp3"
   },
@@ -1325,14 +1325,14 @@
     "text": "パパきた",
     "reading": "ぱぱきた",
     "translation": "爸爸来接我啦",
-    "image": "👨‍👦",
+    "image": "images/practice/emoji_u1f468_200d_1f466.png",
     "aliases": [
       "おとうさんきた",
       "パパ"
     ],
     "distractors": [
-      "🌧️",
-      "💤"
+      "images/practice/emoji_u1f327.png",
+      "images/practice/emoji_u1f4a4.png"
     ],
     "audio": "audio/ja/ja_help_015.mp3"
   },
@@ -1347,14 +1347,14 @@
     "text": "おみずこぼれた",
     "reading": "おみずこぼれた",
     "translation": "水洒了",
-    "image": "💧",
+    "image": "images/practice/emoji_u1f4a7.png",
     "aliases": [
       "こぼれた",
       "ぬれちゃった"
     ],
     "distractors": [
-      "🌞",
-      "🎁"
+      "images/practice/emoji_u1f31e.png",
+      "images/practice/emoji_u1f381.png"
     ],
     "audio": "audio/ja/ja_help_016.mp3"
   }

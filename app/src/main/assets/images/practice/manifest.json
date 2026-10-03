@@ -1,0 +1,1208 @@
+{
+  "author": "Codex",
+  "date": "2026-10-03",
+  "upstreamRevision": "22e564626297b4df0a40570ad81d6c05cc7c38bd",
+  "license": "Apache-2.0",
+  "icons": [
+    {
+      "symbol": "⏰",
+      "asset": "images/practice/emoji_u23f0.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u23f0.png",
+          "sha256": "da1428aac9465bac3c08ccec0f95612dfd51e2f15150ea967e52ee6dd0a7b8df"
+        }
+      ],
+      "modified": false,
+      "sha256": "da1428aac9465bac3c08ccec0f95612dfd51e2f15150ea967e52ee6dd0a7b8df"
+    },
+    {
+      "symbol": "⏹️",
+      "asset": "images/practice/emoji_u23f9.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u23f9.png",
+          "sha256": "ccf0ddb88c88ae380ee67fcee25234740b9cca95807c68d941c3a10bc0dba6b9"
+        }
+      ],
+      "modified": false,
+      "sha256": "ccf0ddb88c88ae380ee67fcee25234740b9cca95807c68d941c3a10bc0dba6b9"
+    },
+    {
+      "symbol": "☀️",
+      "asset": "images/practice/emoji_u2600.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u2600.png",
+          "sha256": "e77423551485dc821926fc754809c5ee9efc6feff6f06ce0e13cecb62be05c35"
+        }
+      ],
+      "modified": false,
+      "sha256": "e77423551485dc821926fc754809c5ee9efc6feff6f06ce0e13cecb62be05c35"
+    },
+    {
+      "symbol": "⚽",
+      "asset": "images/practice/emoji_u26bd.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u26bd.png",
+          "sha256": "7cdd36ef927bd5205c95cf700827c74ee97c61379b2fa2a3ff8295071b5d3afd"
+        }
+      ],
+      "modified": false,
+      "sha256": "7cdd36ef927bd5205c95cf700827c74ee97c61379b2fa2a3ff8295071b5d3afd"
+    },
+    {
+      "symbol": "✈️",
+      "asset": "images/practice/emoji_u2708.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u2708.png",
+          "sha256": "fb17f640b4a4d56610df818817d26c46dba4c491b703619a4bc16d881471fd78"
+        }
+      ],
+      "modified": false,
+      "sha256": "fb17f640b4a4d56610df818817d26c46dba4c491b703619a4bc16d881471fd78"
+    },
+    {
+      "symbol": "✋",
+      "asset": "images/practice/emoji_u270b.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u270b.png",
+          "sha256": "ed1a4b03e44ce893d655ef60b41af6abed2fc734676e0cc3b2bab547e2dd7f7c"
+        }
+      ],
+      "modified": false,
+      "sha256": "ed1a4b03e44ce893d655ef60b41af6abed2fc734676e0cc3b2bab547e2dd7f7c"
+    },
+    {
+      "symbol": "❌",
+      "asset": "images/practice/emoji_u274c.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u274c.png",
+          "sha256": "f0807f27df1e90a027a19e862d04845a4a885a200fa64f37c1a8e349266c3cf3"
+        }
+      ],
+      "modified": false,
+      "sha256": "f0807f27df1e90a027a19e862d04845a4a885a200fa64f37c1a8e349266c3cf3"
+    },
+    {
+      "symbol": "❓",
+      "asset": "images/practice/emoji_u2753.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u2753.png",
+          "sha256": "0bf2edc1a375f2e4a836ea5780acdf2ae1bdb9f53b2284a50a035d47814f68e6"
+        }
+      ],
+      "modified": false,
+      "sha256": "0bf2edc1a375f2e4a836ea5780acdf2ae1bdb9f53b2284a50a035d47814f68e6"
+    },
+    {
+      "symbol": "🆘",
+      "asset": "images/practice/emoji_u1f198.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f198.png",
+          "sha256": "1cc41171d5660686b639991cd8637d2530970d8d583022636da422f2ae6ad5f6"
+        }
+      ],
+      "modified": false,
+      "sha256": "1cc41171d5660686b639991cd8637d2530970d8d583022636da422f2ae6ad5f6"
+    },
+    {
+      "symbol": "🌅",
+      "asset": "images/practice/emoji_u1f305.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f305.png",
+          "sha256": "3c9035aa154f04d85a4680d8b0279e7da1fda8108df2402d7b15bbc9f5ad80db"
+        }
+      ],
+      "modified": false,
+      "sha256": "3c9035aa154f04d85a4680d8b0279e7da1fda8108df2402d7b15bbc9f5ad80db"
+    },
+    {
+      "symbol": "🌈",
+      "asset": "images/practice/emoji_u1f308.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f308.png",
+          "sha256": "4245aacfb8d3e18437d6ccd086ae224ed52aa60c640e2b89f624ea4e35e41996"
+        }
+      ],
+      "modified": false,
+      "sha256": "4245aacfb8d3e18437d6ccd086ae224ed52aa60c640e2b89f624ea4e35e41996"
+    },
+    {
+      "symbol": "🌙",
+      "asset": "images/practice/emoji_u1f319.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f319.png",
+          "sha256": "6d1e661eb19abff6ef7adeeb6956efe2fcb1d0dbb147bac16ef6d7f3933b60b1"
+        }
+      ],
+      "modified": false,
+      "sha256": "6d1e661eb19abff6ef7adeeb6956efe2fcb1d0dbb147bac16ef6d7f3933b60b1"
+    },
+    {
+      "symbol": "🌞",
+      "asset": "images/practice/emoji_u1f31e.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f31e.png",
+          "sha256": "793ae3a0b5ae3addaa8b889459249db977d0a6ae4f6c5b16c09a50d9b33d28b3"
+        }
+      ],
+      "modified": false,
+      "sha256": "793ae3a0b5ae3addaa8b889459249db977d0a6ae4f6c5b16c09a50d9b33d28b3"
+    },
+    {
+      "symbol": "🌟",
+      "asset": "images/practice/emoji_u1f31f.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f31f.png",
+          "sha256": "e0edf48467b8613c5633b15321c8b8af1f48764a80f03daa7e2b57c1aee1c95c"
+        }
+      ],
+      "modified": false,
+      "sha256": "e0edf48467b8613c5633b15321c8b8af1f48764a80f03daa7e2b57c1aee1c95c"
+    },
+    {
+      "symbol": "🌧️",
+      "asset": "images/practice/emoji_u1f327.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f327.png",
+          "sha256": "ba79872d31dee515d836886b7089a7b13bd89f393da52809abfa393944252833"
+        }
+      ],
+      "modified": false,
+      "sha256": "ba79872d31dee515d836886b7089a7b13bd89f393da52809abfa393944252833"
+    },
+    {
+      "symbol": "🍎",
+      "asset": "images/practice/emoji_u1f34e.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f34e.png",
+          "sha256": "df6053544679669f5abdbfc511a58f0944cede9641b25ccbc1c9b13f97cd3767"
+        }
+      ],
+      "modified": false,
+      "sha256": "df6053544679669f5abdbfc511a58f0944cede9641b25ccbc1c9b13f97cd3767"
+    },
+    {
+      "symbol": "🍔",
+      "asset": "images/practice/emoji_u1f354.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f354.png",
+          "sha256": "47de08aced5cb535c3e2a227bcd811781236d53e2cb25a3966db52b875a54f7b"
+        }
+      ],
+      "modified": false,
+      "sha256": "47de08aced5cb535c3e2a227bcd811781236d53e2cb25a3966db52b875a54f7b"
+    },
+    {
+      "symbol": "🍕",
+      "asset": "images/practice/emoji_u1f355.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f355.png",
+          "sha256": "c4d2a0edaea1c0b18ccdbe9d221410869bb0d60c3a746e69f5e7952b9241fd4e"
+        }
+      ],
+      "modified": false,
+      "sha256": "c4d2a0edaea1c0b18ccdbe9d221410869bb0d60c3a746e69f5e7952b9241fd4e"
+    },
+    {
+      "symbol": "🍨",
+      "asset": "images/practice/emoji_u1f368.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f368.png",
+          "sha256": "1b7db0045fcb7e034b3f895fffb66ab087d9dd886b16ef180c10a889cdcb7235"
+        }
+      ],
+      "modified": false,
+      "sha256": "1b7db0045fcb7e034b3f895fffb66ab087d9dd886b16ef180c10a889cdcb7235"
+    },
+    {
+      "symbol": "🍰",
+      "asset": "images/practice/emoji_u1f370.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f370.png",
+          "sha256": "8d2a827521777219ff107e9aeba3f6e6f875fcbac2e5b35d1c33e99188e3885f"
+        }
+      ],
+      "modified": false,
+      "sha256": "8d2a827521777219ff107e9aeba3f6e6f875fcbac2e5b35d1c33e99188e3885f"
+    },
+    {
+      "symbol": "🍲",
+      "asset": "images/practice/emoji_u1f372.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f372.png",
+          "sha256": "5d9c0d3b5246930690dfeaf790c78afe6f40684f00a1b307f1be0147d419b170"
+        }
+      ],
+      "modified": false,
+      "sha256": "5d9c0d3b5246930690dfeaf790c78afe6f40684f00a1b307f1be0147d419b170"
+    },
+    {
+      "symbol": "🍽️",
+      "asset": "images/practice/emoji_u1f37d.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f37d.png",
+          "sha256": "417015a7428527851b82a025758647d747a166b38a1f26c1bd7cb8ce33a66977"
+        }
+      ],
+      "modified": false,
+      "sha256": "417015a7428527851b82a025758647d747a166b38a1f26c1bd7cb8ce33a66977"
+    },
+    {
+      "symbol": "🎁",
+      "asset": "images/practice/emoji_u1f381.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f381.png",
+          "sha256": "dd1eba4840c7c226937b998640dabfff33bbd9eb204948fa4be3686b471779b0"
+        }
+      ],
+      "modified": false,
+      "sha256": "dd1eba4840c7c226937b998640dabfff33bbd9eb204948fa4be3686b471779b0"
+    },
+    {
+      "symbol": "🎈",
+      "asset": "images/practice/emoji_u1f388.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f388.png",
+          "sha256": "67a619920620d7778b3929faf4f941ebb274dbe005daf9e471fe5d0c164023e5"
+        }
+      ],
+      "modified": false,
+      "sha256": "67a619920620d7778b3929faf4f941ebb274dbe005daf9e471fe5d0c164023e5"
+    },
+    {
+      "symbol": "🎉",
+      "asset": "images/practice/emoji_u1f389.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f389.png",
+          "sha256": "ef246b8111cc01763eafa4baf3ce30dac8449a1935a8096d646feb2e7e5461b4"
+        }
+      ],
+      "modified": false,
+      "sha256": "ef246b8111cc01763eafa4baf3ce30dac8449a1935a8096d646feb2e7e5461b4"
+    },
+    {
+      "symbol": "🎒",
+      "asset": "images/practice/emoji_u1f392.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f392.png",
+          "sha256": "f96c2f02dce1f05f5a1ac49383c4e4243d5e9e6ddca0f03b5d45dce55b809e75"
+        }
+      ],
+      "modified": false,
+      "sha256": "f96c2f02dce1f05f5a1ac49383c4e4243d5e9e6ddca0f03b5d45dce55b809e75"
+    },
+    {
+      "symbol": "🎨",
+      "asset": "images/practice/emoji_u1f3a8.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f3a8.png",
+          "sha256": "1611b786a08c0682c7e401fa79ddcaf9a7aaa468ec75c1026684a92c611ce3cc"
+        }
+      ],
+      "modified": false,
+      "sha256": "1611b786a08c0682c7e401fa79ddcaf9a7aaa468ec75c1026684a92c611ce3cc"
+    },
+    {
+      "symbol": "🏃",
+      "asset": "images/practice/emoji_u1f3c3.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f3c3.png",
+          "sha256": "8292fa54216523228d1154bb644c7b0d59dcdb6b7ed373c42fbd874a60ee599e"
+        }
+      ],
+      "modified": false,
+      "sha256": "8292fa54216523228d1154bb644c7b0d59dcdb6b7ed373c42fbd874a60ee599e"
+    },
+    {
+      "symbol": "🏃‍♂️🏃‍♀️",
+      "asset": "images/practice/emoji_u1f3c3_200d_2642_1f3c3_200d_2640.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f3c3_200d_2642.png",
+          "sha256": "1664b6a399c5f4917e3fe717cd04df6b51b9b21601f15ec255f7cee0424df779"
+        },
+        {
+          "path": "png/512/emoji_u1f3c3_200d_2640.png",
+          "sha256": "00ebeb2723fef373d38395338ed58b89fb144b255c4cc2b0ff4e00e539dce4e8"
+        }
+      ],
+      "modified": true,
+      "sha256": "0942aabe24ba911cc9e12fb7b82d3a2fdc2184ef2ad4e09a2044904359979950"
+    },
+    {
+      "symbol": "🏃💨",
+      "asset": "images/practice/emoji_u1f3c3_1f4a8.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f3c3.png",
+          "sha256": "8292fa54216523228d1154bb644c7b0d59dcdb6b7ed373c42fbd874a60ee599e"
+        },
+        {
+          "path": "png/512/emoji_u1f4a8.png",
+          "sha256": "66c347288e8b53d60eff59345a16a9866e7a02c6160a284dab632a13337853d0"
+        }
+      ],
+      "modified": true,
+      "sha256": "6ff45406112597435311259efefdde3a2776a8113dedfccbeae2c5f1bafbbc07"
+    },
+    {
+      "symbol": "🏎️",
+      "asset": "images/practice/emoji_u1f3ce.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f3ce.png",
+          "sha256": "3804940c975d6671fe5b760cec7ac54abec2468c519148826d7f5cba0198e5d0"
+        }
+      ],
+      "modified": false,
+      "sha256": "3804940c975d6671fe5b760cec7ac54abec2468c519148826d7f5cba0198e5d0"
+    },
+    {
+      "symbol": "🏖️",
+      "asset": "images/practice/emoji_u1f3d6.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f3d6.png",
+          "sha256": "373d587eacb2cefb11b40d9e65d1d427fe523b61f423c8c27741b58e74749085"
+        }
+      ],
+      "modified": false,
+      "sha256": "373d587eacb2cefb11b40d9e65d1d427fe523b61f423c8c27741b58e74749085"
+    },
+    {
+      "symbol": "🏠",
+      "asset": "images/practice/emoji_u1f3e0.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f3e0.png",
+          "sha256": "dbf0bdc252f1b9aa8314dcec5624b86065d8802b6844cd7deda20894c415d89b"
+        }
+      ],
+      "modified": false,
+      "sha256": "dbf0bdc252f1b9aa8314dcec5624b86065d8802b6844cd7deda20894c415d89b"
+    },
+    {
+      "symbol": "🐶",
+      "asset": "images/practice/emoji_u1f436.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f436.png",
+          "sha256": "20e8a05851eda490288e51997a96865ca3a109d9d7317f26141b641ea88d9344"
+        }
+      ],
+      "modified": false,
+      "sha256": "20e8a05851eda490288e51997a96865ca3a109d9d7317f26141b641ea88d9344"
+    },
+    {
+      "symbol": "👀",
+      "asset": "images/practice/emoji_u1f440.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f440.png",
+          "sha256": "5dad11e1033a02196a2da35a13209677f978c9dc618c2f1eb86f07daf56747f2"
+        }
+      ],
+      "modified": false,
+      "sha256": "5dad11e1033a02196a2da35a13209677f978c9dc618c2f1eb86f07daf56747f2"
+    },
+    {
+      "symbol": "👂",
+      "asset": "images/practice/emoji_u1f442.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f442.png",
+          "sha256": "9e1aa98b041ed97a7ce23399246255265695f0e95a40f6dd67c4cf75f265e086"
+        }
+      ],
+      "modified": false,
+      "sha256": "9e1aa98b041ed97a7ce23399246255265695f0e95a40f6dd67c4cf75f265e086"
+    },
+    {
+      "symbol": "👋",
+      "asset": "images/practice/emoji_u1f44b.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f44b.png",
+          "sha256": "b5c125eee3fc16481c9ada574cb93c0c5aa4495045a06f5b4a88c495cffb2d93"
+        }
+      ],
+      "modified": false,
+      "sha256": "b5c125eee3fc16481c9ada574cb93c0c5aa4495045a06f5b4a88c495cffb2d93"
+    },
+    {
+      "symbol": "👌",
+      "asset": "images/practice/emoji_u1f44c.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f44c.png",
+          "sha256": "ce042615a58c713f01b1c360d0cecc69a1d1a481757f57d508ae8d8fd56a8dec"
+        }
+      ],
+      "modified": false,
+      "sha256": "ce042615a58c713f01b1c360d0cecc69a1d1a481757f57d508ae8d8fd56a8dec"
+    },
+    {
+      "symbol": "👍",
+      "asset": "images/practice/emoji_u1f44d.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f44d.png",
+          "sha256": "6a1f498cda7323b89f55291994f9276b43fd4642607f90380ed379ff4b25057e"
+        }
+      ],
+      "modified": false,
+      "sha256": "6a1f498cda7323b89f55291994f9276b43fd4642607f90380ed379ff4b25057e"
+    },
+    {
+      "symbol": "👕",
+      "asset": "images/practice/emoji_u1f455.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f455.png",
+          "sha256": "4ed1eb42d34c80808169e57a69881c954385abd9e5682b87e77a4bace3f69ffc"
+        }
+      ],
+      "modified": false,
+      "sha256": "4ed1eb42d34c80808169e57a69881c954385abd9e5682b87e77a4bace3f69ffc"
+    },
+    {
+      "symbol": "👟",
+      "asset": "images/practice/emoji_u1f45f.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f45f.png",
+          "sha256": "7f302917cd5235d3408485c30b79ec97b1b32519887ccdf4ab60294afbee5d38"
+        }
+      ],
+      "modified": false,
+      "sha256": "7f302917cd5235d3408485c30b79ec97b1b32519887ccdf4ab60294afbee5d38"
+    },
+    {
+      "symbol": "👦",
+      "asset": "images/practice/emoji_u1f466.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f466.png",
+          "sha256": "cebe2febb6c97dc17ee1fcdb126aefb2116a5925b71d71c3792559451b040706"
+        }
+      ],
+      "modified": false,
+      "sha256": "cebe2febb6c97dc17ee1fcdb126aefb2116a5925b71d71c3792559451b040706"
+    },
+    {
+      "symbol": "👨‍👦",
+      "asset": "images/practice/emoji_u1f468_200d_1f466.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f468_200d_1f466.png",
+          "sha256": "e3b01e00f4606a05303b64d9b04d2b6b34d8f6a53350ee158a69932263036248"
+        }
+      ],
+      "modified": false,
+      "sha256": "e3b01e00f4606a05303b64d9b04d2b6b34d8f6a53350ee158a69932263036248"
+    },
+    {
+      "symbol": "👩‍🏫",
+      "asset": "images/practice/emoji_u1f469_200d_1f3eb.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f469_200d_1f3eb.png",
+          "sha256": "7c6e07f6ad46ea06df561500bb160c0518ececd7a5716c806a77f14e54fab534"
+        }
+      ],
+      "modified": false,
+      "sha256": "7c6e07f6ad46ea06df561500bb160c0518ececd7a5716c806a77f14e54fab534"
+    },
+    {
+      "symbol": "👩‍👧",
+      "asset": "images/practice/emoji_u1f469_200d_1f467.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f469_200d_1f467.png",
+          "sha256": "cf8ffc6301998c0f1cf7d027661e81c6be4c5993d8c6bf7692da9acd2e27c51a"
+        }
+      ],
+      "modified": false,
+      "sha256": "cf8ffc6301998c0f1cf7d027661e81c6be4c5993d8c6bf7692da9acd2e27c51a"
+    },
+    {
+      "symbol": "💡",
+      "asset": "images/practice/emoji_u1f4a1.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f4a1.png",
+          "sha256": "8b7fc88edd77559d3357676a33c97d9edb52930b98e77cf4488b06165524d123"
+        }
+      ],
+      "modified": false,
+      "sha256": "8b7fc88edd77559d3357676a33c97d9edb52930b98e77cf4488b06165524d123"
+    },
+    {
+      "symbol": "💤",
+      "asset": "images/practice/emoji_u1f4a4.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f4a4.png",
+          "sha256": "c4af09ad188f29a24728f564640a330d516f7961f91507822e51f57e88e8000d"
+        }
+      ],
+      "modified": false,
+      "sha256": "c4af09ad188f29a24728f564640a330d516f7961f91507822e51f57e88e8000d"
+    },
+    {
+      "symbol": "💥",
+      "asset": "images/practice/emoji_u1f4a5.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f4a5.png",
+          "sha256": "2eec4843a03b8bab666a308e9e015a2a879f1d64e2e5ba5a24ef677091b88f81"
+        }
+      ],
+      "modified": false,
+      "sha256": "2eec4843a03b8bab666a308e9e015a2a879f1d64e2e5ba5a24ef677091b88f81"
+    },
+    {
+      "symbol": "💧",
+      "asset": "images/practice/emoji_u1f4a7.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f4a7.png",
+          "sha256": "d7446e27b9fd8335fdfa093aafc402b70829d2cd13343c2df8fabc43cd063aad"
+        }
+      ],
+      "modified": false,
+      "sha256": "d7446e27b9fd8335fdfa093aafc402b70829d2cd13343c2df8fabc43cd063aad"
+    },
+    {
+      "symbol": "📖",
+      "asset": "images/practice/emoji_u1f4d6.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f4d6.png",
+          "sha256": "bffaeca50b979c8074f1d0ab97aac7dd95629f21398e49e7dcda91e89742cd90"
+        }
+      ],
+      "modified": false,
+      "sha256": "bffaeca50b979c8074f1d0ab97aac7dd95629f21398e49e7dcda91e89742cd90"
+    },
+    {
+      "symbol": "📢",
+      "asset": "images/practice/emoji_u1f4e2.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f4e2.png",
+          "sha256": "7807686194a7bd4912d49a119f2900b1c4c85cf3c6bb23dd3263b0fe70818019"
+        }
+      ],
+      "modified": false,
+      "sha256": "7807686194a7bd4912d49a119f2900b1c4c85cf3c6bb23dd3263b0fe70818019"
+    },
+    {
+      "symbol": "📦",
+      "asset": "images/practice/emoji_u1f4e6.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f4e6.png",
+          "sha256": "690068d117910d75a3d765d8eeef08be1ac3b32d4776416b21fc638912cc61d5"
+        }
+      ],
+      "modified": false,
+      "sha256": "690068d117910d75a3d765d8eeef08be1ac3b32d4776416b21fc638912cc61d5"
+    },
+    {
+      "symbol": "🔁",
+      "asset": "images/practice/emoji_u1f501.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f501.png",
+          "sha256": "759d734d976caaa5c3f2dd3a830995d05639544d4f3d6d670095a245b35afbfc"
+        }
+      ],
+      "modified": false,
+      "sha256": "759d734d976caaa5c3f2dd3a830995d05639544d4f3d6d670095a245b35afbfc"
+    },
+    {
+      "symbol": "🔄",
+      "asset": "images/practice/emoji_u1f504.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f504.png",
+          "sha256": "bf593f927e15fac1facc6ba3c6fe7fcba29e2833e2e8937d17544fb1f68a55f0"
+        }
+      ],
+      "modified": false,
+      "sha256": "bf593f927e15fac1facc6ba3c6fe7fcba29e2833e2e8937d17544fb1f68a55f0"
+    },
+    {
+      "symbol": "🔢",
+      "asset": "images/practice/emoji_u1f522.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f522.png",
+          "sha256": "5ff80dd89d06c2b15c0f6ad26856c30a784913824c9b5a6cb4b7f3def782d5ce"
+        }
+      ],
+      "modified": false,
+      "sha256": "5ff80dd89d06c2b15c0f6ad26856c30a784913824c9b5a6cb4b7f3def782d5ce"
+    },
+    {
+      "symbol": "🗑️",
+      "asset": "images/practice/emoji_u1f5d1.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f5d1.png",
+          "sha256": "7492cb41f675ac4b38efc1bf2005c0b1812aaf93da07fd1ebb6711fc53a9f5b6"
+        }
+      ],
+      "modified": false,
+      "sha256": "7492cb41f675ac4b38efc1bf2005c0b1812aaf93da07fd1ebb6711fc53a9f5b6"
+    },
+    {
+      "symbol": "😄",
+      "asset": "images/practice/emoji_u1f604.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f604.png",
+          "sha256": "1c3faa26d454bd4551302dab745a41fed7ff37ab67e6d4d8c31c0586c45d0293"
+        }
+      ],
+      "modified": false,
+      "sha256": "1c3faa26d454bd4551302dab745a41fed7ff37ab67e6d4d8c31c0586c45d0293"
+    },
+    {
+      "symbol": "😆",
+      "asset": "images/practice/emoji_u1f606.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f606.png",
+          "sha256": "aee7ab95f40da23b54b9c4ce34e4fa3eb765efa880cdcc3b89303f14ac257c4d"
+        }
+      ],
+      "modified": false,
+      "sha256": "aee7ab95f40da23b54b9c4ce34e4fa3eb765efa880cdcc3b89303f14ac257c4d"
+    },
+    {
+      "symbol": "😋",
+      "asset": "images/practice/emoji_u1f60b.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f60b.png",
+          "sha256": "e56fdccf7b873a1a951fbeaebcbb101df26005fc464e12fbbc96d8972fc50c11"
+        }
+      ],
+      "modified": false,
+      "sha256": "e56fdccf7b873a1a951fbeaebcbb101df26005fc464e12fbbc96d8972fc50c11"
+    },
+    {
+      "symbol": "😣",
+      "asset": "images/practice/emoji_u1f623.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f623.png",
+          "sha256": "9983e162eb168275d194c0a5f41544acb83f5c744af550714ff9a1f5ce29b9e6"
+        }
+      ],
+      "modified": false,
+      "sha256": "9983e162eb168275d194c0a5f41544acb83f5c744af550714ff9a1f5ce29b9e6"
+    },
+    {
+      "symbol": "😭",
+      "asset": "images/practice/emoji_u1f62d.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f62d.png",
+          "sha256": "216b7a830c187fb7eeff9a199a435a2bbf674e0c8b43b8e16b94969a44cbdc1c"
+        }
+      ],
+      "modified": false,
+      "sha256": "216b7a830c187fb7eeff9a199a435a2bbf674e0c8b43b8e16b94969a44cbdc1c"
+    },
+    {
+      "symbol": "😴",
+      "asset": "images/practice/emoji_u1f634.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f634.png",
+          "sha256": "998cef9627987ed47c933786226c1a94e52e3dc2769f84f1b9ddcccfb4513484"
+        }
+      ],
+      "modified": false,
+      "sha256": "998cef9627987ed47c933786226c1a94e52e3dc2769f84f1b9ddcccfb4513484"
+    },
+    {
+      "symbol": "🙅",
+      "asset": "images/practice/emoji_u1f645.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f645.png",
+          "sha256": "79b4950a22f32c795cd1dcc51af8246191ca54c0f42f4bae119dad7d07c9cfd8"
+        }
+      ],
+      "modified": false,
+      "sha256": "79b4950a22f32c795cd1dcc51af8246191ca54c0f42f4bae119dad7d07c9cfd8"
+    },
+    {
+      "symbol": "🙇",
+      "asset": "images/practice/emoji_u1f647.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f647.png",
+          "sha256": "7cb7ec2fc416a5fd8c7650caeb11ee05429a8e1ed63b94460857a3cbd1e0458d"
+        }
+      ],
+      "modified": false,
+      "sha256": "7cb7ec2fc416a5fd8c7650caeb11ee05429a8e1ed63b94460857a3cbd1e0458d"
+    },
+    {
+      "symbol": "🙈",
+      "asset": "images/practice/emoji_u1f648.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f648.png",
+          "sha256": "e0522acdc8605daee370fd812c613b8863276e72e0a9c6563bab408ae3313066"
+        }
+      ],
+      "modified": false,
+      "sha256": "e0522acdc8605daee370fd812c613b8863276e72e0a9c6563bab408ae3313066"
+    },
+    {
+      "symbol": "🙋",
+      "asset": "images/practice/emoji_u1f64b.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f64b.png",
+          "sha256": "1df94ab27b22f66eb54d343a77c256114e20a095b1cde172e807f445e1b20a4c"
+        }
+      ],
+      "modified": false,
+      "sha256": "1df94ab27b22f66eb54d343a77c256114e20a095b1cde172e807f445e1b20a4c"
+    },
+    {
+      "symbol": "🙏",
+      "asset": "images/practice/emoji_u1f64f.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f64f.png",
+          "sha256": "3caf474b7800557aba919ad50061f56ff8b38232fbb4ebfbf52b5d911c8880d4"
+        }
+      ],
+      "modified": false,
+      "sha256": "3caf474b7800557aba919ad50061f56ff8b38232fbb4ebfbf52b5d911c8880d4"
+    },
+    {
+      "symbol": "🚀",
+      "asset": "images/practice/emoji_u1f680.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f680.png",
+          "sha256": "a477bf2e112db11a99926a6c300618f9274b6df405b8a67d64f87fb54c833b52"
+        }
+      ],
+      "modified": false,
+      "sha256": "a477bf2e112db11a99926a6c300618f9274b6df405b8a67d64f87fb54c833b52"
+    },
+    {
+      "symbol": "🚗",
+      "asset": "images/practice/emoji_u1f697.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f697.png",
+          "sha256": "04d76d63938f7d95a95a26e8953b13fc1c9176b858abf4e67ba366063e54afb5"
+        }
+      ],
+      "modified": false,
+      "sha256": "04d76d63938f7d95a95a26e8953b13fc1c9176b858abf4e67ba366063e54afb5"
+    },
+    {
+      "symbol": "🚪",
+      "asset": "images/practice/emoji_u1f6aa.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f6aa.png",
+          "sha256": "45008f3d7903c10e4678c3a7f573dceff1b8424020c9a18ea60d9a5f8b53cca5"
+        }
+      ],
+      "modified": false,
+      "sha256": "45008f3d7903c10e4678c3a7f573dceff1b8424020c9a18ea60d9a5f8b53cca5"
+    },
+    {
+      "symbol": "🚫",
+      "asset": "images/practice/emoji_u1f6ab.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f6ab.png",
+          "sha256": "e3e4c213b6fb9d3558db776d06212ca936094bb4a86f180b46844a1ca7cea63f"
+        }
+      ],
+      "modified": false,
+      "sha256": "e3e4c213b6fb9d3558db776d06212ca936094bb4a86f180b46844a1ca7cea63f"
+    },
+    {
+      "symbol": "🚶",
+      "asset": "images/practice/emoji_u1f6b6.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f6b6.png",
+          "sha256": "876deb6afcbb1a67d9e3bb29c56e8df0673ce47722a73354202d566ef03a3946"
+        }
+      ],
+      "modified": false,
+      "sha256": "876deb6afcbb1a67d9e3bb29c56e8df0673ce47722a73354202d566ef03a3946"
+    },
+    {
+      "symbol": "🚶🚶",
+      "asset": "images/practice/emoji_u1f6b6_1f6b6.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f6b6.png",
+          "sha256": "876deb6afcbb1a67d9e3bb29c56e8df0673ce47722a73354202d566ef03a3946"
+        },
+        {
+          "path": "png/512/emoji_u1f6b6.png",
+          "sha256": "876deb6afcbb1a67d9e3bb29c56e8df0673ce47722a73354202d566ef03a3946"
+        }
+      ],
+      "modified": true,
+      "sha256": "f2c941a152e2b3537eb93e1792c16df46d3dc02aab6f5d04131a068c0e4f19d0"
+    },
+    {
+      "symbol": "🚽",
+      "asset": "images/practice/emoji_u1f6bd.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f6bd.png",
+          "sha256": "01b287e71ab58d1016be77d36f7237f8d3426a1c1ba6514d7c3f827e93e49252"
+        }
+      ],
+      "modified": false,
+      "sha256": "01b287e71ab58d1016be77d36f7237f8d3426a1c1ba6514d7c3f827e93e49252"
+    },
+    {
+      "symbol": "🛌",
+      "asset": "images/practice/emoji_u1f6cc.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f6cc.png",
+          "sha256": "14c1b24050d8a15c95dc484f8253405b8e147389075a39d7e60403d6b43fc56e"
+        }
+      ],
+      "modified": false,
+      "sha256": "14c1b24050d8a15c95dc484f8253405b8e147389075a39d7e60403d6b43fc56e"
+    },
+    {
+      "symbol": "🛑",
+      "asset": "images/practice/emoji_u1f6d1.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f6d1.png",
+          "sha256": "9a14419de2a34d6ac486e73e062893cf315188153fc1d3899da0fde858bf593f"
+        }
+      ],
+      "modified": false,
+      "sha256": "9a14419de2a34d6ac486e73e062893cf315188153fc1d3899da0fde858bf593f"
+    },
+    {
+      "symbol": "🛝",
+      "asset": "images/practice/emoji_u1f6dd.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f6dd.png",
+          "sha256": "75bd68419c792f0c2366c9a1b91f79413a1988750bf5a378ea73b3ef580559b6"
+        }
+      ],
+      "modified": false,
+      "sha256": "75bd68419c792f0c2366c9a1b91f79413a1988750bf5a378ea73b3ef580559b6"
+    },
+    {
+      "symbol": "🤕",
+      "asset": "images/practice/emoji_u1f915.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f915.png",
+          "sha256": "101e1c75a818b1d8e13afa33734b6944ca78ba922b83f31e769e3eb3dcf781f9"
+        }
+      ],
+      "modified": false,
+      "sha256": "101e1c75a818b1d8e13afa33734b6944ca78ba922b83f31e769e3eb3dcf781f9"
+    },
+    {
+      "symbol": "🤝",
+      "asset": "images/practice/emoji_u1f91d.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f91d.png",
+          "sha256": "355d804422cee46b4392de9303583cb6825e1b04352a9dcd70c9124a92de3be8"
+        }
+      ],
+      "modified": false,
+      "sha256": "355d804422cee46b4392de9303583cb6825e1b04352a9dcd70c9124a92de3be8"
+    },
+    {
+      "symbol": "🤢",
+      "asset": "images/practice/emoji_u1f922.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f922.png",
+          "sha256": "e346cde0610ebcad3e5f5ebeadd27f2d5f99fa8b695483b700fe22a453329cb8"
+        }
+      ],
+      "modified": false,
+      "sha256": "e346cde0610ebcad3e5f5ebeadd27f2d5f99fa8b695483b700fe22a453329cb8"
+    },
+    {
+      "symbol": "🤤",
+      "asset": "images/practice/emoji_u1f924.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f924.png",
+          "sha256": "9e83220b058b539fef2260f728a4bfa3b4b8b068a22477e5486ca04fa71d9ada"
+        }
+      ],
+      "modified": false,
+      "sha256": "9e83220b058b539fef2260f728a4bfa3b4b8b068a22477e5486ca04fa71d9ada"
+    },
+    {
+      "symbol": "🤫",
+      "asset": "images/practice/emoji_u1f92b.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f92b.png",
+          "sha256": "96068ba67cd977f893195c3947ea788d0adfe9ee15fe894c26fb2db518a31c8b"
+        }
+      ],
+      "modified": false,
+      "sha256": "96068ba67cd977f893195c3947ea788d0adfe9ee15fe894c26fb2db518a31c8b"
+    },
+    {
+      "symbol": "🤲",
+      "asset": "images/practice/emoji_u1f932.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f932.png",
+          "sha256": "326610a1bb66ce7ce7a3b92b4d596772d356d3c995987873b35f02a649d732a0"
+        }
+      ],
+      "modified": false,
+      "sha256": "326610a1bb66ce7ce7a3b92b4d596772d356d3c995987873b35f02a649d732a0"
+    },
+    {
+      "symbol": "🤼",
+      "asset": "images/practice/emoji_u1f93c.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f93c.png",
+          "sha256": "dd04afa6815e6c77510439163acc1f71aa4ed4b0386c3b747d6532c0d7c41bcb"
+        }
+      ],
+      "modified": false,
+      "sha256": "dd04afa6815e6c77510439163acc1f71aa4ed4b0386c3b747d6532c0d7c41bcb"
+    },
+    {
+      "symbol": "🥄",
+      "asset": "images/practice/emoji_u1f944.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f944.png",
+          "sha256": "abeab065431ba498a903a09e833142204ea58d16093f6b096594a92a561b9d8d"
+        }
+      ],
+      "modified": false,
+      "sha256": "abeab065431ba498a903a09e833142204ea58d16093f6b096594a92a561b9d8d"
+    },
+    {
+      "symbol": "🥣",
+      "asset": "images/practice/emoji_u1f963.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f963.png",
+          "sha256": "f99e94b149cfb49e39f28e862b8d4888a5dd86a0feb61f16cd994a01219a7d42"
+        }
+      ],
+      "modified": false,
+      "sha256": "f99e94b149cfb49e39f28e862b8d4888a5dd86a0feb61f16cd994a01219a7d42"
+    },
+    {
+      "symbol": "🥤",
+      "asset": "images/practice/emoji_u1f964.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f964.png",
+          "sha256": "b2f74c053c7192577ed92d7a1d49084f333c2ace8106d88da71ff86cc5be8a17"
+        }
+      ],
+      "modified": false,
+      "sha256": "b2f74c053c7192577ed92d7a1d49084f333c2ace8106d88da71ff86cc5be8a17"
+    },
+    {
+      "symbol": "🥱",
+      "asset": "images/practice/emoji_u1f971.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f971.png",
+          "sha256": "db8591ea178f6019c3e8df10325550145f07f315db52b77f6eb5d7d070e0be1e"
+        }
+      ],
+      "modified": false,
+      "sha256": "db8591ea178f6019c3e8df10325550145f07f315db52b77f6eb5d7d070e0be1e"
+    },
+    {
+      "symbol": "🥺",
+      "asset": "images/practice/emoji_u1f97a.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f97a.png",
+          "sha256": "3c820a6d7edb5ee55ce624c32e2ea19e2a0792ee7c1cec582dcd14d682b92bb0"
+        }
+      ],
+      "modified": false,
+      "sha256": "3c820a6d7edb5ee55ce624c32e2ea19e2a0792ee7c1cec582dcd14d682b92bb0"
+    },
+    {
+      "symbol": "🧍",
+      "asset": "images/practice/emoji_u1f9cd.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f9cd.png",
+          "sha256": "e0ce02266fbfd78f8f5ab1de25278480026c7477f318ad3698165ffb4ed5b846"
+        }
+      ],
+      "modified": false,
+      "sha256": "e0ce02266fbfd78f8f5ab1de25278480026c7477f318ad3698165ffb4ed5b846"
+    },
+    {
+      "symbol": "🧑‍🤝‍🧑",
+      "asset": "images/practice/emoji_u1f9d1_200d_1f91d_200d_1f9d1.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f9d1_200d_1f91d_200d_1f9d1.png",
+          "sha256": "a5dd1d4624e40d4a62e967c192661714a7e1ca96fdb80e2a03da7be3a2685ae4"
+        }
+      ],
+      "modified": false,
+      "sha256": "a5dd1d4624e40d4a62e967c192661714a7e1ca96fdb80e2a03da7be3a2685ae4"
+    },
+    {
+      "symbol": "🧢",
+      "asset": "images/practice/emoji_u1f9e2.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f9e2.png",
+          "sha256": "500ef99c982a37f5cf8d733e1b8625a56670eef469374495024ea7c03a289b70"
+        }
+      ],
+      "modified": false,
+      "sha256": "500ef99c982a37f5cf8d733e1b8625a56670eef469374495024ea7c03a289b70"
+    },
+    {
+      "symbol": "🧤",
+      "asset": "images/practice/emoji_u1f9e4.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f9e4.png",
+          "sha256": "a1a613ff5d3731df88973a52186cb998b7882ace1c2db089b1fb13632a75161c"
+        }
+      ],
+      "modified": false,
+      "sha256": "a1a613ff5d3731df88973a52186cb998b7882ace1c2db089b1fb13632a75161c"
+    },
+    {
+      "symbol": "🧦",
+      "asset": "images/practice/emoji_u1f9e6.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f9e6.png",
+          "sha256": "95cb3f319ca437512470d177be9bb72b49f4b0afbf9a15c8188381030c45d9fc"
+        }
+      ],
+      "modified": false,
+      "sha256": "95cb3f319ca437512470d177be9bb72b49f4b0afbf9a15c8188381030c45d9fc"
+    },
+    {
+      "symbol": "🧸",
+      "asset": "images/practice/emoji_u1f9f8.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f9f8.png",
+          "sha256": "2840ea4102f133bda8075c896050a0252d5a7556bae8357372b47bda68b30266"
+        }
+      ],
+      "modified": false,
+      "sha256": "2840ea4102f133bda8075c896050a0252d5a7556bae8357372b47bda68b30266"
+    },
+    {
+      "symbol": "🧼",
+      "asset": "images/practice/emoji_u1f9fc.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1f9fc.png",
+          "sha256": "d147282e52993f755d8f09ab7700baf65c13fddfcc4874ae02b1f6e1a89ee81f"
+        }
+      ],
+      "modified": false,
+      "sha256": "d147282e52993f755d8f09ab7700baf65c13fddfcc4874ae02b1f6e1a89ee81f"
+    },
+    {
+      "symbol": "🩹",
+      "asset": "images/practice/emoji_u1fa79.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1fa79.png",
+          "sha256": "ae8ecfb0649d10941a1ef72098a7afe270ff239a6f1d1e4c63408d88a299e2ca"
+        }
+      ],
+      "modified": false,
+      "sha256": "ae8ecfb0649d10941a1ef72098a7afe270ff239a6f1d1e4c63408d88a299e2ca"
+    },
+    {
+      "symbol": "🪑",
+      "asset": "images/practice/emoji_u1fa91.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1fa91.png",
+          "sha256": "3934cf65fb9d59f055708f3c2768758bbf0bc0523568fc49f31773690acd6d56"
+        }
+      ],
+      "modified": false,
+      "sha256": "3934cf65fb9d59f055708f3c2768758bbf0bc0523568fc49f31773690acd6d56"
+    },
+    {
+      "symbol": "🫧",
+      "asset": "images/practice/emoji_u1fae7.png",
+      "sources": [
+        {
+          "path": "png/512/emoji_u1fae7.png",
+          "sha256": "6cb9f523c1a2c218eeb3a3133fb98de29736265c0c252e44925a944ce0ca361e"
+        }
+      ],
+      "modified": false,
+      "sha256": "6cb9f523c1a2c218eeb3a3133fb98de29736265c0c252e44925a944ce0ca361e"
+    }
+  ]
+}
