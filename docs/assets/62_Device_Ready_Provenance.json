@@ -1,0 +1,15 @@
+{
+  "author": "Codex",
+  "date": "2026-10-03",
+  "source_commit": "1dd1a580b5161830b2d1e0c8273e188ca13f31a7",
+  "package": "com.kidslanguage.companion.debug",
+  "version_name": "1.0.2",
+  "version_code": 3,
+  "min_sdk": 29,
+  "target_sdk": 35,
+  "apk_bytes": 242796568,
+  "apk_sha256": "9f5286baddcac54ad17f8051075dc4bb060024f41658636c6cd4b803946f4538",
+  "certificate_sha256": "876fb59b246fd418fc2fb98f54bcdbcea70909926b97fb13eb30b6d27786d6b5",
+  "apk_local_path": "C:\\AntigravityWorkSpace\\kidsgame\\build\\device-ready\\1dd1a58\\app-debug.apk",
+  "validation": "apksigner verify passed; certificate matches original explicit debug.keystore; copied APK hash matches build output; not installed in this round"
+}
