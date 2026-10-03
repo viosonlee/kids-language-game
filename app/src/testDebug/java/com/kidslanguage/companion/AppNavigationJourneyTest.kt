@@ -5,6 +5,10 @@ import android.app.Application
 import android.content.pm.PackageManager
 import android.os.Looper
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
@@ -83,6 +87,8 @@ class AppNavigationJourneyTest {
     }
 
     private class Dependencies : AppDependencies {
+        var textOverride: String? = null
+        var readingOverride: String? = null
         override val speechRecognizerEngine = Recognizer()
         override val promptPlayer = Audio()
         override val progressRepository = Records()
@@ -112,11 +118,11 @@ class AppNavigationJourneyTest {
                 listOf(Category("greetings", language.code, "打招呼", icon = "👋"))
             override suspend fun getItems(language: LanguageCode, categoryId: String?) = listOf(
                 PracticeItem("${language.code}-hello", language.code, "greetings",
-                    text = when (language) {
+                    text = textOverride ?: when (language) {
                         LanguageCode.EN_US -> "hello"
                         LanguageCode.ZH_CN -> "你好"
                         LanguageCode.JA_JP -> "こんにちは"
-                    }, image = "👋", distractors = listOf("🐱", "🐶"), translation = "打招呼",
+                    }, reading = readingOverride, image = "👋", distractors = listOf("🐱", "🐶"), translation = "打招呼",
                     audio = "audio/${language.code}/hello.mp3")
             )
             override suspend fun getItemById(id: String): PracticeItem? = null
@@ -124,6 +130,7 @@ class AppNavigationJourneyTest {
     }
 
     private val dependencies = Dependencies()
+    private val fontScale = mutableStateOf(1f)
 
     // Compose effects and ViewModel coroutines use different virtual clocks in Robolectric.
     private fun advance(milliseconds: Long) {
@@ -138,7 +145,10 @@ class AppNavigationJourneyTest {
         else application.denyPermissions(Manifest.permission.RECORD_AUDIO)
         compose.setContent {
             KidsLanguageTheme {
-                CompositionLocalProvider(LocalAnimationsEnabled provides false) { AppNavigation(dependencies) }
+                CompositionLocalProvider(
+                    LocalAnimationsEnabled provides false,
+                    LocalDensity provides Density(LocalDensity.current.density, fontScale.value),
+                ) { AppNavigation(dependencies) }
             }
         }
         advance(1_300)
@@ -350,6 +360,45 @@ class AppNavigationJourneyTest {
         compose.onNodeWithContentDescription("Tap to Speak").assertIsNotEnabled()
         advance(300)
         compose.onNodeWithText("下一题").assertIsDisplayed()
+    }
+
+    @Test
+    @Config(qualifiers = "w960dp-h600dp-land-mdpi")
+    @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE)
+    fun repeatLongCjkAtLargeFontCanScrollWithoutCoveringMicrophone() {
+        val text = "今天我们一起去公园看看小动物，然后和好朋友打招呼。"
+        val reading = "きょうはともだちといっしょにこうえんへいきましょう。"
+        dependencies.textOverride = text
+        dependencies.readingOverride = reading
+        launchApp()
+        enterPractice(PracticeMode.REPEAT)
+        readyMicrophone()
+        compose.runOnIdle { fontScale.value = 1.5f }
+        compose.onNodeWithText(reading).performScrollTo().assertIsDisplayed()
+        val layouts = mutableListOf<TextLayoutResult>()
+        compose.onNodeWithText(reading).performSemanticsAction(
+            androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult
+        ) { it(layouts) }
+        assertFalse("Reading must be laid out in full: ${layouts.single().size}, lines=${layouts.single().lineCount}, width=${layouts.single().didOverflowWidth}, height=${layouts.single().didOverflowHeight}, text=${layouts.single().layoutInput.text}", layouts.single().hasVisualOverflow)
+        val readingBounds = compose.onNodeWithText(reading).fetchSemanticsNode().boundsInRoot
+        val micBounds = compose.onNodeWithContentDescription("Tap to Speak").fetchSemanticsNode().boundsInRoot
+        val speakerBounds = compose.onNodeWithContentDescription("Speaker").fetchSemanticsNode().boundsInRoot
+        assertTrue("Reading overlaps microphone", readingBounds.bottom <= micBounds.top)
+        assertTrue("Reading overlaps header", readingBounds.top >= speakerBounds.bottom)
+        val screenshot = java.io.File("build/reports/ui/repeat-large-font.png")
+        checkNotNull(screenshot.parentFile).mkdirs()
+        compose.runOnIdle {
+            val view = compose.activity.window.decorView
+            val bitmap = android.graphics.Bitmap.createBitmap(view.width, view.height, android.graphics.Bitmap.Config.ARGB_8888)
+            view.draw(android.graphics.Canvas(bitmap))
+            screenshot.outputStream().use {
+                assertTrue(bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it))
+            }
+            bitmap.recycle()
+        }
+        compose.onNodeWithText(text).performScrollTo().assertIsDisplayed()
+        startRecording()
+        compose.runOnIdle { assertTrue(dependencies.speechRecognizerEngine.listening) }
     }
 
     private fun autoNextJourney(mode: PracticeMode) {

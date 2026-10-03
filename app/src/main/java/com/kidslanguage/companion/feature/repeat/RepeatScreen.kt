@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -104,7 +106,7 @@ fun RepeatScreen(
             .fillMaxSize()
             .background(Neutral50)
     ) {
-        Box(Modifier.fillMaxSize().padding(AppSpacing.xl)) {
+        Column(Modifier.fillMaxSize().padding(AppSpacing.xl)) {
             // Top Bar
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -145,8 +147,9 @@ fun RepeatScreen(
             if (currentItem != null) {
                 Row(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = 80.dp, bottom = 120.dp),
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .padding(vertical = AppSpacing.md),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     // Scene Card
@@ -157,6 +160,7 @@ fun RepeatScreen(
                             .clip(RoundedCornerShape(AppRadius.card))
                             .background(Neutral0)
                             .border(2.dp, Neutral300, RoundedCornerShape(AppRadius.card))
+                            .verticalScroll(rememberScrollState())
                             .padding(AppSpacing.xl),
                         contentAlignment = Alignment.Center
                     ) {
@@ -203,10 +207,12 @@ fun RepeatScreen(
                 }
             }
 
+            if (currentItem == null) Spacer(Modifier.weight(1f))
+
             // Bottom Action Area: Big Mic Button
             Box(
                 modifier = Modifier
-                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
                     .padding(bottom = AppSpacing.xs),
                 contentAlignment = Alignment.Center
             ) {
