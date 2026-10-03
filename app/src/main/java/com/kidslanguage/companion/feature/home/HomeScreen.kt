@@ -1,5 +1,10 @@
 package com.kidslanguage.companion.feature.home
 
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -107,7 +112,7 @@ fun HomeScreen(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = AppSpacing.normal),
+                .padding(top = 80.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
@@ -115,7 +120,7 @@ fun HomeScreen(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.weight(0.42f)
+                modifier = Modifier.weight(0.42f).verticalScroll(rememberScrollState())
             ) {
                 MascotView(
                     state = MascotState.Idle,
@@ -155,34 +160,50 @@ fun HomeScreen(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.weight(0.58f)
+                modifier = Modifier.weight(0.58f).fillMaxHeight()
             ) {
-                Text(
-                    text = "选择要练习的语言",
-                    style = AppTypography.titleLarge,
-                    color = Neutral900
-                )
-                Spacer(modifier = Modifier.height(AppSpacing.xl))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                Column(
+                    modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                 ) {
-                    LanguageCode.entries.forEach { lang ->
-                        LanguageCard(
-                            language = lang,
-                            isSelected = lang == selectedLanguage,
-                            onClick = { viewModel.selectLanguage(lang) },
-                            modifier = Modifier.width(170.dp)
-                        )
+                    Text(
+                        text = "选择要练习的语言",
+                        style = AppTypography.titleLarge,
+                        color = Neutral900
+                    )
+                    Spacer(modifier = Modifier.height(AppSpacing.xl))
+
+                    BoxWithConstraints(Modifier.fillMaxWidth()) {
+                        val gap = 8.dp
+                        val minimumCardWidth = 160.dp * LocalDensity.current.fontScale.coerceAtLeast(1f)
+                        val columns = ((maxWidth + gap) / (minimumCardWidth + gap)).toInt().coerceIn(1, 3)
+                        val cardWidth = (maxWidth - gap * (columns - 1)) / columns
+                        Column(verticalArrangement = Arrangement.spacedBy(gap)) {
+                            LanguageCode.entries.chunked(columns).forEach { row ->
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(gap, Alignment.CenterHorizontally),
+                                ) {
+                                    row.forEach { lang ->
+                                        LanguageCard(
+                                            language = lang,
+                                            isSelected = lang == selectedLanguage,
+                                            onClick = { viewModel.selectLanguage(lang) },
+                                            modifier = Modifier.width(cardWidth)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    (saveError ?: readError)?.let {
+                        Spacer(modifier = Modifier.height(AppSpacing.sm))
+                        StorageNotice(it, viewModel::retrySettings)
                     }
                 }
-
-                (saveError ?: readError)?.let {
-                    Spacer(modifier = Modifier.height(AppSpacing.sm))
-                    StorageNotice(it, viewModel::retrySettings)
-                }
-                Spacer(modifier = Modifier.height(AppSpacing.xxxl))
+                Spacer(modifier = Modifier.height(AppSpacing.md))
 
                 PrimaryLargeButton(
                     text = "开始练习",

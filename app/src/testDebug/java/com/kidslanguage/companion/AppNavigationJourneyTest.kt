@@ -385,7 +385,46 @@ class AppNavigationJourneyTest {
         val speakerBounds = compose.onNodeWithContentDescription("Speaker").fetchSemanticsNode().boundsInRoot
         assertTrue("Reading overlaps microphone", readingBounds.bottom <= micBounds.top)
         assertTrue("Reading overlaps header", readingBounds.top >= speakerBounds.bottom)
-        val screenshot = java.io.File("build/reports/ui/repeat-large-font.png")
+        saveNativePreview("repeat-large-font")
+        compose.onNodeWithText(text).performScrollTo().assertIsDisplayed()
+        startRecording()
+        compose.runOnIdle { assertTrue(dependencies.speechRecognizerEngine.listening) }
+    }
+
+    @Test
+    @Config(qualifiers = "w960dp-h600dp-land-mdpi")
+    @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE)
+    fun homeLargeFontKeepsLanguageLabelsWholeAndStartReachable() {
+        launchApp()
+        compose.runOnIdle { fontScale.value = 1.5f }
+        saveNativePreview("home-large-font-initial")
+        LanguageCode.entries.forEach { language ->
+            val labels = compose.onAllNodesWithText(language.englishName, useUnmergedTree = true)
+            labels.assertCountEquals(if (language.displayName == language.englishName) 2 else 1)
+            for (index in labels.fetchSemanticsNodes().indices) {
+                val label = labels[index]
+                label.performScrollTo().assertIsDisplayed()
+                compose.onNodeWithText("开始练习").assertIsDisplayed()
+                val layouts = mutableListOf<TextLayoutResult>()
+                label.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(layouts) }
+                val layout = layouts.single()
+                // A shrink-wrapped Text may retain a wider paragraph box; inspect the glyph line itself.
+                assertEquals("Broken language name: ${language.englishName}", 1, layout.lineCount)
+                assertFalse(layout.isLineEllipsized(0))
+                assertEquals(language.englishName.length, layout.getLineEnd(0))
+                assertTrue("Clipped language right edge", layout.getLineRight(0) <= layout.size.width + 1f)
+                assertTrue("Clipped language left edge", layout.getLineLeft(0) >= -1f)
+                assertTrue("Clipped language height", layout.getLineBottom(0) <= layout.size.height + 1f)
+            }
+        }
+        saveNativePreview("home-large-font")
+        compose.onNodeWithText("开始练习").assertIsDisplayed().performClick()
+        advance(200)
+        compose.onNodeWithText("打招呼").assertIsDisplayed()
+    }
+
+    private fun saveNativePreview(name: String) {
+        val screenshot = java.io.File("build/reports/ui/$name.png")
         checkNotNull(screenshot.parentFile).mkdirs()
         compose.runOnIdle {
             val view = compose.activity.window.decorView
@@ -396,9 +435,6 @@ class AppNavigationJourneyTest {
             }
             bitmap.recycle()
         }
-        compose.onNodeWithText(text).performScrollTo().assertIsDisplayed()
-        startRecording()
-        compose.runOnIdle { assertTrue(dependencies.speechRecognizerEngine.listening) }
     }
 
     private fun autoNextJourney(mode: PracticeMode) {
