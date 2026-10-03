@@ -6,8 +6,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import java.time.LocalDate
-import java.time.ZoneId
+import java.time.ZonedDateTime
 
 interface ProgressRepository {
     val totals: Flow<ProgressTotals>
@@ -59,15 +58,7 @@ class RoomProgressRepository(
     }
     override val languages = dao.languages()
     // Recompute on date/time-zone changes while the parent screen remains open.
-    override val today = flow {
-        while (currentCoroutineContext().isActive) {
-            val zone = ZoneId.systemDefault()
-            val date = LocalDate.now(zone)
-            emit(date.atStartOfDay(zone).toInstant().toEpochMilli() to
-                date.plusDays(1).atStartOfDay(zone).toInstant().toEpochMilli())
-            delay(30_000)
-        }
-    }.distinctUntilChanged().flatMapLatest { (start, end) -> dao.totals(start, end) }
+    override val today = observeTodayProgress(dao)
 
     override fun record(attempt: PracticeAttemptEntity) {
         // Acquire/queue in call order; leaving a practice screen must not cancel a write.
@@ -89,3 +80,19 @@ class RoomProgressRepository(
         _error.value = null
     }
 }
+
+/** Query local calendar days, which may be shorter or longer than 24 hours. */
+@OptIn(ExperimentalCoroutinesApi::class)
+internal fun observeTodayProgress(
+    dao: ProgressDao,
+    now: () -> ZonedDateTime = { ZonedDateTime.now() },
+): Flow<ProgressTotals> = flow {
+    while (currentCoroutineContext().isActive) {
+        val current = now()
+        val date = current.toLocalDate()
+        val zone = current.zone
+        emit(date.atStartOfDay(zone).toInstant().toEpochMilli() to
+            date.plusDays(1).atStartOfDay(zone).toInstant().toEpochMilli())
+        delay(30_000)
+    }
+}.distinctUntilChanged().flatMapLatest { (start, end) -> dao.totals(start, end) }

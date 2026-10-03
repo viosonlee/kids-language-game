@@ -729,3 +729,12 @@
 - 新增三项贯穿 JSON/仓库/模式/规划的回归，覆盖 choose-only 互为候选、损坏显式图片降级和跨语言/跨场景/损坏条目隔离。
 - `test assembleDebug lintDebug --offline` 通过，Debug 197 + Release 169 = 366 测试零失败/错误/跳过；APK 已生成，未安装/发布。
 - 文档增量：`docs/51_Choice_Content_Fallback_Consistency.md`。现有 126 题素材数据未修改；图片语义及儿童观察验收仍待完成，整体审查继续。
+
+
+## 2026-10-03 | 今日统计自然日边界验证 | By: Codex
+
+- 审查进度、设置与清空处理，本轮未确认新的数据丢失缺陷；补齐今日统计跨日/时区变化此前缺少的直接回归证据。
+- 将现有轮询提取为内部可测试 Flow，生产仍读取当前系统时间与时区、每 30 秒检查自然日；不改变数据库、计数或设置策略。
+- 三项新增测试验证午夜切换与旧查询取消、同日不重复订阅、时区变化与重新进入立即刷新、23/25 小时夏令时日边界。
+- `test assembleDebug lintDebug --offline` 通过，Debug 200 + Release 172 = 372 项无失败/错误/跳过。增量文档：`docs/52_Today_Progress_Calendar_Verification.md`。
+- 无手机操作、模拟器或公开发布。实际设备与儿童观察验收仍未完成，整体目标继续。
