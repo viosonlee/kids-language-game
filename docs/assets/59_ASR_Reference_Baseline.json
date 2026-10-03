@@ -1,0 +1,1202 @@
+{
+  "scope": "bundled synthetic reference audio; host decoder; no microphone; not application scoring",
+  "vosk_version": "0.3.45",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "sample_rate": 16000,
+  "chunk_ms": 100,
+  "added_silence_seconds": 0,
+  "ffmpeg": "ffmpeg version 8.1.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+  "languages": [
+    {
+      "language": "zh-CN",
+      "model_version": "0.22",
+      "model_sha256": "3af8b0e7e0f835ae9d414ce5df580237a3cfb08d586c9fbbb0f7ff29ad5b14ba",
+      "count": 32,
+      "empty_count": 0,
+      "reference_match_count": 28,
+      "items": [
+        {
+          "id": "zh_greet_001",
+          "target": "早上好",
+          "aliases": [
+            "早安",
+            "早"
+          ],
+          "audio": "audio/zh/zh_greet_001.mp3",
+          "sha256": "db6bd19e2cbf78730a7cb607008a3774dd5edc165a6554c0f06da4de43201b95",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.5908773999981349,
+          "endpoint_texts": [
+            "早上 好"
+          ],
+          "final_text": "",
+          "transcript": "早上 好",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_greet_002",
+          "target": "谢谢",
+          "aliases": [
+            "谢谢你",
+            "多谢"
+          ],
+          "audio": "audio/zh/zh_greet_002.mp3",
+          "sha256": "cc324bddf480126e216b9ee5dc15ae02139dc328e6f1dc4eb18f557ebf4a23d3",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.5734163999950397,
+          "endpoint_texts": [
+            "谢谢"
+          ],
+          "final_text": "",
+          "transcript": "谢谢",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_greet_003",
+          "target": "对不起",
+          "aliases": [
+            "不好意思",
+            "对不住"
+          ],
+          "audio": "audio/zh/zh_greet_003.mp3",
+          "sha256": "2c295ca32b7b8dd0aeb86c8e2036fb1e8709f4fe17157f437af5f0613f1edfef",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.7031256000045687,
+          "endpoint_texts": [
+            "对不起 啊"
+          ],
+          "final_text": "",
+          "transcript": "对不起 啊",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "zh_greet_004",
+          "target": "没关系",
+          "aliases": [
+            "没事",
+            "不要紧"
+          ],
+          "audio": "audio/zh/zh_greet_004.mp3",
+          "sha256": "52d12cd7dda378facfd9c28e8fe4e73f7a9093eb9b0e8387bfb15084e0aca810",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.8431847999963793,
+          "endpoint_texts": [
+            "没关系"
+          ],
+          "final_text": "",
+          "transcript": "没关系",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_greet_005",
+          "target": "你好",
+          "aliases": [
+            "您好"
+          ],
+          "audio": "audio/zh/zh_greet_005.mp3",
+          "sha256": "9fff66b4b48dd97143961a7bee6e90511dd77189dc23a96cc6e471ad49e5d936",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.4363431999954628,
+          "endpoint_texts": [
+            "你好"
+          ],
+          "final_text": "",
+          "transcript": "你好",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_greet_006",
+          "target": "再见",
+          "aliases": [
+            "拜拜",
+            "明天见"
+          ],
+          "audio": "audio/zh/zh_greet_006.mp3",
+          "sha256": "e5e802ea724172bdea0d62485c39420c89d7ecc1de4fac3157e9835e1e6dcffc",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.5237831000049482,
+          "endpoint_texts": [
+            "再见"
+          ],
+          "final_text": "",
+          "transcript": "再见",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_greet_007",
+          "target": "请给我",
+          "aliases": [
+            "给我",
+            "给我吧"
+          ],
+          "audio": "audio/zh/zh_greet_007.mp3",
+          "sha256": "03e73c6b1fa12e974884c8637381cd63715cc2ae5dcd87eb5caf2b1d2911493e",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.738933000000543,
+          "endpoint_texts": [],
+          "final_text": "请 给 我",
+          "transcript": "请 给 我",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_greet_008",
+          "target": "我开动了",
+          "aliases": [
+            "吃饭啦",
+            "开饭了"
+          ],
+          "audio": "audio/zh/zh_greet_008.mp3",
+          "sha256": "9a7b06f29d0632cb37f371800e06ecd6f5decd5c12c3b4d0293a7be9693e7979",
+          "audio_seconds": 1.896,
+          "decode_seconds": 0.4641267999977572,
+          "endpoint_texts": [
+            "我 开动 了"
+          ],
+          "final_text": "",
+          "transcript": "我 开动 了",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_play_001",
+          "target": "一起玩吧",
+          "aliases": [
+            "我们一起玩",
+            "一起玩"
+          ],
+          "audio": "audio/zh/zh_play_001.mp3",
+          "sha256": "10328c151827c8380ed500ac21af384232eb70b3376f3f147511b750eba33a99",
+          "audio_seconds": 1.92,
+          "decode_seconds": 0.7568140000003041,
+          "endpoint_texts": [
+            "一起玩 吧"
+          ],
+          "final_text": "",
+          "transcript": "一起玩 吧",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_play_002",
+          "target": "让我加入吧",
+          "aliases": [
+            "我也要玩",
+            "加我一个"
+          ],
+          "audio": "audio/zh/zh_play_002.mp3",
+          "sha256": "a981521489dcaa8617e55f08cb6145ebeaab68e93bafdd366187ba807ab17350",
+          "audio_seconds": 2.04,
+          "decode_seconds": 0.6209606000047643,
+          "endpoint_texts": [
+            "让 我 加入 吧"
+          ],
+          "final_text": "",
+          "transcript": "让 我 加入 吧",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_play_003",
+          "target": "借我玩一下",
+          "aliases": [
+            "借给我",
+            "给我玩玩"
+          ],
+          "audio": "audio/zh/zh_play_003.mp3",
+          "sha256": "39554219d4fcb87815f4615fa09e947ac931912557253e171075215da1e8f562",
+          "audio_seconds": 2.064,
+          "decode_seconds": 0.9317217999996501,
+          "endpoint_texts": [
+            "七 我 玩 一下"
+          ],
+          "final_text": "",
+          "transcript": "七 我 玩 一下",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "zh_play_004",
+          "target": "请等一等",
+          "aliases": [
+            "等一下",
+            "等等我"
+          ],
+          "audio": "audio/zh/zh_play_004.mp3",
+          "sha256": "f78f092d6e28a8d3bee496b295b3b49379fb2e5949561c88696d938266e9e2b0",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.8608698999960325,
+          "endpoint_texts": [
+            "清 等一等"
+          ],
+          "final_text": "",
+          "transcript": "清 等一等",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "zh_play_005",
+          "target": "再来一次",
+          "aliases": [
+            "还要一次",
+            "再玩一次"
+          ],
+          "audio": "audio/zh/zh_play_005.mp3",
+          "sha256": "2a4a935f6fb188b71ac4919c98371c13e4d8e27e3383b34849ece7a2b7b7eb6d",
+          "audio_seconds": 1.896,
+          "decode_seconds": 0.8620918000015081,
+          "endpoint_texts": [
+            "再来一次"
+          ],
+          "final_text": "",
+          "transcript": "再来一次",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_play_006",
+          "target": "轮到我了",
+          "aliases": [
+            "该我了",
+            "到我了"
+          ],
+          "audio": "audio/zh/zh_play_006.mp3",
+          "sha256": "ba073b5392d1121b42088c110024fb2dbe64115f9a47a0a8fdb7ea6149b3c4b7",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.9721340999967651,
+          "endpoint_texts": [
+            "轮到 我 了"
+          ],
+          "final_text": "",
+          "transcript": "轮到 我 了",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_play_007",
+          "target": "排队轮流玩",
+          "aliases": [
+            "排好队",
+            "轮流"
+          ],
+          "audio": "audio/zh/zh_play_007.mp3",
+          "sha256": "52d108d854d2c34f7c6b712dac67afbc5239cfb18ff8b0cd53dd7bef865cce09",
+          "audio_seconds": 2.328,
+          "decode_seconds": 0.9673364999980549,
+          "endpoint_texts": [],
+          "final_text": "排队 轮流 玩",
+          "transcript": "排队 轮流 玩",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_play_008",
+          "target": "看这个",
+          "aliases": [
+            "看这里",
+            "快看"
+          ],
+          "audio": "audio/zh/zh_play_008.mp3",
+          "sha256": "26ebf9d2d795806dfdc2d4c7c0aa561a7fb0c2fc940dbc7b9f04bcc2b9cc9457",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.582965299996431,
+          "endpoint_texts": [],
+          "final_text": "看 这个",
+          "transcript": "看 这个",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_daily_001",
+          "target": "我想喝水",
+          "aliases": [
+            "喝水",
+            "给我水"
+          ],
+          "audio": "audio/zh/zh_daily_001.mp3",
+          "sha256": "401a100635e020d42f18c7805e6b9b1c474dd5258fa8ebcdbee697dc6bb110e0",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.4116985000000568,
+          "endpoint_texts": [
+            "我 想 喝水"
+          ],
+          "final_text": "",
+          "transcript": "我 想 喝水",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_daily_002",
+          "target": "洗手手",
+          "aliases": [
+            "去洗手",
+            "洗手"
+          ],
+          "audio": "audio/zh/zh_daily_002.mp3",
+          "sha256": "6ab3b28bfcc1b25a52799de3ecfaccd4202cfae8dc6876e91f9fa0e867f83bfd",
+          "audio_seconds": 1.896,
+          "decode_seconds": 0.5191334000046481,
+          "endpoint_texts": [],
+          "final_text": "洗手 少",
+          "transcript": "洗手 少",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "zh_daily_003",
+          "target": "请坐下",
+          "aliases": [
+            "坐好",
+            "坐下"
+          ],
+          "audio": "audio/zh/zh_daily_003.mp3",
+          "sha256": "05f6b47791fa32a778477715a33f58830e778e6728f3a1a0e53b26467a12b307",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.8655079000018304,
+          "endpoint_texts": [
+            "请 坐下"
+          ],
+          "final_text": "",
+          "transcript": "请 坐下",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_daily_004",
+          "target": "大家集合",
+          "aliases": [
+            "过来集合",
+            "快来"
+          ],
+          "audio": "audio/zh/zh_daily_004.mp3",
+          "sha256": "e2044ce7660c6dd5bc18c34ea0d8ff5480a4e0e490adc36d4be4626d3f56e704",
+          "audio_seconds": 2.112,
+          "decode_seconds": 1.0131355999983498,
+          "endpoint_texts": [
+            "大家 集合"
+          ],
+          "final_text": "",
+          "transcript": "大家 集合",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_daily_005",
+          "target": "排好队伍",
+          "aliases": [
+            "排队",
+            "站好"
+          ],
+          "audio": "audio/zh/zh_daily_005.mp3",
+          "sha256": "1d38df01845abd965922f4dbf9fffb429f57b531ed33b8d40c3970e67a63a115",
+          "audio_seconds": 1.896,
+          "decode_seconds": 0.5246724000026006,
+          "endpoint_texts": [],
+          "final_text": "排 好 队伍",
+          "transcript": "排 好 队伍",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_daily_006",
+          "target": "收拾玩具",
+          "aliases": [
+            "把玩具收起来",
+            "整理好"
+          ],
+          "audio": "audio/zh/zh_daily_006.mp3",
+          "sha256": "0472c2df3c7120ccca1b103708e454798b37b7d79c25d279b09a1bf490ebf4b5",
+          "audio_seconds": 1.968,
+          "decode_seconds": 0.7862018999949214,
+          "endpoint_texts": [],
+          "final_text": "收拾 玩具",
+          "transcript": "收拾 玩具",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_daily_007",
+          "target": "穿好衣服",
+          "aliases": [
+            "穿衣服",
+            "换衣服"
+          ],
+          "audio": "audio/zh/zh_daily_007.mp3",
+          "sha256": "7a000849e161b787721ab1dfb324156b8bc9c435dd2db6e327af44c28c3a5f7d",
+          "audio_seconds": 1.944,
+          "decode_seconds": 1.1197045000008075,
+          "endpoint_texts": [],
+          "final_text": "穿 好 衣服",
+          "transcript": "穿 好 衣服",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_daily_008",
+          "target": "穿鞋子",
+          "aliases": [
+            "穿好鞋",
+            "鞋子"
+          ],
+          "audio": "audio/zh/zh_daily_008.mp3",
+          "sha256": "0a4bbdcfe18bc81c4f8b2a56c61339212ebea0c0e0bd84acee3b06bc32850c31",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.5323341000039363,
+          "endpoint_texts": [],
+          "final_text": "穿 鞋子",
+          "transcript": "穿 鞋子",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_help_001",
+          "target": "我要上厕所",
+          "aliases": [
+            "去厕所",
+            "尿尿",
+            "上厕所"
+          ],
+          "audio": "audio/zh/zh_help_001.mp3",
+          "sha256": "3cd83121fbff647a8aa901687524010ce6fc53660939b612c630e6e723a98603",
+          "audio_seconds": 2.064,
+          "decode_seconds": 0.8448465000037686,
+          "endpoint_texts": [],
+          "final_text": "我 要 上厕所",
+          "transcript": "我 要 上厕所",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_help_002",
+          "target": "这里痛",
+          "aliases": [
+            "好痛",
+            "痛痛"
+          ],
+          "audio": "audio/zh/zh_help_002.mp3",
+          "sha256": "364eae0a09049509b19207c24d61d197f0c21d0fef2b0a2f560328b52273a8bd",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.46532270000170683,
+          "endpoint_texts": [],
+          "final_text": "这里 痛",
+          "transcript": "这里 痛",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_help_003",
+          "target": "老师",
+          "aliases": [
+            "老师好",
+            "找老师"
+          ],
+          "audio": "audio/zh/zh_help_003.mp3",
+          "sha256": "0da2fddefa32172e9dcad7259c8c46267cda3991394aadd095ed0dda0bc3638e",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.9689703999974881,
+          "endpoint_texts": [],
+          "final_text": "老师",
+          "transcript": "老师",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_help_004",
+          "target": "我不知道",
+          "aliases": [
+            "不知道",
+            "我不明白"
+          ],
+          "audio": "audio/zh/zh_help_004.mp3",
+          "sha256": "705d28da94b11c3f12e0bd8c5513e62a0253cf8a2252c4d2601de3fd7dd16821",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.8091218999979901,
+          "endpoint_texts": [],
+          "final_text": "我 不知道",
+          "transcript": "我 不知道",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_help_005",
+          "target": "帮帮我",
+          "aliases": [
+            "请帮我",
+            "帮我一下"
+          ],
+          "audio": "audio/zh/zh_help_005.mp3",
+          "sha256": "bdb31742b53a50778be4a4fda475ebf54b72011046355ce835d94a48e2265c13",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.5255394999985583,
+          "endpoint_texts": [
+            "帮帮 我"
+          ],
+          "final_text": "",
+          "transcript": "帮帮 我",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_help_006",
+          "target": "我肚子痛",
+          "aliases": [
+            "肚子好痛",
+            "肚子疼"
+          ],
+          "audio": "audio/zh/zh_help_006.mp3",
+          "sha256": "4d798b2a3158cfe8701a66d8b5988818ec7b8edad937161fb88c9fefe7c72caf",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.8226111000039964,
+          "endpoint_texts": [
+            "我 肚子 痛"
+          ],
+          "final_text": "",
+          "transcript": "我 肚子 痛",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_help_007",
+          "target": "妈妈来了",
+          "aliases": [
+            "我妈妈来了",
+            "回家啦"
+          ],
+          "audio": "audio/zh/zh_help_007.mp3",
+          "sha256": "9ddd0163fc3558524864bd1a73fc4b882bcc709e2af89f3cf5fd2a2d23b3dfbb",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.596789200004423,
+          "endpoint_texts": [
+            "妈妈 来 了"
+          ],
+          "final_text": "",
+          "transcript": "妈妈 来 了",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "zh_help_008",
+          "target": "爸爸来了",
+          "aliases": [
+            "我爸爸来了",
+            "接我了"
+          ],
+          "audio": "audio/zh/zh_help_008.mp3",
+          "sha256": "1ec152ccf883397101a8dee630d5798f535a87c2be99224f1258dfe9c73dd8d9",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.8173299000045517,
+          "endpoint_texts": [
+            "爸爸 来 了"
+          ],
+          "final_text": "",
+          "transcript": "爸爸 来 了",
+          "empty": false,
+          "reference_text_match": true
+        }
+      ]
+    },
+    {
+      "language": "en-US",
+      "model_version": "0.15",
+      "model_sha256": "30f26242c4eb449f948e42cb302dd7a686cb29a3423a8367f99ff41780942498",
+      "count": 32,
+      "empty_count": 0,
+      "reference_match_count": 26,
+      "items": [
+        {
+          "id": "en_greet_001",
+          "target": "Good morning",
+          "aliases": [
+            "morning",
+            "good morning teacher"
+          ],
+          "audio": "audio/en/en_greet_001.mp3",
+          "sha256": "b3081cf4a6c7cfc8ede0ab8c0167384f8b5a231696e65dcf9a76bea6970b08a7",
+          "audio_seconds": 1.944,
+          "decode_seconds": 0.5829012000031071,
+          "endpoint_texts": [
+            "good morning"
+          ],
+          "final_text": "",
+          "transcript": "good morning",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_greet_002",
+          "target": "Thank you",
+          "aliases": [
+            "thanks",
+            "thank you very much"
+          ],
+          "audio": "audio/en/en_greet_002.mp3",
+          "sha256": "ad0e004dcba7df9f83898d65624bd8d094dc52860ec06646cd8db2b7571f2be6",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.5191772000034689,
+          "endpoint_texts": [
+            "thank you"
+          ],
+          "final_text": "",
+          "transcript": "thank you",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_greet_003",
+          "target": "Excuse me",
+          "aliases": [
+            "sorry",
+            "pardon"
+          ],
+          "audio": "audio/en/en_greet_003.mp3",
+          "sha256": "1264089b12f50f7a3e60d68755fdf60344d35fe1c920db19219ecbb3e3ffda99",
+          "audio_seconds": 2.112,
+          "decode_seconds": 0.5225563000058173,
+          "endpoint_texts": [
+            "excuse me"
+          ],
+          "final_text": "",
+          "transcript": "excuse me",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_greet_004",
+          "target": "You're welcome",
+          "aliases": [
+            "welcome",
+            "no problem"
+          ],
+          "audio": "audio/en/en_greet_004.mp3",
+          "sha256": "6961b6b42861b62c2432f231092502150f80b6a1770372a3b1f73e3392a9a79f",
+          "audio_seconds": 2.064,
+          "decode_seconds": 0.5324385999992955,
+          "endpoint_texts": [
+            "you're welcome"
+          ],
+          "final_text": "",
+          "transcript": "you're welcome",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_greet_005",
+          "target": "Hello",
+          "aliases": [
+            "hi",
+            "hey"
+          ],
+          "audio": "audio/en/en_greet_005.mp3",
+          "sha256": "5691a384cc22d32740886efd78a1898d8e2021387f179cab429ef5e535f1f8d7",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.4485869999989518,
+          "endpoint_texts": [
+            "hello"
+          ],
+          "final_text": "",
+          "transcript": "hello",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_greet_006",
+          "target": "Goodbye",
+          "aliases": [
+            "bye",
+            "bye bye"
+          ],
+          "audio": "audio/en/en_greet_006.mp3",
+          "sha256": "4dee697a7e98753cabdd967dbe5768634ce471992886b589fc13ed95d0a83b3e",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.4647400999965612,
+          "endpoint_texts": [
+            "goodbye"
+          ],
+          "final_text": "",
+          "transcript": "goodbye",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_greet_007",
+          "target": "See you tomorrow",
+          "aliases": [
+            "see you",
+            "see you later"
+          ],
+          "audio": "audio/en/en_greet_007.mp3",
+          "sha256": "e1331eef71755bbb743f1695b7c82522939f31c361536dd7c11856c39f58c653",
+          "audio_seconds": 2.328,
+          "decode_seconds": 0.6219997000007425,
+          "endpoint_texts": [
+            "see you tomorrow"
+          ],
+          "final_text": "",
+          "transcript": "see you tomorrow",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_greet_008",
+          "target": "Please",
+          "aliases": [
+            "please help",
+            "yes please"
+          ],
+          "audio": "audio/en/en_greet_008.mp3",
+          "sha256": "2364ea3389aa57b65bcc2ca837b1ebc58f72c86f5b86d994e3f475834bf1a375",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.42745849999482743,
+          "endpoint_texts": [
+            "please"
+          ],
+          "final_text": "",
+          "transcript": "please",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_play_001",
+          "target": "Let's play together",
+          "aliases": [
+            "let's play",
+            "play together"
+          ],
+          "audio": "audio/en/en_play_001.mp3",
+          "sha256": "084e9329b79efc640570372631dce4bf5b21931ecab5c145d79cd3e7c3a6a436",
+          "audio_seconds": 2.496,
+          "decode_seconds": 0.6579306999992696,
+          "endpoint_texts": [
+            "let's play together"
+          ],
+          "final_text": "",
+          "transcript": "let's play together",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_play_002",
+          "target": "Can I join?",
+          "aliases": [
+            "can I play",
+            "let me join"
+          ],
+          "audio": "audio/en/en_play_002.mp3",
+          "sha256": "f75d573c9b528650e2eef585fb615bf7ef2e24db5b9053643919e1b2a6ba9ea1",
+          "audio_seconds": 1.944,
+          "decode_seconds": 0.463445800000045,
+          "endpoint_texts": [],
+          "final_text": "can i join",
+          "transcript": "can i join",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_play_003",
+          "target": "Share please",
+          "aliases": [
+            "can I have this",
+            "share"
+          ],
+          "audio": "audio/en/en_play_003.mp3",
+          "sha256": "ef4c1e44ac8a1735d8a90182b4488922a77f75e20a87bdbb76a702c79e112854",
+          "audio_seconds": 2.136,
+          "decode_seconds": 0.5025584999966668,
+          "endpoint_texts": [],
+          "final_text": "share please",
+          "transcript": "share please",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_play_004",
+          "target": "Wait for me",
+          "aliases": [
+            "wait please",
+            "wait"
+          ],
+          "audio": "audio/en/en_play_004.mp3",
+          "sha256": "bde3827cb0a0fee05edb2d871ae7b0c71acf4df52cf2c3fe5cab4a885af70238",
+          "audio_seconds": 2.016,
+          "decode_seconds": 0.570423800003482,
+          "endpoint_texts": [
+            "wait for me"
+          ],
+          "final_text": "",
+          "transcript": "wait for me",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_play_005",
+          "target": "One more time",
+          "aliases": [
+            "again",
+            "once more"
+          ],
+          "audio": "audio/en/en_play_005.mp3",
+          "sha256": "539a81a909d36736d200ebc41edec5aaf96b007fe1f401332423c56fad2ab485",
+          "audio_seconds": 2.232,
+          "decode_seconds": 0.5443309000038425,
+          "endpoint_texts": [],
+          "final_text": "one more time",
+          "transcript": "one more time",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_play_006",
+          "target": "My turn",
+          "aliases": [
+            "it's my turn",
+            "me next"
+          ],
+          "audio": "audio/en/en_play_006.mp3",
+          "sha256": "3906c27672445d544d3eaef6edd1112fa8144d37c51d7909105c8e879d39369a",
+          "audio_seconds": 1.92,
+          "decode_seconds": 0.5005368999991333,
+          "endpoint_texts": [
+            "my turn"
+          ],
+          "final_text": "",
+          "transcript": "my turn",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_play_007",
+          "target": "Take turns",
+          "aliases": [
+            "your turn",
+            "turn by turn"
+          ],
+          "audio": "audio/en/en_play_007.mp3",
+          "sha256": "edaf79ee9a060ffd3a7ed2b5e9118f08d44f9c55d459aa1ec755dbe46a53bcd8",
+          "audio_seconds": 2.232,
+          "decode_seconds": 0.5209161000020686,
+          "endpoint_texts": [],
+          "final_text": "take turns",
+          "transcript": "take turns",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_play_008",
+          "target": "Look at this",
+          "aliases": [
+            "look",
+            "look here"
+          ],
+          "audio": "audio/en/en_play_008.mp3",
+          "sha256": "3b6a24232a3e79abf12a8da1537f43d01e89ebe7602797046086c1153bb2a5d3",
+          "audio_seconds": 2.04,
+          "decode_seconds": 0.5505294999966281,
+          "endpoint_texts": [],
+          "final_text": "look at this",
+          "transcript": "look at this",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_daily_001",
+          "target": "Water please",
+          "aliases": [
+            "water",
+            "can I have water"
+          ],
+          "audio": "audio/en/en_daily_001.mp3",
+          "sha256": "f9eb02ee68525cffe818724bf34e5a3a6aecc6677f7da6334b89981b91c3e2c4",
+          "audio_seconds": 2.184,
+          "decode_seconds": 0.5619902999969781,
+          "endpoint_texts": [
+            "why oh please"
+          ],
+          "final_text": "",
+          "transcript": "why oh please",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "en_daily_002",
+          "target": "Wash hands",
+          "aliases": [
+            "wash your hands",
+            "clean hands"
+          ],
+          "audio": "audio/en/en_daily_002.mp3",
+          "sha256": "f731781c6b45163bd64522096d8b121b773941a7025af471695ffb96456b5eab",
+          "audio_seconds": 2.232,
+          "decode_seconds": 0.5537685000017518,
+          "endpoint_texts": [],
+          "final_text": "wash hands",
+          "transcript": "wash hands",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_daily_003",
+          "target": "Sit down please",
+          "aliases": [
+            "sit down",
+            "have a seat"
+          ],
+          "audio": "audio/en/en_daily_003.mp3",
+          "sha256": "6beaeb8bcb4cf8019d628217add8302877397d04d8285ddf7a3ddce5a2c1b52f",
+          "audio_seconds": 2.544,
+          "decode_seconds": 0.5546312000005855,
+          "endpoint_texts": [],
+          "final_text": "sit down please",
+          "transcript": "sit down please",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_daily_004",
+          "target": "Gather around",
+          "aliases": [
+            "come here",
+            "circle time"
+          ],
+          "audio": "audio/en/en_daily_004.mp3",
+          "sha256": "6be01cbcb8d6c291a8247ead642cacc8d1d4546bf2f99a01b02b6e5e7dc94ad2",
+          "audio_seconds": 2.256,
+          "decode_seconds": 0.5140255000005709,
+          "endpoint_texts": [],
+          "final_text": "gather lan",
+          "transcript": "gather lan",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "en_daily_005",
+          "target": "Line up please",
+          "aliases": [
+            "line up",
+            "make a line"
+          ],
+          "audio": "audio/en/en_daily_005.mp3",
+          "sha256": "78daaf0413658d19e805ff8aacb1442e156facf11d24bdd032bea7ba1cd2c2ac",
+          "audio_seconds": 2.328,
+          "decode_seconds": 0.5041540999955032,
+          "endpoint_texts": [
+            "line up please"
+          ],
+          "final_text": "",
+          "transcript": "line up please",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_daily_006",
+          "target": "Clean up",
+          "aliases": [
+            "clean up toys",
+            "tidy up"
+          ],
+          "audio": "audio/en/en_daily_006.mp3",
+          "sha256": "fdc4f7412595d2b503d7da3cc029bd52ab1a4ca23c453f681851cb82f47e98b5",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.2725101000032737,
+          "endpoint_texts": [
+            "clean out"
+          ],
+          "final_text": "",
+          "transcript": "clean out",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "en_daily_007",
+          "target": "Put on coat",
+          "aliases": [
+            "jacket on",
+            "get dressed"
+          ],
+          "audio": "audio/en/en_daily_007.mp3",
+          "sha256": "b9b602d18defd3ccc2128d9d647bbe38c28340d1a083176f0db951d0d75078a4",
+          "audio_seconds": 2.064,
+          "decode_seconds": 0.5510053999969386,
+          "endpoint_texts": [],
+          "final_text": "polanco",
+          "transcript": "polanco",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "en_daily_008",
+          "target": "Put on shoes",
+          "aliases": [
+            "shoes on",
+            "wear shoes"
+          ],
+          "audio": "audio/en/en_daily_008.mp3",
+          "sha256": "d1d880ddda350a553380faec61500b56def8dedb98c40c5a8cdab958c31e7a37",
+          "audio_seconds": 2.208,
+          "decode_seconds": 0.6038287000046694,
+          "endpoint_texts": [
+            "put on shoes"
+          ],
+          "final_text": "",
+          "transcript": "put on shoes",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_help_001",
+          "target": "Bathroom please",
+          "aliases": [
+            "restroom",
+            "toilet please",
+            "potty"
+          ],
+          "audio": "audio/en/en_help_001.mp3",
+          "sha256": "86021dab986f68d925f79e08dbacff57738b1efbf523db052e9162f99cf83c1c",
+          "audio_seconds": 2.376,
+          "decode_seconds": 0.5730000999974436,
+          "endpoint_texts": [],
+          "final_text": "bathroom please",
+          "transcript": "bathroom please",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_help_002",
+          "target": "It hurts here",
+          "aliases": [
+            "ouch",
+            "it hurts"
+          ],
+          "audio": "audio/en/en_help_002.mp3",
+          "sha256": "37cc3c0a31daf3dbade258b6d5dce8deab994306752bd7c1b390b29b049a8f60",
+          "audio_seconds": 2.232,
+          "decode_seconds": 0.5230349000048591,
+          "endpoint_texts": [
+            "it hurts here"
+          ],
+          "final_text": "",
+          "transcript": "it hurts here",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_help_003",
+          "target": "Teacher",
+          "aliases": [
+            "teacher help",
+            "hello teacher"
+          ],
+          "audio": "audio/en/en_help_003.mp3",
+          "sha256": "67611528db6c90cb880ef75283b0bf043eeb1faca60d822c300b1c584811ee37",
+          "audio_seconds": 1.872,
+          "decode_seconds": 0.48209679999854416,
+          "endpoint_texts": [
+            "teacher"
+          ],
+          "final_text": "",
+          "transcript": "teacher",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_help_004",
+          "target": "I don't know",
+          "aliases": [
+            "don't know",
+            "not sure"
+          ],
+          "audio": "audio/en/en_help_004.mp3",
+          "sha256": "22bec3ee6e87c83b8fc0cdd21a628485023f0a420806884a8540e9139b439498",
+          "audio_seconds": 1.968,
+          "decode_seconds": 0.45399889999680454,
+          "endpoint_texts": [],
+          "final_text": "i don't know",
+          "transcript": "i don't know",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_help_005",
+          "target": "Help me please",
+          "aliases": [
+            "help me",
+            "help"
+          ],
+          "audio": "audio/en/en_help_005.mp3",
+          "sha256": "6390045a84b91d86f8668db9bb7da75ec877307781173ff5d6d04bfd80ccf34d",
+          "audio_seconds": 2.232,
+          "decode_seconds": 0.5819858999966527,
+          "endpoint_texts": [
+            "help me please"
+          ],
+          "final_text": "",
+          "transcript": "help me please",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_help_006",
+          "target": "Tummy hurts",
+          "aliases": [
+            "stomach ache",
+            "belly hurts"
+          ],
+          "audio": "audio/en/en_help_006.mp3",
+          "sha256": "39c67dea2c3fc41d905cacb5045e4c864dd567bbd19f65e21a12fcbd7d4de58d",
+          "audio_seconds": 2.232,
+          "decode_seconds": 0.5250703999990947,
+          "endpoint_texts": [
+            "tammy hurts"
+          ],
+          "final_text": "",
+          "transcript": "tammy hurts",
+          "empty": false,
+          "reference_text_match": false
+        },
+        {
+          "id": "en_help_007",
+          "target": "Mom is here",
+          "aliases": [
+            "my mom",
+            "mommy"
+          ],
+          "audio": "audio/en/en_help_007.mp3",
+          "sha256": "27ac1e6cafd08cecf83c3d26d97e6a91d85753ead36d2412391625b24dc17920",
+          "audio_seconds": 2.208,
+          "decode_seconds": 0.580352099997981,
+          "endpoint_texts": [
+            "mom is here"
+          ],
+          "final_text": "",
+          "transcript": "mom is here",
+          "empty": false,
+          "reference_text_match": true
+        },
+        {
+          "id": "en_help_008",
+          "target": "Dad is here",
+          "aliases": [
+            "my dad",
+            "daddy"
+          ],
+          "audio": "audio/en/en_help_008.mp3",
+          "sha256": "53627a019aeb57dafc7749fb04d60e40adf42542719d11e0f9e1b37eebcf2fd4",
+          "audio_seconds": 2.184,
+          "decode_seconds": 0.6336727000016253,
+          "endpoint_texts": [
+            "dallas here"
+          ],
+          "final_text": "",
+          "transcript": "dallas here",
+          "empty": false,
+          "reference_text_match": false
+        }
+      ]
+    }
+  ]
+}
