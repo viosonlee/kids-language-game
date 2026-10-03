@@ -720,3 +720,12 @@
 - 两种练习提示中断后支持主动重播；跟读不自动录音；成功反馈中断保留结果并显示手动下一题，恢复应用仍等待主动操作；下一题重新读取原偏好，不修改设置。重试中断停止自动播放链。诊断页显示中断状态。
 - 新增 4 项真实 AndroidPromptPlayer shadow 事件测试与 6 项练习状态机测试；`test assembleDebug lintDebug --offline` 全量通过，Debug 194 + Release 166 = 360 项，零失败/错误/跳过。
 - 文档增量：`docs/50_Audio_Focus_Interruption_Recovery.md`。手机仍断开，无模拟器、无真机安装或公开发布；实际 OEM 来电/焦点/听感验收及整体需求审查仍未完成。
+
+
+## 2026-10-03 | 选图干扰项加载与规划一致性 | By: Codex
+
+- 对照技术设计运行时同场景生成 distractor 的规则，发现仓库逐题校验会提前删除空显式干扰项的 choose 模式，使规划器已有补充逻辑无法使用。
+- 改为先验证并归一化所有候选，再根据同语言/同场景的有效图片判断模式可玩性。严格校验同步支持这种补充，但继续报告无效显式干扰项；不可玩 choose 移除，可用 repeat 保留。
+- 新增三项贯穿 JSON/仓库/模式/规划的回归，覆盖 choose-only 互为候选、损坏显式图片降级和跨语言/跨场景/损坏条目隔离。
+- `test assembleDebug lintDebug --offline` 通过，Debug 197 + Release 169 = 366 测试零失败/错误/跳过；APK 已生成，未安装/发布。
+- 文档增量：`docs/51_Choice_Content_Fallback_Consistency.md`。现有 126 题素材数据未修改；图片语义及儿童观察验收仍待完成，整体审查继续。

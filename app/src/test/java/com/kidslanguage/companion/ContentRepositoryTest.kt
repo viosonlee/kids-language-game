@@ -1,6 +1,7 @@
 package com.kidslanguage.companion
 
-import com.kidslanguage.companion.core.content.AssetContentRepository
+import com.kidslanguage.companion.core.content.*
+import com.kidslanguage.companion.core.persistence.UserSettings
 import com.kidslanguage.companion.core.model.*
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.test.runTest
@@ -17,6 +18,61 @@ class ContentRepositoryTest {
     }
     private fun item(id: String = "hello") = PracticeItem(id, "en-US", "greetings", text = "hello",
         image = "👋", distractors = listOf("🍎", "🌙"), audio = "audio/hello.mp3")
+
+    @Test fun implicitSameCategoryChoicesSurviveRepositoryAndReachLessonPlanner() = runTest {
+        val source = listOf(
+            item("hello").copy(distractors = emptyList(), modes = listOf("choose")),
+            item("apple").copy(image = "🍎", distractors = emptyList(), modes = listOf("choose")),
+        )
+        val repo = AssetContentRepository(assets(Json.encodeToString(source)), { true })
+        val loaded = repo.getItems(LanguageCode.EN_US)
+        assertEquals(listOf("hello", "apple"), loaded.map { it.id })
+        assertEquals(listOf(PracticeMode.CHOOSE), repo.availableModes(LanguageCode.EN_US, "greetings"))
+        val lesson = planLesson(loaded, null, PracticeMode.CHOOSE, UserSettings(choiceCount = 4))
+        assertEquals(2, lesson.items.size)
+        assertEquals(listOf("🍎"), choiceDistractors(loaded.first(), loaded, 4))
+        assertTrue(validateContentBundle(listOf(Category("greetings", "all", "问候")),
+            mapOf(LanguageCode.EN_US to source), { true }).isEmpty())
+    }
+
+    @Test fun missingCuratedImagesCanUseOnlyValidSameCategorySibling() = runTest {
+        val source = listOf(
+            item().copy(distractors = listOf("images/missing.png")),
+            item("apple").copy(image = "🍎", modes = listOf("repeat")),
+            item("broken").copy(image = "🌙", audio = "audio/missing.mp3"),
+        )
+        val repo = AssetContentRepository(assets(Json.encodeToString(source)), { "missing" !in it })
+        val loaded = repo.getItems(LanguageCode.EN_US)
+        assertEquals(2, loaded.size)
+        assertTrue("choose" in loaded.first().modes)
+        assertTrue(loaded.first().distractors.isEmpty())
+        assertEquals(listOf("🍎"), choiceDistractors(loaded.first(), loaded, 4))
+    }
+
+    @Test fun unavailableAlternativesCannotKeepAnUnplayableChoiceMode() = runTest {
+        val categories = listOf(Category("greetings", "all", "问候"), Category("other", "all", "其他"))
+        val source = listOf(
+            item().copy(distractors = emptyList()),
+            item("same-image").copy(distractors = emptyList(), modes = listOf("choose")),
+            item("other-category").copy(image = "🍎", category = "other", modes = listOf("repeat")),
+            item("foreign").copy(image = "🌙", language = "zh-CN"),
+            item("broken").copy(image = "🐶", audio = "audio/missing.mp3"),
+            item("unknown-mode").copy(image = "🐱", modes = listOf("unknown")),
+        )
+        val repo = AssetContentRepository({ path ->
+            when (path) {
+                "content/categories.json" -> Json.encodeToString(categories)
+                "content/lessons.json" -> "[]"
+                else -> Json.encodeToString(source)
+            }
+        }, { "missing" !in it })
+        val loaded = repo.getItems(LanguageCode.EN_US, "greetings")
+        assertEquals(listOf("hello"), loaded.map { it.id })
+        assertEquals(listOf("repeat"), loaded.single().modes)
+        assertEquals(listOf(PracticeMode.REPEAT), repo.availableModes(LanguageCode.EN_US, "greetings"))
+        val issues = validateContentBundle(categories, mapOf(LanguageCode.EN_US to source), { "missing" !in it })
+        assertTrue(issues.any { it == "hello: no playable distractors" })
+    }
 
     @Test fun malformedSiblingDoesNotDiscardValidItems() = runTest {
         val reports = mutableListOf<String>()

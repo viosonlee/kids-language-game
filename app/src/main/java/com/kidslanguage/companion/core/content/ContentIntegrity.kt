@@ -55,15 +55,26 @@ fun validateContentBundle(
     itemsByLanguage.values.flatten().groupBy { it.id }.filterValues { it.size > 1 }.forEach { (id, _) ->
         add("Duplicate global item ID $id")
     }
-    itemsByLanguage.forEach { (language, items) -> items.forEach { item ->
-        contentItemIssues(item, language, categories, assetExists).forEach { add("${item.id}: $it") }
-        if (item.modes.isEmpty() || item.modes.distinct().size != item.modes.size ||
-            item.modes.any { mode -> PracticeMode.entries.none { it.id == mode } }) add("${item.id}: invalid modes")
-        if (item.aliases.any { it.isBlank() } || item.aliases.distinct().size != item.aliases.size) add("${item.id}: invalid aliases")
-        if ("choose" in item.modes && (item.distractors.isEmpty() || item.distractors.any { it.isBlank() || it == item.image } ||
-            item.distractors.distinct().size != item.distractors.size)) add("${item.id}: invalid distractors")
-        item.distractors.filter(::isAssetImage).forEach { image ->
-            if (!validContentImage(image, assetExists)) add("${item.id}: missing distractor image")
+    itemsByLanguage.forEach { (language, items) ->
+        val validSiblings = items.filter { sibling ->
+            contentItemIssues(sibling, language, categories, assetExists).isEmpty() &&
+                sibling.modes.any { mode -> PracticeMode.entries.any { it.id == mode } }
+        }.map { it.copy(language = language.code) }
+        items.forEach { item ->
+            contentItemIssues(item, language, categories, assetExists).forEach { add("${item.id}: $it") }
+            if (item.modes.isEmpty() || item.modes.distinct().size != item.modes.size ||
+                item.modes.any { mode -> PracticeMode.entries.none { it.id == mode } }) add("${item.id}: invalid modes")
+            if (item.aliases.any { it.isBlank() } || item.aliases.distinct().size != item.aliases.size) add("${item.id}: invalid aliases")
+            if ("choose" in item.modes && (item.distractors.any { it.isBlank() || it == item.image } ||
+                item.distractors.distinct().size != item.distractors.size)) add("${item.id}: invalid distractors")
+            if ("choose" in item.modes) {
+                if (choiceDistractors(item.copy(language = language.code), validSiblings, 4).none { validContentImage(it, assetExists) }) {
+                    add("${item.id}: no playable distractors")
+                }
+            }
+            item.distractors.filter(::isAssetImage).forEach { image ->
+                if (!validContentImage(image, assetExists)) add("${item.id}: missing distractor image")
+            }
         }
-    } }
+    }
 }

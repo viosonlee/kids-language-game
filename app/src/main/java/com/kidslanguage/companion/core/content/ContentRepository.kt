@@ -106,7 +106,16 @@ class AssetContentRepository(
                 LanguageCode.EN_US -> "content/items_en.json"
             }
             readEntries<PracticeItem>(fileName)?.mapNotNull { validate(it, language, categories) }
-                ?.distinctBy { it.id }?.also { cachedItems[language] = it }.orEmpty()
+                ?.distinctBy { it.id }?.let { candidates ->
+                    // Judge choice availability only after valid same-category siblings are known.
+                    candidates.mapNotNull { item ->
+                        if ("choose" !in item.modes || choiceDistractors(item, candidates, 2).isNotEmpty()) item
+                        else {
+                            report("Removed unplayable choose mode from ${item.id}")
+                            item.copy(modes = item.modes - "choose").takeIf { it.modes.isNotEmpty() }
+                        }
+                    }
+                }?.also { cachedItems[language] = it }.orEmpty()
         }
 
         if (categoryId != null && categoryId != "all") {
@@ -126,7 +135,7 @@ class AssetContentRepository(
             it != item.image && validContentImage(it, assetExists)
         }.distinct()
         val modes = item.modes.distinct().filter {
-            it == "repeat" || (it == "choose" && !item.image.isNullOrBlank() && distractors.isNotEmpty())
+            it == "repeat" || it == "choose"
         }
         if (modes != item.modes) report("Removed unsupported or invalid modes from ${item.id}")
         return if (modes.isEmpty()) null else item.copy(
